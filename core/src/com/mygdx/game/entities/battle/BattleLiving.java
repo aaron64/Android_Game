@@ -1,7 +1,6 @@
-package com.mygdx.game.battle.entities;
+package com.mygdx.game.entities.battle;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.entities.Entity;
 import com.mygdx.game.scenes.battle.SceneBattleGrid;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.scenes.battle.SceneBattleTileType;

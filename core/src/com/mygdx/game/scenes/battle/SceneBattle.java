@@ -1,7 +1,7 @@
 package com.mygdx.game.scenes.battle;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.battle.entities.BattlePlayer;
+import com.mygdx.game.entities.battle.BattlePlayer;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.map.MapBattle;
 import com.mygdx.game.scenes.Scene;
@@ -29,12 +29,13 @@ public class SceneBattle extends Scene implements GestureHandler {
 
     @Override
     public void update() {
+        super.update();
         map.update();
 
-        battleGrid.update();
+        battleGrid.update(this);
 
         for(Entity e : entities.getList()) {
-            e.update();
+            e.update(this);
         }
     }
 
@@ -59,7 +60,22 @@ public class SceneBattle extends Scene implements GestureHandler {
     }
 
     @Override
+    public void touchDown(float x, float y, int pointer, int button) {
+
+    }
+
+    @Override
     public void fling(float vx, float vy, int button) {
         player.move(vx, vy);
+    }
+
+    @Override
+    public void zoom(float initialDistance, float distance) {
+
+    }
+
+    @Override
+    public void hold(float x, float y) {
+
     }
 }

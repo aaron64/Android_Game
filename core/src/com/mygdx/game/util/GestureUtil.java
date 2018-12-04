@@ -10,6 +10,9 @@ public class GestureUtil implements GestureDetector.GestureListener {
     private InputMultiplexer inputMultiplexer;
     private GestureDetector gestureDetector;
 
+    private boolean held = false;
+    private float heldX, heldY;
+
     GestureHandler handler;
 
     public GestureUtil(GestureHandler handler) {
@@ -22,13 +25,24 @@ public class GestureUtil implements GestureDetector.GestureListener {
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
+    public void update() {
+        if(held) {
+            handler.hold(heldX, heldY);
+        }
+    }
+
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
+        handler.touchDown(x, y, pointer, button);
+        held = true;
+        heldX = x;
+        heldY = y;
         return false;
     }
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
+        held = false;
         return false;
     }
 
@@ -45,16 +59,21 @@ public class GestureUtil implements GestureDetector.GestureListener {
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
+        heldX = x;
+        heldY = y;
         return false;
     }
 
     @Override
     public boolean panStop(float x, float y, int pointer, int button) {
+        held = false;
         return false;
     }
 
     @Override
     public boolean zoom(float initialDistance, float distance) {
+        handler.zoom(initialDistance, distance);
+        held = false;
         return false;
     }
 

@@ -7,8 +7,7 @@ public abstract class Map {
 
     private Texture background;
 
-    public Map(String bgPath) {
-        background = new Texture("backgrounds/" + bgPath + ".png");
+    public Map() {
     }
 
     public abstract void update();

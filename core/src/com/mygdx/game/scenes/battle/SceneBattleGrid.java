@@ -48,10 +48,10 @@ public class SceneBattleGrid {
         initializeGrid();
     }
 
-    public void update() {
+    public void update(Scene scene) {
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < height; j++) {
-                tileGrid[i][j].update();
+                tileGrid[i][j].update(scene);
             }
         }
     }

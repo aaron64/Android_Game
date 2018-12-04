@@ -1,8 +1,9 @@
 package com.mygdx.game.scenes.battle;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.battle.entities.BattleEntity;
+import com.mygdx.game.entities.battle.BattleEntity;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.RenderSystem;
 
 public class SceneBattleTile extends BattleEntity {
@@ -10,18 +11,19 @@ public class SceneBattleTile extends BattleEntity {
     private Entity entity;
     private SceneBattleTileType tileType;
 
+
     public SceneBattleTile(Vector2 indexPos, Vector2 offset, Vector2 size, SceneBattleGrid grid, SceneBattleTileType tileType) {
         super(indexPos, "tiles", tileType.getRes(), grid);
 
         this.tileType = tileType;
-
+        setSize(size);
         entity = null;
     }
 
     @Override
-    public void update() {
+    public void update(Scene scene) {
         if(entity != null) {
-            entity.update();
+            entity.update(scene);
         }
     }
 

@@ -2,10 +2,12 @@ package com.mygdx.game.entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.RenderSystem;
 
 public abstract class Entity {
     private Vector2 pos;
+    private Vector2 size;
     private String name;
     private Texture image;
 
@@ -19,16 +21,17 @@ public abstract class Entity {
         this.pos = pos;
         this.name = name;
         image = new Texture(folder + "/" + name + ".png");
+        this.size = new Vector2(image.getWidth(), image.getHeight());
     }
 
-    public abstract void update();
+    public abstract void update(Scene scene);
 
     public void render(RenderSystem rs, Vector2 pos) {
         rs.draw(image, pos);
     }
 
     public void render(RenderSystem rs) {
-        render(rs, getPos());
+        rs.draw(this);
     }
 
     public Vector2 getPos() {
@@ -37,6 +40,14 @@ public abstract class Entity {
 
     public void setPos(Vector2 pos) {
         this.pos = pos;
+    }
+
+    public Vector2 getSize() {
+        return size;
+    }
+
+    public void setSize(Vector2 size) {
+        this.size = size;
     }
 
     public String getName() {

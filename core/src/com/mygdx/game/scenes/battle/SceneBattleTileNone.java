@@ -1,6 +1,7 @@
 package com.mygdx.game.scenes.battle;
 
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.RenderSystem;
 
 public class SceneBattleTileNone extends SceneBattleTile {
@@ -10,7 +11,7 @@ public class SceneBattleTileNone extends SceneBattleTile {
     }
 
     @Override
-    public void update() {
-        super.update();
+    public void update(Scene scene) {
+        super.update(scene);
     }
 }
