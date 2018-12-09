@@ -6,8 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.GUI.components.HealthComponent;
 import com.mygdx.game.GUI.components.TitleComponent;
 import com.mygdx.game.entities.Entity;
-import com.mygdx.game.entities.MainAreaEntity;
-import com.mygdx.game.entities.Player;
+import com.mygdx.game.entities.main_area.MainAreaEntity;
+import com.mygdx.game.entities.main_area.Player;
 import com.mygdx.game.map.MapMainArea;
 import com.mygdx.game.map.MapTheme;
 import com.mygdx.game.scenes.Scene;
@@ -19,8 +19,8 @@ import com.mygdx.game.util.Window;
 
 public class SceneMainArea extends Scene implements GestureHandler {
 
-    SceneMainAreaGrid grid;
-    Player player;
+    private SceneMainAreaGrid grid;
+    private Player player;
     public SceneMainArea() {
         super();
         rs.setCamera(new OrthographicCamera(Window.getWidth(), Window.getHeight()));
@@ -68,6 +68,14 @@ public class SceneMainArea extends Scene implements GestureHandler {
         gui.render(rs);
 
         rs.end();
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     public MainAreaEntity getCollision(MainAreaEntity e0) {

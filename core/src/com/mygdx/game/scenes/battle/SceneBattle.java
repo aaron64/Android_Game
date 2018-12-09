@@ -10,6 +10,7 @@ import com.mygdx.game.entities.battle.EnemyTest;
 import com.mygdx.game.entities.battle.EnemyTest2;
 import com.mygdx.game.map.MapBattle;
 import com.mygdx.game.scenes.Scene;
+import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.util.GestureHandler;
 import com.mygdx.game.util.GestureUtil;
 import com.mygdx.game.util.Window;
@@ -30,7 +31,9 @@ public class SceneBattle extends Scene implements GestureHandler {
         gestureHandler = new GestureUtil(this);
         battleGrid = new SceneBattleGrid();
 
-        addPlayer();
+        // Current scene is still main area during constructor
+        int playerHealth = ((SceneMainArea)(Game.getCurrentScene())).getPlayer().getHealth();
+        addPlayer(playerHealth);
 
         map = new MapBattle("bg1", battleGrid, player);
 
@@ -53,7 +56,7 @@ public class SceneBattle extends Scene implements GestureHandler {
         }
 
         if(enemies <= 0) {
-            Game.endScene();
+            returnToMainArea();
         }
     }
 
@@ -74,8 +77,14 @@ public class SceneBattle extends Scene implements GestureHandler {
         rs.end();
     }
 
-    public void addPlayer() {
-        player = new BattlePlayer(battleGrid.getPlayerSpawnCoords(), battleGrid);
+    public void returnToMainArea() {
+        SceneMainArea sceneMainArea = (SceneMainArea) Game.getLastScene();
+        sceneMainArea.getPlayer().setHealth(player.getHealth());
+        Game.endScene();
+    }
+
+    public void addPlayer(int health) {
+        player = new BattlePlayer(battleGrid.getPlayerSpawnCoords(), health, battleGrid);
     }
 
     @Override

@@ -41,7 +41,7 @@ public class TitleComponent extends GUIComponent {
     @Override
     public void update(GUI gui, Scene scene) {
         hold.update();
-        
+
         if(hold.ready()) {
             alpha -= 0.01f;
             font.setColor(1, 1, 1, alpha);

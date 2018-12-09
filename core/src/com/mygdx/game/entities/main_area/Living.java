@@ -1,6 +1,7 @@
-package com.mygdx.game.entities;
+package com.mygdx.game.entities.main_area;
 
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.entities.Entity;
 
 public abstract class Living extends Entity {
 

@@ -2,18 +2,17 @@ package com.mygdx.game.scenes.main_area;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.entities.Enemy;
-import com.mygdx.game.entities.EnemyStill;
+import com.mygdx.game.entities.main_area.EnemyStill;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.ImageUtil;
-import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.RenderSystem;
-import com.mygdx.game.util.Window;
 
 public class SceneMainAreaGrid {
 
     private int width, height;
     private Vector2 size;
+
+    private float enemyChance;
 
     private SceneMainAreaTile[][] tileGrid;
     private Texture mapTexture;
@@ -28,6 +27,8 @@ public class SceneMainAreaGrid {
         this.width = mapTexture.getWidth();
         this.height = mapTexture.getHeight();
         this.size = new Vector2(this.width, this.height);
+
+        enemyChance = 0.2f;
 
         tileGrid = new SceneMainAreaTile[width][height];
         initializeGrid(scene);
@@ -60,7 +61,8 @@ public class SceneMainAreaGrid {
                         break;
                     case SPAWN:
                         tileGrid[i][j] = new SceneMainAreaTile(new Vector2(i,j), "tiles", "tile_neutral", type);
-                        scene.addEntity(new EnemyStill(tileGrid[i][j].getPos(), "enemy"));
+                        if(Math.random() < enemyChance)
+                            scene.addEntity(new EnemyStill(tileGrid[i][j].getPos(), "enemy"));
                         break;
                     case NONE:
                         tileGrid[i][j] = new SceneMainAreaTile(new Vector2(i,j), "tiles", "tile_friendly", type);

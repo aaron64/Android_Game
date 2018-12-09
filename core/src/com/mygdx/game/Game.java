@@ -15,8 +15,8 @@ import java.util.Stack;
 
 public class Game extends ApplicationAdapter {
 	private static Stack<Scene> sceneStack;
-	
-	@Override
+
+    @Override
 	public void create () {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		sceneStack = new Stack<Scene>();
@@ -34,6 +34,13 @@ public class Game extends ApplicationAdapter {
 
 	public static Scene getCurrentScene() {
 		return sceneStack.peek();
+	}
+
+	public static Scene getLastScene() {
+    	Scene current = sceneStack.pop();
+    	Scene last = sceneStack.peek();
+    	sceneStack.push(current);
+    	return last;
 	}
 
 	public static void pushScene(Scene scene) {
