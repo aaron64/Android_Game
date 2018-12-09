@@ -9,7 +9,7 @@ import com.mygdx.game.util.RenderSystem;
 public class MainAreaEntity extends Entity {
 
     public MainAreaEntity(Vector2 pos, String name) {
-        super(pos, "entities", name);
+        super(pos, "", name);
     }
 
     @Override

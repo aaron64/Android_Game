@@ -6,8 +6,16 @@ import java.util.ArrayList;
 public class EntitySystem {
 
     private ArrayList<Entity> entityList;
+    private ArrayList<Entity> removeList;
+
     public EntitySystem() {
         entityList = new ArrayList<Entity>();
+        removeList = new ArrayList<Entity>();
+    }
+
+    public void update() {
+        entityList.removeAll(removeList);
+        removeList.clear();
     }
 
     public void addEntity(Entity e) {
@@ -15,7 +23,7 @@ public class EntitySystem {
     }
 
     public void removeEntity(Entity e) {
-        entityList.remove(e);
+        removeList.add(e);
     }
 
     public ArrayList<Entity> getList() {

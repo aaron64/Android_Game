@@ -7,16 +7,19 @@ import com.badlogic.gdx.math.Vector2;
 
 public class GestureUtil implements GestureDetector.GestureListener {
 
-    private InputMultiplexer inputMultiplexer;
+    private static InputMultiplexer inputMultiplexer = new InputMultiplexer();;
     private GestureDetector gestureDetector;
 
     private boolean held = false;
     private float heldX, heldY;
 
+    private int doubleTapFrameCount = 0;
+    private int doubelTapThreshold = 200;
+
     GestureHandler handler;
 
     public GestureUtil(GestureHandler handler) {
-        inputMultiplexer = new InputMultiplexer();
+
         gestureDetector = new GestureDetector(this);
         inputMultiplexer.addProcessor(gestureDetector);
 
@@ -29,6 +32,8 @@ public class GestureUtil implements GestureDetector.GestureListener {
         if(held) {
             handler.hold(heldX, heldY);
         }
+
+        doubleTapFrameCount++;
     }
 
     @Override
@@ -42,7 +47,15 @@ public class GestureUtil implements GestureDetector.GestureListener {
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
+        handler.tap(x, y);
+
         held = false;
+
+        if(doubleTapFrameCount < doubelTapThreshold)
+            handler.doubleTap(x, y);
+
+        doubleTapFrameCount = 0;
+
         return false;
     }
 

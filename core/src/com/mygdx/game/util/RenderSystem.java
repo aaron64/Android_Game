@@ -4,8 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.entities.Entity;
 
@@ -30,6 +31,10 @@ public class RenderSystem {
         batch.draw(image, pos.x, pos.y, size.x, size.y);
     }
 
+    public void drawText(BitmapFont font, String text, Vector2 pos) {
+        font.draw(batch, text, pos.x, pos.y);
+    }
+
 
     public void begin() {
         if(camera != null) {
@@ -43,6 +48,22 @@ public class RenderSystem {
 
     public void end() {
         batch.end();
+    }
+
+    public void beginGUI() {
+        if(camera != null) {
+            Matrix4 uiMatrix = camera.combined.cpy();
+            uiMatrix.setToOrtho2D(0, 0, Window.getWidth(), Window.getHeight());
+            batch.setProjectionMatrix(uiMatrix);
+        }
+    }
+
+    public void setOverlayMode() {
+        batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_SRC_ALPHA);
+    }
+
+    public void setNomarlMode() {
+        batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
     }
 
     public void centerCameraOn(Entity e) {

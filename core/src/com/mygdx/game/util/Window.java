@@ -1,13 +1,32 @@
 package com.mygdx.game.util;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.entities.Entity;
 
 public class Window {
 
     private static int width = Gdx.graphics.getWidth();
     private static int height = Gdx.graphics.getHeight();
     private static Vector2 size = new Vector2(width, height);
+
+    private static Rectangle rect = new Rectangle(0,0,width, height);
+
+    public static boolean inWindow(Entity e) {
+        Vector2 pos = e.getPos();
+        Vector2 size = e.getSize();
+
+        return rect.contains(new Rectangle(pos.x, pos.y, size.x, size.y));
+    }
+
+    public static boolean inWindow(Vector2 pos, Vector2 size) {
+        return rect.contains(new Rectangle(pos.x, pos.y, size.x, size.y));
+    }
+
+    public static boolean inWindow(Vector2 pos) {
+        return rect.contains(pos.x, pos.y);
+    }
 
     public static int percLeft(float perc) {
         return (int) (width * perc);
@@ -24,6 +43,10 @@ public class Window {
     public static int percBottom(float perc) {
         return (int) (height * perc);
     }
+
+    public static int percWidth(float perc) { return (int) (width * perc); }
+
+    public static int percHeight(float perc) { return (int) (height * perc); }
 
     public static Vector2 getCenter() {
         return new Vector2(width/2, height/2);

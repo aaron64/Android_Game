@@ -45,6 +45,7 @@ public class ImageUtil {
         final int red = Color.rgba8888(Color.RED);
         final int blue = Color.rgba8888(Color.BLUE);
         final int black = Color.rgba8888(Color.BLACK);
+        final int green = Color.rgba8888(Color.GREEN);
 
         for(int i = 0; i < image.getWidth(); i++) {
             for(int j = 0; j < image.getHeight(); j++) {
@@ -58,6 +59,8 @@ public class ImageUtil {
                     map[i][j] = SceneBattleTileType.FRIENDLY;
                 else if(color == black)
                     map[i][j] = SceneBattleTileType.NONE;
+                else if(color == green)
+                    map[i][j] = SceneBattleTileType.SPAWN;
                 else
                     map[i][j] = SceneBattleTileType.NONE;
             }

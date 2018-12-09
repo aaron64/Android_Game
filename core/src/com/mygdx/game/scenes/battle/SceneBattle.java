@@ -1,30 +1,44 @@
 package com.mygdx.game.scenes.battle;
 
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.GUI.components.BattleDeckComponent;
+import com.mygdx.game.Game;
+import com.mygdx.game.entities.battle.BattleEnemy;
 import com.mygdx.game.entities.battle.BattlePlayer;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.entities.battle.EnemyTest;
+import com.mygdx.game.entities.battle.EnemyTest2;
 import com.mygdx.game.map.MapBattle;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.GestureHandler;
 import com.mygdx.game.util.GestureUtil;
+import com.mygdx.game.util.Window;
 
 public class SceneBattle extends Scene implements GestureHandler {
 
     private SceneBattleGrid battleGrid;
     private BattlePlayer player;
 
+    private int enemies;
+
     public SceneBattle() {
         super();
 
+        //REMOVE THIS LATER
+        enemies = 1;
+
         gestureHandler = new GestureUtil(this);
         battleGrid = new SceneBattleGrid();
-        player = new BattlePlayer(new Vector2(1,1), "entities", "player", battleGrid);
 
+        addPlayer();
 
         map = new MapBattle("bg1", battleGrid, player);
 
+        gui.addComponent(new BattleDeckComponent(player.getDeck()));
 
         battleGrid.getTile(1,1).setEntity(player);
+        battleGrid.getTile(4, 2).setEntity(new EnemyTest(new Vector2(4, 2), "enemy", battleGrid));
+        //battleGrid.getTile(5, 1).setEntity(new EnemyTest2(new Vector2(5, 1), "enemy", battleGrid));
     }
 
     @Override
@@ -36,6 +50,10 @@ public class SceneBattle extends Scene implements GestureHandler {
 
         for(Entity e : entities.getList()) {
             e.update(this);
+        }
+
+        if(enemies <= 0) {
+            Game.endScene();
         }
     }
 
@@ -51,7 +69,13 @@ public class SceneBattle extends Scene implements GestureHandler {
             e.render(rs);
         }
 
+        gui.render(rs);
+
         rs.end();
+    }
+
+    public void addPlayer() {
+        player = new BattlePlayer(battleGrid.getPlayerSpawnCoords(), battleGrid);
     }
 
     @Override
@@ -77,5 +101,34 @@ public class SceneBattle extends Scene implements GestureHandler {
     @Override
     public void hold(float x, float y) {
 
+    }
+
+    @Override
+    public void doubleTap(float x, float y) {
+
+    }
+
+    @Override
+    public void tap(float x, float y) {
+        if(x > Window.getWidth()/2)
+            player.useCard(this);
+    }
+
+    public void enemyKilled() {
+        enemies--;
+    }
+
+    public SceneBattleTile getTile(int i, int j) {
+        return battleGrid.getTile(i,j);
+    }
+
+    public SceneBattleGrid getGrid() { return battleGrid; }
+
+    public BattlePlayer getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(BattlePlayer player) {
+        this.player = player;
     }
 }

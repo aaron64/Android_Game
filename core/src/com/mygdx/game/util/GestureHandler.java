@@ -7,4 +7,6 @@ public interface GestureHandler {
     void fling(float vx, float vy, int button);
     void zoom(float initialDistance, float distance);
     void hold(float x, float y);
+    void doubleTap(float x, float y);
+    void tap(float x, float y);
 }

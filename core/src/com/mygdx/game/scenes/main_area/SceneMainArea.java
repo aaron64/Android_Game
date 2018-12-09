@@ -1,19 +1,19 @@
 package com.mygdx.game.scenes.main_area;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.GUI.components.HealthComponent;
+import com.mygdx.game.GUI.components.TitleComponent;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.MainAreaEntity;
 import com.mygdx.game.entities.Player;
-import com.mygdx.game.entities.battle.BattlePlayer;
-import com.mygdx.game.map.MapBattle;
 import com.mygdx.game.map.MapMainArea;
+import com.mygdx.game.map.MapTheme;
 import com.mygdx.game.scenes.Scene;
-import com.mygdx.game.scenes.battle.SceneBattleGrid;
 import com.mygdx.game.util.GestureHandler;
 import com.mygdx.game.util.GestureUtil;
+import com.mygdx.game.util.MapNameGenerator;
 import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.Window;
 
@@ -24,9 +24,14 @@ public class SceneMainArea extends Scene implements GestureHandler {
     public SceneMainArea() {
         super();
         rs.setCamera(new OrthographicCamera(Window.getWidth(), Window.getHeight()));
+        rs.getCamera().zoom = 0.6f;
         grid = new SceneMainAreaGrid(this);
         gestureHandler = new GestureUtil(this);
+
         player = new Player(new Vector2(100,100), "player");
+
+        gui.addComponent(new HealthComponent(player));
+        gui.addComponent(new TitleComponent(MapNameGenerator.generateRandomName(100, MapTheme.FOREST)));
 
         entities.addEntity(player);
 
@@ -37,6 +42,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
     public void update() {
         super.update();
         map.update();
+        gui.update(this);
 
         grid.update(this);
 
@@ -58,6 +64,8 @@ public class SceneMainArea extends Scene implements GestureHandler {
         for(Entity e : entities.getList()) {
             e.render(rs);
         }
+
+        gui.render(rs);
 
         rs.end();
     }
@@ -90,7 +98,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
     @Override
     public void zoom(float initialDistance, float distance) {
-        rs.getCamera().zoom = Math.max(0.2f, Math.min(0.8f, distance/initialDistance));
+        rs.getCamera().zoom = Math.max(0.4f, Math.min(0.6f, initialDistance/distance));
         //rs.getCamera().zoom = Math.max(0.2f, Math.min(1.0f, ((initialDistance / distance)*1.9f) * rs.getCamera().zoom));
     }
 
@@ -98,5 +106,15 @@ public class SceneMainArea extends Scene implements GestureHandler {
     public void hold(float x, float y) {
         Vector2 touchVec = MathUtil.subVec(new Vector2(x, y), Window.getCenter());
         player.move(touchVec);
+    }
+
+    @Override
+    public void doubleTap(float x, float y) {
+
+    }
+
+    @Override
+    public void tap(float x, float y) {
+
     }
 }

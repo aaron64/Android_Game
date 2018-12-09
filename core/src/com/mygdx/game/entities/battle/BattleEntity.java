@@ -9,10 +9,20 @@ public abstract class BattleEntity extends Entity {
     private Vector2 indexPos;
     private SceneBattleGrid grid;
 
+    public BattleEntity(Vector2 indexPos, String name, SceneBattleGrid grid) {
+        super(grid.getAbsoluteTilePosition(indexPos), "battle", name);
+        setIndexPos(indexPos);
+        this.grid = grid;
+    }
+
     public BattleEntity(Vector2 indexPos, String folder, String name, SceneBattleGrid grid) {
         super(grid.getAbsoluteTilePosition(indexPos), folder, name);
         setIndexPos(indexPos);
         this.grid = grid;
+    }
+
+    public void refreshIndexPos(SceneBattleGrid grid) {
+        setIndexPos(grid.getIndexPosition(getPos()));
     }
 
     public Vector2 getIndexPos() {

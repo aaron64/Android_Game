@@ -13,15 +13,20 @@ import com.mygdx.game.util.Window;
 public class Player extends MainAreaEntity {
 
     float maxVelocity;
+    private int health;
+
     public Player(Vector2 pos, String name) {
         super(pos, name);
         maxVelocity = 7;
+
+        health = 100;
     }
 
     @Override
     public void update(Scene scene) {
         MainAreaEntity collision = ((SceneMainArea) scene).getCollision(this);
         if(collision != null) {
+            scene.removeEntity(collision);
             Game.pushScene(new SceneBattle());
         }
     }
@@ -34,5 +39,13 @@ public class Player extends MainAreaEntity {
         Gdx.app.log("INFO", ""+velocity);
         Vector2 offset = MathUtil.multiplyVec(touchDirection, velocity);
         setPos(MathUtil.addVec(getPos(), offset));
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 }

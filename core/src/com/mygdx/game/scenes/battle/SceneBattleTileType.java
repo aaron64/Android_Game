@@ -2,6 +2,7 @@ package com.mygdx.game.scenes.battle;
 
 public enum SceneBattleTileType {
     FRIENDLY ("tile_friendly"),
+    SPAWN ("tile_friendly"),
     ENEMY("tile_enemy"),
     NEUTRAL("tile_neutral"),
     NONE("tile_none");

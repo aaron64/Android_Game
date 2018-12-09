@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.items.cards.CardLoader;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
@@ -19,10 +20,10 @@ public class Game extends ApplicationAdapter {
 	public void create () {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		sceneStack = new Stack<Scene>();
+		CardLoader.init();
 
 		sceneStack.push(new SceneMainArea());
-
-		//currentScene = new SceneBattle();
+		//sceneStack.push(new SceneBattle());
 	}
 
 	@Override

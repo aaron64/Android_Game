@@ -20,7 +20,7 @@ public abstract class Entity {
     public Entity(Vector2 pos, String folder, String name) {
         this.pos = pos;
         this.name = name;
-        image = new Texture(folder + "/" + name + ".png");
+        image = new Texture("entities/" + folder + "/" + name + ".png");
         this.size = new Vector2(image.getWidth(), image.getHeight());
     }
 
@@ -64,5 +64,26 @@ public abstract class Entity {
 
     public void setImage(Texture image) {
         this.image = image;
+    }
+
+    public void moveX(float dx) {
+        pos.x += dx;
+    }
+
+    public void moveY(float dy) {
+        pos.y += dy;
+    }
+
+    public void move(Vector2 d) {
+        pos.x += d.x;
+        pos.y += d.y;
+    }
+
+    public void setX(float x) {
+        pos.x = x;
+    }
+
+    public void setY(float y) {
+        pos.y = y;
     }
 }
