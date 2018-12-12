@@ -7,6 +7,7 @@ import com.mygdx.game.GUI.components.HealthComponent;
 import com.mygdx.game.GUI.components.TitleComponent;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.main_area.MainAreaEntity;
+import com.mygdx.game.entities.main_area.MainAreaEntityComparator;
 import com.mygdx.game.entities.main_area.Player;
 import com.mygdx.game.map.MapMainArea;
 import com.mygdx.game.map.MapTheme;
@@ -16,6 +17,8 @@ import com.mygdx.game.util.GestureUtil;
 import com.mygdx.game.util.MapNameGenerator;
 import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.Window;
+
+import java.util.Collections;
 
 public class SceneMainArea extends Scene implements GestureHandler {
 
@@ -28,7 +31,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
         grid = new SceneMainAreaGrid(this);
         gestureHandler = new GestureUtil(this);
 
-        player = new Player(new Vector2(100,100), "player");
+        player = new Player(grid.getPlayerSpawn(), "player");
 
         gui.addComponent(new HealthComponent(player));
         gui.addComponent(new TitleComponent(MapNameGenerator.generateRandomName(100, MapTheme.FOREST)));
@@ -41,6 +44,8 @@ public class SceneMainArea extends Scene implements GestureHandler {
     @Override
     public void update() {
         super.update();
+        Collections.sort(entities.getList(), new MainAreaEntityComparator());
+
         map.update();
         gui.update(this);
 
@@ -78,7 +83,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
         this.player = player;
     }
 
-    public MainAreaEntity getCollision(MainAreaEntity e0) {
+    public MainAreaEntity getEntityCollision(MainAreaEntity e0) {
         Rectangle collisionRect = e0.getCollisionRect();
         for(Entity e : entities.getList()) {
 
@@ -92,6 +97,10 @@ public class SceneMainArea extends Scene implements GestureHandler {
     @Override
     public void dispose() {
 
+    }
+
+    public SceneMainAreaGrid getGrid() {
+        return grid;
     }
 
     @Override
@@ -113,7 +122,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
     @Override
     public void hold(float x, float y) {
         Vector2 touchVec = MathUtil.subVec(new Vector2(x, y), Window.getCenter());
-        player.move(touchVec);
+        player.move(touchVec, this);
     }
 
     @Override
@@ -123,6 +132,11 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
     @Override
     public void tap(float x, float y) {
-
+        Vector2 pos = rs.getWorldPos((int)x,(int)y);
+        for(Entity e : entities.getList()) {
+            if(e.getRect().contains(pos.x, pos.y)) {
+                ((MainAreaEntity)e).clickOn(this);
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.entities.Entity;
 
 public class RenderSystem {
@@ -62,8 +63,18 @@ public class RenderSystem {
         batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_SRC_ALPHA);
     }
 
-    public void setNomarlMode() {
+    public void setNormalMode() {
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+    }
+
+    public void setMultiplyMode() {
+       // Gdx.gl.glBlendFunc( GL20.GL_ZERO, GL20.GL_SRC_COLOR );
+        Gdx.gl.glBlendFunc( GL20.GL_SRC_ALPHA, GL20.GL_ONE );
+    }
+
+    public Vector2 getWorldPos(int x, int y) {
+        Vector3 pos = camera.unproject(new Vector3(x, y, 0));
+        return new Vector2(pos.x, pos.y);
     }
 
     public void centerCameraOn(Entity e) {

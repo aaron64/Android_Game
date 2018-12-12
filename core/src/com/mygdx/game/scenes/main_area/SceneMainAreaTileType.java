@@ -3,6 +3,9 @@ package com.mygdx.game.scenes.main_area;
 public enum SceneMainAreaTileType {
     NORMAL ("tile_normal"),
     SPAWN ("tile_spawn"),
+    ENEMY ("tile_enemy"),
+    CHEST ("tile_normal"),
+    DOOR ("tile_door"),
     NONE ("tile_NONE");
 
     private String res;

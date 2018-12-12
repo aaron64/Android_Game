@@ -1,6 +1,7 @@
 package com.mygdx.game.entities;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.RenderSystem;
@@ -48,6 +49,10 @@ public abstract class Entity {
 
     public void setSize(Vector2 size) {
         this.size = size;
+    }
+
+    public Rectangle getRect() {
+        return new Rectangle(pos.x, pos.y, size.x, size.y);
     }
 
     public String getName() {

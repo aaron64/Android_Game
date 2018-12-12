@@ -20,6 +20,7 @@ public class BattlePlayer extends BattleLiving  {
         deck = new Deck(5);
         deck.addCard(CardLoader.buildCard("Bow"));
         deck.addCard(CardLoader.buildCard("Bow"));
+        deck.addCard(CardLoader.buildCard("Magic"));
     }
 
     @Override
@@ -28,8 +29,10 @@ public class BattlePlayer extends BattleLiving  {
     }
 
     public void useCard(SceneBattle scene) {
-        if(!deck.isEmpty())
+        if(!deck.isEmpty()) {
+            lockFor(25);
             deck.pop().use(scene, this);
+        }
     }
 
     public void move(float vx, float vy) {

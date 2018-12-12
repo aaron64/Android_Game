@@ -3,21 +3,22 @@ package com.mygdx.game.items.cards;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.attributes.ElementType;
 import com.mygdx.game.attributes.QualityType;
-import com.mygdx.game.entities.Entity;
+import com.mygdx.game.entities.battle.BattleEntity;
 import com.mygdx.game.entities.battle.BattleLiving;
-import com.mygdx.game.entities.battle.misc.BattleArrow;
 import com.mygdx.game.scenes.battle.SceneBattle;
 
+public class GunCard extends AttackCard {
 
-public class BowCard extends AttackCard {
-
-    public BowCard(String name, int damage, QualityType quality, ElementType element) {
-        super(name, "bows", damage, CardType.BOW, quality, element);
+    public GunCard(String name, int damage, QualityType quality, ElementType element) {
+        super(name, "guns", damage, CardType.GUN, quality, element);
     }
 
     @Override
     public void use(SceneBattle scene, BattleLiving user) {
-        scene.addEntity(new BattleArrow(user.getIndexPos(), scene.getGrid(), getDamage(), user));
+        BattleEntity hitEntity = user.getDirectLineOfSight(scene.getGrid());
+        if(hitEntity != null) {
+            hitEntity.hit(getDamage(), scene);
+        }
 
         Vector2 indexPos = user.getIndexPos();
 

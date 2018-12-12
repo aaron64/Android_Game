@@ -3,6 +3,8 @@ package com.mygdx.game.items.cards;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.mygdx.game.attributes.ElementType;
+import com.mygdx.game.attributes.QualityType;
 import com.mygdx.game.util.FileUtil;
 
 import java.util.HashMap;
@@ -34,22 +36,24 @@ public class CardLoader {
         String category = element.getString("Category");
         CardType.valueOf(category);
         switch(CardType.valueOf(category)) {
-            case MAGIC:
-
-                break;
+            case MAGIC: {
+                int damage = element.getInt("Base_Damage");
+                return new MagicCard(name, damage, QualityType.STANDARD, ElementType.FIRE);
+            }
             case MELEE: {
                 int damage = element.getInt("Base_Damage");
                 int width = element.getInt("Width");
                 int height = element.getInt("Height");
-                return new MeleeCard(name, damage, width, height);
+                return new MeleeCard(name, damage, width, height, QualityType.STANDARD, null);
             }
             case BOW: {
                 int damage = element.getInt("Base_Damage");
-                return new BowCard(name, damage);
+                return new BowCard(name, damage, QualityType.STANDARD, null);
             }
-            case GUN:
-
-                break;
+            case GUN: {
+                int damage = element.getInt("Base_Damage");
+                return new GunCard(name, damage, QualityType.STANDARD, null);
+            }
             case SUPPORT:
 
                 break;

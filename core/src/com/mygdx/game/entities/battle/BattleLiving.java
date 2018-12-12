@@ -2,6 +2,7 @@ package com.mygdx.game.entities.battle;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.entities.Entity;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.scenes.battle.SceneBattle;
@@ -64,6 +65,7 @@ public abstract class BattleLiving extends BattleEntity {
         rs.drawText(healthFont, ""+renderHealth, MathUtil.addVec(getPos(), new Vector2(0,getSize().y + 100)));
     }
 
+    @Override
     public void hit(int dmg, SceneBattle scene) {
         health -= dmg;
         if(health <= 0) {
@@ -123,6 +125,27 @@ public abstract class BattleLiving extends BattleEntity {
 
     public void moveRight() {
         move(new Vector2(1,0));
+    }
+
+    public BattleEntity getDirectLineOfSight(SceneBattleGrid grid) {
+        Vector2 indexPos = getIndexPos();
+
+        if(facing == Facing.LEFT) {
+            for (int i = (int) (indexPos.x - 1); i >= 0; i--) {
+                Entity e = grid.getTile(i, (int) indexPos.y).getEntity();
+                if (e != null) {
+                    return (BattleEntity)e;
+                }
+            }
+        } else if (facing == Facing.RIGHT) {
+            for (int i = (int) (indexPos.x + 1); i < grid.getWidth(); i++) {
+                Entity e = grid.getTile(i, (int) indexPos.y).getEntity();
+                if (e != null) {
+                    return (BattleEntity)e;
+                }
+            }
+        }
+        return null;
     }
 
     public boolean tileAccepted(SceneBattleTile tile) {

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.items.cards.CardLoader;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.scenes.battle.SceneBattle;
+import com.mygdx.game.scenes.deck.SceneDeck;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 
 import java.util.Stack;
@@ -23,7 +24,7 @@ public class Game extends ApplicationAdapter {
 		CardLoader.init();
 
 		sceneStack.push(new SceneMainArea());
-		//sceneStack.push(new SceneBattle());
+		//sceneStack.push(new SceneDeck());
 	}
 
 	@Override

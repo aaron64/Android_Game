@@ -40,7 +40,7 @@ public class BattleDeckComponent extends GUIComponent {
         for(int i = 0; i < deck.getSize(); i++) {
             Vector2 pos = new Vector2(posLeft + i * 20, posTop);
             rs.draw(iconBackground, pos, size);
-            rs.draw(deck.peekCard(i).getIcon(), pos, size);
+            deck.peekCard(i).drawIcon(rs, pos, size);
         }
     }
 }

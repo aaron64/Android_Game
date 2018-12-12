@@ -2,6 +2,7 @@ package com.mygdx.game.entities.battle;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleGrid;
 
 public abstract class BattleEntity extends Entity {
@@ -23,6 +24,10 @@ public abstract class BattleEntity extends Entity {
 
     public void refreshIndexPos(SceneBattleGrid grid) {
         setIndexPos(grid.getIndexPosition(getPos()));
+    }
+
+    public void hit(int dmg, SceneBattle scene) {
+
     }
 
     public Vector2 getIndexPos() {

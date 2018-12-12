@@ -76,6 +76,39 @@
         "Base_Damage": 30
       }
     ]
+    },
+    {
+      "Name": "GUN", "Cards": [
+      {
+        "Name": "Flint Lock",
+        "Category": "GUN",
+        "Base_Damage": 30
+      },
+      {
+        "Name": "Rifle",
+        "Category": "GUN",
+        "Base_Damage": 30
+      },
+      {
+        "Name": "Blunder",
+        "Category": "GUN",
+        "Base_Damage": 30
+      },
+      {
+        "Name": "Grenade Launcher",
+        "Category": "GUN",
+        "Base_Damage": 30
+      }
+    ]
+    },
+    {
+      "Name": "MAGIC", "Cards": [
+        {
+          "Name": "Magic",
+          "Category": "MAGIC",
+          "Base_Damage": 15
+        }
+      ]
     }
   ]
 }

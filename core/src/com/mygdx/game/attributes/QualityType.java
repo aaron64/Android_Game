@@ -19,5 +19,6 @@ public enum QualityType {
     public String getStr() {
         return str;
     }
+    public float getMultiplier() { return multiplier; }
 
 }

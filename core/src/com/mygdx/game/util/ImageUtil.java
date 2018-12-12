@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.scenes.battle.SceneBattleTileType;
+import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.scenes.main_area.SceneMainAreaTileType;
 
 public class ImageUtil {
@@ -16,6 +17,8 @@ public class ImageUtil {
 
         final int white = Color.rgba8888(Color.WHITE);
         final int red = Color.rgba8888(Color.RED);
+        final int green = Color.rgba8888(Color.GREEN);
+        final int yellow = Color.rgba8888(Color.YELLOW);
         final int blue = Color.rgba8888(Color.BLUE);
         final int black = Color.rgba8888(Color.BLACK);
 
@@ -26,7 +29,13 @@ public class ImageUtil {
                 if(color == white)
                     map[i][j] = SceneMainAreaTileType.NORMAL;
                 else if(color == red)
+                    map[i][j] = SceneMainAreaTileType.ENEMY;
+                else if(color == yellow)
+                    map[i][j] = SceneMainAreaTileType.CHEST;
+                else if(color == blue)
                     map[i][j] = SceneMainAreaTileType.SPAWN;
+                else if(color == green)
+                    map[i][j] = SceneMainAreaTileType.DOOR;
                 else
                     map[i][j] = SceneMainAreaTileType.NONE;
             }
