@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.Shader;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -16,8 +18,12 @@ public class RenderSystem {
     private OrthographicCamera camera;
     private SpriteBatch batch;
 
+    public static ShaderProgram iconShader;
+
     public RenderSystem() {
         batch = new SpriteBatch();
+        iconShader = new ShaderProgram(Gdx.files.internal("shaders/vertex_default.glsl").readString(),
+                Gdx.files.internal("shaders/fragment_card_icon.glsl").readString());
     }
 
     public void draw(Entity e) {
@@ -57,6 +63,10 @@ public class RenderSystem {
             uiMatrix.setToOrtho2D(0, 0, Window.getWidth(), Window.getHeight());
             batch.setProjectionMatrix(uiMatrix);
         }
+    }
+
+    public void setShader(ShaderProgram shader) {
+        batch.setShader(shader);
     }
 
     public void setOverlayMode() {
