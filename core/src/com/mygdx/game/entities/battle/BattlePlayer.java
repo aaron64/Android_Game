@@ -12,8 +12,8 @@ import com.mygdx.game.scenes.battle.SceneBattleTileType;
 public class BattlePlayer extends BattleLiving  {
 
     private Deck deck;
-    public BattlePlayer(SceneBattle scene, Vector2 pos, int health) {
-        super(scene, pos, "player", Facing.RIGHT, health);
+    public BattlePlayer(SceneBattle scene, SceneBattleGrid grid, Vector2 pos, int health) {
+        super(scene, grid, pos, "player", Facing.RIGHT, health);
         acceptedTileTypes = new SceneBattleTileType[]{SceneBattleTileType.FRIENDLY, SceneBattleTileType.NEUTRAL};
         setSize(scene.getGrid().getTile(0,0).getSize());
 

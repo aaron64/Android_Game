@@ -36,8 +36,8 @@ public abstract class BattleLiving extends BattleEntity {
 
     private Cooldown lockCooldown;
 
-    public BattleLiving(SceneBattle scene, Vector2 pos, String name, Facing facing, int health) {
-        super(scene, pos, name);
+    public BattleLiving(SceneBattle scene, SceneBattleGrid grid, Vector2 pos, String name, Facing facing, int health) {
+        super(scene, grid, pos, name);
         cardStack = new Stack<Card>();
 
         this.health = health;

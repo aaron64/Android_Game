@@ -79,23 +79,23 @@ public class SceneBattleGrid {
                 SceneBattleTileType type = typeMap[i][j];
                 switch(type) {
                     case FRIENDLY:
-                        tileGrid[i][j] = new SceneBattleTile(scene, new Vector2(i,j), offsetVec, tileSize,  type);
+                        tileGrid[i][j] = new SceneBattleTile(scene, this, new Vector2(i,j), offsetVec, tileSize,  type);
                         break;
                     case ENEMY:
-                        tileGrid[i][j] = new SceneBattleTile(scene, new Vector2(i,j), offsetVec, tileSize, type);
+                        tileGrid[i][j] = new SceneBattleTile(scene,this, new Vector2(i,j), offsetVec, tileSize, type);
                         break;
                     case NEUTRAL:
-                        tileGrid[i][j] = new SceneBattleTile(scene, new Vector2(i,j), offsetVec, tileSize, type);
+                        tileGrid[i][j] = new SceneBattleTile(scene,this, new Vector2(i,j), offsetVec, tileSize, type);
                         break;
                     case NONE:
-                        tileGrid[i][j] = new SceneBattleTileNone(scene, new Vector2(i,j), offsetVec, tileSize, type);
+                        tileGrid[i][j] = new SceneBattleTileNone(scene,this, new Vector2(i,j), offsetVec, tileSize, type);
                         break;
                     case SPAWN:
-                        tileGrid[i][j] = new SceneBattleTile(scene, new Vector2(i,j), offsetVec, tileSize, SceneBattleTileType.FRIENDLY);
+                        tileGrid[i][j] = new SceneBattleTile(scene,this, new Vector2(i,j), offsetVec, tileSize, SceneBattleTileType.FRIENDLY);
                         playerSpawnCoords = new Vector2(i,j);
                         break;
                     default:
-                        tileGrid[i][j] = new SceneBattleTileNone(scene, new Vector2(i,j), offsetVec, tileSize, SceneBattleTileType.NONE);
+                        tileGrid[i][j] = new SceneBattleTileNone(scene,this, new Vector2(i,j), offsetVec, tileSize, SceneBattleTileType.NONE);
                         break;
                 }
             }

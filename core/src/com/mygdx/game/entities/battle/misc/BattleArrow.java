@@ -6,6 +6,7 @@ import com.mygdx.game.entities.battle.BattleEnemy;
 import com.mygdx.game.entities.battle.BattleEntity;
 import com.mygdx.game.entities.battle.BattleLiving;
 import com.mygdx.game.scenes.battle.SceneBattle;
+import com.mygdx.game.scenes.battle.SceneBattleGrid;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.util.Window;
 

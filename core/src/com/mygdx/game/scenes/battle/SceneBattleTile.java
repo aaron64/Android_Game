@@ -19,8 +19,8 @@ public class SceneBattleTile extends BattleEntity {
     private static Texture lightUpOverlay = new Texture("entities/tiles/tile_light_up.png");
 
 
-    public SceneBattleTile(SceneBattle scene, Vector2 indexPos, Vector2 offset, Vector2 size, SceneBattleTileType tileType) {
-        super(scene, indexPos, "tiles", tileType.getRes());
+    public SceneBattleTile(SceneBattle scene, SceneBattleGrid grid, Vector2 indexPos, Vector2 offset, Vector2 size, SceneBattleTileType tileType) {
+        super(scene, grid, indexPos, "tiles", tileType.getRes());
 
         this.tileType = tileType;
         setSize(size);

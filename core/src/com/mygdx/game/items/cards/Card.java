@@ -59,7 +59,7 @@ public abstract class Card extends Item {
     }
 
     public void drawIcon(RenderSystem rs, Vector2 pos, Vector2 size) {
-        rs.setShader(rs.iconShader);
+        //rs.setShader(rs.iconShader);
         if(element != null) {
             //element_overlay_color.bind(1);
             //rs.iconShader.setUniformi("u_texture_element", 1);

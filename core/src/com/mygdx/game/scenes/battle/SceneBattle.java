@@ -38,7 +38,7 @@ public class SceneBattle extends Scene implements GestureHandler {
 
         gui.addComponent(new BattleDeckComponent(player.getDeck()));
 
-        new EnemyTest(this, new Vector2(4, 2), "enemy");
+        new EnemyTest(this, battleGrid, new Vector2(4, 2), "enemy");
         //battleGrid.getTile(5, 1).setEntity(new EnemyTest2(new Vector2(5, 1), "enemy", battleGrid));
     }
 
@@ -83,7 +83,7 @@ public class SceneBattle extends Scene implements GestureHandler {
 
     public void addPlayer() {
         int playerHealth = ((SceneMainArea)(Game.getCurrentScene())).getPlayer().getHealth();
-        player = new BattlePlayer(this, battleGrid.getPlayerSpawnCoords(), playerHealth);
+        player = new BattlePlayer(this, battleGrid, battleGrid.getPlayerSpawnCoords(), playerHealth);
     }
 
     @Override

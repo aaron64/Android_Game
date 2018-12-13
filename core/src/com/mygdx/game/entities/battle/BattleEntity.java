@@ -10,16 +10,24 @@ public abstract class BattleEntity extends Entity {
     private Vector2 indexPos;
     protected SceneBattle scene;
 
-    public BattleEntity(SceneBattle scene, Vector2 indexPos, String name) {
-        super(scene.getGrid().getAbsoluteTilePosition(indexPos), "battle", name);
+    // tile entities
+    public BattleEntity(SceneBattle scene, SceneBattleGrid grid, Vector2 indexPos, String name) {
+        super(grid.getAbsoluteTilePosition(indexPos), "battle", name);
         setIndexPos(indexPos);
         scene.getGrid().getTile(indexPos).setEntity(this);
         this.scene = scene;
     }
 
-    public BattleEntity(SceneBattle scene, Vector2 indexPos, String folder, String name) {
-        super(scene.getGrid().getAbsoluteTilePosition(indexPos), folder, name);
+    // tiles
+    public BattleEntity(SceneBattle scene, SceneBattleGrid grid, Vector2 indexPos, String folder, String name) {
+        super(grid.getAbsoluteTilePosition(indexPos), folder, name);
         setIndexPos(indexPos);
+        this.scene = scene;
+    }
+
+    // entities not bound to tiles
+    public BattleEntity(SceneBattle scene, Vector2 indexPos, String name) {
+        super(scene.getGrid().getAbsoluteTilePosition(indexPos), "battle", name);
         this.scene = scene;
     }
 

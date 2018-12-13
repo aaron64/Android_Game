@@ -15,8 +15,8 @@ public class EnemyTest2 extends BattleEnemy {
     private Cooldown moveCooldown;
     int moves;
 
-    public EnemyTest2(SceneBattle scene, Vector2 pos, String name) {
-        super(scene, pos, name);
+    public EnemyTest2(SceneBattle scene, SceneBattleGrid grid, Vector2 pos, String name) {
+        super(scene, grid, pos, name);
         acceptedTileTypes = new SceneBattleTileType[]{SceneBattleTileType.ENEMY, SceneBattleTileType.NEUTRAL};
         setSize(scene.getGrid().getTile(0,0).getSize());
         cardStack.push(CardLoader.buildCard("Bow"));

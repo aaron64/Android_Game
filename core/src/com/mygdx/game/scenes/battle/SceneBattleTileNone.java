@@ -6,8 +6,8 @@ import com.mygdx.game.util.RenderSystem;
 
 public class SceneBattleTileNone extends SceneBattleTile {
 
-    public SceneBattleTileNone(SceneBattle scene, Vector2 indexPos, Vector2 offset, Vector2 size, SceneBattleTileType tileType) {
-        super(scene, indexPos, offset, size, tileType);
+    public SceneBattleTileNone(SceneBattle scene, SceneBattleGrid grid, Vector2 indexPos, Vector2 offset, Vector2 size, SceneBattleTileType tileType) {
+        super(scene, grid, indexPos, offset, size, tileType);
     }
 
     @Override
