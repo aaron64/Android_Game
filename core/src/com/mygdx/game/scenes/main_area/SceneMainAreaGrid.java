@@ -72,7 +72,7 @@ public class SceneMainAreaGrid {
         int renderTileHeight = (int)((BL.y - TL.y)/tileSize.y)+2;
 
         for(int i = 0; i < renderTileWidth; i++) {
-            for(int j = 0; j < renderTileHeight; j++) {
+            for(int j = renderTileHeight-1; j >= 0; j--) {
                 int ix = leftOffset + i;
                 int jy = bottomOffset + j;
                 if(isInBounds(new Vector2(ix, jy)) && tileGrid[ix][jy] != null) {
@@ -89,23 +89,23 @@ public class SceneMainAreaGrid {
                 SceneMainAreaTileType type = typeMap[i][j];
                 switch(type) {
                     case NORMAL:
-                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2(i,j), "tile_neutral", type);
+                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2(i,j), "tile_basic", type);
                         break;
                     case SPAWN:
-                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2(i,j), "tile_neutral", type);
+                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2(i,j), "tile_basic", type);
                         playerSpawn = new Vector2(tileGrid[i][j].getPos());
                         break;
                     case ENEMY:
-                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2(i,j), "tile_neutral", type);
+                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2(i,j), "tile_basic", type);
                         if(Math.random() < enemyChance)
                             scene.addEntity(new EnemyStill(scene, tileGrid[i][j].getPos(), "enemy"));
                         break;
                     case CHEST:
-                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2(i,j), "tile_neutral", type);
+                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2(i,j), "tile_basic", type);
                         scene.addEntity(new Chest(scene, tileGrid[i][j].getPos(), tileGrid[i][j]));
                         break;
                     case DOOR:
-                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2(i,j), "tile_neutral", type);
+                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2(i,j), "tile_basic", type);
                         break;
                     case NONE:
                         break;

@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleGrid;
+import com.mygdx.game.util.Vector2i;
 
 public abstract class BattleEntity extends Entity {
 
@@ -11,7 +12,7 @@ public abstract class BattleEntity extends Entity {
     protected SceneBattle scene;
 
     // tile entities
-    public BattleEntity(SceneBattle scene, SceneBattleGrid grid, Vector2 indexPos, String name) {
+    public BattleEntity(SceneBattle scene, SceneBattleGrid grid, Vector2i indexPos, String name) {
         super(grid.getAbsoluteTilePosition(indexPos), "battle", name);
         setIndexPos(indexPos);
         scene.getGrid().getTile(indexPos).setEntity(this);
@@ -19,7 +20,7 @@ public abstract class BattleEntity extends Entity {
     }
 
     // tiles
-    public BattleEntity(SceneBattle scene, SceneBattleGrid grid, Vector2 indexPos, String folder, String name) {
+    public BattleEntity(SceneBattle scene, SceneBattleGrid grid, Vector2i indexPos, String folder, String name) {
         super(grid.getAbsoluteTilePosition(indexPos), folder, name);
         setIndexPos(indexPos);
         this.scene = scene;

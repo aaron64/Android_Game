@@ -8,6 +8,7 @@ import com.mygdx.game.entities.battle.BattleLiving;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleGrid;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
+import com.mygdx.game.util.Vector2i;
 import com.mygdx.game.util.Window;
 
 public class BattleArrow extends BattleEntity {
@@ -23,7 +24,7 @@ public class BattleArrow extends BattleEntity {
         this.damage = damage;
 
         this.user = user;
-        setSize(new Vector2(180, 27));
+        setSize(new Vector2i(180, 27));
 
         xv = 25;
         if(user instanceof BattleEnemy)

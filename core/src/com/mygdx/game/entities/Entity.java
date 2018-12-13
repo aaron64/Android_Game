@@ -4,24 +4,26 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.util.RenderSystem;
+import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vector2i;
 
 public abstract class Entity {
-    private Vector2 pos;
-    private Vector2 size;
+    private Vector2f pos;
+    private Vector2i size;
     private String name;
     private Texture image;
 
-    public Entity(Vector2 pos, String name) {
+    public Entity(Vector2f pos, String name) {
         this.pos = pos;
         this.name = name;
         this.image = null;
     }
 
-    public Entity(Vector2 pos, String folder, String name) {
+    public Entity(Vector2f pos, String folder, String name) {
         this.pos = pos;
         this.name = name;
         image = new Texture("entities/" + folder + "/" + name + ".png");
-        this.size = new Vector2(image.getWidth(), image.getHeight());
+        this.size = new Vector2i(image.getWidth(), image.getHeight());
     }
 
     public abstract void update();
@@ -34,19 +36,19 @@ public abstract class Entity {
         rs.draw(this);
     }
 
-    public Vector2 getPos() {
+    public Vector2f getPos() {
         return pos;
     }
 
-    public void setPos(Vector2 pos) {
+    public void setPos(Vector2f pos) {
         this.pos = pos;
     }
 
-    public Vector2 getSize() {
+    public Vector2i getSize() {
         return size;
     }
 
-    public void setSize(Vector2 size) {
+    public void setSize(Vector2i size) {
         this.size = size;
     }
 

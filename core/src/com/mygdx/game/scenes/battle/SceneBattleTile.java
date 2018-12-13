@@ -7,6 +7,8 @@ import com.mygdx.game.entities.Entity;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.Cooldown;
 import com.mygdx.game.util.RenderSystem;
+import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vector2i;
 
 public class SceneBattleTile extends BattleEntity {
 
@@ -19,7 +21,7 @@ public class SceneBattleTile extends BattleEntity {
     private static Texture lightUpOverlay = new Texture("entities/tiles/tile_light_up.png");
 
 
-    public SceneBattleTile(SceneBattle scene, SceneBattleGrid grid, Vector2 indexPos, Vector2 offset, Vector2 size, SceneBattleTileType tileType) {
+    public SceneBattleTile(SceneBattle scene, SceneBattleGrid grid, Vector2i indexPos, Vector2f offset, Vector2i size, SceneBattleTileType tileType) {
         super(scene, grid, indexPos, "tiles", tileType.getRes());
 
         this.tileType = tileType;
