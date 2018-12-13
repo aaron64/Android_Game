@@ -6,12 +6,12 @@ import com.mygdx.game.util.RenderSystem;
 
 public class SceneBattleTileNone extends SceneBattleTile {
 
-    public SceneBattleTileNone(Vector2 indexPos, Vector2 offset, Vector2 size, SceneBattleGrid grid, SceneBattleTileType tileType) {
-        super(indexPos, offset, size, grid, tileType);
+    public SceneBattleTileNone(SceneBattle scene, Vector2 indexPos, Vector2 offset, Vector2 size, SceneBattleTileType tileType) {
+        super(scene, indexPos, offset, size, tileType);
     }
 
     @Override
-    public void update(Scene scene) {
-        super.update(scene);
+    public void update() {
+        super.update();
     }
 }

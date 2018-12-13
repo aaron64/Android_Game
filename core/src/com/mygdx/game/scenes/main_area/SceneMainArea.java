@@ -31,7 +31,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
         grid = new SceneMainAreaGrid(this);
         gestureHandler = new GestureUtil(this);
 
-        player = new Player(grid.getPlayerSpawn(), "player");
+        player = new Player(this, grid.getPlayerSpawn(), "player");
 
         gui.addComponent(new HealthComponent(player));
         gui.addComponent(new TitleComponent(MapNameGenerator.generateRandomName(100, MapTheme.FOREST)));
@@ -52,7 +52,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
         grid.update(this);
 
         for(Entity e : entities.getList()) {
-            e.update(this);
+            e.update();
         }
     }
 
@@ -135,7 +135,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
         Vector2 pos = rs.getWorldPos((int)x,(int)y);
         for(Entity e : entities.getList()) {
             if(e.getRect().contains(pos.x, pos.y)) {
-                ((MainAreaEntity)e).clickOn(this);
+                ((MainAreaEntity)e).clickOn();
             }
         }
     }

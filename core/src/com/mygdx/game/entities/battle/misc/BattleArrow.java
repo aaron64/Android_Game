@@ -1,14 +1,11 @@
 package com.mygdx.game.entities.battle.misc;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.battle.BattleEnemy;
 import com.mygdx.game.entities.battle.BattleEntity;
 import com.mygdx.game.entities.battle.BattleLiving;
-import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.scenes.battle.SceneBattle;
-import com.mygdx.game.scenes.battle.SceneBattleGrid;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.util.Window;
 
@@ -18,9 +15,9 @@ public class BattleArrow extends BattleEntity {
     private int damage;
     private BattleLiving user;
 
-    public BattleArrow(Vector2 indexPos, SceneBattleGrid grid, int damage, BattleLiving user) {
-        super(indexPos, "misc/arrow", grid);
-        moveY(grid.getTile(0,0).getSize().y/2);
+    public BattleArrow(SceneBattle scene, Vector2 indexPos, int damage, BattleLiving user) {
+        super(scene, indexPos, "misc/arrow");
+        moveY(scene.getGrid().getTile(0,0).getSize().y/2);
 
         this.damage = damage;
 
@@ -33,22 +30,22 @@ public class BattleArrow extends BattleEntity {
     }
 
     @Override
-    public void update(Scene scene) {
+    public void update() {
         moveX(xv);
-        refreshIndexPos(((SceneBattle)scene).getGrid());
+        refreshIndexPos();
 
         if(!Window.inWindow(this)) {
             scene.removeEntity(this);
         }
 
-        SceneBattleTile tile = getGrid().getTile(getIndexPos());
+        SceneBattleTile tile = scene.getGrid().getTile(getIndexPos());
         Entity e = null;
 
         if(tile != null)
             e = tile.getEntity();
 
         if(e != null && e instanceof BattleLiving && e != user) {
-            ((BattleLiving)e).hit(damage, (SceneBattle) scene);
+            ((BattleLiving)e).hit(damage);
             scene.removeEntity(this);
         }
     }

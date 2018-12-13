@@ -15,28 +15,27 @@ public class EnemyTest2 extends BattleEnemy {
     private Cooldown moveCooldown;
     int moves;
 
-    public EnemyTest2(Vector2 pos, String name, SceneBattleGrid grid) {
-        super(pos, name, grid);
+    public EnemyTest2(SceneBattle scene, Vector2 pos, String name) {
+        super(scene, pos, name);
         acceptedTileTypes = new SceneBattleTileType[]{SceneBattleTileType.ENEMY, SceneBattleTileType.NEUTRAL};
-        setSize(grid.getTile(0,0).getSize());
+        setSize(scene.getGrid().getTile(0,0).getSize());
         cardStack.push(CardLoader.buildCard("Bow"));
 
         moveCooldown = new Cooldown(false, 80);
     }
 
     @Override
-    public void update(Scene scene) {
+    public void update() {
         moveCooldown.update();
 
         if(moveCooldown.ready()) {
-            SceneBattle sceneBattle = (SceneBattle)scene;
             moveCooldown.reset();
-            jump(sceneBattle);
+            jump();
         }
     }
 
-    public void jump(SceneBattle sceneBattle) {
-        SceneBattleTile[] surroundings = sceneBattle.getGrid().getSurroundings(getIndexPos());
+    public void jump() {
+        SceneBattleTile[] surroundings = scene.getGrid().getSurroundings(getIndexPos());
 
         boolean tileFound = false;
         int r = 0;
@@ -49,7 +48,7 @@ public class EnemyTest2 extends BattleEnemy {
         moveTo(surroundings[r].getIndexPos());
     }
 
-    public void shoot(SceneBattle sceneBattle) {
-        cardStack.peek().use(sceneBattle, this);
+    public void shoot() {
+        cardStack.peek().use(scene, this);
     }
 }

@@ -25,7 +25,7 @@ public class SceneBattleGrid {
 
     private Vector2 playerSpawnCoords;
 
-    public SceneBattleGrid() {
+    public SceneBattleGrid(SceneBattle scene) {
         int[] mapWeights = {1,1,3,2,5,3};
         int mapI = MathUtil.getWeightedRandom(mapWeights);
         mapTexture = new Texture("battle_maps/map" + mapI + ".png");
@@ -48,13 +48,13 @@ public class SceneBattleGrid {
         tileGrid = new SceneBattleTile[width][height];
         gridSize = new Vector2(width, height);
 
-        initializeGrid();
+        initializeGrid(scene);
     }
 
     public void update(Scene scene) {
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < height; j++) {
-                tileGrid[i][j].update(scene);
+                tileGrid[i][j].update();
             }
         }
     }
@@ -72,30 +72,30 @@ public class SceneBattleGrid {
         }
     }
 
-    private void initializeGrid() {
+    private void initializeGrid(SceneBattle scene) {
         SceneBattleTileType[][] typeMap = ImageUtil.getBattleTileTypes(mapTexture);
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < height; j++) {
                 SceneBattleTileType type = typeMap[i][j];
                 switch(type) {
                     case FRIENDLY:
-                        tileGrid[i][j] = new SceneBattleTile(new Vector2(i,j), offsetVec, tileSize, this, type);
+                        tileGrid[i][j] = new SceneBattleTile(scene, new Vector2(i,j), offsetVec, tileSize,  type);
                         break;
                     case ENEMY:
-                        tileGrid[i][j] = new SceneBattleTile(new Vector2(i,j), offsetVec, tileSize, this, type);
+                        tileGrid[i][j] = new SceneBattleTile(scene, new Vector2(i,j), offsetVec, tileSize, type);
                         break;
                     case NEUTRAL:
-                        tileGrid[i][j] = new SceneBattleTile(new Vector2(i,j), offsetVec, tileSize, this, type);
+                        tileGrid[i][j] = new SceneBattleTile(scene, new Vector2(i,j), offsetVec, tileSize, type);
                         break;
                     case NONE:
-                        tileGrid[i][j] = new SceneBattleTileNone(new Vector2(i,j), offsetVec, tileSize, this, type);
+                        tileGrid[i][j] = new SceneBattleTileNone(scene, new Vector2(i,j), offsetVec, tileSize, type);
                         break;
                     case SPAWN:
-                        tileGrid[i][j] = new SceneBattleTile(new Vector2(i,j), offsetVec, tileSize, this, SceneBattleTileType.FRIENDLY);
+                        tileGrid[i][j] = new SceneBattleTile(scene, new Vector2(i,j), offsetVec, tileSize, SceneBattleTileType.FRIENDLY);
                         playerSpawnCoords = new Vector2(i,j);
                         break;
                     default:
-                        tileGrid[i][j] = new SceneBattleTileNone(new Vector2(i,j), offsetVec, tileSize, this, SceneBattleTileType.NONE);
+                        tileGrid[i][j] = new SceneBattleTileNone(scene, new Vector2(i,j), offsetVec, tileSize, SceneBattleTileType.NONE);
                         break;
                 }
             }

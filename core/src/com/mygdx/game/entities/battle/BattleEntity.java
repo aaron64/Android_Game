@@ -8,25 +8,26 @@ import com.mygdx.game.scenes.battle.SceneBattleGrid;
 public abstract class BattleEntity extends Entity {
 
     private Vector2 indexPos;
-    private SceneBattleGrid grid;
+    protected SceneBattle scene;
 
-    public BattleEntity(Vector2 indexPos, String name, SceneBattleGrid grid) {
-        super(grid.getAbsoluteTilePosition(indexPos), "battle", name);
+    public BattleEntity(SceneBattle scene, Vector2 indexPos, String name) {
+        super(scene.getGrid().getAbsoluteTilePosition(indexPos), "battle", name);
         setIndexPos(indexPos);
-        this.grid = grid;
+        scene.getGrid().getTile(indexPos).setEntity(this);
+        this.scene = scene;
     }
 
-    public BattleEntity(Vector2 indexPos, String folder, String name, SceneBattleGrid grid) {
-        super(grid.getAbsoluteTilePosition(indexPos), folder, name);
+    public BattleEntity(SceneBattle scene, Vector2 indexPos, String folder, String name) {
+        super(scene.getGrid().getAbsoluteTilePosition(indexPos), folder, name);
         setIndexPos(indexPos);
-        this.grid = grid;
+        this.scene = scene;
     }
 
-    public void refreshIndexPos(SceneBattleGrid grid) {
-        setIndexPos(grid.getIndexPosition(getPos()));
+    public void refreshIndexPos() {
+        setIndexPos(scene.getGrid().getIndexPosition(getPos()));
     }
 
-    public void hit(int dmg, SceneBattle scene) {
+    public void hit(int dmg) {
 
     }
 
@@ -36,13 +37,5 @@ public abstract class BattleEntity extends Entity {
 
     public void setIndexPos(Vector2 indexPos) {
         this.indexPos = indexPos;
-    }
-
-    public SceneBattleGrid getGrid() {
-        return grid;
-    }
-
-    public void setGrid(SceneBattleGrid grid) {
-        this.grid = grid;
     }
 }

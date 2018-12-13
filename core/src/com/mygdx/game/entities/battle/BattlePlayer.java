@@ -12,11 +12,12 @@ import com.mygdx.game.scenes.battle.SceneBattleTileType;
 public class BattlePlayer extends BattleLiving  {
 
     private Deck deck;
-    public BattlePlayer(Vector2 pos, int health, SceneBattleGrid grid) {
-        super(pos, "player", Facing.RIGHT, grid, health);
+    public BattlePlayer(SceneBattle scene, Vector2 pos, int health) {
+        super(scene, pos, "player", Facing.RIGHT, health);
         acceptedTileTypes = new SceneBattleTileType[]{SceneBattleTileType.FRIENDLY, SceneBattleTileType.NEUTRAL};
-        setSize(grid.getTile(0,0).getSize());
+        setSize(scene.getGrid().getTile(0,0).getSize());
 
+        // TODO:
         deck = new Deck(5);
         deck.addCard(CardLoader.buildCard("Bow"));
         deck.addCard(CardLoader.buildCard("Bow"));
@@ -24,11 +25,11 @@ public class BattlePlayer extends BattleLiving  {
     }
 
     @Override
-    public void update(Scene scene) {
-        super.update(scene);
+    public void update() {
+        super.update();
     }
 
-    public void useCard(SceneBattle scene) {
+    public void useCard() {
         if(!deck.isEmpty()) {
             lockFor(25);
             deck.pop().use(scene, this);
@@ -44,7 +45,7 @@ public class BattlePlayer extends BattleLiving  {
     }
 
     @Override
-    public void die(SceneBattle scene) {
+    public void die() {
 
     }
 

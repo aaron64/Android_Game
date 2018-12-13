@@ -9,6 +9,7 @@ import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleGrid;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.scenes.battle.SceneBattleTileType;
+import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.util.Cooldown;
 import com.mygdx.game.util.FontUtil;
 import com.mygdx.game.util.MathUtil;
@@ -35,8 +36,8 @@ public abstract class BattleLiving extends BattleEntity {
 
     private Cooldown lockCooldown;
 
-    public BattleLiving(Vector2 pos, String name, Facing facing, SceneBattleGrid grid, int health) {
-        super(pos, name, grid);
+    public BattleLiving(SceneBattle scene, Vector2 pos, String name, Facing facing, int health) {
+        super(scene, pos, name);
         cardStack = new Stack<Card>();
 
         this.health = health;
@@ -47,17 +48,11 @@ public abstract class BattleLiving extends BattleEntity {
         lockCooldown = new Cooldown(true, 10);
 
         healthFont = FontUtil.getFont(36);
-        //healthFont.getData().setScale(5);
     }
 
-    public void update(Scene scene) {
+    public void update() {
         lockCooldown.update();
-
-        if(renderHealth > health) {
-            renderHealth--;
-        } else if(renderHealth < health) {
-            renderHealth++;
-        }
+        updateRenderHealth();
     }
 
     public void render(RenderSystem rs) {
@@ -65,15 +60,76 @@ public abstract class BattleLiving extends BattleEntity {
         rs.drawText(healthFont, ""+renderHealth, MathUtil.addVec(getPos(), new Vector2(0,getSize().y + 100)));
     }
 
-    @Override
-    public void hit(int dmg, SceneBattle scene) {
-        health -= dmg;
-        if(health <= 0) {
-            die(scene);
+    private void updateRenderHealth() {
+        if(renderHealth > health) {
+            renderHealth--;
+        } else if(renderHealth < health) {
+            renderHealth++;
         }
     }
 
-    public abstract void die(SceneBattle scene);
+    public void move(Vector2 dp) {
+        if(!locked()) {
+            Vector2 newPos = MathUtil.addVec(getIndexPos(), dp);
+            if (scene.getGrid().isInBounds(newPos) && tileAccepted(scene.getGrid().getTile(newPos))) {
+                moveTo(newPos);
+            }
+        }
+    }
+
+    public void moveTo(Vector2 iPos) {
+        scene.getGrid().getTile(getIndexPos()).removeEntity();
+        setIndexPos(iPos);
+        setPos(scene.getGrid().getAbsoluteTilePosition(iPos));
+        scene.getGrid().getTile(iPos).setEntity(this);
+    }
+
+    public BattleEntity getDirectLineOfSight() {
+        Vector2 indexPos = getIndexPos();
+
+        if(facing == Facing.LEFT) {
+            for (int i = (int) (indexPos.x - 1); i >= 0; i--) {
+                Entity e = scene.getGrid().getTile(i, (int) indexPos.y).getEntity();
+                if (e != null) {
+                    return (BattleEntity)e;
+                }
+            }
+        } else if (facing == Facing.RIGHT) {
+            for (int i = (int) (indexPos.x + 1); i < scene.getGrid().getWidth(); i++) {
+                Entity e = scene.getGrid().getTile(i, (int) indexPos.y).getEntity();
+                if (e != null) {
+                    return (BattleEntity)e;
+                }
+            }
+        }
+        return null;
+    }
+
+    public boolean tileAccepted(SceneBattleTile tile) {
+        if(tile == null)
+            return false;
+
+        for(int i = 0; i < acceptedTileTypes.length; i++) {
+            if(acceptedTileTypes[i] == (tile.getTileType()))
+                return true;
+        }
+        return false;
+    }
+
+    public void lockFor(int duration) {
+        lockCooldown.setDuration(duration);
+        lockCooldown.reset();
+    }
+
+    @Override
+    public void hit(int dmg) {
+        health -= dmg;
+        if(health <= 0) {
+            die();
+        }
+    }
+
+    public abstract void die();
 
     public void recover(int rec) {
         this.health += rec;
@@ -95,22 +151,6 @@ public abstract class BattleLiving extends BattleEntity {
         this.maxHealth = maxHealth;
     }
 
-    public void move(Vector2 dp) {
-        if(!locked()) {
-            Vector2 newPos = MathUtil.addVec(getIndexPos(), dp);
-            if (getGrid().isInBounds(newPos) && tileAccepted(getGrid().getTile(newPos))) {
-                moveTo(newPos);
-            }
-        }
-    }
-
-    public void moveTo(Vector2 iPos) {
-        getGrid().getTile(getIndexPos()).removeEntity();
-        setIndexPos(iPos);
-        setPos(getGrid().getAbsoluteTilePosition(iPos));
-        getGrid().getTile(iPos).setEntity(this);
-    }
-
     public void moveUp() {
         move(new Vector2(0,1));
     }
@@ -127,49 +167,12 @@ public abstract class BattleLiving extends BattleEntity {
         move(new Vector2(1,0));
     }
 
-    public BattleEntity getDirectLineOfSight(SceneBattleGrid grid) {
-        Vector2 indexPos = getIndexPos();
-
-        if(facing == Facing.LEFT) {
-            for (int i = (int) (indexPos.x - 1); i >= 0; i--) {
-                Entity e = grid.getTile(i, (int) indexPos.y).getEntity();
-                if (e != null) {
-                    return (BattleEntity)e;
-                }
-            }
-        } else if (facing == Facing.RIGHT) {
-            for (int i = (int) (indexPos.x + 1); i < grid.getWidth(); i++) {
-                Entity e = grid.getTile(i, (int) indexPos.y).getEntity();
-                if (e != null) {
-                    return (BattleEntity)e;
-                }
-            }
-        }
-        return null;
-    }
-
-    public boolean tileAccepted(SceneBattleTile tile) {
-        if(tile == null)
-            return false;
-
-        for(int i = 0; i < acceptedTileTypes.length; i++) {
-            if(acceptedTileTypes[i] == (tile.getTileType()))
-                return true;
-        }
-        return false;
-    }
-
     public boolean facingRight() {
         return facing == Facing.RIGHT;
     }
 
     public boolean locked() {
         return !lockCooldown.ready();
-    }
-
-    public void lockFor(int duration) {
-        lockCooldown.setDuration(duration);
-        lockCooldown.reset();
     }
 
     public void resetLock() {

@@ -17,7 +17,7 @@ public class BowCard extends AttackCard {
 
     @Override
     public void use(SceneBattle scene, BattleLiving user) {
-        scene.addEntity(new BattleArrow(user.getIndexPos(), scene.getGrid(), getDamage(), user));
+        scene.addEntity(new BattleArrow(scene, user.getIndexPos(), getDamage(), user));
 
         Vector2 indexPos = user.getIndexPos();
 

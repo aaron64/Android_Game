@@ -11,27 +11,26 @@ import com.mygdx.game.util.Cooldown;
 
 public class EnemyTest extends BattleEnemy {
 
-    public EnemyTest(Vector2 pos, String name, SceneBattleGrid grid) {
-        super(pos, name, grid);
-        setSize(grid.getTile(0,0).getSize());
+    public EnemyTest(SceneBattle scene, Vector2 pos, String name) {
+        super(scene, pos, name);
+        setSize(scene.getGrid().getTile(0,0).getSize());
         cardStack.push(CardLoader.buildCard("Bow"));
     }
 
     @Override
-    public void update(Scene scene) {
-        super.update(scene);
+    public void update() {
+        super.update();
 
         if(!locked()) {
-            SceneBattle sceneBattle = (SceneBattle)scene;
-            Entity e = getDirectLineOfSight((sceneBattle.getGrid()));
+            Entity e = getDirectLineOfSight();
             if (e instanceof BattleEntity) {
                 lockFor(100);
-                shoot(sceneBattle);
+                shoot();
             }
         }
     }
 
-    public void shoot(SceneBattle sceneBattle) {
-        cardStack.peek().use(sceneBattle, this);
+    public void shoot() {
+        cardStack.peek().use(scene, this);
     }
 }

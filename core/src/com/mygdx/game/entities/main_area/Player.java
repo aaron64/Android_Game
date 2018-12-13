@@ -10,15 +10,15 @@ public class Player extends MainAreaEntity {
     float maxVelocity;
     private int health;
 
-    public Player(Vector2 pos, String name) {
-        super(pos, name);
+    public Player(SceneMainArea scene, Vector2 pos, String name) {
+        super(scene, pos, name);
         maxVelocity = 7;
 
         health = 100;
     }
 
     @Override
-    public void update(Scene scene) {
+    public void update() {
 
     }
 
@@ -34,7 +34,7 @@ public class Player extends MainAreaEntity {
         MainAreaEntity collision = scene.getEntityCollision(this);
         if(collision != null) {
             moveX(-offset.x);
-            collision.touch(this, scene);
+            collision.touch(this);
         } else if(!scene.getGrid().isInMap(this)){
             moveX(-offset.x);
         }
@@ -43,7 +43,7 @@ public class Player extends MainAreaEntity {
         collision = ((SceneMainArea) scene).getEntityCollision(this);
         if(collision != null) {
             moveY(-offset.y);
-            collision.touch(this, scene);
+            collision.touch(this);
         } else if(!scene.getGrid().isInMap(this)) {
             moveY(-offset.y);
         }

@@ -29,18 +29,16 @@ public class SceneBattle extends Scene implements GestureHandler {
         enemies = 1;
 
         gestureHandler = new GestureUtil(this);
-        battleGrid = new SceneBattleGrid();
+        battleGrid = new SceneBattleGrid(this);
 
         // Current scene is still main area during constructor
-        int playerHealth = ((SceneMainArea)(Game.getCurrentScene())).getPlayer().getHealth();
-        addPlayer(playerHealth);
+        addPlayer();
 
         map = new MapBattle("bg1", battleGrid, player);
 
         gui.addComponent(new BattleDeckComponent(player.getDeck()));
 
-        battleGrid.getTile(1,1).setEntity(player);
-        battleGrid.getTile(4, 2).setEntity(new EnemyTest(new Vector2(4, 2), "enemy", battleGrid));
+        new EnemyTest(this, new Vector2(4, 2), "enemy");
         //battleGrid.getTile(5, 1).setEntity(new EnemyTest2(new Vector2(5, 1), "enemy", battleGrid));
     }
 
@@ -52,7 +50,7 @@ public class SceneBattle extends Scene implements GestureHandler {
         battleGrid.update(this);
 
         for(Entity e : entities.getList()) {
-            e.update(this);
+            e.update();
         }
 
         if(enemies <= 0) {
@@ -83,8 +81,9 @@ public class SceneBattle extends Scene implements GestureHandler {
         Game.endScene();
     }
 
-    public void addPlayer(int health) {
-        player = new BattlePlayer(battleGrid.getPlayerSpawnCoords(), health, battleGrid);
+    public void addPlayer() {
+        int playerHealth = ((SceneMainArea)(Game.getCurrentScene())).getPlayer().getHealth();
+        player = new BattlePlayer(this, battleGrid.getPlayerSpawnCoords(), playerHealth);
     }
 
     @Override
@@ -120,7 +119,7 @@ public class SceneBattle extends Scene implements GestureHandler {
     @Override
     public void tap(float x, float y) {
         if(x > Window.getWidth()/2)
-            player.useCard(this);
+            player.useCard();
     }
 
     public void enemyKilled() {

@@ -15,9 +15,9 @@ public class GunCard extends AttackCard {
 
     @Override
     public void use(SceneBattle scene, BattleLiving user) {
-        BattleEntity hitEntity = user.getDirectLineOfSight(scene.getGrid());
+        BattleEntity hitEntity = user.getDirectLineOfSight();
         if(hitEntity != null) {
-            hitEntity.hit(getDamage(), scene);
+            hitEntity.hit(getDamage());
         }
 
         Vector2 indexPos = user.getIndexPos();

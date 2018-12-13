@@ -3,7 +3,6 @@ package com.mygdx.game.entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.RenderSystem;
 
 public abstract class Entity {
@@ -25,7 +24,7 @@ public abstract class Entity {
         this.size = new Vector2(image.getWidth(), image.getHeight());
     }
 
-    public abstract void update(Scene scene);
+    public abstract void update();
 
     public void render(RenderSystem rs, Vector2 pos) {
         rs.draw(image, pos);
