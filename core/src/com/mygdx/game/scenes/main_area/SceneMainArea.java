@@ -2,7 +2,7 @@ package com.mygdx.game.scenes.main_area;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
+
 import com.mygdx.game.GUI.components.HealthComponent;
 import com.mygdx.game.GUI.components.TitleComponent;
 import com.mygdx.game.entities.Entity;
@@ -16,6 +16,7 @@ import com.mygdx.game.util.GestureHandler;
 import com.mygdx.game.util.GestureUtil;
 import com.mygdx.game.util.MapNameGenerator;
 import com.mygdx.game.util.MathUtil;
+import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Window;
 
 import java.util.Collections;
@@ -27,7 +28,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
     public SceneMainArea() {
         super();
         rs.setCamera(new OrthographicCamera(Window.getWidth(), Window.getHeight()));
-        rs.getCamera().zoom = 0.6f;
+        rs.getCamera().zoom = 0.5f;
         grid = new SceneMainAreaGrid(this);
         gestureHandler = new GestureUtil(this);
 
@@ -94,6 +95,17 @@ public class SceneMainArea extends Scene implements GestureHandler {
         return null;
     }
 
+    public MainAreaEntity getSolidEntityCollision(MainAreaEntity e0) {
+        Rectangle collisionRect = e0.getCollisionRect();
+        for(Entity e : entities.getList()) {
+
+            if(e0 != e && ((MainAreaEntity)e).getCollisionRect().overlaps(collisionRect) && ((MainAreaEntity)e).isSolid()) {
+                return (MainAreaEntity) e;
+            }
+        }
+        return null;
+    }
+
     @Override
     public void dispose() {
 
@@ -115,13 +127,13 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
     @Override
     public void zoom(float initialDistance, float distance) {
-        rs.getCamera().zoom = Math.max(0.4f, Math.min(0.6f, initialDistance/distance));
+        rs.getCamera().zoom = Math.max(0.3f, Math.min(0.5f, initialDistance/distance));
         //rs.getCamera().zoom = Math.max(0.2f, Math.min(1.0f, ((initialDistance / distance)*1.9f) * rs.getCamera().zoom));
     }
 
     @Override
     public void hold(float x, float y) {
-        Vector2 touchVec = MathUtil.subVec(new Vector2(x, y), Window.getCenter());
+        Vector2f touchVec = Vector2f.subtractVectors(new Vector2f(x, y), Window.getCenter());
         player.move(touchVec, this);
     }
 
@@ -132,7 +144,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
     @Override
     public void tap(float x, float y) {
-        Vector2 pos = rs.getWorldPos((int)x,(int)y);
+        Vector2f pos = rs.getWorldPos((int)x,(int)y);
         for(Entity e : entities.getList()) {
             if(e.getRect().contains(pos.x, pos.y)) {
                 ((MainAreaEntity)e).clickOn();

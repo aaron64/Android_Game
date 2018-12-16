@@ -2,7 +2,7 @@ package com.mygdx.game.entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
+
 import com.mygdx.game.util.RenderSystem;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
@@ -28,7 +28,7 @@ public abstract class Entity {
 
     public abstract void update();
 
-    public void render(RenderSystem rs, Vector2 pos) {
+    public void render(RenderSystem rs, Vector2f pos) {
         rs.draw(image, pos);
     }
 
@@ -80,7 +80,12 @@ public abstract class Entity {
         pos.y += dy;
     }
 
-    public void move(Vector2 d) {
+    public void move(Vector2i d) {
+        pos.x += d.x;
+        pos.y += d.y;
+    }
+
+    public void move(Vector2f d) {
         pos.x += d.x;
         pos.y += d.y;
     }

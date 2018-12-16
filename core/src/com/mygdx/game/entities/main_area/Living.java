@@ -1,12 +1,12 @@
 package com.mygdx.game.entities.main_area;
 
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.util.Vector2f;
 
 public abstract class Living extends Entity {
 
     private int health, maxHealth;
-    public Living(Vector2 pos, String folder, String name) {
+    public Living(Vector2f pos, String folder, String name) {
         super(pos, folder, name);
     }
 

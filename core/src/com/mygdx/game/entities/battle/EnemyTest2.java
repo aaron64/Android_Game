@@ -1,6 +1,6 @@
 package com.mygdx.game.entities.battle;
 
-import com.badlogic.gdx.math.Vector2;
+
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.items.cards.CardLoader;
 import com.mygdx.game.scenes.Scene;
@@ -9,13 +9,14 @@ import com.mygdx.game.scenes.battle.SceneBattleGrid;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.scenes.battle.SceneBattleTileType;
 import com.mygdx.game.util.Cooldown;
+import com.mygdx.game.util.Vector2i;
 
 public class EnemyTest2 extends BattleEnemy {
 
     private Cooldown moveCooldown;
     int moves;
 
-    public EnemyTest2(SceneBattle scene, SceneBattleGrid grid, Vector2 pos, String name) {
+    public EnemyTest2(SceneBattle scene, SceneBattleGrid grid, Vector2i pos, String name) {
         super(scene, grid, pos, name);
         acceptedTileTypes = new SceneBattleTileType[]{SceneBattleTileType.ENEMY, SceneBattleTileType.NEUTRAL};
         setSize(scene.getGrid().getTile(0,0).getSize());

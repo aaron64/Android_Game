@@ -1,7 +1,7 @@
 package com.mygdx.game.scenes.battle;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
+
 import com.mygdx.game.entities.battle.BattleEntity;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.scenes.Scene;

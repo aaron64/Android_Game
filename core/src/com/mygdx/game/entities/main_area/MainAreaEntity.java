@@ -1,29 +1,29 @@
 package com.mygdx.game.entities.main_area;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
+
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.util.RenderSystem;
+import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vector2i;
 
-public class MainAreaEntity extends Entity {
+public abstract class MainAreaEntity extends Entity {
 
+    protected boolean solid;
     protected SceneMainArea scene;
-    public MainAreaEntity(SceneMainArea scene, Vector2 pos, String name) {
+    public MainAreaEntity(SceneMainArea scene, Vector2f pos, String name) {
         super(pos, "main_area/", name);
         this.scene = scene;
+        solid = true;
     }
 
-    public MainAreaEntity(SceneMainArea scene, Vector2 pos, String folder, String name) {
+    public MainAreaEntity(SceneMainArea scene, Vector2f pos, String folder, String name) {
         super(pos, folder, name);
         this.scene = scene;
-    }
-
-    @Override
-    public void update() {
-
+        solid = true;
     }
 
     @Override
@@ -40,12 +40,18 @@ public class MainAreaEntity extends Entity {
     }
 
     public Rectangle getCollisionRect() {
-        Vector2 pos = getPos();
-        Vector2 size = getSize();
-        return new Rectangle(pos.x, pos.y, size.x, size.y * 0.25f);
+        Vector2f pos = getPos();
+        Vector2i size = getSize();
+        return new Rectangle(pos.x, pos.y, size.w(), size.h() * 0.25f);
+    }
+
+    public boolean collidesWith(MainAreaEntity e) {
+        return e.getCollisionRect().overlaps(getCollisionRect());
     }
 
     public SceneMainArea getScene() {
         return scene;
     }
+
+    public boolean isSolid() { return solid; }
 }

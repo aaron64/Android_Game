@@ -1,20 +1,22 @@
 package com.mygdx.game.map;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
+
 import com.mygdx.game.util.RenderSystem;
+import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vector2i;
 import com.mygdx.game.util.Window;
 
 public class MapMainArea extends Map {
 
-    private Vector2 backgroundSize;
-    private Vector2 backgroundPos;
+    private Vector2i backgroundSize;
+    private Vector2f backgroundPos;
 
     public MapMainArea(String bgPath) {
         super();
         setBackground(new Texture("backgrounds/" + bgPath + ".png"));
 
-        backgroundPos = new Vector2(0,0);
+        backgroundPos = new Vector2f(0,0);
         backgroundSize = Window.getSize();
     }
 

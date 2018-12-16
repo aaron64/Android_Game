@@ -1,6 +1,6 @@
 package com.mygdx.game.entities.battle;
 
-import com.badlogic.gdx.math.Vector2;
+
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.items.cards.CardLoader;
 import com.mygdx.game.items.cards.Deck;
@@ -8,11 +8,12 @@ import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleGrid;
 import com.mygdx.game.scenes.battle.SceneBattleTileType;
+import com.mygdx.game.util.Vector2i;
 
 public class BattlePlayer extends BattleLiving  {
 
     private Deck deck;
-    public BattlePlayer(SceneBattle scene, SceneBattleGrid grid, Vector2 pos, int health) {
+    public BattlePlayer(SceneBattle scene, SceneBattleGrid grid, Vector2i pos, int health) {
         super(scene, grid, pos, "player", Facing.RIGHT, health);
         acceptedTileTypes = new SceneBattleTileType[]{SceneBattleTileType.FRIENDLY, SceneBattleTileType.NEUTRAL};
         setSize(scene.getGrid().getTile(0,0).getSize());

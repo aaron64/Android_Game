@@ -5,6 +5,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 
+
 public class GestureUtil implements GestureDetector.GestureListener {
 
     private static InputMultiplexer inputMultiplexer = new InputMultiplexer();;

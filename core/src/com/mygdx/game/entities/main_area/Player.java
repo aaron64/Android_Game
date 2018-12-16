@@ -1,20 +1,22 @@
 package com.mygdx.game.entities.main_area;
 
-import com.badlogic.gdx.math.Vector2;
+
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.util.MathUtil;
+import com.mygdx.game.util.Vector2f;
 
 public class Player extends MainAreaEntity {
 
     float maxVelocity;
-    private int health;
+    private int maxHealth, health;
 
-    public Player(SceneMainArea scene, Vector2 pos, String name) {
+    public Player(SceneMainArea scene, Vector2f pos, String name) {
         super(scene, pos, name);
         maxVelocity = 7;
 
-        health = 100;
+        maxHealth = 100;
+        health = maxHealth;
     }
 
     @Override
@@ -22,16 +24,16 @@ public class Player extends MainAreaEntity {
 
     }
 
-    public void move(Vector2 touchVector, SceneMainArea scene) {
+    public void move(Vector2f touchVector, SceneMainArea scene) {
         touchVector.y *= -1;
-        Vector2 touchDirection = MathUtil.getUnitVector(touchVector);
+        Vector2f touchDirection = MathUtil.getUnitVector(touchVector);
 
         float velocity = Math.min(MathUtil.getDistance(touchVector)/100f, maxVelocity);
-        Vector2 offset = MathUtil.multiplyVec(touchDirection, velocity);
+        Vector2f offset = Vector2f.multiplyVector(touchDirection, velocity);
 
         moveX(offset.x);
 
-        MainAreaEntity collision = scene.getEntityCollision(this);
+        MainAreaEntity collision = scene.getSolidEntityCollision(this);
         if(collision != null) {
             moveX(-offset.x);
             collision.touch(this);
@@ -40,7 +42,7 @@ public class Player extends MainAreaEntity {
         }
 
         moveY(offset.y);
-        collision = ((SceneMainArea) scene).getEntityCollision(this);
+        collision = ((SceneMainArea) scene).getSolidEntityCollision(this);
         if(collision != null) {
             moveY(-offset.y);
             collision.touch(this);
@@ -55,5 +57,12 @@ public class Player extends MainAreaEntity {
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public void heal(int amount) {
+        health += amount;
+        if(health > maxHealth) {
+            health = maxHealth;
+        }
     }
 }

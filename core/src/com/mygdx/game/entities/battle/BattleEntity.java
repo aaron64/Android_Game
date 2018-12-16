@@ -1,6 +1,6 @@
 package com.mygdx.game.entities.battle;
 
-import com.badlogic.gdx.math.Vector2;
+
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleGrid;
@@ -8,7 +8,7 @@ import com.mygdx.game.util.Vector2i;
 
 public abstract class BattleEntity extends Entity {
 
-    private Vector2 indexPos;
+    private Vector2i indexPos;
     protected SceneBattle scene;
 
     // tile entities
@@ -27,7 +27,7 @@ public abstract class BattleEntity extends Entity {
     }
 
     // entities not bound to tiles
-    public BattleEntity(SceneBattle scene, Vector2 indexPos, String name) {
+    public BattleEntity(SceneBattle scene, Vector2i indexPos, String name) {
         super(scene.getGrid().getAbsoluteTilePosition(indexPos), "battle", name);
         this.scene = scene;
     }
@@ -40,11 +40,11 @@ public abstract class BattleEntity extends Entity {
 
     }
 
-    public Vector2 getIndexPos() {
+    public Vector2i getIndexPos() {
         return indexPos;
     }
 
-    public void setIndexPos(Vector2 indexPos) {
+    public void setIndexPos(Vector2i indexPos) {
         this.indexPos = indexPos;
     }
 }

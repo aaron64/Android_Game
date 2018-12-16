@@ -2,7 +2,6 @@ package com.mygdx.game.items.cards;
 
 import com.mygdx.game.attributes.QualityType;
 import com.mygdx.game.entities.battle.BattleLiving;
-import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.scenes.battle.SceneBattle;
 
 public class HealCard extends Card {

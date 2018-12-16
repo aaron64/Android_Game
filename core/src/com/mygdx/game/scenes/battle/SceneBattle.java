@@ -1,6 +1,6 @@
 package com.mygdx.game.scenes.battle;
 
-import com.badlogic.gdx.math.Vector2;
+
 import com.mygdx.game.GUI.components.BattleDeckComponent;
 import com.mygdx.game.Game;
 import com.mygdx.game.entities.battle.BattleEnemy;
@@ -13,6 +13,7 @@ import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.util.GestureHandler;
 import com.mygdx.game.util.GestureUtil;
+import com.mygdx.game.util.Vector2i;
 import com.mygdx.game.util.Window;
 
 public class SceneBattle extends Scene implements GestureHandler {
@@ -38,7 +39,7 @@ public class SceneBattle extends Scene implements GestureHandler {
 
         gui.addComponent(new BattleDeckComponent(player.getDeck()));
 
-        new EnemyTest(this, battleGrid, new Vector2(4, 2), "enemy");
+        new EnemyTest(this, battleGrid, new Vector2i(4, 2), "enemy");
         //battleGrid.getTile(5, 1).setEntity(new EnemyTest2(new Vector2(5, 1), "enemy", battleGrid));
     }
 

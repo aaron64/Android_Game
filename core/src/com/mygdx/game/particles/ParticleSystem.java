@@ -1,18 +1,20 @@
 package com.mygdx.game.particles;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
+
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.RenderSystem;
+import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vector2i;
 import com.mygdx.game.util.Window;
 
 import java.util.ArrayList;
 
 public class ParticleSystem {
 
-    private ArrayList<Vector2> posList;
-    private ArrayList<Vector2> velocityList;
-    private ArrayList<Vector2> sizeList;
+    private ArrayList<Vector2f> posList;
+    private ArrayList<Vector2f> velocityList;
+    private ArrayList<Vector2i> sizeList;
     private int particles;
     private Texture texture;
     public ParticleSystem() {
@@ -21,8 +23,8 @@ public class ParticleSystem {
 
     public void update(Scene scene) {
         for(int i = 0; i < particles; i++) {
-            Vector2 pos = posList.get(i);
-            Vector2 vel = velocityList.get(i);
+            Vector2f pos = posList.get(i);
+            Vector2f vel = velocityList.get(i);
             //Vector2 size = sizeList.get(i);
 
             pos.x += vel.x;

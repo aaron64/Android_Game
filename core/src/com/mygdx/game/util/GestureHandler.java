@@ -1,6 +1,6 @@
 package com.mygdx.game.util;
 
-import com.badlogic.gdx.math.Vector2;
+
 
 public interface GestureHandler {
     void touchDown(float x, float y, int pointer, int button);

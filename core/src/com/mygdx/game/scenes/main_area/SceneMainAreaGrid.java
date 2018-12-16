@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector;
-import com.badlogic.gdx.math.Vector2;
+
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.main_area.Chest;
@@ -14,35 +14,35 @@ import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.ImageUtil;
 import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.RenderSystem;
+import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vector2i;
 import com.mygdx.game.util.Window;
 
 public class SceneMainAreaGrid {
 
     private int width, height;
-    private Vector2 size;
+    private Vector2i size;
 
     private float enemyChance;
 
     private SceneMainAreaTile[][] tileGrid;
-    private Vector2 tileSize;
+    private Vector2i tileSize;
 
     private Texture mapTexture;
-    private Vector2 textureSize;
 
-    private Vector2 playerSpawn;
+    private Vector2f playerSpawn;
 
     public SceneMainAreaGrid(SceneMainArea scene) {
         int[] mapWeights = {1,1,3,2,5};
         int mapI = 0;//MathUtil.getWeightedRandom(mapWeights);
         mapTexture = new Texture("main_area_maps/testmap.png");
-        textureSize = new Vector2(mapTexture.getWidth(), mapTexture.getHeight());
 
         this.width = mapTexture.getWidth();
         this.height = mapTexture.getHeight();
-        this.size = new Vector2(this.width, this.height);
+        this.size = new Vector2i(this.width, this.height);
 
         Texture tileForSize = new Texture("entities/tiles/tile_neutral.png");
-        tileSize = new Vector2(tileForSize.getWidth(), tileForSize.getHeight());
+        tileSize = new Vector2i(tileForSize.getWidth(), tileForSize.getHeight());
 
         enemyChance = 0.05f;
 
@@ -60,10 +60,10 @@ public class SceneMainAreaGrid {
     }
 
     public void render(RenderSystem rs) {
-        Vector2 BL = rs.getWorldPos(0,0);
-        Vector2 TL = rs.getWorldPos(0, Window.getHeight());
-        Vector2 TR = rs.getWorldPos(Window.getWidth(), Window.getHeight());
-        Vector2 BR = rs.getWorldPos(Window.getWidth(),0);
+        Vector2f BL = rs.getWorldPos(0,0);
+        Vector2f TL = rs.getWorldPos(0, Window.getHeight());
+        Vector2f TR = rs.getWorldPos(Window.getWidth(), Window.getHeight());
+        Vector2f BR = rs.getWorldPos(Window.getWidth(),0);
 
         int leftOffset = (int)(BL.x/tileSize.x);
         int bottomOffset = (int)(TL.y/tileSize.y);
@@ -75,7 +75,7 @@ public class SceneMainAreaGrid {
             for(int j = renderTileHeight-1; j >= 0; j--) {
                 int ix = leftOffset + i;
                 int jy = bottomOffset + j;
-                if(isInBounds(new Vector2(ix, jy)) && tileGrid[ix][jy] != null) {
+                if(isInBounds(new Vector2i(ix, jy)) && tileGrid[ix][jy] != null) {
                     tileGrid[ix][jy].render(rs);
                 }
             }
@@ -89,23 +89,23 @@ public class SceneMainAreaGrid {
                 SceneMainAreaTileType type = typeMap[i][j];
                 switch(type) {
                     case NORMAL:
-                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2(i,j), "tile_basic", type);
+                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
                         break;
                     case SPAWN:
-                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2(i,j), "tile_basic", type);
-                        playerSpawn = new Vector2(tileGrid[i][j].getPos());
+                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
+                        playerSpawn = new Vector2f(tileGrid[i][j].getPos());
                         break;
                     case ENEMY:
-                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2(i,j), "tile_basic", type);
+                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
                         if(Math.random() < enemyChance)
                             scene.addEntity(new EnemyStill(scene, tileGrid[i][j].getPos(), "enemy"));
                         break;
                     case CHEST:
-                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2(i,j), "tile_basic", type);
+                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
                         scene.addEntity(new Chest(scene, tileGrid[i][j].getPos(), tileGrid[i][j]));
                         break;
                     case DOOR:
-                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2(i,j), "tile_basic", type);
+                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
                         break;
                     case NONE:
                         break;
@@ -119,19 +119,19 @@ public class SceneMainAreaGrid {
     public boolean isInMap(MainAreaEntity e) {
         Rectangle rect = e.getCollisionRect();
 
-        Vector2 pos = new Vector2(rect.getX(), rect.getY());
-        Vector2 size = new Vector2(rect.getWidth(), rect.getHeight());
+        Vector2f pos = new Vector2f(rect.getX(), rect.getY());
+        Vector2f size = new Vector2f(rect.getWidth(), rect.getHeight());
 
-        Vector2 BL = MathUtil.divideVec(pos, tileSize);
-        Vector2 TL = MathUtil.divideVec(new Vector2(pos.x, pos.y + size.y), tileSize);
-        Vector2 TR = MathUtil.divideVec(new Vector2(pos.x + size.x, pos.y + size.y), tileSize);
-        Vector2 BR = MathUtil.divideVec(new Vector2(pos.x + size.x, pos.y), tileSize);
+        Vector2i BL = Vector2i.divideVectors(pos, tileSize);
+        Vector2i TL = Vector2i.divideVectors(new Vector2f(pos.x, pos.y + size.y), tileSize);
+        Vector2i TR = Vector2i.divideVectors(new Vector2f(pos.x + size.x, pos.y + size.y), tileSize);
+        Vector2i BR = Vector2i.divideVectors(new Vector2f(pos.x + size.x, pos.y), tileSize);
 
         return (getTile(BL) != null && getTile(TL) != null && getTile(TR) != null && getTile(BR) != null);
     }
 
 
-    public boolean isInBounds(Vector2 indexPos) {
+    public boolean isInBounds(Vector2i indexPos) {
         return indexPos.x >= 0 && indexPos.y >= 0 && indexPos.x < getWidth() && indexPos.y < getHeight();
     }
 
@@ -139,7 +139,7 @@ public class SceneMainAreaGrid {
         return tileGrid[i][j];
     }
 
-    public SceneMainAreaTile getTile(Vector2 pos) {
+    public SceneMainAreaTile getTile(Vector2i pos) {
         return getTile((int)pos.x, (int)pos.y);
     }
 
@@ -159,15 +159,15 @@ public class SceneMainAreaGrid {
         this.height = height;
     }
 
-    public Vector2 getSize() {
+    public Vector2i getSize() {
         return size;
     }
 
-    public void setSize(Vector2 size) {
+    public void setSize(Vector2i size) {
         this.size = size;
     }
 
-    public Vector2 getPlayerSpawn() {
+    public Vector2f getPlayerSpawn() {
         return playerSpawn;
     }
 }

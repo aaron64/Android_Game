@@ -1,21 +1,22 @@
 package com.mygdx.game.map;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
+
 import com.mygdx.game.entities.battle.BattlePlayer;
 import com.mygdx.game.scenes.battle.SceneBattleGrid;
-import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.RenderSystem;
+import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vector2i;
 import com.mygdx.game.util.Window;
 
 public class MapBattle extends Map {
 
-    private Vector2 backgroundPos;
-    private Vector2 target_pos;
+    private Vector2f backgroundPos;
+    private Vector2f target_pos;
 
-    private Vector2 backgroundSize;
-    private Vector2 scrollAmount;
-    private Vector2 halfOffset;
+    private Vector2i backgroundSize;
+    private Vector2f scrollAmount;
+    private Vector2f halfOffset;
 
     private BattlePlayer player;
 
@@ -27,22 +28,21 @@ public class MapBattle extends Map {
 
         scrollRate = 1.2f;
 
-        Vector2
-        gridSize = grid.getSize();
-        backgroundSize = MathUtil.multiplyVec(Window.getSize(), scrollRate);
+        Vector2i gridSize = grid.getSize();
+        backgroundSize = Vector2i.multiplyVector(Window.getSize(), scrollRate);
 
-        scrollAmount = new Vector2(MathUtil.divideVec(MathUtil.subVec(backgroundSize, Window.getSize()), gridSize));
+        scrollAmount = new Vector2f(Vector2f.divideVectors(Vector2f.subtractVectors(backgroundSize, Window.getSize()), gridSize));
 
-        halfOffset = new Vector2(MathUtil.divideVec(MathUtil.subVec(backgroundSize, Window.getSize()), 2));
+        halfOffset = new Vector2f(Vector2f.divideVector(Vector2f.subtractVectors(backgroundSize, Window.getSize()), 2));
 
         this.player = player;
 
-        backgroundPos = MathUtil.subVec(MathUtil.multiplyVec(MathUtil.multiplyVec(player.getIndexPos(), -1), scrollAmount), halfOffset);
+        backgroundPos = Vector2f.subtractVectors(Vector2f.multiplyVectors(Vector2f.multiplyVector(player.getIndexPos(), -1), scrollAmount), halfOffset);
     }
 
     @Override
     public void update() {
-        target_pos = MathUtil.subVec(MathUtil.multiplyVec(MathUtil.multiplyVec(player.getIndexPos(), -1), scrollAmount), halfOffset);
+        target_pos = Vector2f.subtractVectors(Vector2f.multiplyVectors(Vector2f.multiplyVector(player.getIndexPos(), -1), scrollAmount), halfOffset);
         backgroundPos.x += (target_pos.x - backgroundPos.x) * 0.2;
         backgroundPos.y += (target_pos.y - backgroundPos.y) * 0.2;
     }

@@ -1,7 +1,8 @@
 package com.mygdx.game.entities.battle;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.math.Vector2;
+
+import com.mygdx.game.attributes.ElementType;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.scenes.Scene;
@@ -14,6 +15,8 @@ import com.mygdx.game.util.Cooldown;
 import com.mygdx.game.util.FontUtil;
 import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.RenderSystem;
+import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vector2i;
 
 import java.util.Stack;
 
@@ -32,11 +35,13 @@ public abstract class BattleLiving extends BattleEntity {
     private int renderHealth;
     private BitmapFont healthFont;
 
+    private ElementType elementState;
+
     private Facing facing;
 
     private Cooldown lockCooldown;
 
-    public BattleLiving(SceneBattle scene, SceneBattleGrid grid, Vector2 pos, String name, Facing facing, int health) {
+    public BattleLiving(SceneBattle scene, SceneBattleGrid grid, Vector2i pos, String name, Facing facing, int health) {
         super(scene, grid, pos, name);
         cardStack = new Stack<Card>();
 
@@ -48,16 +53,33 @@ public abstract class BattleLiving extends BattleEntity {
         lockCooldown = new Cooldown(true, 10);
 
         healthFont = FontUtil.getFont(36);
+
+        elementState = null;
     }
 
     public void update() {
         lockCooldown.update();
+        updateElementState();
         updateRenderHealth();
     }
 
     public void render(RenderSystem rs) {
         super.render(rs);
-        rs.drawText(healthFont, ""+renderHealth, MathUtil.addVec(getPos(), new Vector2(0,getSize().y + 100)));
+        rs.drawText(healthFont, ""+renderHealth, Vector2f.addVectors(getPos(), new Vector2f(0,getSize().y + 100)));
+    }
+
+    private void updateElementState() {
+        if(elementState != null) {
+            switch (elementState) {
+                case FIRE:
+                    break;
+                case POISON:
+                    break;
+                case SHOCK:
+                    lockFor(50);
+                    break;
+            }
+        }
     }
 
     private void updateRenderHealth() {
@@ -68,16 +90,16 @@ public abstract class BattleLiving extends BattleEntity {
         }
     }
 
-    public void move(Vector2 dp) {
+    public void move(Vector2i dp) {
         if(!locked()) {
-            Vector2 newPos = MathUtil.addVec(getIndexPos(), dp);
+            Vector2i newPos = Vector2i.addVectors(getIndexPos(), dp);
             if (scene.getGrid().isInBounds(newPos) && tileAccepted(scene.getGrid().getTile(newPos))) {
                 moveTo(newPos);
             }
         }
     }
 
-    public void moveTo(Vector2 iPos) {
+    public void moveTo(Vector2i iPos) {
         scene.getGrid().getTile(getIndexPos()).removeEntity();
         setIndexPos(iPos);
         setPos(scene.getGrid().getAbsoluteTilePosition(iPos));
@@ -85,7 +107,7 @@ public abstract class BattleLiving extends BattleEntity {
     }
 
     public BattleEntity getDirectLineOfSight() {
-        Vector2 indexPos = getIndexPos();
+        Vector2i indexPos = getIndexPos();
 
         if(facing == Facing.LEFT) {
             for (int i = (int) (indexPos.x - 1); i >= 0; i--) {
@@ -152,19 +174,19 @@ public abstract class BattleLiving extends BattleEntity {
     }
 
     public void moveUp() {
-        move(new Vector2(0,1));
+        move(new Vector2i(0,1));
     }
 
     public void moveDown() {
-        move(new Vector2(0,-1));
+        move(new Vector2i(0,-1));
     }
 
     public void moveLeft() {
-        move(new Vector2(-1,0));
+        move(new Vector2i(-1,0));
     }
 
     public void moveRight() {
-        move(new Vector2(1,0));
+        move(new Vector2i(1,0));
     }
 
     public boolean facingRight() {

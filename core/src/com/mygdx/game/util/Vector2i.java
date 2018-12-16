@@ -16,6 +16,26 @@ public class Vector2i extends Vector2a {
     }
 
 
+    public static Vector2i addVectors(Vector2a v1, Vector2a v2) {
+        return new Vector2i((int)(v1.getValueX() + v2.getValueX()), (int)(v1.getValueY() + v2.getValueY()));
+    }
+    public static Vector2i subtractVectors(Vector2a v1, Vector2a v2) {
+        return new Vector2i((int)(v1.getValueX() - v2.getValueX()), (int)(v1.getValueY() - v2.getValueY()));
+    }
+    public static Vector2i multiplyVectors(Vector2a v1, Vector2a v2) {
+        return new Vector2i((int)(v1.getValueX() * v2.getValueX()), (int)(v1.getValueY() * v2.getValueY()));
+    }
+    public static Vector2i divideVectors(Vector2a v1, Vector2a v2) {
+        return new Vector2i((int)(v1.getValueX() / v2.getValueX()), (int)(v1.getValueY() / v2.getValueY()));
+    }
+    public static Vector2i multiplyVector(Vector2a v, float m) {
+        return new Vector2i((int)(v.getValueX() * m), (int)(v.getValueY() * m));
+    }
+    public static Vector2i divideVector(Vector2a v, float m) {
+        return new Vector2i((int)(v.getValueX() / m), (int)(v.getValueY() / m));
+    }
+
+
     public Vector2 toVec2() {
         return new Vector2(x, y);
     }

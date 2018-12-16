@@ -1,5 +1,6 @@
 package com.mygdx.game.util;
 
+
 import com.badlogic.gdx.math.Vector2;
 
 public class Vector2f extends Vector2a {
@@ -12,6 +13,25 @@ public class Vector2f extends Vector2a {
 
     public Vector2f(Vector2a v) {
         this(v.getValueX(), v.getValueY());
+    }
+
+    public static Vector2f addVectors(Vector2a v1, Vector2a v2) {
+        return new Vector2f((int)(v1.getValueX() + v2.getValueX()), (int)(v1.getValueY() + v2.getValueY()));
+    }
+    public static Vector2f subtractVectors(Vector2a v1, Vector2a v2) {
+        return new Vector2f((int)(v1.getValueX() - v2.getValueX()), (int)(v1.getValueY() - v2.getValueY()));
+    }
+    public static Vector2f multiplyVectors(Vector2a v1, Vector2a v2) {
+        return new Vector2f((int)(v1.getValueX() * v2.getValueX()), (int)(v1.getValueY() * v2.getValueY()));
+    }
+    public static Vector2f divideVectors(Vector2a v1, Vector2a v2) {
+        return new Vector2f((int)(v1.getValueX() / v2.getValueX()), (int)(v1.getValueY() / v2.getValueY()));
+    }
+    public static Vector2f multiplyVector(Vector2a v, float m) {
+        return new Vector2f((int)(v.getValueX() * m), (int)(v.getValueY() * m));
+    }
+    public static Vector2f divideVector(Vector2a v, float m) {
+        return new Vector2f((int)(v.getValueX() / m), (int)(v.getValueY() / m));
     }
 
 

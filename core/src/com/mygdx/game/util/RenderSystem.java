@@ -6,10 +6,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g3d.Shader;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector2;
+
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.entities.Entity;
 
@@ -30,15 +29,15 @@ public class RenderSystem {
         batch.draw(e.getImage(), e.getPos().x, e.getPos().y, e.getSize().x, e.getSize().y);
     }
 
-    public void draw(Texture image, Vector2 pos) {
+    public void draw(Texture image, Vector2f pos) {
         batch.draw(image, pos.x, pos.y);
     }
 
-    public void draw(Texture image, Vector2 pos, Vector2 size) {
-        batch.draw(image, pos.x, pos.y, size.x, size.y);
+    public void draw(Texture image, Vector2f pos, Vector2i size) {
+        batch.draw(image, pos.x, pos.y, size.w(), size.h());
     }
 
-    public void drawText(BitmapFont font, String text, Vector2 pos) {
+    public void drawText(BitmapFont font, String text, Vector2f pos) {
         font.draw(batch, text, pos.x, pos.y);
     }
 
@@ -82,18 +81,18 @@ public class RenderSystem {
         Gdx.gl.glBlendFunc( GL20.GL_SRC_ALPHA, GL20.GL_ONE );
     }
 
-    public Vector2 getWorldPos(int x, int y) {
+    public Vector2f getWorldPos(int x, int y) {
         Vector3 pos = camera.unproject(new Vector3(x, y, 0));
-        return new Vector2(pos.x, pos.y);
+        return new Vector2f(pos.x, pos.y);
     }
 
     public void centerCameraOn(Entity e) {
-        Vector2 pos = e.getPos();
-        Vector2 size = e.getSize();
-        centerCameraOn(new Vector2(pos.x + size.x/2, pos.y + size.y/2));
+        Vector2f pos = e.getPos();
+        Vector2i size = e.getSize();
+        centerCameraOn(new Vector2f(pos.x + size.w()/2, pos.y + size.h()/2));
     }
 
-    public void centerCameraOn(Vector2 pos) {
+    public void centerCameraOn(Vector2f pos) {
         camera.position.set(pos.x, pos.y, 0);
     }
 

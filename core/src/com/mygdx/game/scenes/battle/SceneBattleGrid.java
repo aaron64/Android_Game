@@ -1,7 +1,7 @@
 package com.mygdx.game.scenes.battle;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
+
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.ImageUtil;
@@ -102,17 +102,16 @@ public class SceneBattleGrid {
         }
     }
 
-    public boolean isInBounds(Vector2 indexPos) {
+    public boolean isInBounds(Vector2i indexPos) {
         return indexPos.x >= 0 && indexPos.y >= 0 && indexPos.x < getWidth() && indexPos.y < getHeight();
     }
 
-    public Vector2f getAbsoluteTilePosition(Vector2 pos) {
-        Vector2f
-        return MathUtil.addVec(offsetVec, MathUtil.multiplyVec(pos, tileSize));
+    public Vector2f getAbsoluteTilePosition(Vector2i indexPos) {
+        return Vector2f.addVectors(offsetVec, Vector2f.multiplyVectors(indexPos, tileSize));
     }
 
-    public Vector2 getIndexPosition(Vector2f absPos) {
-        return MathUtil.divideVec(MathUtil.subVec(absPos, offsetVec), tileSize);
+    public Vector2i getIndexPosition(Vector2f absPos) {
+        return Vector2i.divideVectors(Vector2f.subtractVectors(absPos, offsetVec), tileSize);
     }
 
     public SceneBattleTile getTile(int i, int j) {
@@ -121,21 +120,21 @@ public class SceneBattleGrid {
         return null;
     }
 
-    public SceneBattleTile getTile(Vector2 pos) {
+    public SceneBattleTile getTile(Vector2i pos) {
         return getTile((int)pos.x, (int)pos.y);
     }
 
-    public SceneBattleTile[] getGroup(Vector2 p1, Vector2 p2) {
+    public SceneBattleTile[] getGroup(Vector2i p1, Vector2i p2) {
         return getGroup((int) p1.x,(int) p1.y,(int) p2.x,(int) p2.y);
     }
 
-    public SceneBattleTile[] getSurroundings(Vector2 indexPos) {
+    public SceneBattleTile[] getSurroundings(Vector2i indexPos) {
         SceneBattleTile[] surround = new SceneBattleTile[8];
 
         for(int i = -1; i < 2; i++) {
             for(int j = -1; j < 2; j++) {
                 int sp = (1 + i) * 2 + (1 + j);
-                Vector2 v = new Vector2(i + indexPos.x, j + indexPos.y);
+                Vector2i v = new Vector2i(i + indexPos.x, j + indexPos.y);
                 if(isInBounds(v)) {
                     surround[sp] = getTile(v);
                 } else {
@@ -182,15 +181,15 @@ public class SceneBattleGrid {
         this.height = height;
     }
 
-    public Vector2 getSize() {
+    public Vector2i getSize() {
         return size;
     }
 
-    public void setSize(Vector2 size) {
+    public void setSize(Vector2i size) {
         this.size = size;
     }
 
-    public Vector2 getPlayerSpawnCoords() {
+    public Vector2i getPlayerSpawnCoords() {
         return playerSpawnCoords;
     }
 }

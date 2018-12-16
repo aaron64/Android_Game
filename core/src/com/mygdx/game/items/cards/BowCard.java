@@ -1,12 +1,13 @@
 package com.mygdx.game.items.cards;
 
-import com.badlogic.gdx.math.Vector2;
+
 import com.mygdx.game.attributes.ElementType;
 import com.mygdx.game.attributes.QualityType;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.battle.BattleLiving;
 import com.mygdx.game.entities.battle.misc.BattleArrow;
 import com.mygdx.game.scenes.battle.SceneBattle;
+import com.mygdx.game.util.Vector2i;
 
 
 public class BowCard extends AttackCard {
@@ -17,9 +18,9 @@ public class BowCard extends AttackCard {
 
     @Override
     public void use(SceneBattle scene, BattleLiving user) {
-        scene.addEntity(new BattleArrow(scene, new Vector2(user.getIndexPos()), getDamage(), user));
+        scene.addEntity(new BattleArrow(scene, new Vector2i(user.getIndexPos()), getDamage(), user));
 
-        Vector2 indexPos = user.getIndexPos();
+        Vector2i indexPos = user.getIndexPos();
 
         if(user.facingRight()) {
             for (int i = (int) (indexPos.x + 1); i < scene.getGrid().getWidth(); i++) {

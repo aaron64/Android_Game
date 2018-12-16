@@ -1,13 +1,14 @@
 package com.mygdx.game.items.cards;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.attributes.ElementType;
 import com.mygdx.game.attributes.QualityType;
 import com.mygdx.game.entities.battle.BattleLiving;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.util.RenderSystem;
+import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vector2i;
 
 public abstract class Card extends Item {
 
@@ -58,7 +59,7 @@ public abstract class Card extends Item {
         this.description = description;
     }
 
-    public void drawIcon(RenderSystem rs, Vector2 pos, Vector2 size) {
+    public void drawIcon(RenderSystem rs, Vector2f pos, Vector2i size) {
         //rs.setShader(rs.iconShader);
         if(element != null) {
             //element_overlay_color.bind(1);

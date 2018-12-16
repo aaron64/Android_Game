@@ -5,13 +5,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.GUI.GUI;
 import com.mygdx.game.GUI.GUIComponent;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.Cooldown;
 import com.mygdx.game.util.FontUtil;
 import com.mygdx.game.util.RenderSystem;
+import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Window;
 
 public class TitleComponent extends GUIComponent {
@@ -23,7 +23,7 @@ public class TitleComponent extends GUIComponent {
 
     private Cooldown hold;
 
-    private Vector2 pos;
+    private Vector2f pos;
     public TitleComponent(String text) {
         super("TITLE");
 
@@ -35,7 +35,7 @@ public class TitleComponent extends GUIComponent {
 
         hold = new Cooldown(false, 100);
 
-        pos = new Vector2(Window.getWidth()/2 - layout.width/2, Window.percTop(0.15f));
+        pos = new Vector2f(Window.getWidth()/2 - layout.width/2, Window.percTop(0.15f));
     }
 
     @Override
@@ -53,6 +53,6 @@ public class TitleComponent extends GUIComponent {
 
     @Override
     public void render(GUI gui, RenderSystem rs) {
-        rs.drawText(font, text, new Vector2(pos.x,pos.y));
+        rs.drawText(font, text, new Vector2f(pos.x,pos.y));
     }
 }

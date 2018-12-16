@@ -3,13 +3,8 @@ package com.mygdx.game;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.items.cards.CardLoader;
 import com.mygdx.game.scenes.Scene;
-import com.mygdx.game.scenes.battle.SceneBattle;
-import com.mygdx.game.scenes.deck.SceneDeck;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 
 import java.util.Stack;
@@ -50,6 +45,10 @@ public class Game extends ApplicationAdapter {
 
 	public static void endScene() {
 		sceneStack.pop();
+	}
+
+	public static float getGravity() {
+    	return -1f;
 	}
 	
 	@Override

@@ -10,22 +10,21 @@ import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.util.Vector2i;
 import com.mygdx.game.util.Window;
 
-public class BattleArrow extends BattleEntity {
+public class MagicProjectile extends BattleEntity {
 
     private float xv;
     private int damage;
     private BattleLiving user;
 
-    public BattleArrow(SceneBattle scene, Vector2i indexPos, int damage, BattleLiving user) {
-        super(scene, indexPos, "misc/arrow");
+    public MagicProjectile(SceneBattle scene, Vector2i indexPos, int damage, BattleLiving user) {
+        super(scene, indexPos, "misc/magic_projectile");
         moveY(scene.getGrid().getTile(0,0).getSize().y/2);
 
         this.damage = damage;
 
         this.user = user;
-        setSize(new Vector2i(180, 27));
 
-        xv = 25;
+        xv = 10;
         if(user instanceof BattleEnemy)
             xv *= -1;
     }
