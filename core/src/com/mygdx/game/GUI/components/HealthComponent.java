@@ -22,8 +22,8 @@ public class HealthComponent extends GUIComponent {
     private Player player;
     private int renderHealth;
 
-    public HealthComponent(Player player) {
-        super("HEALTH");
+    public HealthComponent(GUI gui, Player player) {
+        super(gui, "HEALTH");
         this.player = player;
         renderHealth = player.getHealth();
 
@@ -36,7 +36,7 @@ public class HealthComponent extends GUIComponent {
     }
 
     @Override
-    public void update(GUI gui, Scene scene) {
+    public void update(Scene scene) {
         if(renderHealth > player.getHealth()) {
             renderHealth--;
         } else if(renderHealth < player.getHealth()) {
@@ -45,7 +45,7 @@ public class HealthComponent extends GUIComponent {
     }
 
     @Override
-    public void render(GUI gui, RenderSystem rs) {
+    public void render(RenderSystem rs) {
         rs.draw(heart, offset, size);
         rs.drawText(healthText, "" + renderHealth, textOffset);
     }

@@ -10,7 +10,7 @@ import com.mygdx.game.util.Vector2i;
 public class GunCard extends AttackCard {
 
     public GunCard(String name, int damage, QualityType quality, ElementType element) {
-        super(name, "guns", damage, CardType.GUN, quality, element);
+        super(name, "guns", "Fire a projectile", damage, CardType.GUN, quality, element);
     }
 
     @Override

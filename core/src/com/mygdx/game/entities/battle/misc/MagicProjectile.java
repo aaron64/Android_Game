@@ -7,6 +7,7 @@ import com.mygdx.game.entities.battle.BattleEntity;
 import com.mygdx.game.entities.battle.BattleLiving;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
+import com.mygdx.game.util.RenderSystem;
 import com.mygdx.game.util.Vector2i;
 import com.mygdx.game.util.Window;
 
@@ -48,5 +49,10 @@ public class MagicProjectile extends BattleEntity {
             ((BattleLiving)e).hit(damage);
             scene.removeEntity(this);
         }
+    }
+
+    @Override
+    public void render(RenderSystem rs) {
+        super.render(rs);
     }
 }

@@ -22,13 +22,19 @@ public abstract class Card extends Item {
 
     private Texture element_overlay_color;
 
-    public Card(String name, String folder, CardType type, QualityType quality, ElementType element) {
+    public Card(String name, String folder, String description, CardType type, QualityType quality, ElementType element) {
+        this.name = name;
+        this.description = description;
         this.type = type;
         this.quality = quality;
         this.element = element;
 
         if(element != null) {
             element_overlay_color = new Texture("items/cards/element_overlays/" + element.getStr() + "_overlay.png");
+        }
+
+        if(quality == null) {
+            this.quality = QualityType.STANDARD;
         }
 
         icon = new Texture("items/cards/" + folder + "/" + name + "_icon.png");
@@ -60,11 +66,16 @@ public abstract class Card extends Item {
     }
 
     public void drawIcon(RenderSystem rs, Vector2f pos, Vector2i size) {
-        //rs.setShader(rs.iconShader);
-        if(element != null) {
-            //element_overlay_color.bind(1);
-            //rs.iconShader.setUniformi("u_texture_element", 1);
-        }
+/*        rs.setShader(rs.iconShader);
+        if(getElement() != null) {
+            rs.iconShader.begin();
+            getIcon().bind(1);
+            rs.iconShader.setUniformi("u_texture", 1); //passing first texture!!!
+
+            element_overlay_color.bind(0);
+            rs.iconShader.setUniformi("u_texture2", 0);
+            //rs.iconShader.setUniformMatrix("u_projTrans", rs.getCamera().combined);
+        }*/
         rs.draw(icon, pos, size);
         rs.setShader(null);
     }

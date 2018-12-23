@@ -13,6 +13,8 @@ public class SceneMainAreaTile extends MainAreaEntity {
     private Vector2f renderPos;
     private Vector2f endPos;
 
+    private float offsetLevel;
+
     private float distSoftner;
 
     private Texture endTexture;
@@ -21,9 +23,12 @@ public class SceneMainAreaTile extends MainAreaEntity {
         super(scene, pos, "tiles/main_area", name);
         setPos(Vector2f.multiplyVectors(getPos(), getSize()));
 
-        distSoftner = 15;
+        distSoftner = 25;
 
-        endTexture = new Texture("entities/tiles/main_area/tile_end.png");
+        int tileBottom = (int)(Math.random() * 3);
+        endTexture = new Texture("entities/tiles/main_area/tile_end" + tileBottom + ".png");
+
+        offsetLevel = (float)(Math.random() * 1 + 1);
     }
 
     @Override
@@ -35,9 +40,9 @@ public class SceneMainAreaTile extends MainAreaEntity {
         yOffset = dist;
 
         renderPos = new Vector2f(getPos());
-        renderPos.y -= dist;
+        renderPos.y -= dist * offsetLevel;
 
-        endPos = new Vector2f(getPos().x, getPos().y - endTexture.getHeight() - dist);
+        endPos = new Vector2f(getPos().x, getPos().y - endTexture.getHeight() - dist * offsetLevel);
     }
 
     @Override

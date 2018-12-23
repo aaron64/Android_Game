@@ -6,8 +6,8 @@ import com.mygdx.game.attributes.QualityType;
 public abstract class AttackCard extends Card {
 
     private int damage;
-    public AttackCard(String name, String folder, int damage, CardType type, QualityType quality, ElementType element) {
-        super(name, folder, type, quality, element);
+    public AttackCard(String name, String folder, String description, int damage, CardType type, QualityType quality, ElementType element) {
+        super(name, folder, description, type, quality, element);
         this.damage = (int)(damage * getQuality().getMultiplier());
     }
 

@@ -7,49 +7,49 @@
         "Category": "MELEE",
         "Base_Damage": 40,
         "Width": 1,
-        "Height": 2
+        "Height": 1
       },
       {
         "Name": "Knife",
         "Category": "MELEE",
         "Base_Damage": 40,
         "Width": 1,
-        "Height": 2
+        "Height": 1
       },
       {
         "Name": "Sword",
         "Category": "MELEE",
         "Base_Damage": 40,
-        "Width": 1,
-        "Height": 2
+        "Width": 2,
+        "Height": 1
       },
       {
         "Name": "Longsword",
         "Category": "MELEE",
         "Base_Damage": 40,
-        "Width": 1,
-        "Height": 2
+        "Width": 2,
+        "Height": 1
       },
       {
         "Name": "Claymore",
         "Category": "MELEE",
         "Base_Damage": 40,
-        "Width": 1,
-        "Height": 2
+        "Width": 2,
+        "Height": 1
       },
       {
         "Name": "Cutlass",
         "Category": "MELEE",
         "Base_Damage": 40,
         "Width": 1,
-        "Height": 2
+        "Height": 3
       },
       {
         "Name": "Rapier",
         "Category": "MELEE",
         "Base_Damage": 40,
-        "Width": 1,
-        "Height": 2
+        "Width": 2,
+        "Height": 1
       }
     ]
     },

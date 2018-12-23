@@ -6,11 +6,12 @@ import com.mygdx.game.entities.battle.BattleEntity;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.Cooldown;
+import com.mygdx.game.util.CooldownInterface;
 import com.mygdx.game.util.RenderSystem;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
 
-public class SceneBattleTile extends BattleEntity {
+public class SceneBattleTile extends BattleEntity implements CooldownInterface {
 
     private Entity entity;
     private SceneBattleTileType tileType;
@@ -29,7 +30,7 @@ public class SceneBattleTile extends BattleEntity {
         entity = null;
 
         lightUp = false;
-        lightUpCooldown = new Cooldown(false, 100);
+        lightUpCooldown = new Cooldown(this, "LIGHT", false, 100);
     }
 
     @Override
@@ -86,5 +87,10 @@ public class SceneBattleTile extends BattleEntity {
         lightUp = true;
         lightUpCooldown.setDuration(duration);
         lightUpCooldown.reset();
+    }
+
+    @Override
+    public void trigger(String name) {
+
     }
 }

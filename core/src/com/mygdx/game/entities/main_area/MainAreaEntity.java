@@ -14,12 +14,15 @@ public abstract class MainAreaEntity extends Entity {
 
     protected boolean solid;
     protected SceneMainArea scene;
+
+    // non-tile entities
     public MainAreaEntity(SceneMainArea scene, Vector2f pos, String name) {
         super(pos, "main_area/", name);
         this.scene = scene;
         solid = true;
     }
 
+    // tiles
     public MainAreaEntity(SceneMainArea scene, Vector2f pos, String folder, String name) {
         super(pos, folder, name);
         this.scene = scene;

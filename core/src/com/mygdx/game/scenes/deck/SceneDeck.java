@@ -1,8 +1,9 @@
 package com.mygdx.game.scenes.deck;
 
-import com.badlogic.gdx.graphics.Texture;
 
-import com.mygdx.game.items.cards.BowCard;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.mygdx.game.entities.Deck.DeckCardSlot;
+import com.mygdx.game.entities.Entity;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.items.cards.CardLoader;
 import com.mygdx.game.items.cards.Deck;
@@ -15,6 +16,8 @@ import com.mygdx.game.util.Window;
 
 public class SceneDeck extends Scene implements GestureHandler {
 
+    private BitmapFont font;
+
     private Deck hand, deck;
 
     private Vector2f leftSideOffset;
@@ -22,12 +25,11 @@ public class SceneDeck extends Scene implements GestureHandler {
 
     private Vector2i cardSize;
 
-    private Texture cardBackground;
-
     private int spacing;
 
     public SceneDeck() {
         super();
+
         hand = new Deck(5);
         deck = new Deck(5);
 
@@ -41,13 +43,26 @@ public class SceneDeck extends Scene implements GestureHandler {
         gestureHandler = new GestureUtil(this);
 
 
-        leftSideOffset = new Vector2f(Window.percLeft(0.05f), Window.percTop(0.1f));
-        rightSideOffset = new Vector2f(Window.percLeft(0.55f), Window.percTop(0.1f));
+        leftSideOffset = new Vector2f(Window.percLeft(0.05f), Window.percTop(0.15f));
+        rightSideOffset = new Vector2f(Window.percLeft(0.55f), Window.percTop(0.15f));
 
-        cardSize = new Vector2i(Window.percWidth(0.4f), Window.percHeight(0.1f));
+        cardSize = new Vector2i(Window.percWidth(0.4f), Window.percHeight(0.15f));
         spacing = Window.percHeight(0.02f);
 
-        cardBackground = new Texture("misc/icon_holder_battle.png");
+        for(int i = 0; i < hand.getSize(); i++) {
+            Card card = hand.peekCard(i);
+            Vector2f pos = new Vector2f(leftSideOffset.x, leftSideOffset.y - (i+1) * (cardSize.y + spacing));
+
+            entities.addEntity(new DeckCardSlot(card, pos, cardSize));
+        }
+
+        for(int i = 0; i < hand.getSize(); i++) {
+            Card card = hand.peekCard(i);
+            Vector2f pos = new Vector2f(rightSideOffset.x, rightSideOffset.y - (i+1) * (cardSize.y + spacing));
+
+            entities.addEntity(new DeckCardSlot(card, pos, cardSize));
+        }
+
     }
 
     public void update() {
@@ -58,28 +73,10 @@ public class SceneDeck extends Scene implements GestureHandler {
     public void render() {
         rs.begin();
 
-        drawLeftSide();
-        drawRightSide();
-
+        for(Entity e : entities.getList()) {
+            e.render(rs);
+        }
         rs.end();
-    }
-
-    private void drawLeftSide() {
-        for(int i = 0; i < hand.getSize(); i++) {
-            Card card = hand.getCard(i);
-            Vector2f pos = new Vector2f(leftSideOffset.x, leftSideOffset.y - i * (cardSize.y + spacing));
-
-            rs.draw(cardBackground, pos, cardSize);
-        }
-    }
-
-    private void drawRightSide() {
-        for(int i = 0; i < deck.getSize(); i++) {
-            Card card = deck.getCard(i);
-            Vector2f pos = new Vector2f(rightSideOffset.x, rightSideOffset.y - i * (cardSize.y + spacing));
-
-            rs.draw(cardBackground, pos, cardSize);
-        }
     }
 
     @Override

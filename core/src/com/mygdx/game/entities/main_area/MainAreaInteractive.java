@@ -9,7 +9,7 @@ public abstract class MainAreaInteractive extends MainAreaEntity {
     protected int triggerDistance;
     public MainAreaInteractive(SceneMainArea scene, Vector2f pos, String name) {
         super(scene, pos, name);
-        triggerDistance = 300;
+        triggerDistance = 200;
     }
 
     protected boolean checkDistance() {

@@ -8,6 +8,7 @@ public class HealthBlob extends MainAreaEntity {
 
     Vector2f velocity;
     float yTrigger;
+    
     public HealthBlob(SceneMainArea scene, Vector2f pos) {
         super(scene, pos, "health_blob");
         solid = false;
@@ -21,8 +22,10 @@ public class HealthBlob extends MainAreaEntity {
         if(getPos().y > yTrigger) {
             move(velocity);
             velocity.y += Game.getGravity();
-            if(collidesWith(scene.getPlayer())) {
+        } else {
+            if(collidesWith(scene.getPlayer()) && !scene.getPlayer().atMaxHealth()) {
                 scene.getPlayer().heal(10);
+                scene.removeEntity(this);
             }
         }
     }

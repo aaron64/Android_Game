@@ -13,7 +13,7 @@ import com.mygdx.game.util.Vector2i;
 public class BowCard extends AttackCard {
 
     public BowCard(String name, int damage, QualityType quality, ElementType element) {
-        super(name, "bows", damage, CardType.BOW, quality, element);
+        super(name, "bows", "Shoot a bow", damage, CardType.BOW, quality, element);
     }
 
     @Override

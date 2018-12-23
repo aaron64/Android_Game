@@ -13,20 +13,31 @@ public class MeleeCard extends AttackCard {
     private int atkWidth;
     private int atkHeight;
     public MeleeCard(String name, int damage, int width, int height, QualityType quality, ElementType element) {
-        super(name, "swords", damage, CardType.MELEE, quality, element);
+        super(name, "melee", "Hit an enemy", damage, CardType.MELEE, quality, element);
+        atkWidth = width;
+        atkHeight = height;
     }
 
     @Override
     public void use(SceneBattle scene, BattleLiving user) {
-        Vector2i playerIndex = scene.getPlayer().getIndexPos();
+        Vector2i indexPos = user.getIndexPos();
+        int face = -1;
+        if(user.facingRight()) {
+            face = 1;
+        }
 
-        for(int i = 0; i < atkWidth; i++) {
+        for(int i = 1; i < atkWidth+1; i++) {
             for(int j = 0; j < atkHeight; j++) {
-                SceneBattleTile tile = scene.getTile(playerIndex.x + i, playerIndex.y + j);
-                if(tile.getEntity() != null) {
+                SceneBattleTile tile = scene.getTile(indexPos.x + (i*face), indexPos.y + (j*face));
+                if(tile != null) {
+                    tile.lightUp(20);
+
                     BattleEntity e = (BattleEntity) tile.getEntity();
+                    if(e != null && e != user)
+                        e.hit(getDamage());
                 }
             }
         }
+        user.lockFor(25);
     }
 }

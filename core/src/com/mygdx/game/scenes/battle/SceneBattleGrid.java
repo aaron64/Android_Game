@@ -11,6 +11,8 @@ import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
 import com.mygdx.game.util.Window;
 
+import java.util.ArrayList;
+
 public class SceneBattleGrid {
 
     private int width, height;
@@ -25,6 +27,14 @@ public class SceneBattleGrid {
     private Texture mapTexture;
 
     private Vector2i playerSpawnCoords;
+
+    public enum throwableSizes {
+        SMALL,
+        MEDIUM,
+        LARGE,
+        HORIZONTAL,
+        VERTICLE;
+    }
 
     public SceneBattleGrid(SceneBattle scene) {
         int[] mapWeights = {1,1,3,2,5,3};
@@ -128,17 +138,15 @@ public class SceneBattleGrid {
         return getGroup((int) p1.x,(int) p1.y,(int) p2.x,(int) p2.y);
     }
 
-    public SceneBattleTile[] getSurroundings(Vector2i indexPos) {
-        SceneBattleTile[] surround = new SceneBattleTile[8];
+    public ArrayList<SceneBattleTile> getSurroundings(Vector2i indexPos) {
+        ArrayList<SceneBattleTile> surround = new ArrayList<SceneBattleTile>();
 
         for(int i = -1; i < 2; i++) {
             for(int j = -1; j < 2; j++) {
                 int sp = (1 + i) * 2 + (1 + j);
                 Vector2i v = new Vector2i(i + indexPos.x, j + indexPos.y);
-                if(isInBounds(v)) {
-                    surround[sp] = getTile(v);
-                } else {
-                    surround[sp] = null;
+                if(isInBounds(v) && !(i == 0 && j == 0)) {
+                    surround.add(getTile(v));
                 }
             }
         }
@@ -163,6 +171,55 @@ public class SceneBattleGrid {
         }
 
         return group;
+    }
+
+    public ArrayList<SceneBattleTile> getGroup(throwableSizes size, Vector2i pos) {
+        ArrayList<SceneBattleTile> list = new ArrayList<SceneBattleTile>();
+        switch(size) {
+            case SMALL: {
+                SceneBattleTile tile = getTile(pos);
+                if (tile != null)
+                    list.add(tile);
+                break;
+            }
+            case MEDIUM: {
+                for (int i = -1; i < 2; i++) {
+                    for (int j = -1; j < 2; j++) {
+                        if (Math.abs(i) != 1 || Math.abs(j) != 1) {
+                            SceneBattleTile tile = getTile(i + pos.x, j + pos.y);
+                            if (tile != null)
+                                list.add(tile);
+                        }
+                    }
+                }
+                break;
+            }
+            case LARGE: {
+                for (int i = -1; i < 2; i++) {
+                    for (int j = -1; j < 2; j++) {
+                        SceneBattleTile tile = getTile(i + pos.x, j + pos.y);
+                        if (tile != null)
+                            list.add(tile);
+                    }
+                }
+                break;
+            }
+            case HORIZONTAL:
+                for(int i = -1; i < 2; i++) {
+                    SceneBattleTile tile = getTile(i + pos.x, pos.y);
+                    if (tile != null)
+                        list.add(tile);
+                }
+                break;
+            case VERTICLE:
+                for(int i = -1; i < 2; i++) {
+                    SceneBattleTile tile = getTile(pos.x, i + pos.y);
+                    if (tile != null)
+                        list.add(tile);
+                }
+                break;
+        }
+        return list;
     }
 
     public int getWidth() {

@@ -19,14 +19,14 @@ public class GUI {
         components.removeAll(removeList);
         removeList.clear();
         for(GUIComponent comp : components) {
-            comp.update(this, scene);
+            comp.update(scene);
         }
     }
 
     public void render(RenderSystem rs) {
         rs.beginGUI();
         for(GUIComponent comp : components) {
-            comp.render(this, rs);
+            comp.render(rs);
         }
     }
 

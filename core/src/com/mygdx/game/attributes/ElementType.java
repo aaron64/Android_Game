@@ -45,9 +45,9 @@ public enum ElementType {
     }
 
     public float getMultiplier(ElementType type) {
-        if(type == weakness)
+        if(type == this.weakness)
             return 0.5f;
-        if(type == strength)
+        if(type == this.strength)
             return 2.0f;
         return 1.0f;
     }

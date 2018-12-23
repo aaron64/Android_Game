@@ -5,6 +5,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.items.cards.CardLoader;
 import com.mygdx.game.scenes.Scene;
+import com.mygdx.game.scenes.deck.SceneDeck;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 
 import java.util.Stack;

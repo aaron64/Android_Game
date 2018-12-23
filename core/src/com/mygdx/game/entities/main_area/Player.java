@@ -1,7 +1,6 @@
 package com.mygdx.game.entities.main_area;
 
 
-import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.Vector2f;
@@ -28,26 +27,26 @@ public class Player extends MainAreaEntity {
         touchVector.y *= -1;
         Vector2f touchDirection = MathUtil.getUnitVector(touchVector);
 
-        float velocity = Math.min(MathUtil.getDistance(touchVector)/100f, maxVelocity);
-        Vector2f offset = Vector2f.multiplyVector(touchDirection, velocity);
+        float velocityMagnitude = Math.min(MathUtil.getDistance(touchVector)/100f, maxVelocity);
+        Vector2f velocity = Vector2f.multiplyVector(touchDirection, velocityMagnitude);
 
-        moveX(offset.x);
+        moveX(velocity.x);
 
         MainAreaEntity collision = scene.getSolidEntityCollision(this);
         if(collision != null) {
-            moveX(-offset.x);
+            moveX(-velocity.x);
             collision.touch(this);
         } else if(!scene.getGrid().isInMap(this)){
-            moveX(-offset.x);
+            moveX(-velocity.x);
         }
 
-        moveY(offset.y);
+        moveY(velocity.y);
         collision = ((SceneMainArea) scene).getSolidEntityCollision(this);
         if(collision != null) {
-            moveY(-offset.y);
+            moveY(-velocity.y);
             collision.touch(this);
         } else if(!scene.getGrid().isInMap(this)) {
-            moveY(-offset.y);
+            moveY(-velocity.y);
         }
     }
 
@@ -55,8 +54,20 @@ public class Player extends MainAreaEntity {
         return health;
     }
 
+    public boolean atMaxHealth() {
+        return health >= maxHealth;
+    }
+
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
     }
 
     public void heal(int amount) {

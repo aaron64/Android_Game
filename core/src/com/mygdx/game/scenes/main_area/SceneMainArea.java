@@ -34,8 +34,8 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
         player = new Player(this, grid.getPlayerSpawn(), "player");
 
-        gui.addComponent(new HealthComponent(player));
-        gui.addComponent(new TitleComponent(MapNameGenerator.generateRandomName(100, MapTheme.FOREST)));
+        gui.addComponent(new HealthComponent(gui, player));
+        gui.addComponent(new TitleComponent(gui, MapNameGenerator.generateRandomName(100, MapTheme.FOREST)));
 
         entities.addEntity(player);
 

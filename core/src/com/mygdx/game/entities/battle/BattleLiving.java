@@ -12,6 +12,7 @@ import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.scenes.battle.SceneBattleTileType;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.util.Cooldown;
+import com.mygdx.game.util.CooldownInterface;
 import com.mygdx.game.util.FontUtil;
 import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.RenderSystem;
@@ -20,12 +21,14 @@ import com.mygdx.game.util.Vector2i;
 
 import java.util.Stack;
 
-public abstract class BattleLiving extends BattleEntity {
+public abstract class BattleLiving extends BattleEntity implements CooldownInterface {
 
     protected enum Facing {
         RIGHT,
         LEFT
     }
+
+    private Facing facing;
 
     protected SceneBattleTileType[] acceptedTileTypes;
 
@@ -37,28 +40,27 @@ public abstract class BattleLiving extends BattleEntity {
 
     private ElementType elementState;
 
-    private Facing facing;
-
     private Cooldown lockCooldown;
 
-    public BattleLiving(SceneBattle scene, SceneBattleGrid grid, Vector2i pos, String name, Facing facing, int health) {
+    public BattleLiving(SceneBattle scene, SceneBattleGrid grid, Vector2i pos, String name, Facing facing, int health, int maxHealth) {
         super(scene, grid, pos, name);
         cardStack = new Stack<Card>();
 
         this.health = health;
+        this.maxHealth = maxHealth;
         renderHealth = health;
+        healthFont = FontUtil.getFont(36);
 
         this.facing = facing;
 
-        lockCooldown = new Cooldown(true, 10);
-
-        healthFont = FontUtil.getFont(36);
+        lockCooldown = new Cooldown(this, "LOCK", true, 10);
 
         elementState = null;
     }
 
     public void update() {
         lockCooldown.update();
+
         updateElementState();
         updateRenderHealth();
     }
@@ -77,6 +79,7 @@ public abstract class BattleLiving extends BattleEntity {
                     break;
                 case SHOCK:
                     lockFor(50);
+                    elementState = null;
                     break;
             }
         }
@@ -93,7 +96,9 @@ public abstract class BattleLiving extends BattleEntity {
     public void move(Vector2i dp) {
         if(!locked()) {
             Vector2i newPos = Vector2i.addVectors(getIndexPos(), dp);
-            if (scene.getGrid().isInBounds(newPos) && tileAccepted(scene.getGrid().getTile(newPos))) {
+            SceneBattleTile newTile = scene.getGrid().getTile(newPos);
+
+            if (scene.getGrid().isInBounds(newPos) && tileAccepted(newTile)) {
                 moveTo(newPos);
             }
         }
@@ -101,8 +106,10 @@ public abstract class BattleLiving extends BattleEntity {
 
     public void moveTo(Vector2i iPos) {
         scene.getGrid().getTile(getIndexPos()).removeEntity();
+
         setIndexPos(iPos);
         setPos(scene.getGrid().getAbsoluteTilePosition(iPos));
+
         scene.getGrid().getTile(iPos).setEntity(this);
     }
 
@@ -110,15 +117,15 @@ public abstract class BattleLiving extends BattleEntity {
         Vector2i indexPos = getIndexPos();
 
         if(facing == Facing.LEFT) {
-            for (int i = (int) (indexPos.x - 1); i >= 0; i--) {
-                Entity e = scene.getGrid().getTile(i, (int) indexPos.y).getEntity();
+            for (int i = indexPos.x - 1; i >= 0; i--) {
+                Entity e = scene.getGrid().getTile(i, indexPos.y).getEntity();
                 if (e != null) {
                     return (BattleEntity)e;
                 }
             }
         } else if (facing == Facing.RIGHT) {
-            for (int i = (int) (indexPos.x + 1); i < scene.getGrid().getWidth(); i++) {
-                Entity e = scene.getGrid().getTile(i, (int) indexPos.y).getEntity();
+            for (int i = indexPos.x + 1; i < scene.getGrid().getWidth(); i++) {
+                Entity e = scene.getGrid().getTile(i, indexPos.y).getEntity();
                 if (e != null) {
                     return (BattleEntity)e;
                 }
@@ -132,7 +139,7 @@ public abstract class BattleLiving extends BattleEntity {
             return false;
 
         for(int i = 0; i < acceptedTileTypes.length; i++) {
-            if(acceptedTileTypes[i] == (tile.getTileType()))
+            if(acceptedTileTypes[i] == (tile.getTileType()) && tile.getEntity() == null)
                 return true;
         }
         return false;

@@ -13,7 +13,7 @@ public class Deck {
     }
 
     public Card getCard(int index) {
-        return cards.remove(index);
+        return cards.get(index);
     }
 
     public Card peekCard(int index) {

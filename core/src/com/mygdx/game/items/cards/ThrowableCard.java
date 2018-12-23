@@ -8,7 +8,7 @@ import com.mygdx.game.scenes.battle.SceneBattle;
 public class ThrowableCard extends AttackCard {
 
     public ThrowableCard(String name, String folder, int damage, CardType type, QualityType quality, ElementType element) {
-        super(name, folder, damage, type, quality, element);
+        super(name, folder, "Throw a projectile", damage, type, quality, element);
     }
 
     @Override

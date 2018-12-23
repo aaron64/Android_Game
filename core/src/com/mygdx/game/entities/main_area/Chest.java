@@ -30,22 +30,16 @@ public class Chest extends MainAreaInteractive {
     @Override
     public void clickOn() {
         if(checkDistance()) {
-            open = true;
-            for(int i = 0; i < 4; i++) {
-                scene.addEntity(new HealthBlob(scene, new Vector2f(getPos())));
-            }
+            open();
         }
     }
 
     private void open() {
-
-    }
-
-    public void render(RenderSystem rs) {
-        if(open) {
-            rs.draw(openTexture, getPos(), getSize());
-        } else {
-            super.render(rs);
+        open = true;
+        for(int i = 0; i < 4; i++) {
+            //TODO
+            setImage(openTexture);
+            scene.addEntity(new HealthBlob(scene, new Vector2f(getPos())));
         }
     }
 }

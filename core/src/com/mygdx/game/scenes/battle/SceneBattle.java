@@ -3,7 +3,6 @@ package com.mygdx.game.scenes.battle;
 
 import com.mygdx.game.GUI.components.BattleDeckComponent;
 import com.mygdx.game.Game;
-import com.mygdx.game.entities.battle.BattleEnemy;
 import com.mygdx.game.entities.battle.BattlePlayer;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.battle.EnemyTest;
@@ -26,20 +25,21 @@ public class SceneBattle extends Scene implements GestureHandler {
     public SceneBattle() {
         super();
 
-        //REMOVE THIS LATER
-        enemies = 1;
-
         gestureHandler = new GestureUtil(this);
         battleGrid = new SceneBattleGrid(this);
+
+        enemies = 0;
 
         // Current scene is still main area during constructor
         addPlayer();
 
-        map = new MapBattle("bg1", battleGrid, player);
+        map = new MapBattle(this,"bg1", battleGrid, player);
 
-        gui.addComponent(new BattleDeckComponent(player.getDeck()));
+        gui.addComponent(new BattleDeckComponent(gui, player.getDeck()));
 
-        new EnemyTest(this, battleGrid, new Vector2i(4, 2), "enemy");
+        new EnemyTest(this, battleGrid, new Vector2i(4, 2), "enemy", 40);
+        new EnemyTest2(this, battleGrid, new Vector2i(3, 1), "enemy", 40);
+
         //battleGrid.getTile(5, 1).setEntity(new EnemyTest2(new Vector2(5, 1), "enemy", battleGrid));
     }
 
@@ -84,7 +84,9 @@ public class SceneBattle extends Scene implements GestureHandler {
 
     public void addPlayer() {
         int playerHealth = ((SceneMainArea)(Game.getCurrentScene())).getPlayer().getHealth();
-        player = new BattlePlayer(this, battleGrid, battleGrid.getPlayerSpawnCoords(), playerHealth);
+        int playerMaxHealth = ((SceneMainArea)(Game.getCurrentScene())).getPlayer().getMaxHealth();
+
+        player = new BattlePlayer(this, battleGrid, battleGrid.getPlayerSpawnCoords(), playerHealth, playerMaxHealth);
     }
 
     @Override
@@ -121,6 +123,10 @@ public class SceneBattle extends Scene implements GestureHandler {
     public void tap(float x, float y) {
         if(x > Window.getWidth()/2)
             player.useCard();
+    }
+
+    public void enemySpawned() {
+        enemies++;
     }
 
     public void enemyKilled() {

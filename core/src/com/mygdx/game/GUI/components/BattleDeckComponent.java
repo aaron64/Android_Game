@@ -20,8 +20,8 @@ public class BattleDeckComponent extends GUIComponent {
 
     private int posLeft;
     private int posTop;
-    public BattleDeckComponent(Deck deck) {
-        super("DECK");
+    public BattleDeckComponent(GUI gui, Deck deck) {
+        super(gui, "DECK");
         this.deck = deck;
         iconBackground = new Texture("misc/icon_holder_battle.png");
 
@@ -32,14 +32,15 @@ public class BattleDeckComponent extends GUIComponent {
     }
 
     @Override
-    public void update(GUI gui, Scene scene) {
+    public void update(Scene scene) {
 
     }
 
     @Override
-    public void render(GUI gui, RenderSystem rs) {
+    public void render(RenderSystem rs) {
         for(int i = 0; i < deck.getSize(); i++) {
             Vector2f pos = new Vector2f(posLeft + i * 20, posTop);
+
             rs.draw(iconBackground, pos, size);
             deck.peekCard(i).drawIcon(rs, pos, size);
         }

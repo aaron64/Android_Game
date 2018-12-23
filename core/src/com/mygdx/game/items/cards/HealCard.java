@@ -8,7 +8,7 @@ public class HealCard extends Card {
 
     private int healAmount;
     public HealCard(String name) {
-        super(name, "misc", CardType.SUPPORT, QualityType.STANDARD, null);
+        super(name, "misc", "Heals the player", CardType.SUPPORT, QualityType.STANDARD, null);
     }
 
     @Override
