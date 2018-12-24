@@ -1,4 +1,4 @@
-package com.mygdx.game.scenes.deck;
+package com.mygdx.game.scenes.game_menu.deck;
 
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;

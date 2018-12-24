@@ -5,7 +5,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.items.cards.CardLoader;
 import com.mygdx.game.scenes.Scene;
-import com.mygdx.game.scenes.deck.SceneDeck;
+import com.mygdx.game.scenes.game_menu.SceneGameMenu;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 
 import java.util.Stack;
@@ -13,11 +13,15 @@ import java.util.Stack;
 public class Game extends ApplicationAdapter {
 	private static Stack<Scene> sceneStack;
 
+	protected static SceneGameMenu gameMenuScene;
+
     @Override
 	public void create () {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		sceneStack = new Stack<Scene>();
 		CardLoader.init();
+
+		gameMenuScene = new SceneGameMenu();
 
 		sceneStack.push(new SceneMainArea());
 		//sceneStack.push(new SceneDeck());
