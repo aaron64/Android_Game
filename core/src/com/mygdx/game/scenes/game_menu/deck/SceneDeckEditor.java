@@ -12,7 +12,7 @@ import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
 import com.mygdx.game.util.Window;
 
-public class SceneDeck extends Scene implements GestureHandler {
+public class SceneDeckEditor extends Scene implements GestureHandler {
 
     private BitmapFont font;
 
@@ -25,7 +25,7 @@ public class SceneDeck extends Scene implements GestureHandler {
 
     private int spacing;
 
-    public SceneDeck() {
+    public SceneDeckEditor() {
         super();
 
         hand = new Deck(5);

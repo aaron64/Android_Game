@@ -16,12 +16,10 @@ public abstract class Card extends Item {
 
     private static Texture cardBackground = new Texture("misc/icon_holder_battle.png");
 
-    private String name;
     private String description;
     private Texture icon;
 
     private CardType type;
-    private QualityType quality;
     private ElementType element;
 
     private BitmapFont nameFont, descriptionFont;
@@ -29,18 +27,13 @@ public abstract class Card extends Item {
     private Texture element_overlay_color;
 
     public Card(String name, String folder, String description, CardType type, QualityType quality, ElementType element) {
-        this.name = name;
+        super(name, quality);
         this.description = description;
         this.type = type;
-        this.quality = quality;
         this.element = element;
 
         if(element != null) {
             element_overlay_color = new Texture("items/cards/element_overlays/" + element.getStr() + "_overlay.png");
-        }
-
-        if(quality == null) {
-            this.quality = QualityType.STANDARD;
         }
 
         icon = new Texture("items/cards/" + folder + "/" + name + "_icon.png");
@@ -50,21 +43,6 @@ public abstract class Card extends Item {
     }
 
     public abstract void use(SceneBattle scene, BattleLiving user);
-
-    public String getName() {
-        String s = "";
-        if(quality != QualityType.STANDARD) {
-            s += quality.getStr() + " ";
-        }
-        if(element != null) {
-            s += element.getStr() + " ";
-        }
-        return s + name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getDescription() {
         return description;
@@ -106,6 +84,15 @@ public abstract class Card extends Item {
         rs.drawText(descriptionFont, getDescription(), descriptionPos);
     }
 
+    @Override
+    public String getName() {
+        String s = super.getName();
+        if(element != null) {
+            s = element.getStr() + " " + s;
+        }
+        return s;
+    }
+
     public Texture getIcon() {
         return icon;
     }
@@ -120,14 +107,6 @@ public abstract class Card extends Item {
 
     public void setType(CardType type) {
         this.type = type;
-    }
-
-    public QualityType getQuality() {
-        return quality;
-    }
-
-    public void setQuality(QualityType quality) {
-        this.quality = quality;
     }
 
     public ElementType getElement() {
