@@ -7,6 +7,7 @@ public abstract class GUIComponent {
 
     protected GUI gui;
     private String name;
+
     public GUIComponent(GUI gui, String name) {
         this.name = name;
         this.gui = gui;

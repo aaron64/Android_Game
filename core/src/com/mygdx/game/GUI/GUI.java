@@ -18,6 +18,7 @@ public class GUI {
     public void update(Scene scene) {
         components.removeAll(removeList);
         removeList.clear();
+
         for(GUIComponent comp : components) {
             comp.update(scene);
         }
@@ -25,6 +26,7 @@ public class GUI {
 
     public void render(RenderSystem rs) {
         rs.beginGUI();
+
         for(GUIComponent comp : components) {
             comp.render(rs);
         }

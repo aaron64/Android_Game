@@ -2,8 +2,6 @@ package com.mygdx.game.scenes.deck;
 
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.mygdx.game.entities.Deck.DeckCardSlot;
-import com.mygdx.game.entities.Entity;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.items.cards.CardLoader;
 import com.mygdx.game.items.cards.Deck;
@@ -48,21 +46,6 @@ public class SceneDeck extends Scene implements GestureHandler {
 
         cardSize = new Vector2i(Window.percWidth(0.4f), Window.percHeight(0.15f));
         spacing = Window.percHeight(0.02f);
-
-        for(int i = 0; i < hand.getSize(); i++) {
-            Card card = hand.peekCard(i);
-            Vector2f pos = new Vector2f(leftSideOffset.x, leftSideOffset.y - (i+1) * (cardSize.y + spacing));
-
-            entities.addEntity(new DeckCardSlot(card, pos, cardSize));
-        }
-
-        for(int i = 0; i < hand.getSize(); i++) {
-            Card card = hand.peekCard(i);
-            Vector2f pos = new Vector2f(rightSideOffset.x, rightSideOffset.y - (i+1) * (cardSize.y + spacing));
-
-            entities.addEntity(new DeckCardSlot(card, pos, cardSize));
-        }
-
     }
 
     public void update() {
@@ -73,9 +56,20 @@ public class SceneDeck extends Scene implements GestureHandler {
     public void render() {
         rs.begin();
 
-        for(Entity e : entities.getList()) {
-            e.render(rs);
+        for(int i = 0; i < hand.getSize(); i++) {
+            Card card = hand.peekCard(i);
+            Vector2f pos = new Vector2f(leftSideOffset.x, leftSideOffset.y - (i+1) * (cardSize.y + spacing));
+
+            card.drawDeckScene(rs, pos, cardSize);
         }
+
+        for(int i = 0; i < hand.getSize(); i++) {
+            Card card = hand.peekCard(i);
+            Vector2f pos = new Vector2f(rightSideOffset.x, rightSideOffset.y - (i+1) * (cardSize.y + spacing));
+
+            card.drawDeckScene(rs, pos, cardSize);
+        }
+
         rs.end();
     }
 

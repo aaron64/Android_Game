@@ -16,9 +16,11 @@ public class HealthComponent extends GUIComponent {
 
     private BitmapFont healthText;
     private Vector2f textOffset;
+
     private Texture heart;
     private Vector2f offset;
     private Vector2i size;
+
     private Player player;
     private int renderHealth;
 

@@ -1,16 +1,20 @@
 package com.mygdx.game.items.cards;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mygdx.game.attributes.ElementType;
 import com.mygdx.game.attributes.QualityType;
 import com.mygdx.game.entities.battle.BattleLiving;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.scenes.battle.SceneBattle;
+import com.mygdx.game.util.FontUtil;
 import com.mygdx.game.util.RenderSystem;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
 
 public abstract class Card extends Item {
+
+    private static Texture cardBackground = new Texture("misc/icon_holder_battle.png");
 
     private String name;
     private String description;
@@ -19,6 +23,8 @@ public abstract class Card extends Item {
     private CardType type;
     private QualityType quality;
     private ElementType element;
+
+    private BitmapFont nameFont, descriptionFont;
 
     private Texture element_overlay_color;
 
@@ -38,6 +44,9 @@ public abstract class Card extends Item {
         }
 
         icon = new Texture("items/cards/" + folder + "/" + name + "_icon.png");
+
+        nameFont = FontUtil.getFont(48);
+        descriptionFont = FontUtil.getFont(20);
     }
 
     public abstract void use(SceneBattle scene, BattleLiving user);
@@ -78,6 +87,23 @@ public abstract class Card extends Item {
         }*/
         rs.draw(icon, pos, size);
         rs.setShader(null);
+    }
+
+    public void drawDeckScene(RenderSystem rs, Vector2f pos, Vector2i size) {
+        Vector2i iconSize = new Vector2i(size.y, size.y);
+
+        Vector2f namePos = new Vector2f(pos);
+        namePos.x += iconSize.x + 6;
+        namePos.y += iconSize.x-20;
+
+        Vector2f descriptionPos = new Vector2f(pos);
+        descriptionPos.x += iconSize.x + namePos.x;
+        namePos.y += iconSize.x-20;
+
+        rs.draw(cardBackground, pos, size);
+        rs.draw(getIcon(), pos, iconSize);
+        rs.drawText(nameFont, getName(), namePos);
+        rs.drawText(descriptionFont, getDescription(), descriptionPos);
     }
 
     public Texture getIcon() {

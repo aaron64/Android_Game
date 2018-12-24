@@ -20,6 +20,7 @@ public class BattleDeckComponent extends GUIComponent {
 
     private int posLeft;
     private int posTop;
+
     public BattleDeckComponent(GUI gui, Deck deck) {
         super(gui, "DECK");
         this.deck = deck;
