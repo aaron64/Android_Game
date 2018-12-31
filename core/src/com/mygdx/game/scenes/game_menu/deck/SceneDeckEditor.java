@@ -2,6 +2,7 @@ package com.mygdx.game.scenes.game_menu.deck;
 
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.mygdx.game.GUI.components.ExitGameMenuButtonComponent;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.items.cards.CardLoader;
 import com.mygdx.game.items.cards.Deck;
@@ -27,6 +28,9 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
 
     public SceneDeckEditor() {
         super();
+
+        Vector2f menuButtonPos = new Vector2f(Window.percLeft(0.05f), Window.percTop(0.05f));
+        gui.addComponent(new ExitGameMenuButtonComponent(gui, menuButtonPos));
 
         hand = new Deck(5);
         deck = new Deck(5);
@@ -70,6 +74,8 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
             card.drawDeckScene(rs, pos, cardSize);
         }
 
+        gui.render(rs);
+
         rs.end();
     }
 
@@ -105,6 +111,6 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
 
     @Override
     public void tap(float x, float y) {
-
+        gui.tap(x, y);
     }
 }

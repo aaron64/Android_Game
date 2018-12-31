@@ -39,6 +39,9 @@ public class GestureUtil implements GestureDetector.GestureListener {
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
+        y *= -1;
+        y += Window.getHeight();
+
         handler.touchDown(x, y, pointer, button);
         held = true;
         heldX = x;
@@ -48,6 +51,9 @@ public class GestureUtil implements GestureDetector.GestureListener {
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
+        y *= -1;
+        y += Window.getHeight();
+
         handler.tap(x, y);
 
         held = false;
@@ -62,6 +68,9 @@ public class GestureUtil implements GestureDetector.GestureListener {
 
     @Override
     public boolean longPress(float x, float y) {
+        y *= -1;
+        y += Window.getHeight();
+
         return false;
     }
 
@@ -73,6 +82,9 @@ public class GestureUtil implements GestureDetector.GestureListener {
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
+        y *= -1;
+        y += Window.getHeight();
+
         heldX = x;
         heldY = y;
         return false;

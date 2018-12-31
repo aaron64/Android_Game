@@ -16,4 +16,8 @@ public abstract class GUIComponent {
     public abstract void update(Scene scene);
 
     public abstract void render(RenderSystem rs);
+
+    public void tap(float x, float y) {
+
+    }
 }

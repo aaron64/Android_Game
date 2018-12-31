@@ -16,9 +16,6 @@ public abstract class Card extends Item {
 
     private static Texture cardBackground = new Texture("misc/icon_holder_battle.png");
 
-    private String description;
-    private Texture icon;
-
     private CardType type;
     private ElementType element;
 
@@ -27,7 +24,7 @@ public abstract class Card extends Item {
     private Texture element_overlay_color;
 
     public Card(String name, String folder, String description, CardType type, QualityType quality, ElementType element) {
-        super(name, quality);
+        super(name, folder, description, quality);
         this.description = description;
         this.type = type;
         this.element = element;
@@ -35,8 +32,6 @@ public abstract class Card extends Item {
         if(element != null) {
             element_overlay_color = new Texture("items/cards/element_overlays/" + element.getStr() + "_overlay.png");
         }
-
-        icon = new Texture("items/cards/" + folder + "/" + name + "_icon.png");
 
         nameFont = FontUtil.getFont(48);
         descriptionFont = FontUtil.getFont(20);

@@ -1,6 +1,7 @@
 package com.mygdx.game.scenes;
 
 import com.mygdx.game.GUI.GUI;
+import com.mygdx.game.GUI.GUIComponent;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.EntitySystem;
 import com.mygdx.game.entities.battle.misc.BattleArrow;

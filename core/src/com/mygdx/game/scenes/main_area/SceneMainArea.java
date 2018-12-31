@@ -3,6 +3,7 @@ package com.mygdx.game.scenes.main_area;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 
+import com.mygdx.game.GUI.components.GameMenuButtonComponent;
 import com.mygdx.game.GUI.components.HealthComponent;
 import com.mygdx.game.GUI.components.TitleComponent;
 import com.mygdx.game.entities.Entity;
@@ -15,7 +16,6 @@ import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.GestureHandler;
 import com.mygdx.game.util.GestureUtil;
 import com.mygdx.game.util.MapNameGenerator;
-import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Window;
 
@@ -36,6 +36,9 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
         gui.addComponent(new HealthComponent(gui, player));
         gui.addComponent(new TitleComponent(gui, MapNameGenerator.generateRandomName(100, MapTheme.FOREST)));
+
+        Vector2f menuButtonPos = new Vector2f(Window.percRight(0.05f), Window.percTop(0.05f));
+        gui.addComponent(new GameMenuButtonComponent(gui, menuButtonPos));
 
         entities.addEntity(player);
 
@@ -150,5 +153,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
                 ((MainAreaEntity)e).clickOn();
             }
         }
+
+        gui.tap(x, y);
     }
 }

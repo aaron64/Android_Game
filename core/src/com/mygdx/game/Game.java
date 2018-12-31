@@ -13,7 +13,7 @@ import java.util.Stack;
 public class Game extends ApplicationAdapter {
 	private static Stack<Scene> sceneStack;
 
-	protected static SceneGameMenu gameMenuScene;
+	public static SceneGameMenu gameMenuScene;
 
     @Override
 	public void create () {
@@ -24,7 +24,6 @@ public class Game extends ApplicationAdapter {
 		gameMenuScene = new SceneGameMenu();
 
 		sceneStack.push(new SceneMainArea());
-		//sceneStack.push(new SceneDeck());
 	}
 
 	@Override
@@ -45,10 +44,12 @@ public class Game extends ApplicationAdapter {
 	}
 
 	public static void pushScene(Scene scene) {
+		Gdx.app.log("INFO", "STACKSIZE " + sceneStack.size());
 		sceneStack.push(scene);
 	}
 
 	public static void endScene() {
+        Gdx.app.log("INFO", "STACKSIZE " + sceneStack.size());
 		sceneStack.pop();
 	}
 

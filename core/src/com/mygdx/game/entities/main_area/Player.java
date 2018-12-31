@@ -24,7 +24,6 @@ public class Player extends MainAreaEntity {
     }
 
     public void move(Vector2f touchVector, SceneMainArea scene) {
-        touchVector.y *= -1;
         Vector2f touchDirection = MathUtil.getUnitVector(touchVector);
 
         float velocityMagnitude = Math.min(MathUtil.getDistance(touchVector)/100f, maxVelocity);

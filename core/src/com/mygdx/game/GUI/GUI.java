@@ -39,4 +39,10 @@ public class GUI {
     public void removeComponent(GUIComponent comp) {
         removeList.add(comp);
     }
+
+    public void tap(float x, float y) {
+        for(GUIComponent comp : components) {
+            comp.tap(x, y);
+        }
+    }
 }
