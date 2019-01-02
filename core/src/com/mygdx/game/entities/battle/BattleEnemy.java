@@ -9,7 +9,7 @@ public abstract class BattleEnemy extends BattleLiving {
 
     public BattleEnemy(SceneBattle scene, SceneBattleGrid grid, Vector2i pos, String name, int health) {
         super(scene, grid, pos, name, Facing.LEFT, health, health);
-        scene.enemySpawned();
+        scene.enemySpawned(this);
     }
 
     @Override
@@ -17,6 +17,6 @@ public abstract class BattleEnemy extends BattleLiving {
         Vector2i indexPos = getIndexPos();
         scene.getTile(indexPos.x, indexPos.y).removeEntity();
 
-        scene.enemyKilled();
+        scene.enemyKilled(this);
     }
 }

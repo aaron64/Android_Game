@@ -2,8 +2,8 @@ package com.mygdx.game.items.cards;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.mygdx.game.attributes.ElementType;
-import com.mygdx.game.attributes.QualityType;
+import com.mygdx.game.attributes.Element;
+import com.mygdx.game.attributes.Quality;
 import com.mygdx.game.entities.battle.BattleLiving;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.scenes.battle.SceneBattle;
@@ -17,14 +17,15 @@ public abstract class Card extends Item {
     private static Texture cardBackground = new Texture("misc/icon_holder_battle.png");
 
     private CardType type;
-    private ElementType element;
+    private Element element;
 
     private BitmapFont nameFont, descriptionFont;
+    private Vector2f nameSize, descriptionSize;
 
     private Texture element_overlay_color;
 
-    public Card(String name, String folder, String description, CardType type, QualityType quality, ElementType element) {
-        super(name, folder, description, quality);
+    public Card(String name, String folder, String description, CardType type, Quality quality, Element element) {
+        super(name, "cards/" + folder, description, quality);
         this.description = description;
         this.type = type;
         this.element = element;
@@ -35,6 +36,9 @@ public abstract class Card extends Item {
 
         nameFont = FontUtil.getFont(48);
         descriptionFont = FontUtil.getFont(20);
+
+        nameSize = FontUtil.getTextSize(nameFont, name);
+        descriptionSize = FontUtil.getTextSize(descriptionFont, description);
     }
 
     public abstract void use(SceneBattle scene, BattleLiving user);
@@ -48,8 +52,9 @@ public abstract class Card extends Item {
     }
 
     public void drawIcon(RenderSystem rs, Vector2f pos, Vector2i size) {
-/*        rs.setShader(rs.iconShader);
-        if(getElement() != null) {
+        rs.iconShader.setUniformi("u_texture", 0);
+        rs.setShader(rs.iconShader);
+        /*if(getElement() != null) {
             rs.iconShader.begin();
             getIcon().bind(1);
             rs.iconShader.setUniformi("u_texture", 1); //passing first texture!!!
@@ -67,11 +72,10 @@ public abstract class Card extends Item {
 
         Vector2f namePos = new Vector2f(pos);
         namePos.x += iconSize.x + 6;
-        namePos.y += iconSize.x-20;
+        namePos.y += size.h() - nameSize.h();
 
         Vector2f descriptionPos = new Vector2f(pos);
-        descriptionPos.x += iconSize.x + namePos.x;
-        namePos.y += iconSize.x-20;
+        descriptionPos.x += iconSize.x * 2;
 
         rs.draw(cardBackground, pos, size);
         rs.draw(getIcon(), pos, iconSize);
@@ -104,11 +108,11 @@ public abstract class Card extends Item {
         this.type = type;
     }
 
-    public ElementType getElement() {
+    public Element getElement() {
         return element;
     }
 
-    public void setElement(ElementType element) {
+    public void setElement(Element element) {
         this.element = element;
     }
 }

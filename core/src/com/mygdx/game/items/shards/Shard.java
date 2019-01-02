@@ -1,13 +1,13 @@
 package com.mygdx.game.items.shards;
 
-import com.mygdx.game.attributes.QualityType;
+import com.mygdx.game.attributes.Quality;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 
 public abstract class Shard extends Item {
 
     ShardShape shape;
-    public Shard(String name, String folder, String description, QualityType quality) {
+    public Shard(String name, String folder, String description, Quality quality) {
         super(name, folder, description, quality);
     }
 

@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mygdx.game.GUI.GUI;
 import com.mygdx.game.GUI.GUIComponent;
+import com.mygdx.game.PlayerVars;
+import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.items.cards.Deck;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.RenderSystem;
@@ -21,9 +23,9 @@ public class BattleDeckComponent extends GUIComponent {
     private int posLeft;
     private int posTop;
 
-    public BattleDeckComponent(GUI gui, Deck deck) {
+    public BattleDeckComponent(GUI gui) {
         super(gui, "DECK");
-        this.deck = deck;
+        this.deck = PlayerVars.deck;
         iconBackground = new Texture("misc/icon_holder_battle.png");
 
         posLeft = Window.percLeft(0.15f);
@@ -43,7 +45,8 @@ public class BattleDeckComponent extends GUIComponent {
             Vector2f pos = new Vector2f(posLeft + i * 20, posTop);
 
             rs.draw(iconBackground, pos, size);
-            deck.peekCard(i).drawIcon(rs, pos, size);
+            Card card = deck.peekCard(i);
+            card.drawIcon(rs, pos, size);
         }
     }
 }

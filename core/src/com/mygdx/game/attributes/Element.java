@@ -1,6 +1,6 @@
 package com.mygdx.game.attributes;
 
-public enum ElementType {
+public enum Element {
     FIRE ("Fire"),
     WATER ("Water"),
     WIND ("Wind"),
@@ -9,7 +9,7 @@ public enum ElementType {
     GRASS ("Grass");
 
     private String str;
-    private ElementType strength, weakness;
+    private Element strength, weakness;
 
     static {
         FIRE.strength = WIND;
@@ -30,21 +30,21 @@ public enum ElementType {
         GRASS.strength = SHOCK;
         GRASS.weakness = POISON;
     }
-    ElementType(String str) {
+    Element(String str) {
         this.str = str;
     }
 
     public String getStr() {
         return str;
     }
-    public ElementType getStrength() {
+    public Element getStrength() {
         return strength;
     }
-    public ElementType getWeakness() {
+    public Element getWeakness() {
         return weakness;
     }
 
-    public float getMultiplier(ElementType type) {
+    public float getMultiplier(Element type) {
         if(type == this.weakness)
             return 0.5f;
         if(type == this.strength)

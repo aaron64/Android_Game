@@ -1,7 +1,7 @@
 package com.mygdx.game.items.cards;
 
-import com.mygdx.game.attributes.ElementType;
-import com.mygdx.game.attributes.QualityType;
+import com.mygdx.game.attributes.Element;
+import com.mygdx.game.attributes.Quality;
 import com.mygdx.game.entities.battle.BattleEntity;
 import com.mygdx.game.entities.battle.BattleLiving;
 import com.mygdx.game.scenes.battle.SceneBattle;
@@ -9,7 +9,7 @@ import com.mygdx.game.util.Vector2i;
 
 public class GunCard extends AttackCard {
 
-    public GunCard(String name, int damage, QualityType quality, ElementType element) {
+    public GunCard(String name, int damage, Quality quality, Element element) {
         super(name, "guns", "Fire a projectile", damage, CardType.GUN, quality, element);
     }
 

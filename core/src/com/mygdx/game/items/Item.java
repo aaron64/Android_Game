@@ -1,30 +1,30 @@
 package com.mygdx.game.items;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.attributes.QualityType;
+import com.mygdx.game.attributes.Quality;
 
 public abstract class Item {
 
     protected String name;
-    protected QualityType quality;
+    protected Quality quality;
     protected String description;
     protected Texture icon;
 
-    public Item(String name, String folder, String description, QualityType quality) {
+    public Item(String name, String folder, String description, Quality quality) {
         this.name = name;
         this.description = description;
 
         this.quality = quality;
         if(quality == null) {
-            this.quality = QualityType.STANDARD;
+            this.quality = Quality.STANDARD;
         }
 
-        icon = new Texture("items/cards/" + folder + "/" + name + "_icon.png");
+        icon = new Texture("items/" + folder + "/" + name + "_icon.png");
     }
 
     public String getName() {
         String s = "";
-        if(quality != QualityType.STANDARD) {
+        if(quality != Quality.STANDARD) {
             s += quality.getStr() + " ";
         }
 
@@ -35,11 +35,11 @@ public abstract class Item {
         this.name = name;
     }
 
-    public QualityType getQuality() {
+    public Quality getQuality() {
         return quality;
     }
 
-    public void setQuality(QualityType quality) {
+    public void setQuality(Quality quality) {
         this.quality = quality;
     }
 }

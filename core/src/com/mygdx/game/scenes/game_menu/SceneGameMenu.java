@@ -1,10 +1,11 @@
 package com.mygdx.game.scenes.game_menu;
 
 import com.mygdx.game.scenes.Scene;
+import com.mygdx.game.scenes.SceneContainer;
 import com.mygdx.game.scenes.game_menu.deck.SceneDeckEditor;
 import com.mygdx.game.scenes.game_menu.shard_editor.SceneShardEditor;
 
-public class SceneGameMenu extends Scene {
+public class SceneGameMenu extends Scene implements SceneContainer {
 
     private Scene currentTab;
 
@@ -31,5 +32,10 @@ public class SceneGameMenu extends Scene {
     @Override
     public void dispose() {
 
+    }
+
+    @Override
+    public Scene getCurrentScene() {
+        return currentTab;
     }
 }

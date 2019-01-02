@@ -4,12 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Game;
+import com.mygdx.game.scenes.Scene;
 
 
 public class GestureUtil implements GestureDetector.GestureListener {
 
     private static InputMultiplexer inputMultiplexer = new InputMultiplexer();;
     private GestureDetector gestureDetector;
+
+    private Scene scene;
 
     private boolean held = false;
     private float heldX, heldY;
@@ -39,77 +43,95 @@ public class GestureUtil implements GestureDetector.GestureListener {
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-        y *= -1;
-        y += Window.getHeight();
+        if(Game.getCurrentScene() == handler) {
+            y *= -1;
+            y += Window.getHeight();
 
-        handler.touchDown(x, y, pointer, button);
-        held = true;
-        heldX = x;
-        heldY = y;
+            handler.touchDown(x, y, pointer, button);
+            held = true;
+            heldX = x;
+            heldY = y;
+        }
         return false;
     }
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
-        y *= -1;
-        y += Window.getHeight();
+        if(Game.getCurrentScene() == handler) {
+            y *= -1;
+            y += Window.getHeight();
 
-        handler.tap(x, y);
+            handler.tap(x, y);
 
-        held = false;
+            held = false;
 
-        if(doubleTapFrameCount < doubelTapThreshold)
-            handler.doubleTap(x, y);
+            if (doubleTapFrameCount < doubelTapThreshold)
+                handler.doubleTap(x, y);
 
-        doubleTapFrameCount = 0;
-
+            doubleTapFrameCount = 0;
+        }
         return false;
     }
 
     @Override
     public boolean longPress(float x, float y) {
-        y *= -1;
-        y += Window.getHeight();
-
+        if(Game.getCurrentScene() == handler) {
+            y *= -1;
+            y += Window.getHeight();
+        }
         return false;
     }
 
     @Override
     public boolean fling(float velocityX, float velocityY, int button) {
-        handler.fling(velocityX, velocityY, button);
+        if(Game.getCurrentScene() == handler) {
+            handler.fling(velocityX, velocityY, button);
+        }
         return false;
     }
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        y *= -1;
-        y += Window.getHeight();
+        if(Game.getCurrentScene() == handler) {
+            y *= -1;
+            y += Window.getHeight();
 
-        heldX = x;
-        heldY = y;
+            heldX = x;
+            heldY = y;
+        }
         return false;
     }
 
     @Override
     public boolean panStop(float x, float y, int pointer, int button) {
-        held = false;
+        if(Game.getCurrentScene() == handler) {
+            handler.stopHold(x, y);
+            held = false;
+        }
         return false;
     }
 
     @Override
     public boolean zoom(float initialDistance, float distance) {
-        handler.zoom(initialDistance, distance);
-        held = false;
+        if(Game.getCurrentScene() == handler) {
+            handler.zoom(initialDistance, distance);
+            held = false;
+        }
         return false;
     }
 
     @Override
     public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
+        if(Game.getCurrentScene() == handler) {
+
+        }
         return false;
     }
 
     @Override
     public void pinchStop() {
+        if(Game.getCurrentScene() == handler) {
 
+        }
     }
 }

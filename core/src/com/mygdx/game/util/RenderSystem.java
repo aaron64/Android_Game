@@ -65,6 +65,10 @@ public class RenderSystem {
     }
 
     public void setShader(ShaderProgram shader) {
+        if(shader != null) {
+            Gdx.app.log("INFO", "SHADER LOG: " + shader.getLog());
+            shader.setUniformMatrix("u_projTrans", batch.getProjectionMatrix());
+        }
         batch.setShader(shader);
     }
 

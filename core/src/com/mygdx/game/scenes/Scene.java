@@ -2,6 +2,7 @@ package com.mygdx.game.scenes;
 
 import com.mygdx.game.GUI.GUI;
 import com.mygdx.game.GUI.GUIComponent;
+import com.mygdx.game.animation.AnimationQueue;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.EntitySystem;
 import com.mygdx.game.entities.battle.misc.BattleArrow;
@@ -17,19 +18,27 @@ public abstract class Scene {
     protected RenderSystem rs;
     protected GUI gui;
 
+    protected AnimationQueue animationQueue;
+
     public Scene() {
         entities = new EntitySystem();
         rs = new RenderSystem();
 
         gui = new GUI();
+
+        animationQueue = new AnimationQueue();
     }
 
     public void update() {
+        animationQueue.update(this);
+
         gestureHandler.update();
         entities.update();
     }
     public abstract void render();
     public abstract void dispose();
+
+    public boolean isAnimationLocked() { return animationQueue.locked(); }
 
     public void addEntity(Entity e) {
         entities.addEntity(e);

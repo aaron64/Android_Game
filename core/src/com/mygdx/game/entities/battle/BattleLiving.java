@@ -2,19 +2,16 @@ package com.mygdx.game.entities.battle;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
-import com.mygdx.game.attributes.ElementType;
+import com.mygdx.game.attributes.Element;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.items.cards.Card;
-import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleGrid;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.scenes.battle.SceneBattleTileType;
-import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.util.Cooldown;
 import com.mygdx.game.util.CooldownInterface;
 import com.mygdx.game.util.FontUtil;
-import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.RenderSystem;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
@@ -38,7 +35,7 @@ public abstract class BattleLiving extends BattleEntity implements CooldownInter
     private int renderHealth;
     private BitmapFont healthFont;
 
-    private ElementType elementState;
+    private Element elementState;
 
     private Cooldown lockCooldown;
 

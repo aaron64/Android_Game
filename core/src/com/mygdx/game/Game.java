@@ -5,6 +5,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.items.cards.CardLoader;
 import com.mygdx.game.scenes.Scene;
+import com.mygdx.game.scenes.SceneContainer;
 import com.mygdx.game.scenes.game_menu.SceneGameMenu;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 
@@ -19,7 +20,9 @@ public class Game extends ApplicationAdapter {
 	public void create () {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		sceneStack = new Stack<Scene>();
+
 		CardLoader.init();
+		PlayerVars.init();
 
 		gameMenuScene = new SceneGameMenu();
 
@@ -33,6 +36,8 @@ public class Game extends ApplicationAdapter {
 	}
 
 	public static Scene getCurrentScene() {
+    	if(sceneStack.peek() instanceof SceneContainer)
+    		return ((SceneContainer) sceneStack.peek()).getCurrentScene();
 		return sceneStack.peek();
 	}
 

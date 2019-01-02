@@ -7,9 +7,17 @@ public class Deck {
 
     private int maxCards;
     private ArrayList<Card> cards;
+    private ArrayList<Card> removeList;
+
     public Deck(int maxCards) {
         this.maxCards = maxCards;
         cards = new ArrayList<Card>();
+        removeList = new ArrayList<Card>();
+    }
+
+    public void refresh() {
+        cards.removeAll(removeList);
+        removeList.clear();
     }
 
     public Card getCard(int index) {
@@ -26,6 +34,14 @@ public class Deck {
         cards.add(c);
     }
 
+    public void addCard(Card c, int i) {
+        cards.add(i, c);
+    }
+
+    public void remove(int i) {
+        removeList.add(cards.get(i));
+    }
+
     public void shuffle() {
         Collections.shuffle(cards);
     }
@@ -39,8 +55,11 @@ public class Deck {
     }
 
     public Card pop() {
-        if(cards.size() > 0)
-            return cards.remove(cards.size()-1);
+        if(cards.size() > 0) {
+            Card card = cards.get(cards.size() - 1);
+            removeList.add(card);
+            return card;
+        }
         return null;
     }
 

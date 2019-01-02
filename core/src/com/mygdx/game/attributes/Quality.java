@@ -1,6 +1,6 @@
 package com.mygdx.game.attributes;
 
-public enum QualityType {
+public enum Quality {
     WEAK ("Weak", 0.25f),
     MINOR ("Minor", 0.5f),
     STANDARD ("", 1f),
@@ -11,7 +11,7 @@ public enum QualityType {
     private String str;
     private float multiplier;
 
-    QualityType(String str, float multiplier) {
+    Quality(String str, float multiplier) {
         this.str = str;
         this.multiplier = multiplier;
     }

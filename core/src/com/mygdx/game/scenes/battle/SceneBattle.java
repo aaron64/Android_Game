@@ -1,8 +1,11 @@
 package com.mygdx.game.scenes.battle;
 
 
+import com.badlogic.gdx.Gdx;
 import com.mygdx.game.GUI.components.BattleDeckComponent;
 import com.mygdx.game.Game;
+import com.mygdx.game.animation.BattleEnemySpawnAnimation;
+import com.mygdx.game.entities.battle.BattleEnemy;
 import com.mygdx.game.entities.battle.BattlePlayer;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.battle.EnemyTest;
@@ -15,12 +18,14 @@ import com.mygdx.game.util.GestureUtil;
 import com.mygdx.game.util.Vector2i;
 import com.mygdx.game.util.Window;
 
+import java.util.ArrayList;
+
 public class SceneBattle extends Scene implements GestureHandler {
 
     private SceneBattleGrid battleGrid;
     private BattlePlayer player;
 
-    private int enemies;
+    private ArrayList<BattleEnemy> enemies;
 
     public SceneBattle() {
         super();
@@ -28,19 +33,20 @@ public class SceneBattle extends Scene implements GestureHandler {
         gestureHandler = new GestureUtil(this);
         battleGrid = new SceneBattleGrid(this);
 
-        enemies = 0;
+        enemies = new ArrayList<BattleEnemy>();
 
-        // Current scene is still main area during constructor
         addPlayer();
 
         map = new MapBattle(this,"bg1", battleGrid, player);
 
-        gui.addComponent(new BattleDeckComponent(gui, player.getDeck()));
+        gui.addComponent(new BattleDeckComponent(gui));
 
         new EnemyTest(this, battleGrid, new Vector2i(4, 2), "enemy", 40);
         new EnemyTest2(this, battleGrid, new Vector2i(3, 1), "enemy", 40);
 
-        //battleGrid.getTile(5, 1).setEntity(new EnemyTest2(new Vector2(5, 1), "enemy", battleGrid));
+        for(BattleEnemy enemy : enemies) {
+            animationQueue.add(new BattleEnemySpawnAnimation(true, false, enemy));
+        }
     }
 
     @Override
@@ -48,14 +54,16 @@ public class SceneBattle extends Scene implements GestureHandler {
         super.update();
         map.update();
 
-        battleGrid.update(this);
+        if(!isAnimationLocked()) {
+            battleGrid.update(this);
 
-        for(Entity e : entities.getList()) {
-            e.update();
-        }
+            for (Entity e : entities.getList()) {
+                e.update();
+            }
 
-        if(enemies <= 0) {
-            returnToMainArea();
+            if (enemies.isEmpty()) {
+                returnToMainArea();
+            }
         }
     }
 
@@ -96,6 +104,7 @@ public class SceneBattle extends Scene implements GestureHandler {
 
     @Override
     public void touchDown(float x, float y, int pointer, int button) {
+        Gdx.app.log("INFO", "TOUCHED BATTLE");
 
     }
 
@@ -115,6 +124,11 @@ public class SceneBattle extends Scene implements GestureHandler {
     }
 
     @Override
+    public void stopHold(float x, float y) {
+
+    }
+
+    @Override
     public void doubleTap(float x, float y) {
 
     }
@@ -125,12 +139,12 @@ public class SceneBattle extends Scene implements GestureHandler {
             player.useCard();
     }
 
-    public void enemySpawned() {
-        enemies++;
+    public void enemySpawned(BattleEnemy enemy) {
+        enemies.add(enemy);
     }
 
-    public void enemyKilled() {
-        enemies--;
+    public void enemyKilled(BattleEnemy enemy) {
+        enemies.remove(enemy);
     }
 
     public SceneBattleTile getTile(int i, int j) {

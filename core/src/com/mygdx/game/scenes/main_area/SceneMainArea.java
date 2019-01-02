@@ -1,5 +1,6 @@
 package com.mygdx.game.scenes.main_area;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -120,6 +121,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
     @Override
     public void touchDown(float x, float y, int pointer, int button) {
+        Gdx.app.log("INFO", "TOUCHED MAIN");
 
     }
 
@@ -138,6 +140,11 @@ public class SceneMainArea extends Scene implements GestureHandler {
     public void hold(float x, float y) {
         Vector2f touchVec = Vector2f.subtractVectors(new Vector2f(x, y), Window.getCenter());
         player.move(touchVec, this);
+    }
+
+    @Override
+    public void stopHold(float x, float y) {
+
     }
 
     @Override

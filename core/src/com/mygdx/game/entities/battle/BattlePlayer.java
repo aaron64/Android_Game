@@ -1,6 +1,7 @@
 package com.mygdx.game.entities.battle;
 
 
+import com.mygdx.game.PlayerVars;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.items.cards.CardLoader;
 import com.mygdx.game.items.cards.Deck;
@@ -19,22 +20,18 @@ public class BattlePlayer extends BattleLiving  {
 
         setSize(scene.getGrid().getTile(0,0).getSize());
 
-        // TODO:
-        deck = new Deck(5);
-        deck.addCard(CardLoader.buildCard("Bow"));
-        deck.addCard(CardLoader.buildCard("Bow"));
-        deck.addCard(CardLoader.buildCard("Magic"));
-        deck.addCard(CardLoader.buildCard("Sword"));
+        deck = PlayerVars.deck;
     }
 
     @Override
     public void update() {
         super.update();
+        deck.refresh();
     }
 
     public void useCard() {
         if(!deck.isEmpty()) {
-            lockFor(25);
+            lockFor(15);
             deck.pop().use(scene, this);
         }
     }
@@ -50,14 +47,6 @@ public class BattlePlayer extends BattleLiving  {
     @Override
     public void die() {
 
-    }
-
-    public Deck getDeck() {
-        return deck;
-    }
-
-    public void setDeck(Deck deck) {
-        this.deck = deck;
     }
 
     @Override
