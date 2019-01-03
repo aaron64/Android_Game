@@ -8,7 +8,7 @@ import com.mygdx.game.util.FileUtil;
 
 import java.util.HashMap;
 
-public class CardLoader {
+public class CardBuilder {
 
     private static HashMap<String, JsonValue> cardMap;
     public static void init() {
@@ -29,29 +29,33 @@ public class CardLoader {
 
     }
 
-    public static Card buildCard(String name) {
+    public static Card buildCard(String name, Element element, Quality quality) {
 
-        JsonValue element = cardMap.get(name);
-        String category = element.getString("Category");
+        JsonValue cardData = cardMap.get(name);
+        String category = cardData.getString("Category");
         CardType.valueOf(category);
+
+        if(quality == null)
+            quality = Quality.STANDARD;
+
         switch(CardType.valueOf(category)) {
             case MAGIC: {
-                int damage = element.getInt("Base_Damage");
-                return new MagicCard(name, damage, Quality.STANDARD, Element.FIRE);
+                int damage = cardData.getInt("Base_Damage");
+                return new MagicCard(name, damage, quality, Element.FIRE);
             }
             case MELEE: {
-                int damage = element.getInt("Base_Damage");
-                int width = element.getInt("Width");
-                int height = element.getInt("Height");
-                return new MeleeCard(name, damage, width, height, Quality.STANDARD, null);
+                int damage = cardData.getInt("Base_Damage");
+                int width = cardData.getInt("Width");
+                int height = cardData.getInt("Height");
+                return new MeleeCard(name, damage, width, height, quality, element);
             }
             case BOW: {
-                int damage = element.getInt("Base_Damage");
-                return new BowCard(name, damage, Quality.STANDARD, null);
+                int damage = cardData.getInt("Base_Damage");
+                return new BowCard(name, damage, quality, element);
             }
             case GUN: {
-                int damage = element.getInt("Base_Damage");
-                return new GunCard(name, damage, Quality.STANDARD, null);
+                int damage = cardData.getInt("Base_Damage");
+                return new GunCard(name, damage, quality, element);
             }
             case SUPPORT:
 
@@ -68,5 +72,17 @@ public class CardLoader {
         }
 
         return null;
+    }
+
+    public static Card buildCard(String name) {
+        return buildCard(name, null, null);
+    }
+
+    public static Card buildCard(String name, Element element) {
+        return buildCard(name, element, null);
+    }
+
+    public static Card buildCard(String name, Quality quality) {
+        return buildCard(name, null, quality);
     }
 }

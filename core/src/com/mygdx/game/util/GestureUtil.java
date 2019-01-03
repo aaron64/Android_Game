@@ -43,7 +43,7 @@ public class GestureUtil implements GestureDetector.GestureListener {
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-        if(Game.getCurrentScene() == handler) {
+        if(isValid()) {
             y *= -1;
             y += Window.getHeight();
 
@@ -57,7 +57,7 @@ public class GestureUtil implements GestureDetector.GestureListener {
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
-        if(Game.getCurrentScene() == handler) {
+        if(isValid()) {
             y *= -1;
             y += Window.getHeight();
 
@@ -75,7 +75,7 @@ public class GestureUtil implements GestureDetector.GestureListener {
 
     @Override
     public boolean longPress(float x, float y) {
-        if(Game.getCurrentScene() == handler) {
+        if(isValid()) {
             y *= -1;
             y += Window.getHeight();
         }
@@ -84,7 +84,7 @@ public class GestureUtil implements GestureDetector.GestureListener {
 
     @Override
     public boolean fling(float velocityX, float velocityY, int button) {
-        if(Game.getCurrentScene() == handler) {
+        if(isValid()) {
             handler.fling(velocityX, velocityY, button);
         }
         return false;
@@ -92,7 +92,7 @@ public class GestureUtil implements GestureDetector.GestureListener {
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        if(Game.getCurrentScene() == handler) {
+        if(isValid()) {
             y *= -1;
             y += Window.getHeight();
 
@@ -104,7 +104,7 @@ public class GestureUtil implements GestureDetector.GestureListener {
 
     @Override
     public boolean panStop(float x, float y, int pointer, int button) {
-        if(Game.getCurrentScene() == handler) {
+        if(isValid()) {
             handler.stopHold(x, y);
             held = false;
         }
@@ -113,7 +113,7 @@ public class GestureUtil implements GestureDetector.GestureListener {
 
     @Override
     public boolean zoom(float initialDistance, float distance) {
-        if(Game.getCurrentScene() == handler) {
+        if(isValid()) {
             handler.zoom(initialDistance, distance);
             held = false;
         }
@@ -122,7 +122,7 @@ public class GestureUtil implements GestureDetector.GestureListener {
 
     @Override
     public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
-        if(Game.getCurrentScene() == handler) {
+        if(isValid()) {
 
         }
         return false;
@@ -130,8 +130,12 @@ public class GestureUtil implements GestureDetector.GestureListener {
 
     @Override
     public void pinchStop() {
-        if(Game.getCurrentScene() == handler) {
+        if(isValid()) {
 
         }
+    }
+
+    private boolean isValid() {
+        return Game.getCurrentScene() == handler && !Game.getCurrentScene().isAnimationLocked();
     }
 }

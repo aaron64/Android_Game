@@ -1,9 +1,7 @@
 package com.mygdx.game.entities.battle;
 
 
-import com.mygdx.game.entities.Entity;
-import com.mygdx.game.items.cards.CardLoader;
-import com.mygdx.game.scenes.Scene;
+import com.mygdx.game.items.cards.CardBuilder;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleGrid;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
@@ -26,7 +24,7 @@ public class EnemyTest2 extends BattleEnemy implements CooldownInterface {
 
         setSize(scene.getGrid().getTile(0,0).getSize());
 
-        cardStack.push(CardLoader.buildCard("Sword"));
+        cardStack.push(CardBuilder.buildCard("Sword"));
 
         moveCooldown = new Cooldown(this, "MOVE", false, 80);
         attackCooldown = new Cooldown(this, "ATTACK", false, 100);

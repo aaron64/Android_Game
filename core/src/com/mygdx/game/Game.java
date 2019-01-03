@@ -3,7 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.mygdx.game.items.cards.CardLoader;
+import com.mygdx.game.items.cards.CardBuilder;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.scenes.SceneContainer;
 import com.mygdx.game.scenes.game_menu.SceneGameMenu;
@@ -21,7 +21,7 @@ public class Game extends ApplicationAdapter {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		sceneStack = new Stack<Scene>();
 
-		CardLoader.init();
+		CardBuilder.init();
 		PlayerVars.init();
 
 		gameMenuScene = new SceneGameMenu();

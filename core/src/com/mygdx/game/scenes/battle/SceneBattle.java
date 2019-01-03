@@ -104,7 +104,6 @@ public class SceneBattle extends Scene implements GestureHandler {
 
     @Override
     public void touchDown(float x, float y, int pointer, int button) {
-        Gdx.app.log("INFO", "TOUCHED BATTLE");
 
     }
 
@@ -137,6 +136,8 @@ public class SceneBattle extends Scene implements GestureHandler {
     public void tap(float x, float y) {
         if(x > Window.getWidth()/2)
             player.useCard();
+        else
+            player.useSecondary();
     }
 
     public void enemySpawned(BattleEnemy enemy) {

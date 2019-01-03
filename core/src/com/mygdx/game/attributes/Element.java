@@ -1,14 +1,17 @@
 package com.mygdx.game.attributes;
 
+import com.badlogic.gdx.graphics.Color;
+
 public enum Element {
-    FIRE ("Fire"),
-    WATER ("Water"),
-    WIND ("Wind"),
-    POISON ("Poison"),
-    SHOCK ("Shock"),
-    GRASS ("Grass");
+    FIRE ("Fire", new Color(0.827f, 0.298f, 0.267f, 1)),
+    WATER ("Water", new Color(0.212f, 0.604f, 0.827f, 1)),
+    WIND ("Wind", new Color(0.808f, 0.929f, 0.929f, 1)),
+    POISON ("Poison", new Color(0.357f, 0.137f, 0.322f, 1)),
+    SHOCK ("Shock", new Color(1f, 1f, 0.322f, 1)),
+    GRASS ("Grass", new Color(0.247f, 0.729f, 0.322f, 1));
 
     private String str;
+    private Color color;
     private Element strength, weakness;
 
     static {
@@ -30,13 +33,15 @@ public enum Element {
         GRASS.strength = SHOCK;
         GRASS.weakness = POISON;
     }
-    Element(String str) {
+    Element(String str, Color color) {
         this.str = str;
+        this.color = color;
     }
 
     public String getStr() {
         return str;
     }
+    public Color getColor() { return color; }
     public Element getStrength() {
         return strength;
     }

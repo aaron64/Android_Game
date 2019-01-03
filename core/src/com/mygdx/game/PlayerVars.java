@@ -1,22 +1,26 @@
 package com.mygdx.game;
 
-import com.mygdx.game.items.cards.CardLoader;
+import com.mygdx.game.attributes.Element;
+import com.mygdx.game.attributes.Quality;
+import com.mygdx.game.items.cards.Card;
+import com.mygdx.game.items.cards.CardBuilder;
 import com.mygdx.game.items.cards.Deck;
 
 public class PlayerVars {
     public static Deck deck = new Deck(5);
     public static Deck pack = new Deck(30);
+    public static Card secondaryAttack = CardBuilder.buildCard("Bow", null, Quality.WEAK);
 
     public static void init() {
 
-        deck.addCard(CardLoader.buildCard("Bow"));
-        deck.addCard(CardLoader.buildCard("Bow"));
-        deck.addCard(CardLoader.buildCard("Magic"));
-        deck.addCard(CardLoader.buildCard("Sword"));
+        deck.addCard(CardBuilder.buildCard("Bow", Element.GRASS));
+        deck.addCard(CardBuilder.buildCard("Bow"));
+        deck.addCard(CardBuilder.buildCard("Magic"));
+        deck.addCard(CardBuilder.buildCard("Sword"));
 
-        pack.addCard(CardLoader.buildCard("Bow"));
-        pack.addCard(CardLoader.buildCard("Sword"));
-        pack.addCard(CardLoader.buildCard("Bow"));
-        pack.addCard(CardLoader.buildCard("Bow"));
+        pack.addCard(CardBuilder.buildCard("Bow"));
+        pack.addCard(CardBuilder.buildCard("Sword"));
+        pack.addCard(CardBuilder.buildCard("Bow"));
+        pack.addCard(CardBuilder.buildCard("Bow"));
     }
 }

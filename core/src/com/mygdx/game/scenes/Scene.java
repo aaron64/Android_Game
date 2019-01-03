@@ -36,6 +36,7 @@ public abstract class Scene {
         entities.update();
     }
     public abstract void render();
+    public void renderInBackground(){}
     public abstract void dispose();
 
     public boolean isAnimationLocked() { return animationQueue.locked(); }

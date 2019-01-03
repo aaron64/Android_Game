@@ -1,10 +1,10 @@
 package com.mygdx.game.scenes.game_menu.deck;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.GUI.components.ExitGameMenuButtonComponent;
+import com.mygdx.game.Game;
 import com.mygdx.game.PlayerVars;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.items.cards.Deck;
@@ -63,7 +63,10 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
 
     @Override
     public void render() {
-        rs.begin();
+        Game.getLastScene().renderInBackground();
+        rs.resetColor();
+
+        rs.restart();
 
         for(int i = 0; i < deck.getSize(); i++) {
             Card card = deck.peekCard(i);
@@ -103,7 +106,6 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
 
     @Override
     public void touchDown(float x, float y, int pointer, int button) {
-        Gdx.app.log("INFO", "TOUCHED EDITOR");
     }
 
     @Override

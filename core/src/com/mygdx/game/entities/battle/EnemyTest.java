@@ -1,7 +1,7 @@
 package com.mygdx.game.entities.battle;
 
 import com.mygdx.game.entities.Entity;
-import com.mygdx.game.items.cards.CardLoader;
+import com.mygdx.game.items.cards.CardBuilder;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleGrid;
 import com.mygdx.game.util.CooldownInterface;
@@ -14,7 +14,7 @@ public class EnemyTest extends BattleEnemy implements CooldownInterface {
         setSize(scene.getGrid().getTile(0,0).getSize());
 
         //TODO
-        cardStack.push(CardLoader.buildCard("Bow"));
+        cardStack.push(CardBuilder.buildCard("Bow"));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.mygdx.game.util;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -52,8 +53,24 @@ public class RenderSystem {
         batch.begin();
     }
 
+    public void restart() {
+        batch.begin();
+    }
+
     public void end() {
         batch.end();
+    }
+
+    public void setColor(float r, float g, float b, float a) {
+        batch.setColor(r, g, b, a);
+    }
+
+    public void setColor(Color color) {
+        batch.setColor(color);
+    }
+
+    public void resetColor() {
+        batch.setColor(1, 1, 1 ,1);
     }
 
     public void beginGUI() {

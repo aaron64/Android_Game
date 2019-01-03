@@ -80,6 +80,24 @@ public class SceneMainArea extends Scene implements GestureHandler {
         rs.end();
     }
 
+    @Override
+    public void renderInBackground() {
+        rs.centerCameraOn(player);
+        rs.begin();
+        rs.setColor(0.5f, 0.5f, 0.5f, 1);
+
+        map.render(rs);
+
+        grid.render(rs);
+
+        for(Entity e : entities.getList()) {
+            e.render(rs);
+        }
+
+        rs.setColor(1, 1, 1, 1);
+        rs.end();
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -121,7 +139,6 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
     @Override
     public void touchDown(float x, float y, int pointer, int button) {
-        Gdx.app.log("INFO", "TOUCHED MAIN");
 
     }
 
