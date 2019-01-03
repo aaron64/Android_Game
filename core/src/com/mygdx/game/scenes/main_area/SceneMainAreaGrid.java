@@ -72,7 +72,7 @@ public class SceneMainAreaGrid {
         int renderTileHeight = (int)((BL.y - TL.y)/tileSize.y)+2;
 
         for(int i = 0; i < renderTileWidth; i++) {
-            for(int j = renderTileHeight-1; j >= 0; j--) {
+            for(int j = renderTileHeight; j >= 0; j--) {
                 int ix = leftOffset + i;
                 int jy = bottomOffset + j;
                 if(isInBounds(new Vector2i(ix, jy)) && tileGrid[ix][jy] != null) {

@@ -1,6 +1,7 @@
 package com.mygdx.game.entities.battle;
 
 
+import com.mygdx.game.attributes.Element;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleGrid;
@@ -37,6 +38,10 @@ public abstract class BattleEntity extends Entity {
     }
 
     public void hit(int dmg) {
+
+    }
+
+    public void hit(int dmg, Element hitElement) {
 
     }
 

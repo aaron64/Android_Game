@@ -10,10 +10,9 @@ import com.mygdx.game.util.Vector2i;
 public class EnemyTest extends BattleEnemy implements CooldownInterface {
 
     public EnemyTest(SceneBattle scene, SceneBattleGrid grid, Vector2i pos, String name, int health) {
-        super(scene, grid, pos, name, health);
+        super(scene, grid, pos, name, health, null);
         setSize(scene.getGrid().getTile(0,0).getSize());
 
-        //TODO
         cardStack.push(CardBuilder.buildCard("Bow"));
     }
 
@@ -31,7 +30,9 @@ public class EnemyTest extends BattleEnemy implements CooldownInterface {
     }
 
     public void shoot() {
-        cardStack.peek().use(scene, this);
+        if(canUseItem()) {
+            cardStack.peek().use(scene, this);
+        }
     }
 
     @Override

@@ -19,7 +19,7 @@ public class EnemyTest2 extends BattleEnemy implements CooldownInterface {
     int moves;
 
     public EnemyTest2(SceneBattle scene, SceneBattleGrid grid, Vector2i pos, String name, int health) {
-        super(scene, grid, pos, name, health);
+        super(scene, grid, pos, name, health, null);
         acceptedTileTypes = new SceneBattleTileType[]{SceneBattleTileType.ENEMY, SceneBattleTileType.NEUTRAL};
 
         setSize(scene.getGrid().getTile(0,0).getSize());
@@ -53,7 +53,9 @@ public class EnemyTest2 extends BattleEnemy implements CooldownInterface {
     }
 
     public void attack() {
-        cardStack.peek().use(scene, this);
+        if(canUseItem()) {
+            cardStack.peek().use(scene, this);
+        }
     }
 
     @Override

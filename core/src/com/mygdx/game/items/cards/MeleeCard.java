@@ -34,7 +34,7 @@ public class MeleeCard extends AttackCard {
 
                     BattleEntity e = (BattleEntity) tile.getEntity();
                     if(e != null && e != user)
-                        e.hit(getDamage());
+                        e.hit(getDamage(), getElement());
                 }
             }
         }

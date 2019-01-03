@@ -14,7 +14,7 @@ public class BattlePlayer extends BattleLiving  {
     private Deck deck;
     private Card secondary;
     public BattlePlayer(SceneBattle scene, SceneBattleGrid grid, Vector2i pos, int health, int maxHealth) {
-        super(scene, grid, pos, "player", Facing.RIGHT, health, maxHealth);
+        super(scene, grid, pos, "player", Facing.RIGHT, health, maxHealth, null);
         acceptedTileTypes = new SceneBattleTileType[]{SceneBattleTileType.FRIENDLY, SceneBattleTileType.NEUTRAL};
 
         setSize(scene.getGrid().getTile(0,0).getSize());
@@ -30,15 +30,17 @@ public class BattlePlayer extends BattleLiving  {
     }
 
     public void useCard() {
-        if(!deck.isEmpty()) {
+        if(!deck.isEmpty() && canUseItem()) {
             lockFor(15);
             deck.pop().use(scene, this);
         }
     }
 
     public void useSecondary() {
-        secondary.use(scene, this);
-        lockFor(10);
+        if(canUseItem()) {
+            secondary.use(scene, this);
+            lockFor(10);
+        }
     }
 
     public void move(float vx, float vy) {

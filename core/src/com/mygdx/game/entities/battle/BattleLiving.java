@@ -3,6 +3,7 @@ package com.mygdx.game.entities.battle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 import com.mygdx.game.attributes.Element;
+import com.mygdx.game.attributes.ElementState;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.scenes.battle.SceneBattle;
@@ -35,11 +36,14 @@ public abstract class BattleLiving extends BattleEntity implements CooldownInter
     private int renderHealth;
     private BitmapFont healthFont;
 
-    private Element elementState;
+    protected ElementState elementState;
+    protected Element element;
 
     private Cooldown lockCooldown;
 
-    public BattleLiving(SceneBattle scene, SceneBattleGrid grid, Vector2i pos, String name, Facing facing, int health, int maxHealth) {
+    private boolean canUseItem;
+
+    public BattleLiving(SceneBattle scene, SceneBattleGrid grid, Vector2i pos, String name, Facing facing, int health, int maxHealth, Element element) {
         super(scene, grid, pos, name);
         cardStack = new Stack<Card>();
 
@@ -53,33 +57,23 @@ public abstract class BattleLiving extends BattleEntity implements CooldownInter
         lockCooldown = new Cooldown(this, "LOCK", true, 10);
 
         elementState = null;
+
+        canUseItem = true;
     }
 
     public void update() {
         lockCooldown.update();
 
-        updateElementState();
+        if(elementState != null) {
+            elementState.update();
+        }
+
         updateRenderHealth();
     }
 
     public void render(RenderSystem rs) {
         super.render(rs);
         rs.drawText(healthFont, ""+renderHealth, Vector2f.addVectors(getPos(), new Vector2f(0,getSize().y + 100)));
-    }
-
-    private void updateElementState() {
-        if(elementState != null) {
-            switch (elementState) {
-                case FIRE:
-                    break;
-                case POISON:
-                    break;
-                case SHOCK:
-                    lockFor(50);
-                    elementState = null;
-                    break;
-            }
-        }
     }
 
     private void updateRenderHealth() {
@@ -155,6 +149,17 @@ public abstract class BattleLiving extends BattleEntity implements CooldownInter
         }
     }
 
+    @Override
+    public void hit(int dmg, Element hitElement) {
+        if(hitElement != null) {
+            dmg *= hitElement.getMultiplier(element);
+            if (elementState == null) {
+                elementState = ElementState.generateElementState(hitElement, this);
+            }
+        }
+        hit(dmg);
+    }
+
     public abstract void die();
 
     public void recover(int rec) {
@@ -203,5 +208,21 @@ public abstract class BattleLiving extends BattleEntity implements CooldownInter
 
     public void resetLock() {
         lockCooldown.reset();
+    }
+
+    public ElementState getElementState() {
+        return elementState;
+    }
+
+    public void setElementState(ElementState elementState) {
+        this.elementState = elementState;
+    }
+
+    public boolean canUseItem() {
+        return canUseItem;
+    }
+
+    public void setCanUseItem(boolean canUseItem) {
+        this.canUseItem = canUseItem;
     }
 }

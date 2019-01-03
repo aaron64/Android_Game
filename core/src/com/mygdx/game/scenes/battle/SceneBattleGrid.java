@@ -3,6 +3,7 @@ package com.mygdx.game.scenes.battle;
 import com.badlogic.gdx.graphics.Texture;
 
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.items.cards.ThrowableSize;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.ImageUtil;
 import com.mygdx.game.util.MathUtil;
@@ -27,14 +28,6 @@ public class SceneBattleGrid {
     private Texture mapTexture;
 
     private Vector2i playerSpawnCoords;
-
-    public enum throwableSizes {
-        SMALL,
-        MEDIUM,
-        LARGE,
-        HORIZONTAL,
-        VERTICLE;
-    }
 
     public SceneBattleGrid(SceneBattle scene) {
         int[] mapWeights = {1,1,3,2,5,3};
@@ -116,6 +109,10 @@ public class SceneBattleGrid {
         return indexPos.x >= 0 && indexPos.y >= 0 && indexPos.x < getWidth() && indexPos.y < getHeight();
     }
 
+    public boolean isFreeTile(Vector2i indexPos) {
+        return isInBounds(indexPos) && getTile(indexPos).getEntity() == null;
+    }
+
     public Vector2f getAbsoluteTilePosition(Vector2i indexPos) {
         return Vector2f.addVectors(offsetVec, Vector2f.multiplyVectors(indexPos, tileSize));
     }
@@ -173,7 +170,7 @@ public class SceneBattleGrid {
         return group;
     }
 
-    public ArrayList<SceneBattleTile> getGroup(throwableSizes size, Vector2i pos) {
+    public ArrayList<SceneBattleTile> getGroup(ThrowableSize size, Vector2i pos) {
         ArrayList<SceneBattleTile> list = new ArrayList<SceneBattleTile>();
         switch(size) {
             case SMALL: {
