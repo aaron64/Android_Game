@@ -1,5 +1,6 @@
 package com.mygdx.game.items.cards;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -13,6 +14,20 @@ public class Deck {
         this.maxCards = maxCards;
         cards = new ArrayList<Card>();
         removeList = new ArrayList<Card>();
+    }
+
+    public Deck(Deck d) {
+        this(d.getSize());
+        for(int i = 0; i < d.getSize(); i++) {
+            addCard(d.getCard(i));
+        }
+    }
+
+    public Deck(ArrayList<Card> c) {
+        this(c.size());
+        for(int i = 0; i < c.size(); i++) {
+            addCard(c.get(i));
+        }
     }
 
     public void refresh() {
@@ -69,5 +84,9 @@ public class Deck {
 
     public boolean isEmpty() {
         return cards.isEmpty();
+    }
+
+    public void clear() {
+        cards.clear();
     }
 }

@@ -138,4 +138,8 @@ public class GestureUtil implements GestureDetector.GestureListener {
     private boolean isValid() {
         return Game.getCurrentScene() == handler && !Game.getCurrentScene().isAnimationLocked();
     }
+
+    public void reset() {
+        held = false;
+    }
 }

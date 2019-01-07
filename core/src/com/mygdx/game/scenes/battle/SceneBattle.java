@@ -1,10 +1,10 @@
 package com.mygdx.game.scenes.battle;
 
 
-import com.badlogic.gdx.Gdx;
 import com.mygdx.game.GUI.components.BattleDeckComponent;
 import com.mygdx.game.Game;
 import com.mygdx.game.animation.BattleEnemySpawnAnimation;
+import com.mygdx.game.animation.OpenAnimation;
 import com.mygdx.game.entities.battle.BattleEnemy;
 import com.mygdx.game.entities.battle.BattlePlayer;
 import com.mygdx.game.entities.Entity;
@@ -12,6 +12,7 @@ import com.mygdx.game.entities.battle.EnemyTest;
 import com.mygdx.game.entities.battle.EnemyTest2;
 import com.mygdx.game.map.MapBattle;
 import com.mygdx.game.scenes.Scene;
+import com.mygdx.game.scenes.battle.hand_select.SceneHandSelect;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.util.GestureHandler;
 import com.mygdx.game.util.GestureUtil;
@@ -27,6 +28,8 @@ public class SceneBattle extends Scene implements GestureHandler {
 
     private ArrayList<BattleEnemy> enemies;
 
+    private SceneHandSelect sceneHandSelect;
+
     public SceneBattle() {
         super();
 
@@ -36,10 +39,11 @@ public class SceneBattle extends Scene implements GestureHandler {
         enemies = new ArrayList<BattleEnemy>();
 
         addPlayer();
+        sceneHandSelect = new SceneHandSelect(player);
 
         map = new MapBattle(this,"bg1", battleGrid, player);
 
-        gui.addComponent(new BattleDeckComponent(gui));
+        gui.addComponent(new BattleDeckComponent(gui, player));
 
         new EnemyTest(this, battleGrid, new Vector2i(4, 2), "enemy", 40);
         new EnemyTest2(this, battleGrid, new Vector2i(3, 1), "enemy", 40);
@@ -47,6 +51,7 @@ public class SceneBattle extends Scene implements GestureHandler {
         for(BattleEnemy enemy : enemies) {
             animationQueue.add(new BattleEnemySpawnAnimation(true, false, enemy));
         }
+        animationQueue.add(new OpenAnimation(true, false, sceneHandSelect));
     }
 
     @Override
@@ -57,11 +62,11 @@ public class SceneBattle extends Scene implements GestureHandler {
         if(!isAnimationLocked()) {
             battleGrid.update(this);
 
-            for (Entity e : entities.getList()) {
+            for(Entity e : entities.getList()) {
                 e.update();
             }
 
-            if (enemies.isEmpty()) {
+            if(enemies.isEmpty()) {
                 returnToMainArea();
             }
         }
@@ -80,6 +85,21 @@ public class SceneBattle extends Scene implements GestureHandler {
         }
 
         gui.render(rs);
+
+        rs.end();
+    }
+
+    @Override
+    public void renderInBackground() {
+        rs.begin();
+
+        map.render(rs);
+
+        battleGrid.render(rs);
+
+        for(Entity e : entities.getList()) {
+            e.render(rs);
+        }
 
         rs.end();
     }

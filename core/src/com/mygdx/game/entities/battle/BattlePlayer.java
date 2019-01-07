@@ -11,7 +11,7 @@ import com.mygdx.game.util.Vector2i;
 
 public class BattlePlayer extends BattleLiving  {
 
-    private Deck deck;
+    private Deck hand;
     private Card secondary;
     public BattlePlayer(SceneBattle scene, SceneBattleGrid grid, Vector2i pos, int health, int maxHealth) {
         super(scene, grid, pos, "player", Facing.RIGHT, health, maxHealth, null);
@@ -19,20 +19,20 @@ public class BattlePlayer extends BattleLiving  {
 
         setSize(scene.getGrid().getTile(0,0).getSize());
 
-        deck = PlayerVars.deck;
+        hand = new Deck(5);
         secondary = PlayerVars.secondaryAttack;
     }
 
     @Override
     public void update() {
         super.update();
-        deck.refresh();
+        hand.refresh();
     }
 
     public void useCard() {
-        if(!deck.isEmpty() && canUseItem()) {
+        if(!hand.isEmpty() && canUseItem()) {
             lockFor(15);
-            deck.pop().use(scene, this);
+            hand.pop().use(scene, this);
         }
     }
 
@@ -59,5 +59,13 @@ public class BattlePlayer extends BattleLiving  {
     @Override
     public void trigger(String name) {
 
+    }
+
+    public Deck getHand() {
+        return hand;
+    }
+
+    public void setHand(Deck hand) {
+        this.hand = hand;
     }
 }

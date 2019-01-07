@@ -17,6 +17,7 @@ public abstract class Enemy extends MainAreaEntity {
     public void touch(MainAreaEntity toucher) {
         if(toucher instanceof Player) {
             scene.removeEntity(this);
+            scene.resetInputs();
             Game.pushScene(new SceneBattle());
         }
     }

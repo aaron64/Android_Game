@@ -14,7 +14,7 @@ public abstract class ButtonComponent extends GUIComponent {
 
     private Texture icon;
     private Vector2f pos;
-    private Vector2i size;
+    protected Vector2i size;
 
     public ButtonComponent(GUI gui, String name, Vector2f pos) {
         super(gui, name);
@@ -22,7 +22,7 @@ public abstract class ButtonComponent extends GUIComponent {
 
         this.icon = new Texture("gui/button/" + name + ".png");
 
-        this.size = new Vector2i(icon.getWidth() * 4, icon.getHeight() * 4);
+        this.size = new Vector2i(icon.getWidth() * 8, icon.getHeight() * 8);
     }
 
     @Override

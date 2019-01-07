@@ -41,21 +41,25 @@ public class CardBuilder {
         switch(CardType.valueOf(category)) {
             case MAGIC: {
                 int damage = cardData.getInt("Base_Damage");
-                return new MagicCard(name, damage, quality, Element.FIRE);
+                int cost = cardData.getInt("Base_Point_Cost");
+                return new MagicCard(name, damage, cost, quality, element);
             }
             case MELEE: {
                 int damage = cardData.getInt("Base_Damage");
                 int width = cardData.getInt("Width");
                 int height = cardData.getInt("Height");
-                return new MeleeCard(name, damage, width, height, quality, element);
+                int cost = cardData.getInt("Base_Point_Cost");
+                return new MeleeCard(name, damage, width, height, cost, quality, element);
             }
             case BOW: {
                 int damage = cardData.getInt("Base_Damage");
-                return new BowCard(name, damage, quality, element);
+                int cost = cardData.getInt("Base_Point_Cost");
+                return new BowCard(name, damage, cost, quality, element);
             }
             case GUN: {
                 int damage = cardData.getInt("Base_Damage");
-                return new GunCard(name, damage, quality, element);
+                int cost = cardData.getInt("Base_Point_Cost");
+                return new GunCard(name, damage, cost, quality, element);
             }
             case SUPPORT:
 

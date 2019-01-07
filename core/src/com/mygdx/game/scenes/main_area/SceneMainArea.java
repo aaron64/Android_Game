@@ -180,4 +180,8 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
         gui.tap(x, y);
     }
+
+    public void resetInputs() {
+        gestureHandler.reset();
+    }
 }

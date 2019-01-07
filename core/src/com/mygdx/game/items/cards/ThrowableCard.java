@@ -10,8 +10,8 @@ public class ThrowableCard extends AttackCard {
 
     private ThrowableSize size;
 
-    public ThrowableCard(String name, String folder, int damage, CardType type, Quality quality, Element element) {
-        super(name, folder, "Throw a projectile", damage, type, quality, element);
+    public ThrowableCard(String name, String folder, int damage, CardType type, int pointsCost, Quality quality, Element element) {
+        super(name, folder, "Throw a projectile", damage, type, pointsCost, quality, element);
     }
 
     @Override

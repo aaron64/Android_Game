@@ -12,8 +12,8 @@ public class MeleeCard extends AttackCard {
 
     private int atkWidth;
     private int atkHeight;
-    public MeleeCard(String name, int damage, int width, int height, Quality quality, Element element) {
-        super(name, "melee", "Hit an enemy", damage, CardType.MELEE, quality, element);
+    public MeleeCard(String name, int damage, int width, int height, int pointsCost, Quality quality, Element element) {
+        super(name, "melee", "Hit an enemy", damage, CardType.MELEE, pointsCost, quality, element);
         atkWidth = width;
         atkHeight = height;
     }

@@ -10,12 +10,14 @@ public class PlayerVars {
     public static Deck deck = new Deck(5);
     public static Deck pack = new Deck(30);
     public static Card secondaryAttack = CardBuilder.buildCard("Bow", null, Quality.WEAK);
+    public static int maxPoints = 7;
 
     public static void init() {
 
         deck.addCard(CardBuilder.buildCard("Bow", Element.GRASS));
         deck.addCard(CardBuilder.buildCard("Bow"));
-        deck.addCard(CardBuilder.buildCard("Magic"));
+        deck.addCard(CardBuilder.buildCard("Magic", Element.POISON));
+        deck.addCard(CardBuilder.buildCard("Magic", Element.GRASS));
         deck.addCard(CardBuilder.buildCard("Sword"));
 
         pack.addCard(CardBuilder.buildCard("Bow"));

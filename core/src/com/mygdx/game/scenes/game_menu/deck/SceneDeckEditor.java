@@ -35,6 +35,7 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
     public SceneDeckEditor() {
         super();
 
+
         Vector2f menuButtonPos = new Vector2f(Window.percLeft(0.05f), Window.percTop(0.05f));
         gui.addComponent(new ExitGameMenuButtonComponent(gui, menuButtonPos));
 

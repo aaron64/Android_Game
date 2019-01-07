@@ -15,19 +15,22 @@ import com.mygdx.game.util.Vector2i;
 
 public abstract class Card extends Item {
 
-    private static Texture cardBackground = new Texture("misc/icon_holder_battle.png");
+    public static Texture cardBackground = new Texture("misc/icon_holder_battle.png");
 
     private CardType type;
     private Element element;
 
-    private BitmapFont nameFont, descriptionFont;
-    private Vector2f nameSize, descriptionSize;
+    private int pointsCost;
+
+    private BitmapFont nameFont, descriptionFont, pointsFont, damageFont;
+    private Vector2f nameSize, descriptionSize, pointsSize, damageSize;
 
     private Texture element_overlay_texture;
 
-    public Card(String name, String folder, String description, CardType type, Quality quality, Element element) {
+    public Card(String name, String folder, String description, CardType type, int pointsCost, Quality quality, Element element) {
         super(name, "cards/" + folder, description, quality);
         this.description = description;
+        this.pointsCost = pointsCost;
         this.type = type;
         this.element = element;
 
@@ -37,9 +40,13 @@ public abstract class Card extends Item {
 
         nameFont = FontUtil.getFont(40);
         descriptionFont = FontUtil.getFont(24);
+        pointsFont = FontUtil.getFont(40);
+        damageFont = FontUtil.getFont(40);
 
         nameSize = FontUtil.getTextSize(nameFont, name);
         descriptionSize = FontUtil.getTextSize(descriptionFont, description);
+        pointsSize = FontUtil.getTextSize(pointsFont, ""+getPointsCost());
+        damageSize = FontUtil.getTextSize(damageFont, "" + getAmount());
     }
 
     public abstract void use(SceneBattle scene, BattleLiving user);
@@ -73,10 +80,18 @@ public abstract class Card extends Item {
         descriptionPos.x += iconSize.x + 12;
         descriptionPos.y += size.h() - nameSize.h() * 2 - 12;
 
+        Vector2f pointsPos = new Vector2f(pos);
+
+        Vector2f damagePos = new Vector2f(pos);
+
         rs.draw(cardBackground, pos, size);
         drawIcon(rs, pos, iconSize);
         rs.drawText(nameFont, getName(), namePos);
         rs.drawText(descriptionFont, getDescription(), descriptionPos);
+    }
+
+    public void drawHandScene(RenderSystem rs, Vector2f pos, Vector2i size) {
+        drawIcon(rs, pos, size);
     }
 
     @Override
@@ -111,4 +126,14 @@ public abstract class Card extends Item {
     public void setElement(Element element) {
         this.element = element;
     }
+
+    public int getPointsCost() {
+        return pointsCost;
+    }
+
+    public void setPointsCost(int pointsCost) {
+        this.pointsCost = pointsCost;
+    }
+
+    protected abstract int getAmount();
 }

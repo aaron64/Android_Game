@@ -9,8 +9,8 @@ import com.mygdx.game.util.Vector2i;
 
 public class MagicCard extends AttackCard {
 
-    public MagicCard(String name, int damage, Quality quality, Element element) {
-        super(name, "magic", "A magic projectile", damage, CardType.MAGIC, quality, element);
+    public MagicCard(String name, int damage, int pointsCost, Quality quality, Element element) {
+        super(name, "magic", "A magic projectile", damage, CardType.MAGIC, pointsCost, quality, element);
     }
 
     @Override
