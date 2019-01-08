@@ -1,6 +1,7 @@
 package com.mygdx.game.GUI.components;
 
 import com.mygdx.game.GUI.GUI;
+import com.mygdx.game.Game;
 import com.mygdx.game.scenes.battle.hand_select.SceneHandSelect;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
@@ -17,6 +18,6 @@ public class HandSelectionGoButton extends ButtonComponent {
 
     @Override
     public void onClick() {
-        scene.go();
+        Game.endScene();
     }
 }

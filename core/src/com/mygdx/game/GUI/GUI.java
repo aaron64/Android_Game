@@ -40,6 +40,14 @@ public class GUI {
         removeList.add(comp);
     }
 
+    public GUIComponent getComponent(String name) {
+        for(GUIComponent  comp : components) {
+            if(comp.getName().equals(name))
+                return comp;
+        }
+        return null;
+    }
+
     public void tap(float x, float y) {
         for(GUIComponent comp : components) {
             comp.tap(x, y);

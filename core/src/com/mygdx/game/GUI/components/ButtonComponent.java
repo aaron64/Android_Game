@@ -32,15 +32,19 @@ public abstract class ButtonComponent extends GUIComponent {
 
     @Override
     public void render(RenderSystem rs) {
-        rs.draw(icon, pos, size);
+        if(isOn()) {
+            rs.draw(icon, pos, size);
+        }
     }
 
     public abstract void onClick();
 
     @Override
     public void tap(float x, float y) {
-        if(new Rectangle(pos.x, pos.y, size.w(), size.h()).contains(x, y)) {
-            onClick();
+        if(isOn()) {
+            if (new Rectangle(pos.x, pos.y, size.w(), size.h()).contains(x, y)) {
+                onClick();
+            }
         }
     }
 }

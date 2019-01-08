@@ -12,7 +12,7 @@ public class BattleEnemySpawnAnimation extends Animation {
     private float dropSpeed;
 
     public BattleEnemySpawnAnimation(boolean lock, boolean simultaneous, BattleEnemy enemy) {
-        super(lock, simultaneous);
+        super(lock, simultaneous, "ENEMY_SPAWN");
         this.enemy = enemy;
 
         dropSpeed = -10;

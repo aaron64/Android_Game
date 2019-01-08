@@ -101,6 +101,21 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
     }
 
     @Override
+    public void onPushed() {
+
+    }
+
+    @Override
+    public void onPopped() {
+
+    }
+
+    @Override
+    public void onExit() {
+
+    }
+
+    @Override
     public void dispose() {
 
     }
