@@ -7,7 +7,7 @@ public class OpenAnimation extends Animation {
 
     private Scene newScene;
     public OpenAnimation(boolean lock, boolean simultaneous, Scene scene) {
-        super(lock, simultaneous);
+        super(lock, simultaneous, "OPEN");
         this.newScene = scene;
     }
 

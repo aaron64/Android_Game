@@ -51,11 +51,14 @@ public class Game extends ApplicationAdapter {
 	public static void pushScene(Scene scene) {
 		Gdx.app.log("INFO", "STACKSIZE " + sceneStack.size());
 		sceneStack.push(scene);
+		sceneStack.peek().onPushed();
 	}
 
 	public static void endScene() {
         Gdx.app.log("INFO", "STACKSIZE " + sceneStack.size());
+        sceneStack.peek().onExit();
 		sceneStack.pop();
+		sceneStack.peek().onPopped();
 	}
 
 	public static float getGravity() {

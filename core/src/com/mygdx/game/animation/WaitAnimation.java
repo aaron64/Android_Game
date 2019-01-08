@@ -8,7 +8,7 @@ public class WaitAnimation extends Animation implements CooldownInterface {
 
     Cooldown waitCooldown;
     public WaitAnimation(boolean lock, boolean simultaneous, int waitTime) {
-        super(lock, simultaneous);
+        super(lock, simultaneous, "WAIT");
         waitCooldown = new Cooldown(this, "WAIT", false, waitTime);
     }
 
