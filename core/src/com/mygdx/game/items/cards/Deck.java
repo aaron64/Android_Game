@@ -26,7 +26,7 @@ public class Deck {
     public Deck(ArrayList<Card> c) {
         this(c.size());
         for(int i = 0; i < c.size(); i++) {
-            addCard(c.get(i));
+            addCard(c.get(i), 0);
         }
     }
 

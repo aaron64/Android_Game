@@ -12,7 +12,6 @@ public class AndroidLauncher extends AndroidApplication {
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getActionBar().hide();
 
 		String macAddress = "";
 		WifiManager wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -27,6 +26,7 @@ public class AndroidLauncher extends AndroidApplication {
 
 
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+		config.useImmersiveMode = true;
 		initialize(new Game(), config);
 	}
 }

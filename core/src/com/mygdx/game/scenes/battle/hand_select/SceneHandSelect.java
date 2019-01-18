@@ -24,7 +24,7 @@ public class SceneHandSelect extends Scene implements GestureHandler {
     private BattlePlayer player;
 
     private Vector2f choosePos, handPos;
-    private Deck deck, hand;
+    private Deck deck;
 
     private int leftOffset;
 
@@ -42,14 +42,10 @@ public class SceneHandSelect extends Scene implements GestureHandler {
         maxCards = 5;
 
         deck = new Deck(PlayerVars.deck);
-        hand = new Deck(maxCards);
+        deck.shuffle();
 
         deckSelection = new ArrayList<Card>(maxCards);
         handSelection = new ArrayList<Card>(maxCards);
-
-        for(int i = 0; i < maxCards; i++) {
-            deckSelection.add(deck.pop());
-        }
 
         leftOffset = Window.percWidth(0.1f);
 
@@ -57,6 +53,8 @@ public class SceneHandSelect extends Scene implements GestureHandler {
 
         Vector2f goButtonPos = new Vector2f(Window.percRight(0.1f) - iconSize.x, Window.getCenter().y - iconSize.y - Window.percHeight(0.05f));
         gui.addComponent(new HandSelectionGoButton(gui, goButtonPos, iconSize, this));
+
+        newHand();
     }
 
     @Override
@@ -66,13 +64,12 @@ public class SceneHandSelect extends Scene implements GestureHandler {
     }
 
     public void newHand() {
-        deck.shuffle();
-
-        hand.clear();
         deckSelection.clear();
+        handSelection.clear();
 
-        for(int i = 0; i < 5; i++) {
-            player.getHand().addCard(deck.pop());
+        for(int i = 0; i < maxCards; i++) {
+            deckSelection.add(deck.pop());
+            deck.refresh();
         }
     }
 
@@ -156,13 +153,25 @@ public class SceneHandSelect extends Scene implements GestureHandler {
         int spacing = Window.percWidth(0.02f);
 
         for(int i = 0; i < 5; i++) {
-            int centerIndex = i - 2;
-            Vector2f deckPos = new Vector2f(Window.getCenter().x - (iconSize.x + spacing) * (centerIndex) - iconSize.x/2, Window.getCenter().y + Window.percHeight(0.05f));
+            Vector2f deckPos = new Vector2f(leftOffset + (iconSize.x + spacing) * i, Window.getCenter().y + Window.percHeight(0.05f));
 
             if(i < deckSelection.size()) {
                 Card card = deckSelection.get(i);
                 if(new Rectangle(deckPos.x, deckPos.y, iconSize.w(), iconSize.h()).contains(x, y)) {
                     handSelection.add(card);
+                    deckSelection.remove(i);
+                }
+            }
+        }
+
+        for(int i = 0; i < 5; i++) {
+            Vector2f deckPos = new Vector2f(leftOffset + (iconSize.x + spacing) * i, Window.getCenter().y - iconSize.y - Window.percHeight(0.05f));
+
+            if(i < deckSelection.size()) {
+                Card card = deckSelection.get(i);
+                if(new Rectangle(deckPos.x, deckPos.y, iconSize.w(), iconSize.h()).contains(x, y)) {
+                    handSelection.remove(i);
+                    deckSelection.add(card);
                 }
             }
         }
