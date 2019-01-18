@@ -1,0 +1,127 @@
+package com.mygdx.game.factories;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.JsonValue;
+import com.mygdx.game.attributes.Element;
+import com.mygdx.game.attributes.Quality;
+import com.mygdx.game.items.cards.BombCard;
+import com.mygdx.game.items.cards.BowCard;
+import com.mygdx.game.items.cards.Card;
+import com.mygdx.game.items.cards.CardType;
+import com.mygdx.game.items.cards.GunCard;
+import com.mygdx.game.items.cards.MagicCard;
+import com.mygdx.game.items.cards.MeleeCard;
+import com.mygdx.game.items.cards.ThrowableSize;
+import com.mygdx.game.util.FileUtil;
+
+import java.util.HashMap;
+
+public class CardFactory {
+
+    private static HashMap<String, JsonValue> cardMap;
+    public static void init() {
+        cardMap = new HashMap<String, JsonValue>();
+
+        JsonValue cardFile = FileUtil.readJSONFromAsset("Cards");
+        JsonValue categories = cardFile.get("Categories");
+
+        for(int i = 0; i < categories.size; i++) {
+            JsonValue currentCategory = categories.get(i).get("Cards");
+            for(int j = 0; j < currentCategory.size; j++) {
+                JsonValue element = currentCategory.get(j);
+                String cardName = element.getString("Name");
+                cardMap.put(cardName, element);
+                Gdx.app.log("INFO", "SGD" + currentCategory.size + element.toString());
+            }
+        }
+
+    }
+
+    public static Card buildCard(String name, Element element, Quality quality) {
+
+        JsonValue cardData = cardMap.get(name);
+        String category = cardData.getString("Category");
+        CardType.valueOf(category);
+
+        if(quality == null)
+            quality = Quality.STANDARD;
+
+        switch(CardType.valueOf(category)) {
+            case MAGIC: {
+                int damage = cardData.getInt("Base_Damage");
+                int cost = cardData.getInt("Base_Point_Cost");
+                return new MagicCard(name, damage, cost, quality, element);
+            }
+            case MELEE: {
+                int damage = cardData.getInt("Base_Damage");
+                int width = cardData.getInt("Width");
+                int height = cardData.getInt("Height");
+                int cost = cardData.getInt("Base_Point_Cost");
+                return new MeleeCard(name, damage, width, height, cost, quality, element);
+            }
+            case BOW: {
+                int damage = cardData.getInt("Base_Damage");
+                int cost = cardData.getInt("Base_Point_Cost");
+                return new BowCard(name, damage, cost, quality, element);
+            }
+            case GUN: {
+                int damage = cardData.getInt("Base_Damage");
+                int cost = cardData.getInt("Base_Point_Cost");
+                return new GunCard(name, damage, cost, quality, element);
+            }
+            case SUPPORT:
+
+                break;
+            case SPECIAL:
+
+                break;
+            case THROWABLE:
+                int damage = cardData.getInt("Base_Damage");
+                int cost = cardData.getInt("Base_Point_Cost");
+                int range = cardData.getInt("Range");
+                String type = cardData.getString("Type");
+                ThrowableSize size = parseThrowableSize(cardData.getString("Size"));
+
+                if(type.equals("bomb")) {
+                    return new BombCard(name, damage, size, range, cost, quality, element);
+                }
+                break;
+            default:
+
+                break;
+        }
+
+        return null;
+    }
+
+    public static ThrowableSize parseThrowableSize(String s){
+        if(s.equals("small")) {
+            return ThrowableSize.SMALL;
+        }
+        if(s.equals("medium")) {
+            return ThrowableSize.MEDIUM;
+        }
+        if(s.equals("large")) {
+            return ThrowableSize.LARGE;
+        }
+        if(s.equals("horizontal")) {
+            return ThrowableSize.HORIZONTAL;
+        }
+        if(s.equals("vertical")) {
+            return ThrowableSize.VERTICAL;
+        }
+        return null;
+    }
+
+    public static Card buildCard(String name) {
+        return buildCard(name, null, null);
+    }
+
+    public static Card buildCard(String name, Element element) {
+        return buildCard(name, element, null);
+    }
+
+    public static Card buildCard(String name, Quality quality) {
+        return buildCard(name, null, quality);
+    }
+}
