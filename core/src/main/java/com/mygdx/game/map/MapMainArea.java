@@ -26,7 +26,7 @@ public class MapMainArea extends Map {
     }
 
     @Override
-    public void render(com.mygdx.game.graphics.RenderSystem rs) {
+    public void render(RenderSystem rs) {
         rs.draw(getBackground(), backgroundPos, backgroundSize);
     }
 }

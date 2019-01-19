@@ -10,7 +10,7 @@ public class ElementStateWind extends ElementState {
 
     public ElementStateWind(BattleLiving affected) {
         super(affected);
-        SceneBattle scene = (SceneBattle)(com.mygdx.game.Game.getCurrentScene());
+        SceneBattle scene = (SceneBattle)(Game.getCurrentScene());
 
         Vector2i newPos = new Vector2i(affected.getIndexPos());
         if(affected instanceof BattleEnemy) {

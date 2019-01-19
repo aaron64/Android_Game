@@ -9,11 +9,11 @@ import com.mygdx.game.graphics.RenderSystem;
 
 public class InteractiveComponent extends GUIComponent implements GestureHandler {
 
-    private com.mygdx.game.util.GestureUtil gestureUtil;
+    private GestureUtil gestureUtil;
     public InteractiveComponent(GUI gui, String name) {
         super(gui, name);
 
-        gestureUtil = new com.mygdx.game.util.GestureUtil(this);
+        gestureUtil = new GestureUtil(this);
     }
 
     @Override
@@ -22,7 +22,7 @@ public class InteractiveComponent extends GUIComponent implements GestureHandler
     }
 
     @Override
-    public void render(com.mygdx.game.graphics.RenderSystem rs) {
+    public void render(RenderSystem rs) {
 
     }
 

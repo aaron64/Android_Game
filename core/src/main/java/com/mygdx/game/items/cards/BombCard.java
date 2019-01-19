@@ -16,7 +16,7 @@ public class BombCard extends ThrowableCard {
     }
 
     @Override
-    public void use(com.mygdx.game.scenes.battle.SceneBattle scene, BattleLiving user) {
+    public void use(SceneBattle scene, BattleLiving user) {
         Vector2i dest = new Vector2i(user.getIndexPos());
         if(user instanceof BattleEnemy) {
             dest.subtract(2, 0);

@@ -38,7 +38,7 @@ public class ParticleSystem {
         }
     }
 
-    public void update(com.mygdx.game.scenes.Scene scene) {
+    public void update(Scene scene) {
         for(int i = 0; i < particles; i++) {
             Vector2f pos = posList[i];
             Vector2f vel = velocityList[i];
@@ -61,7 +61,7 @@ public class ParticleSystem {
         }
     }
 
-    public void render(com.mygdx.game.graphics.RenderSystem rs) {
+    public void render(RenderSystem rs) {
         for(int i = 0; i < particles; i++) {
             rs.draw(texture, posList[i], sizeList[i]);
         }

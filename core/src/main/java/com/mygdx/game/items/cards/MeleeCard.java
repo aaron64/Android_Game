@@ -4,7 +4,6 @@ import com.mygdx.game.attributes.Element;
 import com.mygdx.game.attributes.Quality;
 import com.mygdx.game.entities.battle.BattleEntity;
 import com.mygdx.game.entities.battle.BattleLiving;
-import com.mygdx.game.items.cards.AttackCard;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.util.Vector2i;
@@ -20,8 +19,8 @@ public class MeleeCard extends AttackCard {
     }
 
     @Override
-    public void use(com.mygdx.game.scenes.battle.SceneBattle scene, BattleLiving user) {
-        com.mygdx.game.util.Vector2i indexPos = user.getIndexPos();
+    public void use(SceneBattle scene, BattleLiving user) {
+        Vector2i indexPos = user.getIndexPos();
         int face = -1;
         if(user.facingRight()) {
             face = 1;
@@ -29,11 +28,11 @@ public class MeleeCard extends AttackCard {
 
         for(int i = 1; i < atkWidth+1; i++) {
             for(int j = 0; j < atkHeight; j++) {
-                com.mygdx.game.scenes.battle.SceneBattleTile tile = scene.getTile(indexPos.x + (i*face), indexPos.y + (j*face));
+                SceneBattleTile tile = scene.getTile(indexPos.x + (i*face), indexPos.y + (j*face));
                 if(tile != null) {
                     tile.lightUp(20);
 
-                    com.mygdx.game.entities.battle.BattleEntity e = (com.mygdx.game.entities.battle.BattleEntity) tile.getEntity();
+                    BattleEntity e = (BattleEntity) tile.getEntity();
                     if(e != null && e != user)
                         e.hit(getDamage(), getElement());
                 }

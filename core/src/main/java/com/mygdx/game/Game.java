@@ -8,7 +8,6 @@ import com.mygdx.game.scenes.Scene;
 
 import java.util.Stack;
 
-import com.mygdx.game.factories.CardFactory;
 import com.mygdx.game.scenes.SceneContainer;
 import com.mygdx.game.scenes.game_menu.SceneGameMenu;
 import com.mygdx.game.scenes.main_area.SceneMainArea;

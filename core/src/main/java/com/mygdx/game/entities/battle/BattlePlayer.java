@@ -2,6 +2,7 @@ package com.mygdx.game.entities.battle;
 
 
 import com.mygdx.game.PlayerVars;
+import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.items.cards.Deck;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
@@ -10,7 +11,7 @@ import com.mygdx.game.scenes.battle.SceneBattleTileType;
 public class BattlePlayer extends BattleLiving {
 
     private Deck hand;
-    private com.mygdx.game.items.cards.Card secondary;
+    private Card secondary;
     public BattlePlayer(SceneBattle scene, SceneBattleTile tile, int health, int maxHealth) {
         super(scene, tile, "player", Facing.RIGHT, health, maxHealth, null);
         acceptedTileTypes = new SceneBattleTileType[]{SceneBattleTileType.FRIENDLY, SceneBattleTileType.NEUTRAL};

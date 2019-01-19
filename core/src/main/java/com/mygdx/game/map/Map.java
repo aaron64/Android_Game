@@ -11,7 +11,7 @@ public abstract class Map {
     }
 
     public abstract void update();
-    public abstract void render(com.mygdx.game.graphics.RenderSystem rs);
+    public abstract void render(RenderSystem rs);
 
     public Texture getBackground() {
         return background;

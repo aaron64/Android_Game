@@ -17,7 +17,7 @@ import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
 import com.mygdx.game.graphics.Window;
 
-public class SceneDeckEditor extends com.mygdx.game.scenes.Scene implements com.mygdx.game.util.GestureHandler {
+public class SceneDeckEditor extends Scene implements GestureHandler {
 
     private BitmapFont font;
 
@@ -26,7 +26,7 @@ public class SceneDeckEditor extends com.mygdx.game.scenes.Scene implements com.
     private Vector2f leftSideOffset;
     private Vector2f rightSideOffset;
 
-    private com.mygdx.game.items.cards.Card cardHeld;
+    private Card cardHeld;
     private Vector2f cardHeldPos;
     private Vector2f cardHeldOffset;
 
@@ -40,18 +40,18 @@ public class SceneDeckEditor extends com.mygdx.game.scenes.Scene implements com.
     public SceneDeckEditor() {
         super();
 
-        com.mygdx.game.GUI.components.ButtonComponent exitButton = new com.mygdx.game.GUI.components.ExitGameMenuButtonComponent(gui, new Vector2f(0, 0));
+        ButtonComponent exitButton = new ExitGameMenuButtonComponent(gui, new Vector2f(0, 0));
         gui.addComponent(exitButton);
         exitButton.setPos(new Vector2f(0, Window.getHeight() - exitButton.getSize().h()));
 
-        deck = com.mygdx.game.PlayerVars.deck;
-        pack = com.mygdx.game.PlayerVars.pack;
+        deck = PlayerVars.deck;
+        pack = PlayerVars.pack;
 
         cardHeld = null;
         cardHeldPos = new Vector2f(0,0);
         cardHeldOffset = new Vector2f(0, 0);
 
-        gestureHandler = new com.mygdx.game.util.GestureUtil(this);
+        gestureHandler = new GestureUtil(this);
 
 
         leftSideOffset = new Vector2f(Window.percLeft(0.05f), Window.percTop(0.15f));
@@ -75,7 +75,7 @@ public class SceneDeckEditor extends com.mygdx.game.scenes.Scene implements com.
 
     @Override
     public void render() {
-        com.mygdx.game.Game.getLastScene().renderInBackground();
+        Game.getLastScene().renderInBackground();
         rs.resetColor();
 
         rs.restart();
@@ -84,7 +84,7 @@ public class SceneDeckEditor extends com.mygdx.game.scenes.Scene implements com.
         rs.drawTextCentered(packHeader, "Pack", packHeaderPos);
 
         for(int i = 0; i < deck.getSize(); i++) {
-            com.mygdx.game.items.cards.Card card = deck.peekCard(i);
+            Card card = deck.peekCard(i);
 
             Vector2f pos = new Vector2f(leftSideOffset.x, leftSideOffset.y - (i+1) * (cardSize.h() + spacing));
 
@@ -96,7 +96,7 @@ public class SceneDeckEditor extends com.mygdx.game.scenes.Scene implements com.
         }
 
         for(int i = 0; i < pack.getSize(); i++) {
-            com.mygdx.game.items.cards.Card card = pack.peekCard(i);
+            Card card = pack.peekCard(i);
 
             Vector2f pos = new Vector2f(rightSideOffset.x, rightSideOffset.y - (i+1) * (cardSize.h() + spacing));
             if(cardHeld != null && cardHeldPos.x > Window.getCenter().x && cardHeldPos.y > pos.y) {
@@ -156,7 +156,7 @@ public class SceneDeckEditor extends com.mygdx.game.scenes.Scene implements com.
         } else {
             if(x > Window.getCenter().x) {
                 for (int i = 0; i < pack.getSize(); i++) {
-                    com.mygdx.game.items.cards.Card card = pack.peekCard(i);
+                    Card card = pack.peekCard(i);
                     Vector2f pos = new Vector2f(rightSideOffset.x, rightSideOffset.y - (i + 1) * (cardSize.h() + spacing));
 
                     if (new Rectangle(pos.x, pos.y, cardSize.w(), cardSize.h()).contains(x, y)) {
@@ -168,7 +168,7 @@ public class SceneDeckEditor extends com.mygdx.game.scenes.Scene implements com.
                 }
             } else {
                 for (int i = 0; i < deck.getSize(); i++) {
-                    com.mygdx.game.items.cards.Card card = deck.peekCard(i);
+                    Card card = deck.peekCard(i);
                     Vector2f pos = new Vector2f(leftSideOffset.x, leftSideOffset.y - (i+1) * (cardSize.h() + spacing));
 
                     if (new Rectangle(pos.x, pos.y, cardSize.w(), cardSize.h()).contains(x, y)) {

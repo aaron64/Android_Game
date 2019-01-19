@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.GUI.components.HandSelectionPoints;
 import com.mygdx.game.graphics.ContentBackground;
 import com.mygdx.game.GUI.components.HandSelectionGoButton;
-import com.mygdx.game.Game;
 import com.mygdx.game.PlayerVars;
 import com.mygdx.game.entities.battle.BattlePlayer;
 import com.mygdx.game.items.cards.Card;
@@ -20,12 +19,10 @@ import com.mygdx.game.graphics.Window;
 
 import java.util.ArrayList;
 
-import javax.swing.text.AbstractDocument;
 
+public class SceneHandSelect extends Scene implements GestureHandler {
 
-public class SceneHandSelect extends Scene implements com.mygdx.game.util.GestureHandler {
-
-    private com.mygdx.game.entities.battle.BattlePlayer player;
+    private BattlePlayer player;
 
     private Deck deck;
 
@@ -33,10 +30,10 @@ public class SceneHandSelect extends Scene implements com.mygdx.game.util.Gestur
 
     private Vector2i smallIconSize;
 
-    private ArrayList<com.mygdx.game.items.cards.Card> deckSelection, handSelection;
+    private ArrayList<Card> deckSelection, handSelection;
     private int maxCards;
 
-    private com.mygdx.game.items.cards.Card selected;
+    private Card selected;
     private Vector2f selectedPos;
     private Vector2i selectedSize;
     private Vector2f selectedImagePos;
@@ -51,31 +48,31 @@ public class SceneHandSelect extends Scene implements com.mygdx.game.util.Gestur
     private Vector2f selectedCostPos;
     private BitmapFont selectedCostFont;
 
-    private com.mygdx.game.GUI.components.HandSelectionPoints pointsComponent;
+    private HandSelectionPoints pointsComponent;
 
-    public SceneHandSelect(com.mygdx.game.entities.battle.BattlePlayer player) {
+    public SceneHandSelect(BattlePlayer player) {
         super();
-        gestureHandler = new com.mygdx.game.util.GestureUtil(this);
+        gestureHandler = new GestureUtil(this);
 
         this.player = player;
 
         maxCards = 5;
 
-        deck = new Deck(com.mygdx.game.PlayerVars.deck);
+        deck = new Deck(PlayerVars.deck);
         deck.shuffle();
 
-        deckSelection = new ArrayList<com.mygdx.game.items.cards.Card>(maxCards);
-        handSelection = new ArrayList<com.mygdx.game.items.cards.Card>(maxCards);
+        deckSelection = new ArrayList<Card>(maxCards);
+        handSelection = new ArrayList<Card>(maxCards);
 
         leftOffset = Window.percLeft(0.05f);
 
         smallIconSize = new Vector2i(Window.percWidth(0.05f), Window.percWidth(0.05f));
 
         Vector2f goButtonPos = new Vector2f(Window.percRight(0.1f) - smallIconSize.w(), Window.getCenter().y - smallIconSize.h() - Window.percHeight(0.05f));
-        gui.addComponent(new com.mygdx.game.GUI.components.HandSelectionGoButton(gui, goButtonPos, smallIconSize, this));
+        gui.addComponent(new HandSelectionGoButton(gui, goButtonPos, smallIconSize, this));
 
         Vector2f pointsComponentPos = new Vector2f(Window.percRight(0.1f) - smallIconSize.w(), Window.getCenter().y + Window.percHeight(0.05f));
-        pointsComponent = new com.mygdx.game.GUI.components.HandSelectionPoints(gui, pointsComponentPos, smallIconSize, this);
+        pointsComponent = new HandSelectionPoints(gui, pointsComponentPos, smallIconSize, this);
         gui.addComponent(pointsComponent);
 
         selected = null;
@@ -105,7 +102,7 @@ public class SceneHandSelect extends Scene implements com.mygdx.game.util.Gestur
         handSelection.clear();
 
         for(int i = 0; i < maxCards; i++) {
-            com.mygdx.game.items.cards.Card card = deck.pop();
+            Card card = deck.pop();
             if(card != null)
                 deckSelection.add(deck.pop());
             deck.refresh();
@@ -114,7 +111,7 @@ public class SceneHandSelect extends Scene implements com.mygdx.game.util.Gestur
 
     @Override
     public void render() {
-        com.mygdx.game.Game.getLastScene().renderInBackground();
+        renderInBackground();
 
         rs.resetColor();
         rs.restart();
@@ -126,7 +123,7 @@ public class SceneHandSelect extends Scene implements com.mygdx.game.util.Gestur
 
             ContentBackground.drawBackground(rs, deckPos, smallIconSize);
             if(i < deckSelection.size()) {
-                com.mygdx.game.items.cards.Card card = deckSelection.get(i);
+                Card card = deckSelection.get(i);
                 if(card != null)
                     card.drawHandScene(rs, deckPos, smallIconSize);
             }
@@ -138,7 +135,7 @@ public class SceneHandSelect extends Scene implements com.mygdx.game.util.Gestur
             ContentBackground.drawBackground(rs, deckPos, smallIconSize);
 
             if(i < handSelection.size()) {
-                com.mygdx.game.items.cards.Card card = handSelection.get(i);
+                Card card = handSelection.get(i);
                 if(card != null)
                     card.drawHandScene(rs, deckPos, smallIconSize);
             }
@@ -160,7 +157,7 @@ public class SceneHandSelect extends Scene implements com.mygdx.game.util.Gestur
 
     public int getPointsUsed() {
         int p = 0;
-        for(com.mygdx.game.items.cards.Card c : handSelection) {
+        for(Card c : handSelection) {
             p += c.getPointsCost();
         }
 
@@ -211,7 +208,7 @@ public class SceneHandSelect extends Scene implements com.mygdx.game.util.Gestur
             Vector2f deckPos = new Vector2f(leftOffset + (smallIconSize.w() + spacing) * i, Window.percBottom(0.05f));
 
             if(i < deckSelection.size()) {
-                com.mygdx.game.items.cards.Card card = deckSelection.get(i);
+                Card card = deckSelection.get(i);
                 if(new Rectangle(deckPos.x, deckPos.y, smallIconSize.w(), smallIconSize.h()).contains(x, y)) {
                     selected = card;
                 }
@@ -222,7 +219,7 @@ public class SceneHandSelect extends Scene implements com.mygdx.game.util.Gestur
             Vector2f deckPos = new Vector2f(leftOffset * 2 + (selectedSize.w() + spacing),  Window.percTop(0.1f) - smallIconSize.h() - i * (smallIconSize.h() + spacing));
 
             if(i < handSelection.size()) {
-                com.mygdx.game.items.cards.Card card = handSelection.get(i);
+                Card card = handSelection.get(i);
                 if(new Rectangle(deckPos.x, deckPos.y, smallIconSize.w(), smallIconSize.h()).contains(x, y)) {
                     selected = card;
                 }
@@ -248,7 +245,7 @@ public class SceneHandSelect extends Scene implements com.mygdx.game.util.Gestur
             Vector2f deckPos = new Vector2f(leftOffset + (smallIconSize.w() + spacing) * i, Window.percBottom(0.05f));
 
             if(i < deckSelection.size()) {
-                com.mygdx.game.items.cards.Card card = deckSelection.get(i);
+                Card card = deckSelection.get(i);
                 if(new Rectangle(deckPos.x, deckPos.y, smallIconSize.w(), smallIconSize.h()).contains(x, y)) {
                     if(!pointsComponent.spent(card)) {
                         handSelection.add(card);
@@ -262,7 +259,7 @@ public class SceneHandSelect extends Scene implements com.mygdx.game.util.Gestur
             Vector2f deckPos = new Vector2f(leftOffset * 2 + (selectedSize.w() + spacing),  Window.percTop(0.05f) - smallIconSize.h() - i * (smallIconSize.h() + spacing));
 
             if(i < handSelection.size()) {
-                com.mygdx.game.items.cards.Card card = handSelection.get(i);
+                Card card = handSelection.get(i);
                 if(new Rectangle(deckPos.x, deckPos.y, smallIconSize.w(), smallIconSize.h()).contains(x, y)) {
                     handSelection.remove(i);
                     deckSelection.add(card);

@@ -5,16 +5,16 @@ import com.mygdx.game.scenes.SceneContainer;
 import com.mygdx.game.scenes.game_menu.deck.SceneDeckEditor;
 import com.mygdx.game.scenes.game_menu.shard_editor.SceneShardEditor;
 
-public class SceneGameMenu extends Scene implements com.mygdx.game.scenes.SceneContainer {
+public class SceneGameMenu extends Scene implements SceneContainer {
 
     private Scene currentTab;
 
     private SceneDeckEditor deckScene;
-    private com.mygdx.game.scenes.game_menu.shard_editor.SceneShardEditor shardEditorScene;
+    private SceneShardEditor shardEditorScene;
 
     public SceneGameMenu() {
         deckScene = new SceneDeckEditor();
-        shardEditorScene = new com.mygdx.game.scenes.game_menu.shard_editor.SceneShardEditor();
+        shardEditorScene = new SceneShardEditor();
 
         currentTab = deckScene;
     }

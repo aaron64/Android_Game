@@ -23,7 +23,7 @@ public class GestureUtil implements GestureDetector.GestureListener {
     private int doubleTapFrameCount = 0;
     private int doubelTapThreshold = 200;
 
-    com.mygdx.game.util.GestureHandler handler;
+    GestureHandler handler;
 
     public GestureUtil(GestureHandler handler) {
 

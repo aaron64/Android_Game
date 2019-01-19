@@ -9,7 +9,7 @@ import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
 
-public class Player extends com.mygdx.game.entities.main_area.MainAreaEntity {
+public class Player extends MainAreaEntity {
 
     float maxVelocity;
     private int maxHealth, health;

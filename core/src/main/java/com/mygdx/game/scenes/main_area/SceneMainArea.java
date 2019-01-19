@@ -14,7 +14,6 @@ import com.mygdx.game.entities.main_area.Player;
 import com.mygdx.game.map.MapMainArea;
 import com.mygdx.game.map.MapTheme;
 import com.mygdx.game.scenes.Scene;
-import com.mygdx.game.scenes.main_area.SceneMainAreaGrid;
 import com.mygdx.game.util.GestureHandler;
 import com.mygdx.game.util.GestureUtil;
 import com.mygdx.game.util.MapNameGenerator;
@@ -23,30 +22,30 @@ import com.mygdx.game.graphics.Window;
 
 import java.util.Collections;
 
-public class SceneMainArea extends Scene implements com.mygdx.game.util.GestureHandler {
+public class SceneMainArea extends Scene implements GestureHandler {
 
-    private com.mygdx.game.scenes.main_area.SceneMainAreaGrid grid;
-    private com.mygdx.game.entities.main_area.Player player;
+    private SceneMainAreaGrid grid;
+    private Player player;
 
     public SceneMainArea() {
         super();
         rs.setCamera(new OrthographicCamera(Window.getWidth(), Window.getHeight()));
         rs.getCamera().zoom = 0.5f;
-        grid = new com.mygdx.game.scenes.main_area.SceneMainAreaGrid(this);
-        gestureHandler = new com.mygdx.game.util.GestureUtil(this);
+        grid = new SceneMainAreaGrid(this);
+        gestureHandler = new GestureUtil(this);
 
-        player = new com.mygdx.game.entities.main_area.Player(this, grid.getPlayerSpawn(), "player");
+        player = new Player(this, grid.getPlayerSpawn(), "player");
 
         gui.addComponent(new HealthComponent(gui, player));
         gui.addComponent(new TitleComponent(gui, MapNameGenerator.generateRandomName(100, MapTheme.FOREST)));
 
-        com.mygdx.game.GUI.components.ButtonComponent gameMenuButton = new GameMenuButtonComponent(gui, new Vector2f(0,0));
+        ButtonComponent gameMenuButton = new GameMenuButtonComponent(gui, new Vector2f(0,0));
         gameMenuButton.setPos(new Vector2f(Window.getWidth() - gameMenuButton.getSize().w(), 0));
         gui.addComponent(gameMenuButton);
 
         entities.addEntity(player);
 
-        map = new com.mygdx.game.map.MapMainArea("bg1");
+        map = new MapMainArea("bg1");
     }
 
     @Override
@@ -105,7 +104,7 @@ public class SceneMainArea extends Scene implements com.mygdx.game.util.GestureH
         return player;
     }
 
-    public void setPlayer(com.mygdx.game.entities.main_area.Player player) {
+    public void setPlayer(Player player) {
         this.player = player;
     }
 

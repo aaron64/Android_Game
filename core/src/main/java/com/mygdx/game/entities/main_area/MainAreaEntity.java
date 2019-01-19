@@ -11,24 +11,24 @@ import com.mygdx.game.util.Vector2i;
 public abstract class MainAreaEntity extends Entity {
 
     protected boolean solid;
-    protected com.mygdx.game.scenes.main_area.SceneMainArea scene;
+    protected SceneMainArea scene;
 
     // non-tile entities
-    public MainAreaEntity(com.mygdx.game.scenes.main_area.SceneMainArea scene, Vector2f pos, String name) {
+    public MainAreaEntity(SceneMainArea scene, Vector2f pos, String name) {
         super(pos, "main_area/", name);
         this.scene = scene;
         solid = true;
     }
 
     // tiles
-    public MainAreaEntity(com.mygdx.game.scenes.main_area.SceneMainArea scene, Vector2f pos, String folder, String name) {
+    public MainAreaEntity(SceneMainArea scene, Vector2f pos, String folder, String name) {
         super(pos, folder, name);
         this.scene = scene;
         solid = true;
     }
 
     @Override
-    public void render(com.mygdx.game.graphics.RenderSystem rs) {
+    public void render(RenderSystem rs) {
         super.render(rs);
     }
 

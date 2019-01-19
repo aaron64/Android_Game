@@ -2,10 +2,6 @@ package com.mygdx.game.items.cards;
 
 import com.mygdx.game.attributes.Element;
 import com.mygdx.game.attributes.Quality;
-import com.mygdx.game.entities.battle.BattleLiving;
-import com.mygdx.game.items.cards.AttackCard;
-import com.mygdx.game.scenes.battle.SceneBattle;
-import com.mygdx.game.util.Vector2f;
 
 public abstract class ThrowableCard extends AttackCard {
 

@@ -9,7 +9,7 @@ import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
 import com.mygdx.game.graphics.Window;
 
-public class BattleSelectionBarComponent extends com.mygdx.game.GUI.GUIComponent {
+public class BattleSelectionBarComponent extends GUIComponent {
 
     private int time, duration;
     private Texture barTexture, barTextureReady, renderTexture;
@@ -17,7 +17,7 @@ public class BattleSelectionBarComponent extends com.mygdx.game.GUI.GUIComponent
     private Vector2i barSize;
     private int maxWidth;
 
-    public BattleSelectionBarComponent(com.mygdx.game.GUI.GUI gui, int duration) {
+    public BattleSelectionBarComponent(GUI gui, int duration) {
         super(gui, "SELECTION_BAR");
 
         barTexture = new Texture("gui/selection_bar.png");
@@ -45,7 +45,7 @@ public class BattleSelectionBarComponent extends com.mygdx.game.GUI.GUIComponent
     }
 
     @Override
-    public void render(com.mygdx.game.graphics.RenderSystem rs) {
+    public void render(RenderSystem rs) {
         rs.draw(renderTexture, barPos, barSize);
     }
 

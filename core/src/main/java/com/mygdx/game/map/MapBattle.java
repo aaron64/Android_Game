@@ -3,7 +3,6 @@ package com.mygdx.game.map;
 import com.badlogic.gdx.graphics.Texture;
 
 import com.mygdx.game.entities.battle.BattlePlayer;
-import com.mygdx.game.map.Map;
 import com.mygdx.game.particles.ParticleSystem;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleGrid;
@@ -21,7 +20,7 @@ public class MapBattle extends Map {
     private Vector2f scrollAmount;
     private Vector2f halfOffset;
 
-    private com.mygdx.game.entities.battle.BattlePlayer player;
+    private BattlePlayer player;
 
     private float scrollRate;
 
@@ -61,7 +60,7 @@ public class MapBattle extends Map {
     }
 
     @Override
-    public void render(com.mygdx.game.graphics.RenderSystem rs) {
+    public void render(RenderSystem rs) {
         rs.draw(getBackground(), backgroundPos, backgroundSize);
         particles.render(rs);
     }

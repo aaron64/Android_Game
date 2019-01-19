@@ -12,21 +12,21 @@ import java.util.ArrayList;
 
 public abstract class Scene {
 
-    protected com.mygdx.game.util.GestureUtil gestureHandler;
-    protected com.mygdx.game.entities.EntitySystem entities;
-    protected com.mygdx.game.map.Map map;
-    protected com.mygdx.game.graphics.RenderSystem rs;
-    protected com.mygdx.game.GUI.GUI gui;
+    protected GestureUtil gestureHandler;
+    protected EntitySystem entities;
+    protected Map map;
+    protected RenderSystem rs;
+    protected GUI gui;
 
-    protected com.mygdx.game.animation.AnimationQueue animationQueue;
+    protected AnimationQueue animationQueue;
 
     public Scene() {
-        entities = new com.mygdx.game.entities.EntitySystem();
-        rs = new com.mygdx.game.graphics.RenderSystem();
+        entities = new EntitySystem();
+        rs = new RenderSystem();
 
-        gui = new com.mygdx.game.GUI.GUI();
+        gui = new GUI();
 
-        animationQueue = new com.mygdx.game.animation.AnimationQueue();
+        animationQueue = new AnimationQueue();
     }
 
     public void update() {

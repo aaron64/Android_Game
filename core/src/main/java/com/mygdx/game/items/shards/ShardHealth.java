@@ -15,8 +15,8 @@ public class ShardHealth extends Shard {
     }
 
     @Override
-    public void onSet(com.mygdx.game.scenes.main_area.SceneMainArea sceneMainArea) {
-        com.mygdx.game.entities.main_area.Player player = sceneMainArea.getPlayer();
+    public void onSet(SceneMainArea sceneMainArea) {
+        Player player = sceneMainArea.getPlayer();
 
         int newMaxHealth = player.getMaxHealth() + healthBoost;
         player.setMaxHealth(newMaxHealth);
@@ -24,8 +24,8 @@ public class ShardHealth extends Shard {
     }
 
     @Override
-    public void onUnset(com.mygdx.game.scenes.main_area.SceneMainArea sceneMainArea) {
-        com.mygdx.game.entities.main_area.Player player = sceneMainArea.getPlayer();
+    public void onUnset(SceneMainArea sceneMainArea) {
+        Player player = sceneMainArea.getPlayer();
 
         int newMaxHealth = player.getMaxHealth() - healthBoost;
         player.setMaxHealth(newMaxHealth);

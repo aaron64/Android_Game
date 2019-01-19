@@ -4,13 +4,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.scenes.battle.SceneBattleTileType;
-import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.scenes.main_area.SceneMainAreaTileType;
 
 public class ImageUtil {
 
-    public static com.mygdx.game.scenes.main_area.SceneMainAreaTileType[][] getMainAreaTileTypes(Texture image) {
-        com.mygdx.game.scenes.main_area.SceneMainAreaTileType[][] map = new com.mygdx.game.scenes.main_area.SceneMainAreaTileType[image.getWidth()][image.getHeight()];
+    public static SceneMainAreaTileType[][] getMainAreaTileTypes(Texture image) {
+        SceneMainAreaTileType[][] map = new SceneMainAreaTileType[image.getWidth()][image.getHeight()];
 
         image.getTextureData().prepare();
         Pixmap pixelMap = image.getTextureData().consumePixmap();
@@ -27,25 +26,25 @@ public class ImageUtil {
                 int color = pixelMap.getPixel(i,j);
 
                 if(color == white)
-                    map[i][j] = com.mygdx.game.scenes.main_area.SceneMainAreaTileType.NORMAL;
+                    map[i][j] = SceneMainAreaTileType.NORMAL;
                 else if(color == red)
-                    map[i][j] = com.mygdx.game.scenes.main_area.SceneMainAreaTileType.ENEMY;
+                    map[i][j] = SceneMainAreaTileType.ENEMY;
                 else if(color == yellow)
-                    map[i][j] = com.mygdx.game.scenes.main_area.SceneMainAreaTileType.CHEST;
+                    map[i][j] = SceneMainAreaTileType.CHEST;
                 else if(color == blue)
-                    map[i][j] = com.mygdx.game.scenes.main_area.SceneMainAreaTileType.SPAWN;
+                    map[i][j] = SceneMainAreaTileType.SPAWN;
                 else if(color == green)
-                    map[i][j] = com.mygdx.game.scenes.main_area.SceneMainAreaTileType.DOOR;
+                    map[i][j] = SceneMainAreaTileType.DOOR;
                 else
-                    map[i][j] = com.mygdx.game.scenes.main_area.SceneMainAreaTileType.NONE;
+                    map[i][j] = SceneMainAreaTileType.NONE;
             }
         }
 
         return map;
     }
 
-    public static com.mygdx.game.scenes.battle.SceneBattleTileType[][] getBattleTileTypes(Texture image) {
-        com.mygdx.game.scenes.battle.SceneBattleTileType[][] map = new com.mygdx.game.scenes.battle.SceneBattleTileType[image.getWidth()][image.getHeight()];
+    public static SceneBattleTileType[][] getBattleTileTypes(Texture image) {
+        SceneBattleTileType[][] map = new SceneBattleTileType[image.getWidth()][image.getHeight()];
 
         image.getTextureData().prepare();
         Pixmap pixelMap = image.getTextureData().consumePixmap();
@@ -63,21 +62,21 @@ public class ImageUtil {
                 int color = pixelMap.getPixel(i,j);
 
                 if(color == white)
-                    map[i][j] = com.mygdx.game.scenes.battle.SceneBattleTileType.NEUTRAL;
+                    map[i][j] = SceneBattleTileType.NEUTRAL;
                 else if(color == red)
-                    map[i][j] = com.mygdx.game.scenes.battle.SceneBattleTileType.ENEMY;
+                    map[i][j] = SceneBattleTileType.ENEMY;
                 else if(color == blue)
-                    map[i][j] = com.mygdx.game.scenes.battle.SceneBattleTileType.FRIENDLY;
+                    map[i][j] = SceneBattleTileType.FRIENDLY;
                 else if(color == black)
-                    map[i][j] = com.mygdx.game.scenes.battle.SceneBattleTileType.NONE;
+                    map[i][j] = SceneBattleTileType.NONE;
                 else if(color == green)
-                    map[i][j] = com.mygdx.game.scenes.battle.SceneBattleTileType.SPAWN;
+                    map[i][j] = SceneBattleTileType.SPAWN;
                 else if(color == yellowFriendly)
-                    map[i][j] = com.mygdx.game.scenes.battle.SceneBattleTileType.OBJECT_FRIENDLY;
+                    map[i][j] = SceneBattleTileType.OBJECT_FRIENDLY;
                 else if(color == yellowEnemy)
-                    map[i][j] = com.mygdx.game.scenes.battle.SceneBattleTileType.OBJECT_ENEMY;
+                    map[i][j] = SceneBattleTileType.OBJECT_ENEMY;
                 else
-                    map[i][j] = com.mygdx.game.scenes.battle.SceneBattleTileType.NONE;
+                    map[i][j] = SceneBattleTileType.NONE;
             }
         }
 

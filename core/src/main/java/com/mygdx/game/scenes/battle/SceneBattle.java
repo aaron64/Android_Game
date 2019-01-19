@@ -25,16 +25,16 @@ import com.mygdx.game.graphics.Window;
 
 import java.util.ArrayList;
 
-public class SceneBattle extends com.mygdx.game.scenes.Scene implements com.mygdx.game.util.GestureHandler {
+public class SceneBattle extends Scene implements GestureHandler {
 
     private SceneBattleGrid battleGrid;
-    private com.mygdx.game.entities.battle.BattlePlayer player;
+    private BattlePlayer player;
 
     private ArrayList<BattleEnemy> enemies;
 
-    private com.mygdx.game.scenes.battle.hand_select.SceneHandSelect sceneHandSelect;
+    private SceneHandSelect sceneHandSelect;
 
-    private com.mygdx.game.GUI.components.BattleSelectionBarComponent barComponent;
+    private BattleSelectionBarComponent barComponent;
     //private BattleGoToSelectButton goToSelectionButton;
 
     public SceneBattle() {
@@ -42,19 +42,19 @@ public class SceneBattle extends com.mygdx.game.scenes.Scene implements com.mygd
         rs.setCamera(new OrthographicCamera(Window.getWidth(), Window.getHeight()));
         rs.centerCameraOn(new Vector2f(Window.getCenter()));
 
-        gestureHandler = new com.mygdx.game.util.GestureUtil(this);
+        gestureHandler = new GestureUtil(this);
         enemies = new ArrayList<BattleEnemy>();
 
         battleGrid = new SceneBattleGrid(this);
 
         addPlayer();
-        sceneHandSelect = new com.mygdx.game.scenes.battle.hand_select.SceneHandSelect(player);
+        sceneHandSelect = new SceneHandSelect(player);
 
-        map = new com.mygdx.game.map.MapBattle(this,"bg1", battleGrid, player);
+        map = new MapBattle(this,"bg1", battleGrid, player);
 
-        gui.addComponent(new com.mygdx.game.GUI.components.BattleDeckComponent(gui, player));
+        gui.addComponent(new BattleDeckComponent(gui, player));
 
-        barComponent = new com.mygdx.game.GUI.components.BattleSelectionBarComponent(gui, 500);
+        barComponent = new BattleSelectionBarComponent(gui, 500);
         gui.addComponent(barComponent);
 
         //goToSelectionButton = new BattleGoToSelectButton(gui, new Vector2f(Window.percRight(0.05f), Window.getCenter().y), this);
@@ -64,12 +64,12 @@ public class SceneBattle extends com.mygdx.game.scenes.Scene implements com.mygd
         new EnemyTest2(this, battleGrid.getTile(new Vector2i(3, 0)), "enemy", 40);
 
         for(BattleEnemy enemy : enemies) {
-            animationQueue.add(new com.mygdx.game.animation.BattleEnemySpawnAnimation(true, false, enemy));
+            animationQueue.add(new BattleEnemySpawnAnimation(true, false, enemy));
         }
 
         //Gdx.app.log("INFO", "ZOOM:" + rs.getCamera().zoom);
         animationQueue.add(new ZoomAnimation(true, false, 10, rs.getCamera().zoom, 1.2f, rs.getCamera()));
-        animationQueue.add(new com.mygdx.game.animation.OpenAnimation(true, false, sceneHandSelect));
+        animationQueue.add(new OpenAnimation(true, false, sceneHandSelect));
     }
 
     @Override
@@ -120,7 +120,7 @@ public class SceneBattle extends com.mygdx.game.scenes.Scene implements com.mygd
     }
 
     public void goToSelection() {
-        com.mygdx.game.Game.pushScene(sceneHandSelect);
+        Game.pushScene(sceneHandSelect);
     }
 
     @Override
@@ -136,15 +136,15 @@ public class SceneBattle extends com.mygdx.game.scenes.Scene implements com.mygd
 
     @Override
     public void onExit() {
-        com.mygdx.game.scenes.main_area.SceneMainArea sceneMainArea = (com.mygdx.game.scenes.main_area.SceneMainArea) com.mygdx.game.Game.getLastScene();
+        SceneMainArea sceneMainArea = (SceneMainArea)  Game.getLastScene();
         sceneMainArea.getPlayer().setHealth(player.getHealth());
     }
 
     public void addPlayer() {
-        int playerHealth = ((com.mygdx.game.scenes.main_area.SceneMainArea)(com.mygdx.game.Game.getCurrentScene())).getPlayer().getHealth();
-        int playerMaxHealth = ((com.mygdx.game.scenes.main_area.SceneMainArea)(com.mygdx.game.Game.getCurrentScene())).getPlayer().getMaxHealth();
+        int playerHealth = ((SceneMainArea)(Game.getCurrentScene())).getPlayer().getHealth();
+        int playerMaxHealth = ((SceneMainArea)(Game.getCurrentScene())).getPlayer().getMaxHealth();
 
-        player = new com.mygdx.game.entities.battle.BattlePlayer(this, battleGrid.getTile(battleGrid.getPlayerSpawnCoords()), playerHealth, playerMaxHealth);
+        player = new BattlePlayer(this, battleGrid.getTile(battleGrid.getPlayerSpawnCoords()), playerHealth, playerMaxHealth);
     }
 
     @Override
@@ -165,9 +165,9 @@ public class SceneBattle extends com.mygdx.game.scenes.Scene implements com.mygd
     @Override
     public void zoom(float initialDistance, float distance) {
         if(distance/initialDistance <= 0.5f) {
-            if (((com.mygdx.game.GUI.components.BattleSelectionBarComponent) gui.getComponent("SELECTION_BAR")).ready() && !animationQueue.inQueue("OPEN")) {
+            if (((BattleSelectionBarComponent) gui.getComponent("SELECTION_BAR")).ready() && !animationQueue.inQueue("OPEN")) {
                 animationQueue.add(new ZoomAnimation(true, true, 10, rs.getCamera().zoom, 1.2f, rs.getCamera()));
-                animationQueue.add(new com.mygdx.game.animation.OpenAnimation(true, false, sceneHandSelect));
+                animationQueue.add(new OpenAnimation(true, false, sceneHandSelect));
             }
         }
     }
@@ -202,7 +202,7 @@ public class SceneBattle extends com.mygdx.game.scenes.Scene implements com.mygd
     public void enemyKilled(BattleEnemy enemy) {
         enemies.remove(enemy);
         if(enemies.isEmpty()) {
-            com.mygdx.game.Game.endScene();
+            Game.endScene();
         }
     }
 
@@ -220,7 +220,7 @@ public class SceneBattle extends com.mygdx.game.scenes.Scene implements com.mygd
         return player;
     }
 
-    public void setPlayer(com.mygdx.game.entities.battle.BattlePlayer player) {
+    public void setPlayer(BattlePlayer player) {
         this.player = player;
     }
 }

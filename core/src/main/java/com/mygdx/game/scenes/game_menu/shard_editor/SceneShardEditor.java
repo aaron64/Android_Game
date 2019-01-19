@@ -11,7 +11,7 @@ public class SceneShardEditor extends Scene {
         super();
 
         Vector2f menuButtonPos = new Vector2f(Window.percRight(0.05f), Window.percTop(0.05f));
-        gui.addComponent(new com.mygdx.game.GUI.components.ExitGameMenuButtonComponent(gui, menuButtonPos));
+        gui.addComponent(new ExitGameMenuButtonComponent(gui, menuButtonPos));
 
     }
 

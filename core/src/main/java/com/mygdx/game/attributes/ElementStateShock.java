@@ -6,11 +6,11 @@ import com.mygdx.game.util.CooldownInterface;
 
 public class ElementStateShock extends ElementState implements CooldownInterface {
 
-    private com.mygdx.game.util.Cooldown timer;
+    private Cooldown timer;
     public ElementStateShock(BattleLiving affected) {
         super(affected);
 
-        timer = new com.mygdx.game.util.Cooldown(this, "TIMER", false, 200);
+        timer = new Cooldown(this, "TIMER", false, 200);
         affected.lockFor(200);
     }
 

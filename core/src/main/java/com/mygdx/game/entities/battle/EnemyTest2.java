@@ -1,22 +1,21 @@
 package com.mygdx.game.entities.battle;
 
 
-import com.mygdx.game.entities.battle.BattleEnemy;
 import com.mygdx.game.factories.CardFactory;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.scenes.battle.SceneBattleTileType;
 import com.mygdx.game.util.Cooldown;
+import com.mygdx.game.util.CooldownInterface;
 import com.mygdx.game.util.Vector2i;
 
 import java.util.ArrayList;
 
-import com.mygdx.game.factories.CardFactory;
 
-public class EnemyTest2 extends BattleEnemy implements com.mygdx.game.util.CooldownInterface {
+public class EnemyTest2 extends BattleEnemy implements CooldownInterface {
 
-    private com.mygdx.game.util.Cooldown moveCooldown;
-    private com.mygdx.game.util.Cooldown attackCooldown;
+    private Cooldown moveCooldown;
+    private Cooldown attackCooldown;
     int moves;
 
     public EnemyTest2(SceneBattle scene, SceneBattleTile tile, String name, int health) {
@@ -40,7 +39,7 @@ public class EnemyTest2 extends BattleEnemy implements com.mygdx.game.util.Coold
     }
 
     public void jump() {
-        ArrayList<com.mygdx.game.scenes.battle.SceneBattleTile> surroundings = scene.getGrid().getSurroundings(getIndexPos());
+        ArrayList<SceneBattleTile> surroundings = scene.getGrid().getSurroundings(getIndexPos());
 
         boolean tileFound = false;
         int r = 0;

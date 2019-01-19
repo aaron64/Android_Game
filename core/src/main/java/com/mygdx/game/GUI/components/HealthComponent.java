@@ -12,7 +12,7 @@ import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
 import com.mygdx.game.graphics.Window;
 
-public class HealthComponent extends com.mygdx.game.GUI.GUIComponent {
+public class HealthComponent extends GUIComponent {
 
     private BitmapFont healthText;
     private Vector2f textOffset;
@@ -21,10 +21,10 @@ public class HealthComponent extends com.mygdx.game.GUI.GUIComponent {
     private Vector2f offset;
     private Vector2i size;
 
-    private com.mygdx.game.entities.main_area.Player player;
+    private Player player;
     private int renderHealth;
 
-    public HealthComponent(com.mygdx.game.GUI.GUI gui, Player player) {
+    public HealthComponent(GUI gui, Player player) {
         super(gui, "HEALTH");
         this.player = player;
         renderHealth = player.getHealth();
@@ -38,7 +38,7 @@ public class HealthComponent extends com.mygdx.game.GUI.GUIComponent {
     }
 
     @Override
-    public void update(com.mygdx.game.scenes.Scene scene) {
+    public void update(Scene scene) {
         if(renderHealth > player.getHealth()) {
             renderHealth--;
         } else if(renderHealth < player.getHealth()) {
@@ -47,7 +47,7 @@ public class HealthComponent extends com.mygdx.game.GUI.GUIComponent {
     }
 
     @Override
-    public void render(com.mygdx.game.graphics.RenderSystem rs) {
+    public void render(RenderSystem rs) {
         rs.draw(heart, offset, size);
         rs.drawText(healthText, "" + renderHealth, textOffset);
     }

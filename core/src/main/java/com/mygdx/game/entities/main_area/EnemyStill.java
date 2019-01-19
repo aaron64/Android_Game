@@ -7,7 +7,7 @@ import com.mygdx.game.util.Vector2f;
 
 public class EnemyStill extends Enemy {
 
-    public EnemyStill(com.mygdx.game.scenes.main_area.SceneMainArea scene, Vector2f pos, String name) {
+    public EnemyStill(SceneMainArea scene, Vector2f pos, String name) {
         super(scene, pos, name);
     }
 

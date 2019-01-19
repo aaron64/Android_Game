@@ -6,7 +6,7 @@ import com.mygdx.game.attributes.Quality;
 public abstract class Item {
 
     protected String name;
-    protected com.mygdx.game.attributes.Quality quality;
+    protected Quality quality;
     protected String description;
     protected Texture icon;
 
@@ -16,7 +16,7 @@ public abstract class Item {
 
         this.quality = quality;
         if(quality == null) {
-            this.quality = com.mygdx.game.attributes.Quality.STANDARD;
+            this.quality = Quality.STANDARD;
         }
 
         icon = new Texture("items/" + folder + "/" + name + "_icon.png");
@@ -24,7 +24,7 @@ public abstract class Item {
 
     public String getName() {
         String s = "";
-        if(quality != com.mygdx.game.attributes.Quality.STANDARD) {
+        if(quality != Quality.STANDARD) {
             s += quality.getStr() + " ";
         }
 
@@ -39,7 +39,7 @@ public abstract class Item {
         return quality;
     }
 
-    public void setQuality(com.mygdx.game.attributes.Quality quality) {
+    public void setQuality(Quality quality) {
         this.quality = quality;
     }
 }

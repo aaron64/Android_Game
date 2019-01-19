@@ -3,13 +3,14 @@ package com.mygdx.game;
 import com.mygdx.game.attributes.Element;
 import com.mygdx.game.attributes.Quality;
 import com.mygdx.game.factories.CardFactory;
+import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.items.cards.Deck;
 
 
 public class PlayerVars {
     public static Deck deck = new Deck(5);
     public static Deck pack = new Deck(30);
-    public static com.mygdx.game.items.cards.Card secondaryAttack = CardFactory.buildCard("Bow", null, Quality.WEAK);
+    public static Card secondaryAttack = CardFactory.buildCard("Bow", null, Quality.WEAK);
     public static int maxPoints = 7;
 
     public static void init() {

@@ -4,7 +4,7 @@ package com.mygdx.game.util;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.util.Vector2a;
 
-public class Vector2i extends com.mygdx.game.util.Vector2a {
+public class Vector2i extends Vector2a {
 
     public int x, y;
     public Vector2i(int x, int y) {

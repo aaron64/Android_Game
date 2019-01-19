@@ -13,7 +13,7 @@ public class EnemyFactory {
     public static void newMainAreaEnemy(SceneMainArea scene, Vector2f pos) {
         Enemy enemy = null;
 
-        int r = com.mygdx.game.util.MathUtil.getWeightedRandom(weights);
+        int r = MathUtil.getWeightedRandom(weights);
 
         switch(r) {
             case 0:

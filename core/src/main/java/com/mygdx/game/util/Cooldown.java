@@ -1,10 +1,8 @@
 package com.mygdx.game.util;
 
-import com.mygdx.game.util.CooldownInterface;
-
 public class Cooldown {
 
-^.*(?=com.)CooldownInterface inter;
+    private CooldownInterface inter;
 
     private String name;
 

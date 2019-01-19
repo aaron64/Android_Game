@@ -8,9 +8,9 @@ import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.util.Vector2f;
 
-public abstract class Enemy extends com.mygdx.game.entities.main_area.MainAreaEntity {
+public abstract class Enemy extends MainAreaEntity {
 
-    public Enemy(com.mygdx.game.scenes.main_area.SceneMainArea scene, Vector2f pos, String name) {
+    public Enemy(SceneMainArea scene, Vector2f pos, String name) {
         super(scene, pos, name);
     }
 

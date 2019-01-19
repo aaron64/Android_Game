@@ -28,11 +28,11 @@ public abstract class Entity {
 
     public abstract void update();
 
-    public void render(com.mygdx.game.graphics.RenderSystem rs, Vector2f pos) {
+    public void render(RenderSystem rs, Vector2f pos) {
         rs.draw(image, pos);
     }
 
-    public void render(com.mygdx.game.graphics.RenderSystem rs) {
+    public void render(RenderSystem rs) {
         rs.draw(this);
     }
 

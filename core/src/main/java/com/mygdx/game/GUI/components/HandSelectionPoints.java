@@ -32,7 +32,7 @@ public class HandSelectionPoints extends GUIComponent {
 
         this.scene = scene;
 
-        maxPoints = com.mygdx.game.PlayerVars.maxPoints;
+        maxPoints = PlayerVars.maxPoints;
         usedPoints = 0;
 
         font = FontUtil.getFont(32);
@@ -45,12 +45,12 @@ public class HandSelectionPoints extends GUIComponent {
     }
 
     @Override
-    public void render(com.mygdx.game.graphics.RenderSystem rs) {
+    public void render(RenderSystem rs) {
         ContentBackground.drawBackground(rs, pos, size);
         rs.drawTextCentered(font, "" + (maxPoints - usedPoints), fontPos);
     }
 
-    public boolean spent(com.mygdx.game.items.cards.Card card) {
+    public boolean spent(Card card) {
         return usedPoints + card.getPointsCost() > maxPoints;
     }
 }

@@ -1,5 +1,6 @@
 package com.mygdx.game.GUI;
 
+import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.scenes.Scene;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class GUI {
         }
     }
 
-    public void render(com.mygdx.game.graphics.RenderSystem rs) {
+    public void render(RenderSystem rs) {
         rs.beginGUI();
 
         for(GUIComponent comp : components) {

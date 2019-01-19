@@ -12,8 +12,8 @@ public abstract class Shard extends Item {
         super(name, folder, description, quality);
     }
 
-    public void onSet(com.mygdx.game.scenes.main_area.SceneMainArea sceneMainArea) {}
-    public void onUnset(com.mygdx.game.scenes.main_area.SceneMainArea sceneMainArea) {}
+    public void onSet(SceneMainArea sceneMainArea) {}
+    public void onUnset(SceneMainArea sceneMainArea) {}
     public void onBattleStart() {}
     public void onBattleFrame() {}
 }

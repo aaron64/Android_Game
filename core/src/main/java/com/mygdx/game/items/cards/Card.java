@@ -7,7 +7,6 @@ import com.mygdx.game.attributes.Element;
 import com.mygdx.game.attributes.Quality;
 import com.mygdx.game.entities.battle.BattleLiving;
 import com.mygdx.game.items.Item;
-import com.mygdx.game.items.cards.CardType;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.util.FontUtil;
 import com.mygdx.game.graphics.RenderSystem;
@@ -16,7 +15,7 @@ import com.mygdx.game.util.Vector2i;
 
 public abstract class Card extends Item {
 
-    private com.mygdx.game.items.cards.CardType type;
+    private CardType type;
     private Element element;
 
     private int pointsCost;

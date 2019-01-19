@@ -11,7 +11,7 @@ public abstract class AttackCard extends Card {
         super(name, folder, description, type, pointsCost, quality, element);
         this.damage = (int)(damage * getQuality().getMultiplier());
 
-        amountSize = com.mygdx.game.util.FontUtil.getTextSize(amountFont, "" + getAmount());
+        amountSize = FontUtil.getTextSize(amountFont, "" + getAmount());
     }
 
     public int getDamage() {

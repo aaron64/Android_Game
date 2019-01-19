@@ -12,7 +12,7 @@ public class Chest extends MainAreaInteractive {
     private boolean open;
     private Texture openTexture;
 
-    public Chest(com.mygdx.game.scenes.main_area.SceneMainArea scene, Vector2f pos, SceneMainAreaTile tile) {
+    public Chest(SceneMainArea scene, Vector2f pos, SceneMainAreaTile tile) {
         super(scene, pos, "chest");
         setSize(tile.getSize());
         open = false;

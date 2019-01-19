@@ -16,10 +16,10 @@ public class BowCard extends AttackCard {
     }
 
     @Override
-    public void use(com.mygdx.game.scenes.battle.SceneBattle scene, BattleLiving user) {
-        scene.addEntity(new com.mygdx.game.entities.battle.misc.BattleArrow(scene, new com.mygdx.game.util.Vector2i(user.getIndexPos()), getDamage(), user, getElement()));
+    public void use(SceneBattle scene, BattleLiving user) {
+        scene.addEntity(new BattleArrow(scene, new Vector2i(user.getIndexPos()), getDamage(), user, getElement()));
 
-        com.mygdx.game.util.Vector2i indexPos = user.getIndexPos();
+        Vector2i indexPos = user.getIndexPos();
 
         if(user.facingRight()) {
             for (int i = (int) (indexPos.x + 1); i < scene.getGrid().getWidth(); i++) {

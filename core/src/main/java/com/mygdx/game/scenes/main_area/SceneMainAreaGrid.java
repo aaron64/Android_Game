@@ -6,14 +6,13 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.entities.main_area.Chest;
 import com.mygdx.game.entities.main_area.MainAreaEntity;
 import com.mygdx.game.factories.EnemyFactory;
+import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.scenes.Scene;
-import com.mygdx.game.scenes.main_area.SceneMainAreaTile;
 import com.mygdx.game.util.ImageUtil;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
 import com.mygdx.game.graphics.Window;
 
-import com.mygdx.game.factories.EnemyFactory;
 
 public class SceneMainAreaGrid {
 
@@ -22,7 +21,7 @@ public class SceneMainAreaGrid {
 
     private float enemyChance;
 
-    private com.mygdx.game.scenes.main_area.SceneMainAreaTile[][] tileGrid;
+    private SceneMainAreaTile[][] tileGrid;
     private Vector2i tileSize;
 
     private Texture mapTexture;
@@ -43,7 +42,7 @@ public class SceneMainAreaGrid {
 
         enemyChance = 0.05f;
 
-        tileGrid = new com.mygdx.game.scenes.main_area.SceneMainAreaTile[width][height];
+        tileGrid = new SceneMainAreaTile[width][height];
         initializeGrid(scene);
     }
 
@@ -56,7 +55,7 @@ public class SceneMainAreaGrid {
         }
     }
 
-    public void render(com.mygdx.game.graphics.RenderSystem rs) {
+    public void render(RenderSystem rs) {
         Vector2f BL = rs.getWorldPos(0,0);
         Vector2f TL = rs.getWorldPos(0, Window.getHeight());
         Vector2f TR = rs.getWorldPos(Window.getWidth(), Window.getHeight());
@@ -86,23 +85,23 @@ public class SceneMainAreaGrid {
                 SceneMainAreaTileType type = typeMap[i][j];
                 switch(type) {
                     case NORMAL:
-                        tileGrid[i][j] = new com.mygdx.game.scenes.main_area.SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
+                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
                         break;
                     case SPAWN:
-                        tileGrid[i][j] = new com.mygdx.game.scenes.main_area.SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
+                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
                         playerSpawn = new Vector2f(tileGrid[i][j].getPos());
                         break;
                     case ENEMY:
-                        tileGrid[i][j] = new com.mygdx.game.scenes.main_area.SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
+                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
                         if(Math.random() < enemyChance)
                             EnemyFactory.newMainAreaEnemy(scene, tileGrid[i][j].getPos());
                         break;
                     case CHEST:
-                        tileGrid[i][j] = new com.mygdx.game.scenes.main_area.SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
+                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
                         scene.addEntity(new Chest(scene, tileGrid[i][j].getPos(), tileGrid[i][j]));
                         break;
                     case DOOR:
-                        tileGrid[i][j] = new com.mygdx.game.scenes.main_area.SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
+                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
                         break;
                     case NONE:
                         break;

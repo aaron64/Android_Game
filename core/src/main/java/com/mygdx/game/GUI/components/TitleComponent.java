@@ -11,17 +11,17 @@ import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.graphics.Window;
 
-public class TitleComponent extends com.mygdx.game.GUI.GUIComponent implements CooldownInterface {
+public class TitleComponent extends GUIComponent implements CooldownInterface {
 
     private BitmapFont font;
     private String text;
     private Vector2f textSize;
     private float alpha;
 
-    private com.mygdx.game.util.Cooldown hold;
+    private Cooldown hold;
 
     private Vector2f pos;
-    public TitleComponent(com.mygdx.game.GUI.GUI gui, String text) {
+    public TitleComponent(GUI gui, String text) {
         super(gui, "TITLE");
 
         font = FontUtil.getFont(64);
@@ -30,7 +30,7 @@ public class TitleComponent extends com.mygdx.game.GUI.GUIComponent implements C
         textSize = FontUtil.getTextSize(font, text);
         alpha = 1f;
 
-        hold = new com.mygdx.game.util.Cooldown(this, "HOLD", false, 100);
+        hold = new Cooldown(this, "HOLD", false, 100);
 
         pos = new Vector2f(Window.getWidth()/2 - textSize.w()/2, Window.percTop(0.15f));
     }
@@ -41,7 +41,7 @@ public class TitleComponent extends com.mygdx.game.GUI.GUIComponent implements C
     }
 
     @Override
-    public void render(com.mygdx.game.graphics.RenderSystem rs) {
+    public void render(RenderSystem rs) {
         rs.drawText(font, text, new Vector2f(pos.x,pos.y));
     }
 

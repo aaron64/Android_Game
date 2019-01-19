@@ -7,7 +7,7 @@ import com.mygdx.game.util.Vector2f;
 public class BattleGoToSelectButton extends ButtonComponent {
 
     private SceneBattle scene;
-    public BattleGoToSelectButton(com.mygdx.game.GUI.GUI gui, Vector2f pos, SceneBattle scene) {
+    public BattleGoToSelectButton(GUI gui, Vector2f pos, SceneBattle scene) {
         super(gui, "BATTLE_GO_TO_SELECTION_BUTTON", pos);
 
         this.scene = scene;

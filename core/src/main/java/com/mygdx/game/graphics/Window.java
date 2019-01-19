@@ -14,18 +14,18 @@ public class Window {
 
     private static Rectangle rect = new Rectangle(0,0,width, height);
 
-    public static boolean inWindow(com.mygdx.game.entities.Entity e) {
-        com.mygdx.game.util.Vector2f pos = e.getPos();
+    public static boolean inWindow(Entity e) {
+        Vector2f pos = e.getPos();
         Vector2i size = e.getSize();
 
         return rect.contains(new Rectangle(pos.x, pos.y, size.w(), size.h()));
     }
 
-    public static boolean inWindow(com.mygdx.game.util.Vector2f pos, Vector2i size) {
+    public static boolean inWindow(Vector2f pos, Vector2i size) {
         return rect.contains(new Rectangle(pos.x, pos.y, size.w(), size.h()));
     }
 
-    public static boolean inWindow(com.mygdx.game.util.Vector2f pos) {
+    public static boolean inWindow(Vector2f pos) {
         return rect.contains(pos.x, pos.y);
     }
 

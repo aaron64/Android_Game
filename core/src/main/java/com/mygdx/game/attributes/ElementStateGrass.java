@@ -6,10 +6,10 @@ import com.mygdx.game.util.CooldownInterface;
 
 public class ElementStateGrass extends ElementState implements CooldownInterface {
 
-    private com.mygdx.game.util.Cooldown timer;
+    private Cooldown timer;
     public ElementStateGrass(BattleLiving affected) {
         super(affected);
-        timer = new com.mygdx.game.util.Cooldown(this, "TIMER", false, 300);
+        timer = new Cooldown(this, "TIMER", false, 300);
         affected.setCanUseItem(false);
     }
 

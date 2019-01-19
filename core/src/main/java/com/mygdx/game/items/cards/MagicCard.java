@@ -15,7 +15,7 @@ public class MagicCard extends AttackCard {
     }
 
     @Override
-    public void use(com.mygdx.game.scenes.battle.SceneBattle scene, BattleLiving user) {
-        scene.addEntity(new com.mygdx.game.entities.battle.misc.MagicProjectile(scene, new Vector2i(user.getIndexPos()), getDamage(), user, getElement()));
+    public void use(SceneBattle scene, BattleLiving user) {
+        scene.addEntity(new MagicProjectile(scene, new Vector2i(user.getIndexPos()), getDamage(), user, getElement()));
     }
 }

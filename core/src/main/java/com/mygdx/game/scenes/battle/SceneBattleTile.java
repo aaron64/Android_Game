@@ -5,8 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.entities.battle.BattleEnemy;
 import com.mygdx.game.entities.battle.BattleEntity;
 import com.mygdx.game.entities.Entity;
-import com.mygdx.game.scenes.battle.SceneBattle;
-import com.mygdx.game.scenes.battle.SceneBattleGrid;
 import com.mygdx.game.util.Cooldown;
 import com.mygdx.game.util.CooldownInterface;
 import com.mygdx.game.graphics.RenderSystem;
@@ -19,7 +17,7 @@ public class SceneBattleTile extends BattleEntity implements CooldownInterface {
     private SceneBattleTileType tileType;
     private boolean lightUp;
 
-    private com.mygdx.game.util.Cooldown lightUpCooldown;
+    private Cooldown lightUpCooldown;
 
     private static Texture lightUpOverlay = new Texture("entities/tiles/tile_light_up.png");
 
@@ -32,7 +30,7 @@ public class SceneBattleTile extends BattleEntity implements CooldownInterface {
         entity = null;
 
         lightUp = false;
-        lightUpCooldown = new com.mygdx.game.util.Cooldown(this, "LIGHT", false, 100);
+        lightUpCooldown = new Cooldown(this, "LIGHT", false, 100);
     }
 
     @Override
@@ -50,7 +48,7 @@ public class SceneBattleTile extends BattleEntity implements CooldownInterface {
     }
 
     @Override
-    public void render(com.mygdx.game.graphics.RenderSystem rs) {
+    public void render(RenderSystem rs) {
         super.render(rs);
         if(lightUp) {
             rs.setOverlayMode();
@@ -59,7 +57,7 @@ public class SceneBattleTile extends BattleEntity implements CooldownInterface {
         }
     }
 
-    public void renderEntity(com.mygdx.game.graphics.RenderSystem rs) {
+    public void renderEntity(RenderSystem rs) {
         if(entity != null) {
             entity.render(rs);
         }

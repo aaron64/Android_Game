@@ -7,7 +7,7 @@ import com.mygdx.game.util.Vector2f;
 public abstract class MainAreaInteractive extends MainAreaEntity {
 
     protected int triggerDistance;
-    public MainAreaInteractive(com.mygdx.game.scenes.main_area.SceneMainArea scene, Vector2f pos, String name) {
+    public MainAreaInteractive(SceneMainArea scene, Vector2f pos, String name) {
         super(scene, pos, name);
         triggerDistance = 200;
     }

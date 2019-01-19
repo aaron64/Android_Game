@@ -34,7 +34,7 @@ public class BattleHealthComponent extends GUIComponent {
     }
 
     @Override
-    public void render(com.mygdx.game.graphics.RenderSystem rs) {
+    public void render(RenderSystem rs) {
         rs.drawTextCentered(healthFont, ""+renderHealth, Vector2f.addVectors(living.getPos(), new Vector2f(living.getSize().x/2,living.getSize().y + 100)));
     }
 }

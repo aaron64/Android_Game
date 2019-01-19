@@ -11,7 +11,7 @@ public class EnemyFollower extends Enemy {
     private Player target;
     private float velocity;
 
-    public EnemyFollower(com.mygdx.game.scenes.main_area.SceneMainArea scene, Vector2f pos, String name) {
+    public EnemyFollower(SceneMainArea scene, Vector2f pos, String name) {
         super(scene, pos, name);
 
         range = 100;
@@ -22,13 +22,13 @@ public class EnemyFollower extends Enemy {
     public void update() {
         if(target == null) {
             for (Entity e : scene.getEntities()) {
-                if (e instanceof Player && com.mygdx.game.util.MathUtil.getDistance(getPos(), e.getPos()) < range) {
+                if (e instanceof Player && MathUtil.getDistance(getPos(), e.getPos()) < range) {
                     target = (Player) e;
                 }
             }
         } else {
             Vector2f distVector = Vector2f.subtractVectors(target.getPos(), getPos());
-            float dist = com.mygdx.game.util.MathUtil.getDistance(distVector);
+            float dist = MathUtil.getDistance(distVector);
 
             float vx = (distVector.x / dist) * velocity;
             float vy = (distVector.y / dist) * velocity;

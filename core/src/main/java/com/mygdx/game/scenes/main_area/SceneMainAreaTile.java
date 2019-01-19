@@ -45,7 +45,7 @@ public class SceneMainAreaTile extends MainAreaEntity {
     }
 
     @Override
-    public void render(com.mygdx.game.graphics.RenderSystem rs) {
+    public void render(RenderSystem rs) {
         rs.draw(getImage(), renderPos);
         rs.draw(endTexture, endPos);
     }

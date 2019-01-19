@@ -39,7 +39,7 @@ public abstract class ButtonComponent extends GUIComponent {
     }
 
     @Override
-    public void render(com.mygdx.game.graphics.RenderSystem rs) {
+    public void render(RenderSystem rs) {
         if(isOn()) {
             rs.draw(renderButton, pos, size);
             rs.draw(icon, pos, size);

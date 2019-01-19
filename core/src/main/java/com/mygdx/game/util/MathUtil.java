@@ -27,7 +27,7 @@ public class MathUtil {
         return (float) Math.sqrt(dx * dx + dy * dy);
     }
 
-    public static com.mygdx.game.util.Vector2f getUnitVector(Vector2f vector) {
+    public static Vector2f getUnitVector(Vector2f vector) {
         float x = vector.x;
         float y = vector.y;
         float mag = getDistance(vector);

@@ -5,8 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.entities.battle.StillObject;
 import com.mygdx.game.items.cards.ThrowableSize;
 import com.mygdx.game.scenes.Scene;
-import com.mygdx.game.scenes.battle.SceneBattle;
-import com.mygdx.game.scenes.battle.SceneBattleTileNone;
 import com.mygdx.game.util.ImageUtil;
 import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.graphics.RenderSystem;
@@ -33,7 +31,7 @@ public class SceneBattleGrid {
 
     public SceneBattleGrid(SceneBattle scene) {
         int[] mapWeights = {1,1,3,2,5,3, 100, 5};
-        int mapI = com.mygdx.game.util.MathUtil.getWeightedRandom(mapWeights);
+        int mapI = MathUtil.getWeightedRandom(mapWeights);
         mapTexture = new Texture("battle_maps/map" + mapI + ".png");
 
         this.width = mapTexture.getWidth();
@@ -64,7 +62,7 @@ public class SceneBattleGrid {
         }
     }
 
-    public void render(com.mygdx.game.graphics.RenderSystem rs) {
+    public void render(RenderSystem rs) {
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < height; j++) {
                 tileGrid[i][j].render(rs);
@@ -93,7 +91,7 @@ public class SceneBattleGrid {
                         tileGrid[i][j] = new SceneBattleTile(scene,this, new Vector2i(i,j), offsetVec, tileSize, type);
                         break;
                     case NONE:
-                        tileGrid[i][j] = new com.mygdx.game.scenes.battle.SceneBattleTileNone(scene,this, new Vector2i(i,j), offsetVec, tileSize, type);
+                        tileGrid[i][j] = new SceneBattleTileNone(scene,this, new Vector2i(i,j), offsetVec, tileSize, type);
                         break;
                     case SPAWN:
                         tileGrid[i][j] = new SceneBattleTile(scene,this, new Vector2i(i,j), offsetVec, tileSize, SceneBattleTileType.FRIENDLY);
