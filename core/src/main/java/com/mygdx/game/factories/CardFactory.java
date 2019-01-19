@@ -38,7 +38,7 @@ public class CardFactory {
     }
 
     public static Card buildCard(String name, Element element, Quality quality) {
-
+        Gdx.app.log("INFO", "Building: " + name);
         JsonValue cardData = cardMap.get(name);
         String category = cardData.getString("Category");
         CardType.valueOf(category);

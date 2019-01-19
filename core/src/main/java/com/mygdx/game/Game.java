@@ -17,6 +17,7 @@ public class Game extends ApplicationAdapter {
 
 	public static SceneGameMenu gameMenuScene;
 
+
     @Override
 	public void create () {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);

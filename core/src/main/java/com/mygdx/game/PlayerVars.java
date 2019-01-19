@@ -21,7 +21,7 @@ public class PlayerVars {
         deck.addCard(CardFactory.buildCard("Magic", Element.GRASS));
         deck.addCard(CardFactory.buildCard("Sword"));
         deck.addCard(CardFactory.buildCard("Bomb"));
-        deck.addCard(CardFactory.buildCard("Heal"));
+        //deck.addCard(CardFactory.buildCard("Heal"));
 
         pack.addCard(CardFactory.buildCard("Bow"));
         pack.addCard(CardFactory.buildCard("Sword"));
