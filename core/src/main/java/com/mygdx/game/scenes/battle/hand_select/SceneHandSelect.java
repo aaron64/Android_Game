@@ -3,6 +3,7 @@ package com.mygdx.game.scenes.battle.hand_select;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.GUI.components.HandSelectionPoints;
+import com.mygdx.game.Game;
 import com.mygdx.game.graphics.ContentBackground;
 import com.mygdx.game.GUI.components.HandSelectionGoButton;
 import com.mygdx.game.PlayerVars;
@@ -111,7 +112,7 @@ public class SceneHandSelect extends Scene implements GestureHandler {
 
     @Override
     public void render() {
-        renderInBackground();
+        Game.getLastScene().renderInBackground();
 
         rs.resetColor();
         rs.restart();
