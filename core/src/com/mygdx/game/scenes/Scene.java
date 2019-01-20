@@ -35,9 +35,13 @@ public abstract class Scene {
         gestureHandler.update();
         entities.update();
     }
+
     public abstract void render();
     public void renderInBackground(){}
     public abstract void dispose();
+    public abstract void onPushed();
+    public abstract void onPopped();
+    public abstract void onExit();
 
     public boolean isAnimationLocked() { return animationQueue.locked(); }
 
@@ -47,5 +51,9 @@ public abstract class Scene {
 
     public void removeEntity(Entity e) {
         entities.removeEntity(e);
+    }
+
+    public GUI getGUI() {
+        return gui;
     }
 }

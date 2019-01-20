@@ -55,4 +55,16 @@ public class AnimationQueue {
         }
         return true;
     }
+
+    public boolean inQueue(String name) {
+        for(Animation a : animations) {
+            if(a.getName().equals(name))
+                return true;
+        }
+        for(Animation a : currentAnimations) {
+            if(a.getName().equals(name))
+                return true;
+        }
+        return false;
+    }
 }

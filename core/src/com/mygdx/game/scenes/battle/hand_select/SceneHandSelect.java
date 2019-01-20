@@ -54,7 +54,11 @@ public class SceneHandSelect extends Scene implements GestureHandler {
         Vector2f goButtonPos = new Vector2f(Window.percRight(0.1f) - iconSize.x, Window.getCenter().y - iconSize.y - Window.percHeight(0.05f));
         gui.addComponent(new HandSelectionGoButton(gui, goButtonPos, iconSize, this));
 
+<<<<<<< HEAD
         newHand();
+=======
+        //newHand();
+>>>>>>> 87abaec8852798f4e074a8782d6747d134feba92
     }
 
     @Override
@@ -64,11 +68,20 @@ public class SceneHandSelect extends Scene implements GestureHandler {
     }
 
     public void newHand() {
+<<<<<<< HEAD
         deckSelection.clear();
         handSelection.clear();
 
         for(int i = 0; i < maxCards; i++) {
             deckSelection.add(deck.pop());
+=======
+        handSelection.clear();
+
+        for(int i = 0; i < maxCards; i++) {
+            Card card = deck.pop();
+            if(card != null)
+                deckSelection.add(deck.pop());
+>>>>>>> 87abaec8852798f4e074a8782d6747d134feba92
             deck.refresh();
         }
     }
@@ -88,7 +101,8 @@ public class SceneHandSelect extends Scene implements GestureHandler {
             rs.draw(cardBackground, deckPos, iconSize);
             if(i < deckSelection.size()) {
                 Card card = deckSelection.get(i);
-                card.drawHandScene(rs, deckPos, iconSize);
+                if(card != null)
+                    card.drawHandScene(rs, deckPos, iconSize);
             }
         }
 
@@ -99,7 +113,8 @@ public class SceneHandSelect extends Scene implements GestureHandler {
 
             if(i < handSelection.size()) {
                 Card card = handSelection.get(i);
-                card.drawHandScene(rs, deckPos, iconSize);
+                if(card != null)
+                    card.drawHandScene(rs, deckPos, iconSize);
             }
         }
 
@@ -108,10 +123,21 @@ public class SceneHandSelect extends Scene implements GestureHandler {
         rs.end();
     }
 
-    public void go() {
-        player.setHand(new Deck(handSelection));
-        Game.endScene();
+    @Override
+    public void onPushed() {
+        newHand();
     }
+
+    @Override
+    public void onPopped() {
+        newHand();
+    }
+
+    @Override
+    public void onExit() {
+        player.setHand(new Deck(handSelection));
+    }
+
 
     @Override
     public void dispose() {

@@ -30,6 +30,21 @@ public class SceneGameMenu extends Scene implements SceneContainer {
     }
 
     @Override
+    public void onPushed() {
+
+    }
+
+    @Override
+    public void onPopped() {
+
+    }
+
+    @Override
+    public void onExit() {
+
+    }
+
+    @Override
     public void dispose() {
 
     }

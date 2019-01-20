@@ -1,10 +1,16 @@
 package com.mygdx.game.scenes.battle;
 
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.mygdx.game.GUI.components.BattleDeckComponent;
+import com.mygdx.game.GUI.components.BattleGoToSelectButton;
+import com.mygdx.game.GUI.components.BattleSelectionBarComponent;
 import com.mygdx.game.Game;
 import com.mygdx.game.animation.BattleEnemySpawnAnimation;
 import com.mygdx.game.animation.OpenAnimation;
+import com.mygdx.game.animation.WaitAnimation;
+import com.mygdx.game.animation.ZoomAnimation;
 import com.mygdx.game.entities.battle.BattleEnemy;
 import com.mygdx.game.entities.battle.BattlePlayer;
 import com.mygdx.game.entities.Entity;
@@ -16,6 +22,7 @@ import com.mygdx.game.scenes.battle.hand_select.SceneHandSelect;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.util.GestureHandler;
 import com.mygdx.game.util.GestureUtil;
+import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
 import com.mygdx.game.util.Window;
 
@@ -30,8 +37,13 @@ public class SceneBattle extends Scene implements GestureHandler {
 
     private SceneHandSelect sceneHandSelect;
 
+    private BattleSelectionBarComponent barComponent;
+    //private BattleGoToSelectButton goToSelectionButton;
+
     public SceneBattle() {
         super();
+        rs.setCamera(new OrthographicCamera(Window.getWidth(), Window.getHeight()));
+        rs.centerCameraOn(new Vector2f(Window.getCenter()));
 
         gestureHandler = new GestureUtil(this);
         battleGrid = new SceneBattleGrid(this);
@@ -45,12 +57,20 @@ public class SceneBattle extends Scene implements GestureHandler {
 
         gui.addComponent(new BattleDeckComponent(gui, player));
 
+        barComponent = new BattleSelectionBarComponent(gui, 500);
+        gui.addComponent(barComponent);
+
+        //goToSelectionButton = new BattleGoToSelectButton(gui, new Vector2f(Window.percRight(0.05f), Window.getCenter().y), this);
+        //gui.addComponent(goToSelectionButton);
+
         new EnemyTest(this, battleGrid, new Vector2i(4, 2), "enemy", 40);
         new EnemyTest2(this, battleGrid, new Vector2i(3, 1), "enemy", 40);
 
         for(BattleEnemy enemy : enemies) {
             animationQueue.add(new BattleEnemySpawnAnimation(true, false, enemy));
         }
+        //Gdx.app.log("INFO", "ZOOM:" + rs.getCamera().zoom);
+        animationQueue.add(new ZoomAnimation(true, false, 10, rs.getCamera().zoom, 1.2f, rs.getCamera()));
         animationQueue.add(new OpenAnimation(true, false, sceneHandSelect));
     }
 
@@ -60,14 +80,11 @@ public class SceneBattle extends Scene implements GestureHandler {
         map.update();
 
         if(!isAnimationLocked()) {
+            gui.update(this);
             battleGrid.update(this);
 
             for(Entity e : entities.getList()) {
                 e.update();
-            }
-
-            if(enemies.isEmpty()) {
-                returnToMainArea();
             }
         }
     }
@@ -104,10 +121,25 @@ public class SceneBattle extends Scene implements GestureHandler {
         rs.end();
     }
 
-    public void returnToMainArea() {
+    public void goToSelection() {
+        Game.pushScene(sceneHandSelect);
+    }
+
+    @Override
+    public void onPushed() {
+
+    }
+
+    @Override
+    public void onPopped() {
+        barComponent.resetBar();
+        animationQueue.add(new ZoomAnimation(false, false, 10, rs.getCamera().zoom, 1.0f, rs.getCamera()));
+    }
+
+    @Override
+    public void onExit() {
         SceneMainArea sceneMainArea = (SceneMainArea) Game.getLastScene();
         sceneMainArea.getPlayer().setHealth(player.getHealth());
-        Game.endScene();
     }
 
     public void addPlayer() {
@@ -134,7 +166,12 @@ public class SceneBattle extends Scene implements GestureHandler {
 
     @Override
     public void zoom(float initialDistance, float distance) {
-
+        if(distance/initialDistance <= 0.5f) {
+            if (((BattleSelectionBarComponent) gui.getComponent("SELECTION_BAR")).ready() && !animationQueue.inQueue("OPEN")) {
+                animationQueue.add(new ZoomAnimation(true, true, 10, rs.getCamera().zoom, 1.2f, rs.getCamera()));
+                animationQueue.add(new OpenAnimation(true, false, sceneHandSelect));
+            }
+        }
     }
 
     @Override
@@ -166,6 +203,9 @@ public class SceneBattle extends Scene implements GestureHandler {
 
     public void enemyKilled(BattleEnemy enemy) {
         enemies.remove(enemy);
+        if(enemies.isEmpty()) {
+            Game.endScene();
+        }
     }
 
     public SceneBattleTile getTile(int i, int j) {
