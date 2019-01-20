@@ -9,6 +9,7 @@ import com.mygdx.game.items.cards.BowCard;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.items.cards.CardType;
 import com.mygdx.game.items.cards.GunCard;
+import com.mygdx.game.items.cards.HealCard;
 import com.mygdx.game.items.cards.MagicCard;
 import com.mygdx.game.items.cards.MeleeCard;
 import com.mygdx.game.items.cards.ThrowableSize;
@@ -69,8 +70,12 @@ public class CardFactory {
                 int cost = cardData.getInt("Base_Point_Cost");
                 return new GunCard(name, damage, cost, quality, element);
             }
+            case POTION: {
+                int amount = cardData.getInt("Base_Amount");
+                int cost = cardData.getInt("Base_Point_Cost");
+                return new HealCard(name, amount, cost, quality);
+            }
             case SUPPORT:
-
                 break;
             case SPECIAL:
 

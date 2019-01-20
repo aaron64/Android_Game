@@ -94,7 +94,7 @@ public class SceneMainAreaGrid {
                     case ENEMY:
                         tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
                         if(Math.random() < enemyChance)
-                            EnemyFactory.newMainAreaEnemy(scene, tileGrid[i][j].getPos());
+                            EnemyFactory.newMainAreaEnemy(scene, new Vector2f(tileGrid[i][j].getPos()));
                         break;
                     case CHEST:
                         tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
@@ -102,6 +102,9 @@ public class SceneMainAreaGrid {
                         break;
                     case DOOR:
                         tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
+                        break;
+                    case WATER:
+                        tileGrid[i][j] = new SceneMainAreaTileWater(scene, new Vector2f(i,j), "tile_water", type);
                         break;
                     case NONE:
                         break;

@@ -23,7 +23,7 @@ public abstract class Card extends Item {
     protected BitmapFont nameFont, descriptionFont, pointsFont, amountFont;
     protected Vector2f nameSize, descriptionSize, pointsSize, amountSize;
 
-    private Texture element_overlay_texture;
+    protected Texture element_overlay_texture;
 
     public Card(String name, String folder, String description, CardType type, int pointsCost, Quality quality, Element element) {
         super(name, "cards/" + folder, description, quality);
@@ -41,7 +41,24 @@ public abstract class Card extends Item {
         pointsFont = FontUtil.getFont(40);
         amountFont = FontUtil.getFont(40);
 
-        nameSize = FontUtil.getTextSize(nameFont, name);
+        nameSize = FontUtil.getTextSize(nameFont, getName());
+        descriptionSize = FontUtil.getTextSize(descriptionFont, description);
+        pointsSize = FontUtil.getTextSize(pointsFont, "" + getPointsCost());
+    }
+
+    public Card(String name, String description, CardType type, int pointsCost, Quality quality, Element element) {
+        super(name, description, quality);
+        this.description = description;
+        this.pointsCost = pointsCost;
+        this.type = type;
+        this.element = element;
+
+        nameFont = FontUtil.getFont(40);
+        descriptionFont = FontUtil.getFont(24);
+        pointsFont = FontUtil.getFont(40);
+        amountFont = FontUtil.getFont(40);
+
+        nameSize = FontUtil.getTextSize(nameFont, getName());
         descriptionSize = FontUtil.getTextSize(descriptionFont, description);
         pointsSize = FontUtil.getTextSize(pointsFont, "" + getPointsCost());
     }

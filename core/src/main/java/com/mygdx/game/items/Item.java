@@ -22,6 +22,16 @@ public abstract class Item {
         icon = new Texture("items/" + folder + "/" + name + "_icon.png");
     }
 
+    public Item(String name, String description, Quality quality) {
+        this.name = name;
+        this.description = description;
+
+        this.quality = quality;
+        if(quality == null) {
+            this.quality = Quality.STANDARD;
+        }
+    }
+
     public String getName() {
         String s = "";
         if(quality != Quality.STANDARD) {

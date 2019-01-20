@@ -61,6 +61,16 @@
     ]
     },
     {
+      "Name": "POTION", "Cards": [
+      {
+        "Name": "Heal",
+        "Category": "POTION",
+        "Base_Point_Cost": 3,
+        "Base_Amount": 30
+      }
+    ]
+    },
+    {
       "Name": "BOW", "Cards": [
       {
         "Name": "Bow",

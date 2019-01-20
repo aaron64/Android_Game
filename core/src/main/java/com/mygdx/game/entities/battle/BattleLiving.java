@@ -153,6 +153,8 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
 
     public void recover(int rec) {
         this.health += rec;
+        if(this.health > maxHealth)
+            this.health = maxHealth;
     }
 
     public int getHealth() {

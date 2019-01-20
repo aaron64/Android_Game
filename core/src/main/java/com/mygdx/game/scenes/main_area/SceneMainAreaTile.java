@@ -9,14 +9,14 @@ public class SceneMainAreaTile extends MainAreaEntity {
 
     private SceneMainAreaTileType type;
 
-    private Vector2f renderPos;
-    private Vector2f endPos;
+    protected Vector2f renderPos;
+    protected Vector2f endPos;
 
     private float offsetLevel;
 
     private float distSoftner;
 
-    private Texture endTexture;
+    protected Texture endTexture;
     private float yOffset;
     public SceneMainAreaTile(SceneMainArea scene, Vector2f pos, String name, SceneMainAreaTileType type) {
         super(scene, pos, "tiles/main_area", name);
