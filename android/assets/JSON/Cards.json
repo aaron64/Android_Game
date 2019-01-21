@@ -61,6 +61,16 @@
     ]
     },
     {
+      "Name": "POTION", "Cards": [
+      {
+        "Name": "Heal",
+        "Category": "POTION",
+        "Base_Point_Cost": 3,
+        "Base_Amount": 30
+      }
+    ]
+    },
+    {
       "Name": "BOW", "Cards": [
       {
         "Name": "Bow",
@@ -125,6 +135,54 @@
           "Base_Damage": 15
         }
       ]
+    },
+    {
+      "Name": "THROWABLE", "Cards": [
+      {
+        "Name": "Small Bomb",
+        "Type": "bomb",
+        "Base_Point_Cost": 3,
+        "Category": "THROWABLE",
+        "Base_Damage": 15,
+        "Size": "small",
+        "Range": 3
+      },
+      {
+        "Name": "Bomb",
+        "Type": "bomb",
+        "Base_Point_Cost": 3,
+        "Category": "THROWABLE",
+        "Base_Damage": 15,
+        "Size": "medium",
+        "Range": 3
+      },
+      {
+        "Name": "Large Bomb",
+        "Type": "bomb",
+        "Base_Point_Cost": 3,
+        "Category": "THROWABLE",
+        "Base_Damage": 15,
+        "Size": "large",
+        "Range": 3
+      },
+      {
+        "Name": "Horizontal Bomb",
+        "Base_Point_Cost": 3,
+        "Category": "THROWABLE",
+        "Base_Damage": 15,
+        "Size": "horizontal",
+        "Range": 3
+      },
+      {
+        "Name": "Vertical Bomb",
+        "Type": "bomb",
+        "Base_Point_Cost": 3,
+        "Category": "THROWABLE",
+        "Base_Damage": 15,
+        "Size": "vertical",
+        "Range": 3
+      }
+    ]
     }
   ]
 }
