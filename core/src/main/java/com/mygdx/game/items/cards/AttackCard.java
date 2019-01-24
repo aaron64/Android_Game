@@ -7,8 +7,8 @@ import com.mygdx.game.util.FontUtil;
 public abstract class AttackCard extends Card {
 
     private int damage;
-    public AttackCard(String name, String folder, String description, int damage, CardType type, int pointsCost, Quality quality, Element element) {
-        super(name, folder, description, type, pointsCost, quality, element);
+    public AttackCard(String name, int lockInitial, int lockFinal, String folder, String description, int damage, CardType type, int pointsCost, Quality quality, Element element) {
+        super(name, lockInitial, lockFinal, folder, description, type, pointsCost, quality, element);
         this.damage = (int)(damage * getQuality().getMultiplier());
 
         amountSize = FontUtil.getTextSize(amountFont, "" + getAmount());

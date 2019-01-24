@@ -29,4 +29,7 @@ public class MapMainArea extends Map {
     public void render(RenderSystem rs) {
         rs.draw(getBackground(), backgroundPos, backgroundSize);
     }
+
+    @Override
+    public void renderForeground(RenderSystem rs) {}
 }

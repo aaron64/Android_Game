@@ -6,8 +6,8 @@ import com.mygdx.game.attributes.Quality;
 
 public abstract class PotionCard extends Card {
 
-    public PotionCard(String name, String description, CardType type, int pointsCost, Quality quality, Element element) {
-        super(name, description, type, pointsCost, quality, element);
+    public PotionCard(String name, int lockInitial, int lockFinal, String description, CardType type, int pointsCost, Quality quality, Element element) {
+        super(name, lockInitial, lockFinal, description, type, pointsCost, quality, element);
 
         if(quality.equals(Quality.STANDARD))
         {

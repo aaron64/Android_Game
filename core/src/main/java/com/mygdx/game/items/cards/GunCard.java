@@ -10,8 +10,8 @@ import com.mygdx.game.util.Vector2i;
 
 public class GunCard extends AttackCard {
 
-    public GunCard(String name, int damage, int pointsCost, Quality quality, Element element) {
-        super(name, "guns", "Fire a projectile", damage, CardType.GUN, pointsCost, quality, element);
+    public GunCard(String name, int lockInitial, int lockFinal, int damage, int pointsCost, Quality quality, Element element) {
+        super(name, lockInitial, lockFinal, "guns", "Fire a projectile", damage, CardType.GUN, pointsCost, quality, element);
     }
 
     @Override
@@ -25,11 +25,11 @@ public class GunCard extends AttackCard {
 
         if(user.facingRight()) {
             for (int i = indexPos.x + 1; i < scene.getGrid().getWidth(); i++) {
-                scene.getGrid().getTile(i, indexPos.y).lightUp(25);
+                scene.getGrid().getTile(i, indexPos.y).lightUp(getInitialLock());
             }
         } else {
             for (int i = indexPos.x - 1; i >= 0; i--) {
-                scene.getGrid().getTile(i, indexPos.y).lightUp(25);
+                scene.getGrid().getTile(i, indexPos.y).lightUp(getInitialLock());
             }
         }
     }

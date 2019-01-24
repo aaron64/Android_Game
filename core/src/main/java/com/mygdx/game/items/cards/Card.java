@@ -25,7 +25,9 @@ public abstract class Card extends Item {
 
     protected Texture element_overlay_texture;
 
-    public Card(String name, String folder, String description, CardType type, int pointsCost, Quality quality, Element element) {
+    private int lockInitial, lockFinal;
+
+    public Card(String name, int lockInitial, int lockFinal, String folder, String description, CardType type, int pointsCost, Quality quality, Element element) {
         super(name, "cards/" + folder, description, quality);
         this.description = description;
         this.pointsCost = pointsCost;
@@ -44,9 +46,12 @@ public abstract class Card extends Item {
         nameSize = FontUtil.getTextSize(nameFont, getName());
         descriptionSize = FontUtil.getTextSize(descriptionFont, description);
         pointsSize = FontUtil.getTextSize(pointsFont, "" + getPointsCost());
+
+        this.lockInitial = lockInitial;
+        this.lockFinal = lockFinal;
     }
 
-    public Card(String name, String description, CardType type, int pointsCost, Quality quality, Element element) {
+    public Card(String name, int lockInitial, int lockFinal, String description, CardType type, int pointsCost, Quality quality, Element element) {
         super(name, description, quality);
         this.description = description;
         this.pointsCost = pointsCost;
@@ -61,6 +66,9 @@ public abstract class Card extends Item {
         nameSize = FontUtil.getTextSize(nameFont, getName());
         descriptionSize = FontUtil.getTextSize(descriptionFont, description);
         pointsSize = FontUtil.getTextSize(pointsFont, "" + getPointsCost());
+
+        this.lockInitial = lockInitial;
+        this.lockFinal = lockFinal;
     }
 
     public abstract void use(SceneBattle scene, BattleLiving user);
@@ -160,4 +168,12 @@ public abstract class Card extends Item {
     }
 
     public abstract int getAmount();
+
+    public int getInitialLock() {
+        return lockInitial;
+    }
+
+    public int getFinalLock() {
+        return lockFinal;
+    }
 }

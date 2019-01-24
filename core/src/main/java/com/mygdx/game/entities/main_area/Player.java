@@ -46,7 +46,27 @@ public class Player extends MainAreaEntity {
         sprite.update(velocity);
 
         moveX(velocity.x);
+        MainAreaEntity collision = scene.getSolidEntityCollision(this);
+        if(collision != null) {
+            moveX(-velocity.x);
+            collision.touch(this);
+        } else if(!scene.getGrid().isInMap(this)){
+            moveX(-velocity.x);
+        }
 
+        moveY(velocity.y);
+        collision = scene.getSolidEntityCollision(this);
+        if(collision != null) {
+            moveY(-velocity.y);
+            collision.touch(this);
+        } else if(!scene.getGrid().isInMap(this)) {
+            moveY(-velocity.y);
+        }
+    }
+
+    @Override
+    public void move(Vector2f velocity) {
+        moveX(velocity.x);
         MainAreaEntity collision = scene.getSolidEntityCollision(this);
         if(collision != null) {
             moveX(-velocity.x);

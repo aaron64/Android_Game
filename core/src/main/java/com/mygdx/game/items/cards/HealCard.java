@@ -8,8 +8,8 @@ import com.mygdx.game.util.FontUtil;
 public class HealCard extends PotionCard {
 
     private int healAmount;
-    public HealCard(String name, int amount, int pointsCost, Quality quality) {
-        super(name, "Heals the player", CardType.SUPPORT, pointsCost, quality, null);
+    public HealCard(String name, int lockInitial, int lockFinal, int amount, int pointsCost, Quality quality) {
+        super(name, lockInitial, lockFinal, "Heals the player", CardType.SUPPORT, pointsCost, quality, null);
         this.name = name;
         healAmount = (int) (amount * quality.getMultiplier());
 
@@ -18,7 +18,7 @@ public class HealCard extends PotionCard {
 
     @Override
     public void use(SceneBattle scene, BattleLiving user) {
-        scene.getPlayer().recover(healAmount);
+        user.recover(healAmount);
     }
 
     @Override

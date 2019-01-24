@@ -42,6 +42,9 @@ public class CardFactory {
         Gdx.app.log("INFO", "Building: " + name);
         JsonValue cardData = cardMap.get(name);
         String category = cardData.getString("Category");
+        int cost = cardData.getInt("Base_Point_Cost");
+        int lockInitial = cardData.getInt("LockI");
+        int lockFinal = cardData.getInt("LockF");
         CardType.valueOf(category);
 
         if(quality == null)
@@ -50,30 +53,25 @@ public class CardFactory {
         switch(CardType.valueOf(category)) {
             case MAGIC: {
                 int damage = cardData.getInt("Base_Damage");
-                int cost = cardData.getInt("Base_Point_Cost");
-                return new MagicCard(name, damage, cost, quality, element);
+                return new MagicCard(name, lockInitial, lockFinal, damage, cost, quality, element);
             }
             case MELEE: {
                 int damage = cardData.getInt("Base_Damage");
                 int width = cardData.getInt("Width");
                 int height = cardData.getInt("Height");
-                int cost = cardData.getInt("Base_Point_Cost");
-                return new MeleeCard(name, damage, width, height, cost, quality, element);
+                return new MeleeCard(name, lockInitial, lockFinal, damage, width, height, cost, quality, element);
             }
             case BOW: {
                 int damage = cardData.getInt("Base_Damage");
-                int cost = cardData.getInt("Base_Point_Cost");
-                return new BowCard(name, damage, cost, quality, element);
+                return new BowCard(name, lockInitial, lockFinal, damage, cost, quality, element);
             }
             case GUN: {
                 int damage = cardData.getInt("Base_Damage");
-                int cost = cardData.getInt("Base_Point_Cost");
-                return new GunCard(name, damage, cost, quality, element);
+                return new GunCard(name, lockInitial, lockFinal, damage, cost, quality, element);
             }
             case POTION: {
                 int amount = cardData.getInt("Base_Amount");
-                int cost = cardData.getInt("Base_Point_Cost");
-                return new HealCard(name, amount, cost, quality);
+                return new HealCard(name, lockInitial, lockFinal, amount, cost, quality);
             }
             case SUPPORT:
                 break;
@@ -82,13 +80,12 @@ public class CardFactory {
                 break;
             case THROWABLE:
                 int damage = cardData.getInt("Base_Damage");
-                int cost = cardData.getInt("Base_Point_Cost");
                 int range = cardData.getInt("Range");
                 String type = cardData.getString("Type");
                 ThrowableSize size = parseThrowableSize(cardData.getString("Size"));
 
                 if(type.equals("bomb")) {
-                    return new BombCard(name, damage, size, range, cost, quality, element);
+                    return new BombCard(name, lockInitial, lockFinal, damage, size, range, cost, quality, element);
                 }
                 break;
             default:

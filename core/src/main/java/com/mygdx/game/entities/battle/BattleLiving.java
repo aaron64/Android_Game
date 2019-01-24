@@ -62,6 +62,8 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
     public void update() {
         lockCooldown.update();
 
+        actionQueue.update();
+
         if(elementState != null) {
             elementState.update();
         }

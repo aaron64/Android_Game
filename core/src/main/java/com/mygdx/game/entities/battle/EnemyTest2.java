@@ -1,7 +1,10 @@
 package com.mygdx.game.entities.battle;
 
 
+import com.mygdx.game.action.ActionLock;
+import com.mygdx.game.action.ActionUseCard;
 import com.mygdx.game.factories.CardFactory;
+import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.scenes.battle.SceneBattleTileType;
@@ -54,7 +57,10 @@ public class EnemyTest2 extends BattleEnemy implements CooldownInterface {
 
     public void attack() {
         if(canUseItem()) {
-            cardStack.peek().use(scene, this);
+            Card card = cardStack.peek();
+            getActionQueue().add(new ActionLock(this, card.getInitialLock()));
+            getActionQueue().add(new ActionUseCard(this, scene, card));
+            getActionQueue().add(new ActionLock(this, card.getFinalLock()));
         }
     }
 

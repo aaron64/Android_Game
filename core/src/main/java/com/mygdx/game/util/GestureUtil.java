@@ -12,7 +12,7 @@ import com.mygdx.game.util.GestureHandler;
 
 public class GestureUtil implements GestureDetector.GestureListener {
 
-    private static InputMultiplexer inputMultiplexer = new InputMultiplexer();;
+    private static InputMultiplexer inputMultiplexer = new InputMultiplexer();
     private GestureDetector gestureDetector;
 
     private Scene scene;
@@ -21,7 +21,7 @@ public class GestureUtil implements GestureDetector.GestureListener {
     private float heldX, heldY;
 
     private int doubleTapFrameCount = 0;
-    private int doubelTapThreshold = 200;
+    private int doubelTapThreshold = 20;
 
     GestureHandler handler;
 

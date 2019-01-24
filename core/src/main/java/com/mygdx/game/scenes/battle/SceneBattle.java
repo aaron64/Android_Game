@@ -95,6 +95,8 @@ public class SceneBattle extends Scene implements GestureHandler {
             e.render(rs);
         }
 
+        map.renderForeground(rs);
+
         gui.render(rs);
 
         rs.end();

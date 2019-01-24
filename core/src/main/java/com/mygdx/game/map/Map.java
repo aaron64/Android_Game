@@ -12,6 +12,7 @@ public abstract class Map {
 
     public abstract void update();
     public abstract void render(RenderSystem rs);
+    public abstract void renderForeground(RenderSystem rs);
 
     public Texture getBackground() {
         return background;

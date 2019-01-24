@@ -12,8 +12,8 @@ public class MeleeCard extends AttackCard {
 
     private int atkWidth;
     private int atkHeight;
-    public MeleeCard(String name, int damage, int width, int height, int pointsCost, Quality quality, Element element) {
-        super(name, "melee", "Hit an enemy", damage, CardType.MELEE, pointsCost, quality, element);
+    public MeleeCard(String name, int lockInitial, int lockFinal, int damage, int width, int height, int pointsCost, Quality quality, Element element) {
+        super(name, lockInitial, lockFinal, "melee", "Hit an enemy", damage, CardType.MELEE, pointsCost, quality, element);
         atkWidth = width;
         atkHeight = height;
     }
@@ -30,7 +30,7 @@ public class MeleeCard extends AttackCard {
             for(int j = 0; j < atkHeight; j++) {
                 SceneBattleTile tile = scene.getTile(indexPos.x + (i*face), indexPos.y + (j*face));
                 if(tile != null) {
-                    tile.lightUp(20);
+                    tile.lightUp(getInitialLock());
 
                     BattleEntity e = (BattleEntity) tile.getEntity();
                     if(e != null && e != user)

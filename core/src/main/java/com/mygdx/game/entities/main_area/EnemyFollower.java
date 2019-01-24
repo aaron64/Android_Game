@@ -30,6 +30,9 @@ public class EnemyFollower extends Enemy {
             Vector2f distVector = Vector2f.subtractVectors(target.getPos(), getPos());
             float dist = MathUtil.getDistance(distVector);
 
+            if(dist > range)
+                target = null;
+
             float vx = (distVector.x / dist) * velocity;
             float vy = (distVector.y / dist) * velocity;
 

@@ -30,7 +30,7 @@ public class SceneBattleGrid {
     private Vector2i playerSpawnCoords;
 
     public SceneBattleGrid(SceneBattle scene) {
-        int[] mapWeights = {1,1,3,2,5,3, 100, 5};
+        int[] mapWeights = {1,1,3,2,5,3, 1000, 5};
         int mapI = MathUtil.getWeightedRandom(mapWeights);
         mapTexture = new Texture("battle_maps/map" + mapI + ".png");
 
@@ -64,12 +64,12 @@ public class SceneBattleGrid {
 
     public void render(RenderSystem rs) {
         for(int i = 0; i < width; i++) {
-            for(int j = 0; j < height; j++) {
+            for(int j = height-1; j >= 0; j--) {
                 tileGrid[i][j].render(rs);
             }
         }
         for(int i = 0; i < width; i++) {
-            for(int j = 0; j < height; j++) {
+            for(int j = height-1; j >= 0; j--) {
                 tileGrid[i][j].renderEntity(rs);
             }
         }

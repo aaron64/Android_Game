@@ -1,5 +1,6 @@
 package com.mygdx.game.scenes.main_area;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -7,6 +8,7 @@ import com.mygdx.game.GUI.components.ButtonComponent;
 import com.mygdx.game.GUI.components.GameMenuButtonComponent;
 import com.mygdx.game.GUI.components.HealthComponent;
 import com.mygdx.game.GUI.components.TitleComponent;
+import com.mygdx.game.animation.PlayerDashAnimation;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.main_area.MainAreaEntity;
 import com.mygdx.game.entities.main_area.MainAreaEntityComparator;
@@ -17,6 +19,7 @@ import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.GestureHandler;
 import com.mygdx.game.util.GestureUtil;
 import com.mygdx.game.util.MapNameGenerator;
+import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.graphics.Window;
 
@@ -167,7 +170,6 @@ public class SceneMainArea extends Scene implements GestureHandler {
     @Override
     public void zoom(float initialDistance, float distance) {
         rs.getCamera().zoom = Math.max(0.3f, Math.min(0.5f, initialDistance/distance));
-        //rs.getCamera().zoom = Math.max(0.2f, Math.min(1.0f, ((initialDistance / distance)*1.9f) * rs.getCamera().zoom));
     }
 
     @Override
@@ -183,7 +185,8 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
     @Override
     public void doubleTap(float x, float y) {
-
+        Vector2f direction = MathUtil.getUnitVector(Vector2f.subtractVectors(new Vector2f(x, y), Window.getCenter()));
+        animationQueue.add(new PlayerDashAnimation(false, true, player, direction, 10, 200));
     }
 
     @Override

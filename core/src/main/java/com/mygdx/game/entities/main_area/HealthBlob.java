@@ -7,8 +7,8 @@ import com.mygdx.game.util.Vector2f;
 
 public class HealthBlob extends MainAreaEntity {
 
-    Vector2f velocity;
-    float yTrigger;
+    private Vector2f velocity;
+    private float yTrigger;
     
     public HealthBlob(SceneMainArea scene, Vector2f pos) {
         super(scene, pos, "health_blob");
