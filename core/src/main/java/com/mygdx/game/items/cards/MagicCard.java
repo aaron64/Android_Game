@@ -12,6 +12,9 @@ public class MagicCard extends AttackCard {
 
     public MagicCard(String name, int lockInitial, int lockFinal, int damage, int pointsCost, Quality quality, Element element) {
         super(name, lockInitial, lockFinal, "magic", "A magic projectile", damage, CardType.MAGIC, pointsCost, quality, element);
+        if(element == null) {
+            setElement(Element.getRandomElement(false));
+        }
     }
 
     @Override

@@ -56,4 +56,29 @@ public enum Element {
             return 2.0f;
         return 1.0f;
     }
+
+    public static Element getRandomElement(boolean includeNone) {
+        int r = (int) (Math.random() * 6);
+        if(includeNone) {
+            r = (int) (Math.random() * 7);
+        }
+
+        switch(r) {
+            case 0:
+                return Element.FIRE;
+            case 1:
+                return Element.WATER;
+            case 2:
+                return Element.WIND;
+            case 3:
+                return Element.POISON;
+            case 4:
+                return Element.SHOCK;
+            case 5:
+                return Element.GRASS;
+            case 6:
+                return null;
+        }
+        return Element.FIRE;
+    }
 }

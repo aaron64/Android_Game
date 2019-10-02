@@ -1,18 +1,16 @@
 package com.mygdx.game.entities.battle;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-
 import com.mygdx.game.GUI.components.BattleHealthComponent;
 import com.mygdx.game.attributes.Element;
 import com.mygdx.game.attributes.ElementState;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.scenes.battle.SceneBattleTileType;
 import com.mygdx.game.util.Cooldown;
 import com.mygdx.game.util.CooldownInterface;
-import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.util.Vector2i;
 
 import java.util.Stack;

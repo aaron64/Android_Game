@@ -21,4 +21,21 @@ public enum Quality {
     }
     public float getMultiplier() { return multiplier; }
 
+    public static Quality getQuality(int i) {
+        switch(i) {
+            case 0:
+                return Quality.WEAK;
+            case 1:
+                return Quality.MINOR;
+            case 2:
+                return Quality.STANDARD;
+            case 3:
+                return Quality.STRONG;
+            case 4:
+                return Quality.MAJOR;
+            case 5:
+                return Quality.GRAND;
+        }
+        return Quality.STANDARD;
+    }
 }

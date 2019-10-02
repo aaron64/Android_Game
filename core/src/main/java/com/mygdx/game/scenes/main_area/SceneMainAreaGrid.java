@@ -9,6 +9,7 @@ import com.mygdx.game.factories.EnemyFactory;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.ImageUtil;
+import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
 import com.mygdx.game.graphics.Window;
@@ -93,12 +94,12 @@ public class SceneMainAreaGrid {
                         break;
                     case ENEMY:
                         tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
-                        if(Math.random() < enemyChance)
+                        if(MathUtil.flipCoin(enemyChance))
                             EnemyFactory.newMainAreaEnemy(scene, new Vector2f(tileGrid[i][j].getPos()));
                         break;
                     case CHEST:
                         tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
-                        scene.addEntity(new Chest(scene, tileGrid[i][j].getPos(), tileGrid[i][j]));
+                        scene.addEntity(new Chest(scene, tileGrid[i][j].getPos(), tileGrid[i][j], Chest.ChestType.LOW));
                         break;
                     case DOOR:
                         tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);

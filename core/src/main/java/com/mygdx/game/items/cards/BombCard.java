@@ -12,7 +12,7 @@ import com.mygdx.game.util.Vector2i;
 public class BombCard extends ThrowableCard {
 
     public BombCard(String name, int lockInitial, int lockFinal, int damage, ThrowableSize size, int range, int pointsCost, Quality quality, Element element) {
-        super(name, lockInitial, lockFinal, damage, size, range, pointsCost, quality, element);
+        super("Bomb", lockInitial, lockFinal, damage, size, range, pointsCost, quality, element);
     }
 
     @Override

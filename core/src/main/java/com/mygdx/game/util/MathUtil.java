@@ -34,4 +34,8 @@ public class MathUtil {
 
         return new Vector2f(x/mag, y/mag);
     }
+
+    public static boolean flipCoin(float f) {
+        return Math.random() <= f;
+    }
 }

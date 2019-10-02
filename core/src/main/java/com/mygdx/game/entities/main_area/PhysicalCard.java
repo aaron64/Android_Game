@@ -1,11 +1,13 @@
 package com.mygdx.game.entities.main_area;
 
 import com.mygdx.game.Game;
+import com.mygdx.game.PlayerVars;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
+import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.Vector2f;
 
-public class PhysicalCard extends MainAreaInteractive {
+public class PhysicalCard extends ChestItem {
 
     private Vector2f velocity;
     private float yTrigger;
@@ -19,25 +21,25 @@ public class PhysicalCard extends MainAreaInteractive {
         velocity = new Vector2f((float) (Math.random() * 10 - 5), 7);
 
         this.card = card;
+
+        setImage(card.getIcon());
+        resetSize();
     }
 
     @Override
     public void update() {
-        if (getPos().y > yTrigger) {
-            move(velocity);
-            velocity.y += Game.getGravity();
-        } else {
-            if (collidesWith(scene.getPlayer()) && !scene.getPlayer().atMaxHealth()) {
-                scene.getPlayer().heal(10);
-                scene.removeEntity(this);
-            }
-        }
+        super.update();
     }
 
     @Override
     public void clickOn() {
-        if (checkDistance()) {
+        if (grounded && MathUtil.getDistance(getPos(), scene.getPlayer().getPos()) < PlayerVars.clickDistance) {
 
         }
+    }
+
+    @Override
+    public void initializeImage() {
+
     }
 }

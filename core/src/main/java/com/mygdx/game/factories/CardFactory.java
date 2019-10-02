@@ -14,14 +14,19 @@ import com.mygdx.game.items.cards.MagicCard;
 import com.mygdx.game.items.cards.MeleeCard;
 import com.mygdx.game.items.cards.ThrowableSize;
 import com.mygdx.game.util.FileUtil;
+import com.mygdx.game.util.MathUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CardFactory {
 
     private static HashMap<String, JsonValue> cardMap;
+    private static ArrayList<String> nameList;
+
     public static void init() {
         cardMap = new HashMap<String, JsonValue>();
+        nameList = new ArrayList<String>();
 
         JsonValue cardFile = FileUtil.readJSONFromAsset("Cards");
         JsonValue categories = cardFile.get("Categories");
@@ -32,7 +37,7 @@ public class CardFactory {
                 JsonValue element = currentCategory.get(j);
                 String cardName = element.getString("Name");
                 cardMap.put(cardName, element);
-                Gdx.app.log("INFO", "SGD" + currentCategory.size + element.toString());
+                nameList.add(cardName);
             }
         }
 
@@ -126,4 +131,13 @@ public class CardFactory {
     public static Card buildCard(String name, Quality quality) {
         return buildCard(name, null, quality);
     }
+
+    public static Card buildRandomCard(int[] qualityWeights) {
+        String name = nameList.get((int)(Math.random() * nameList.size()));
+        int qualityI = MathUtil.getWeightedRandom(qualityWeights);
+
+        return buildCard(name, Element.getRandomElement(true), Quality.getQuality(qualityI));
+    }
+
+
 }

@@ -13,6 +13,8 @@ public class PlayerVars {
     public static Card secondaryAttack = CardFactory.buildCard("Bow", null, Quality.WEAK);
     public static int maxPoints = 7;
 
+    public static int clickDistance = 200;
+
     public static void init() {
 
         deck.addCard(CardFactory.buildCard("Bow", Element.GRASS));
@@ -21,6 +23,7 @@ public class PlayerVars {
         deck.addCard(CardFactory.buildCard("Magic", Element.GRASS));
         deck.addCard(CardFactory.buildCard("Sword"));
         deck.addCard(CardFactory.buildCard("Bomb"));
+        deck.addCard(CardFactory.buildCard("Flint Lock", Element.WATER));
 
         pack.addCard(CardFactory.buildCard("Heal"));
         pack.addCard(CardFactory.buildCard("Heal", Quality.STRONG));

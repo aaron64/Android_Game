@@ -17,13 +17,20 @@ public abstract class Entity {
         this.pos = pos;
         this.name = name;
         this.image = null;
+
+        initializeImage();
     }
 
     public Entity(Vector2f pos, String folder, String name) {
         this.pos = pos;
         this.name = name;
-        image = new Texture("entities/" + folder + "/" + name + ".png");
-        this.size = new Vector2i(image.getWidth(), image.getHeight());
+
+        try {
+            image = new Texture("entities/" + folder + "/" + name + ".png");
+            this.size = new Vector2i(image.getWidth(), image.getHeight());
+        } catch (Exception e) {
+            initializeImage();
+        }
     }
 
     public abstract void update();
@@ -34,6 +41,12 @@ public abstract class Entity {
 
     public void render(RenderSystem rs) {
         rs.draw(this);
+    }
+
+    public void initializeImage() {}
+
+    public void resetSize() {
+        this.size = new Vector2i(image.getWidth(), image.getHeight());
     }
 
     public Vector2f getPos() {
