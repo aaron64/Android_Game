@@ -3,8 +3,6 @@ package com.mygdx.game.scenes.game_menu.deck;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.GUI.components.ButtonComponent;
-import com.mygdx.game.GUI.components.ExitGameMenuButtonComponent;
 import com.mygdx.game.Game;
 import com.mygdx.game.PlayerVars;
 import com.mygdx.game.items.cards.Card;
@@ -39,10 +37,6 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
 
     public SceneDeckEditor() {
         super();
-
-        ButtonComponent exitButton = new ExitGameMenuButtonComponent(gui, new Vector2f(0, 0));
-        gui.addComponent(exitButton);
-        exitButton.setPos(new Vector2f(0, Window.getHeight() - exitButton.getSize().h()));
 
         deck = PlayerVars.deck;
         pack = PlayerVars.pack;
@@ -92,7 +86,7 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
                 pos.y -= cardSize.h() + spacing;
             }
 
-            card.drawDeckScene(rs, pos, cardSize);
+            //card.drawDeckScene(rs, pos, cardSize);
         }
 
         for(int i = 0; i < pack.getSize(); i++) {
@@ -103,11 +97,11 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
                 pos.y -= cardSize.h() + spacing;
             }
 
-            card.drawDeckScene(rs, pos, cardSize);
+            //card.drawDeckScene(rs, pos, cardSize);
         }
 
-        if(cardHeld != null)
-            cardHeld.drawDeckScene(rs, cardHeldPos, cardSize);
+        //if(cardHeld != null)
+            //cardHeld.drawDeckScene(rs, cardHeldPos, cardSize);
 
         gui.render(rs);
 

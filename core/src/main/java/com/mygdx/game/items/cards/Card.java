@@ -2,14 +2,13 @@ package com.mygdx.game.items.cards;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.mygdx.game.graphics.ContentBackground;
 import com.mygdx.game.attributes.Element;
 import com.mygdx.game.attributes.Quality;
 import com.mygdx.game.entities.battle.BattleLiving;
+import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.util.FontUtil;
-import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
 
@@ -23,7 +22,7 @@ public abstract class Card extends Item {
     protected BitmapFont nameFont, descriptionFont, pointsFont, amountFont;
     protected Vector2f nameSize, descriptionSize, pointsSize, amountSize;
 
-    protected Texture element_overlay_texture;
+    protected Texture overlay_texture;
 
     private int lockInitial, lockFinal;
 
@@ -35,7 +34,7 @@ public abstract class Card extends Item {
         this.element = element;
 
         if(element != null) {
-            element_overlay_texture = new Texture("items/cards/" + folder + "/" + name + "_overlay.png");
+            overlay_texture = new Texture("items/cards/" + folder + "/" + name + "_overlay.png");
         }
 
         nameFont = FontUtil.getFont(40);
@@ -81,49 +80,14 @@ public abstract class Card extends Item {
         this.description = description;
     }
 
+
     public void drawIcon(RenderSystem rs, Vector2f pos, Vector2i size) {
         rs.draw(icon, pos, size);
-
         if(getElement() != null) {
             rs.setColor(getElement().getColor());
-            rs.draw(element_overlay_texture, pos, size);
+            rs.draw(overlay_texture, pos, size);
         }
         rs.resetColor();
-    }
-
-    public void drawDeckScene(RenderSystem rs, Vector2f pos, Vector2i size) {
-        Vector2i iconSize = new Vector2i(size.h(), size.h());
-
-        Vector2f namePos = new Vector2f(pos);
-        namePos.x += iconSize.w() + 12;
-        namePos.y += size.h() - nameSize.h();
-
-        Vector2f descriptionPos = new Vector2f(pos);
-        descriptionPos.x += iconSize.w() + 12;
-        descriptionPos.y += size.h() - nameSize.h() * 2 - 12;
-
-        Vector2f pointsPos = new Vector2f(pos);
-        pointsPos.x += size.w() - pointsSize.w();
-        pointsPos.y += pointsSize.h();
-
-        Vector2f amountPos = new Vector2f(pos);
-        amountPos.x += size.w() - amountSize.w();
-        amountPos.y += size.h() - amountSize.h();
-
-        ContentBackground.drawBackground(rs, pos, size);
-        drawIcon(rs, pos, iconSize);
-        rs.drawText(nameFont, getName(), namePos);
-        rs.drawText(descriptionFont, getDescription(), descriptionPos);
-        rs.drawText(pointsFont, "" + getPointsCost(), pointsPos);
-        rs.drawText(amountFont, "" + getAmount(), amountPos);
-    }
-
-    public void drawHandScene(RenderSystem rs, Vector2f pos, Vector2i size) {
-        drawIcon(rs, pos, size);
-    }
-
-    public void drawSelectedHandScene(RenderSystem rs, Vector2f pos, Vector2i size) {
-        drawIcon(rs, pos, size);
     }
 
     @Override

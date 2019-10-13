@@ -19,9 +19,9 @@ public abstract class PotionCard extends Card {
         if(element != null) {
             if(quality.equals(Quality.STANDARD))
             {
-                element_overlay_texture = new Texture("items/cards/potions/Potion_overlay.png");
+                overlay_texture = new Texture("items/cards/potions/Potion_overlay.png");
             } else {
-                element_overlay_texture = new Texture("items/cards/potions/Potion_" + quality.getStr() + "_overlay.png");
+                overlay_texture = new Texture("items/cards/potions/Potion_" + quality.getStr() + "_overlay.png");
             }
         }
     }

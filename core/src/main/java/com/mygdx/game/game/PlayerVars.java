@@ -23,7 +23,7 @@ public class PlayerVars {
         deck.addCard(CardFactory.buildCard("Heal"));
 
         pack.addCard(CardFactory.buildCard("Bow"));
-        pack.addCard(CardFactory.buildCard("Sword"));
+        pack.addCard(CardFactory.buildCard("Sword", Element.FIRE));
         pack.addCard(CardFactory.buildCard("Bow"));
         pack.addCard(CardFactory.buildCard("Bow"));
     }

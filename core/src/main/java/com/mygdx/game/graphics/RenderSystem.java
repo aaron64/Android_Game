@@ -9,10 +9,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Matrix4;
-
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.entities.Entity;
-import com.mygdx.game.graphics.Window;
 import com.mygdx.game.util.FontUtil;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
@@ -23,6 +21,12 @@ public class RenderSystem {
     private SpriteBatch batch;
 
     public static ShaderProgram iconShader;
+
+    public enum TextAlign {
+        LEFT,
+        RIGHT,
+        CENTER
+    }
 
     public RenderSystem() {
         batch = new SpriteBatch();
@@ -69,12 +73,28 @@ public class RenderSystem {
 
     public void begin() {
         if(camera != null) {
-            camera.update();
-            batch.setProjectionMatrix(camera.combined);
+            Matrix4 uiMatrix = camera.combined.cpy();
+            uiMatrix.setToOrtho2D(0, 0, Window.getWidth(), Window.getHeight());
+            batch.setProjectionMatrix(uiMatrix);
         }
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
+    }
+
+    public void beginMainContent() {
+        if(camera != null) {
+            camera.update();
+            batch.setProjectionMatrix(camera.combined);
+        }
+    }
+
+    public void beginGUI() {
+        if(camera != null) {
+            Matrix4 uiMatrix = camera.combined.cpy();
+            uiMatrix.setToOrtho2D(0, 0, Window.getWidth(), Window.getHeight());
+            batch.setProjectionMatrix(uiMatrix);
+        }
     }
 
     public void restart() {
@@ -97,20 +117,35 @@ public class RenderSystem {
         batch.setColor(1, 1, 1 ,1);
     }
 
-    public void beginGUI() {
-        if(camera != null) {
-            Matrix4 uiMatrix = camera.combined.cpy();
-            uiMatrix.setToOrtho2D(0, 0, Window.getWidth(), Window.getHeight());
-            batch.setProjectionMatrix(uiMatrix);
-        }
-    }
-
     public void setShader(ShaderProgram shader) {
         if(shader != null) {
             Gdx.app.log("INFO", "SHADER LOG: " + shader.getLog());
             shader.setUniformMatrix("u_projTrans", batch.getProjectionMatrix());
         }
         batch.setShader(shader);
+    }
+
+    public void setUniformTexture(String name, Texture texture, int pos) {
+        if(batch.getShader() != null) {
+            batch.getShader().begin();
+            batch.getShader().setUniformi(name, pos);
+            Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0 + pos);
+            texture.bind();
+            Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
+            batch.getShader().end();
+        }
+    }
+
+    public void setUniform4f(String name, float v0, float v1, float v2, float v3) {
+        if(batch.getShader() != null) {
+            batch.getShader().setUniformf(name, v0, v1, v2, v3);
+        }
+    }
+
+    public void setUniform1f(String name, float v0) {
+        if(batch.getShader() != null) {
+            batch.getShader().setUniformf(name, v0);
+        }
     }
 
     public void setOverlayMode() {
@@ -122,7 +157,6 @@ public class RenderSystem {
     }
 
     public void setMultiplyMode() {
-       // Gdx.gl.glBlendFunc( GL20.GL_ZERO, GL20.GL_SRC_COLOR );
         Gdx.gl.glBlendFunc( GL20.GL_SRC_ALPHA, GL20.GL_ONE );
     }
 

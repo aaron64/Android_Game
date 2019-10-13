@@ -59,4 +59,6 @@ public abstract class Scene {
     public GUI getGUI() {
         return gui;
     }
+
+    public void buttonPress(String button) {}
 }

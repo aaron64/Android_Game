@@ -1,24 +1,18 @@
 package com.mygdx.game.scenes.main_area;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 
-import com.mygdx.game.GUI.components.ButtonComponent;
-import com.mygdx.game.GUI.components.GameMenuButtonComponent;
-import com.mygdx.game.GUI.components.HealthComponent;
-import com.mygdx.game.GUI.components.TitleComponent;
+import com.mygdx.game.GUI.components.PlayerHealthComponent;
 import com.mygdx.game.animation.PlayerDashAnimation;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.main_area.MainAreaEntity;
 import com.mygdx.game.entities.main_area.MainAreaEntityComparator;
 import com.mygdx.game.entities.main_area.Player;
 import com.mygdx.game.map.MapMainArea;
-import com.mygdx.game.map.MapTheme;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.GestureHandler;
 import com.mygdx.game.util.GestureUtil;
-import com.mygdx.game.util.MapNameGenerator;
 import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.graphics.Window;
@@ -34,21 +28,18 @@ public class SceneMainArea extends Scene implements GestureHandler {
         super();
         rs.setCamera(new OrthographicCamera(Window.getWidth(), Window.getHeight()));
         rs.getCamera().zoom = 0.5f;
+
         grid = new SceneMainAreaGrid(this);
+
         gestureHandler = new GestureUtil(this);
 
         player = new Player(this, grid.getPlayerSpawn(), "player");
 
-        gui.addComponent(new HealthComponent(gui, player));
-        gui.addComponent(new TitleComponent(gui, MapNameGenerator.generateRandomName(100, MapTheme.FOREST)));
-
-        ButtonComponent gameMenuButton = new GameMenuButtonComponent(gui, new Vector2f(0,0));
-        gameMenuButton.setPos(new Vector2f(Window.getWidth() - gameMenuButton.getSize().w(), 0));
-        gui.addComponent(gameMenuButton);
-
         entities.addEntity(player);
 
         map = new MapMainArea("bg1");
+
+        PlayerHealthComponent playerHealthComponent = new PlayerHealthComponent(gui, "MAIN_HEALTH", gui.getNode(), new Vector2f(0.15f, 0.1f), player);
     }
 
     @Override
@@ -68,12 +59,11 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
     @Override
     public void render() {
-
-        rs.centerCameraOn(player);
         rs.begin();
-
         map.render(rs);
 
+        rs.beginMainContent();
+        rs.centerCameraOn(player);
         grid.render(rs);
 
         for(Entity e : entities.getList()) {

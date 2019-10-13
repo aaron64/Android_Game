@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Game;
 import com.mygdx.game.graphics.Window;
 import com.mygdx.game.scenes.Scene;
-import com.mygdx.game.util.GestureHandler;
 
 
 public class GestureUtil implements GestureDetector.GestureListener {
@@ -138,7 +137,7 @@ public class GestureUtil implements GestureDetector.GestureListener {
     }
 
     private boolean isValid() {
-        return Game.getCurrentScene() == handler && !Game.getCurrentScene().isAnimationLocked();
+        return Game.getCurrentScene() == handler;
     }
 
     public void reset() {

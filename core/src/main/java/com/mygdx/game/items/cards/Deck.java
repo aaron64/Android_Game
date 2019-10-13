@@ -72,6 +72,7 @@ public class Deck {
         if(cards.size() > 0) {
             Card card = cards.get(cards.size() - 1);
             removeList.add(card);
+            refresh();
             return card;
         }
         return null;

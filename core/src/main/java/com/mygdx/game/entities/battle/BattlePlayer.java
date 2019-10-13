@@ -15,7 +15,7 @@ public class BattlePlayer extends BattleLiving {
     private Deck hand;
     private Card secondary;
     public BattlePlayer(SceneBattle scene, SceneBattleTile tile, int health, int maxHealth) {
-        super(scene, tile, "player", Facing.RIGHT, health, maxHealth, null);
+        super(scene, tile, "player", Facing.RIGHT, health, maxHealth);
         acceptedTileTypes = new SceneBattleTileType[]{SceneBattleTileType.FRIENDLY, SceneBattleTileType.NEUTRAL};
 
         getSize().multiply(scene.getGrid().getTile(0,0).getSize().w() / getSize().w()* 0.6f);
@@ -27,7 +27,6 @@ public class BattlePlayer extends BattleLiving {
     @Override
     public void update() {
         super.update();
-        hand.refresh();
     }
 
     public void useCard() {

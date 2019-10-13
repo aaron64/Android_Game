@@ -41,6 +41,10 @@ public class TimedSpriteSheet {
         rs.draw(spriteSheet, pos, size, srcPos, srcSize, false, false);
     }
 
+    public void render(RenderSystem rs, Vector2f pos, Vector2i size) {
+        rs.draw(spriteSheet, pos, size, srcPos, srcSize, false, false);
+    }
+
     public Vector2i getSize() {
         return size;
     }

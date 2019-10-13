@@ -16,8 +16,8 @@ public class MapMainArea extends Map {
         super();
         setBackground(new Texture("backgrounds/" + bgPath + ".png"));
 
-        backgroundPos = new Vector2f(0,0);
         backgroundSize = Window.getSize();
+        backgroundPos = new Vector2f(0,0);
     }
 
     @Override
@@ -27,6 +27,7 @@ public class MapMainArea extends Map {
 
     @Override
     public void render(RenderSystem rs) {
+        //rs.centerCameraOn(Vector2f.divideVector(Window.getSize(), 2));
         rs.draw(getBackground(), backgroundPos, backgroundSize);
     }
 

@@ -1,35 +1,40 @@
 package com.mygdx.game.entities.battle;
 
-
 import com.mygdx.game.action.ActionLock;
 import com.mygdx.game.action.ActionUseCard;
+import com.mygdx.game.attributes.Element;
 import com.mygdx.game.factories.CardFactory;
+import com.mygdx.game.graphics.RenderSystem;
+import com.mygdx.game.graphics.TimedSpriteSheet;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.scenes.battle.SceneBattleTileType;
 import com.mygdx.game.util.Cooldown;
-import com.mygdx.game.util.CooldownInterface;
 import com.mygdx.game.util.Vector2i;
 
 import java.util.ArrayList;
 
-
-public class EnemyTest2 extends BattleEnemy implements CooldownInterface {
+public class BattleEnemyMage extends BattleEnemy {
 
     private Cooldown moveCooldown;
     private Cooldown attackCooldown;
 
-    public EnemyTest2(SceneBattle scene, SceneBattleTile tile, String name, int health) {
-        super(scene, tile, name, health, null);
+    private TimedSpriteSheet spriteSheet;
+
+    public BattleEnemyMage(SceneBattle scene, SceneBattleTile tile, int health) {
+        super(scene, tile, "mage", health, Element.getRandomElement(false));
         acceptedTileTypes = new SceneBattleTileType[]{SceneBattleTileType.ENEMY, SceneBattleTileType.NEUTRAL};
 
-        setSize(scene.getGrid().getTile(0,0).getSize());
-
-        cardStack.push(CardFactory.buildCard("Sword"));
+        cardStack.push(CardFactory.buildCard("Magic", element));
 
         moveCooldown = new Cooldown(this, "MOVE", false, 80);
         attackCooldown = new Cooldown(this, "ATTACK", false, 100);
+
+        scaleWidth(scene.getGrid().getTile(0, 0).getSize().x);
+
+        spriteSheet = new TimedSpriteSheet(getImage(), 2, 100);
+        spriteSheet.setSize(getSize());
     }
 
     @Override
@@ -38,6 +43,13 @@ public class EnemyTest2 extends BattleEnemy implements CooldownInterface {
 
         moveCooldown.update();
         attackCooldown.update();
+
+        spriteSheet.update();
+    }
+
+    @Override
+    public void render(RenderSystem rs) {
+        spriteSheet.render(rs, getPos());
     }
 
     public void jump() {

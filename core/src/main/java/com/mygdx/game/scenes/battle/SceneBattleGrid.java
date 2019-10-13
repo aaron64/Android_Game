@@ -99,11 +99,11 @@ public class SceneBattleGrid {
                         break;
                     case OBJECT_FRIENDLY:
                         tileGrid[i][j] = new SceneBattleTile(scene,this, new Vector2i(i,j), offsetVec, tileSize, SceneBattleTileType.FRIENDLY);
-                        new StillObject(scene, tileGrid[i][j], "rock", 30);
+                        new StillObject(scene, tileGrid[i][j], "pillar", 30);
                         break;
                     case OBJECT_ENEMY:
                         tileGrid[i][j] = new SceneBattleTile(scene,this, new Vector2i(i,j), offsetVec, tileSize, SceneBattleTileType.ENEMY);
-                        new StillObject(scene, tileGrid[i][j], "rock", 30);
+                        new StillObject(scene, tileGrid[i][j], "pillar", 30);
                         break;
                     default:
                         tileGrid[i][j] = new SceneBattleTileNone(scene,this, new Vector2i(i,j), offsetVec, tileSize, SceneBattleTileType.NONE);

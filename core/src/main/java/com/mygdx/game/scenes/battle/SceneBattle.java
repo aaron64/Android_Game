@@ -1,16 +1,15 @@
 package com.mygdx.game.scenes.battle;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.mygdx.game.GUI.components.BattleDeckComponent;
-import com.mygdx.game.GUI.components.BattleSelectionBarComponent;
+import com.mygdx.game.GUI.components.BattlePlayerHealthComponent;
 import com.mygdx.game.Game;
 import com.mygdx.game.animation.BattleEnemySpawnAnimation;
 import com.mygdx.game.animation.OpenAnimation;
 import com.mygdx.game.animation.ZoomAnimation;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.battle.BattleEnemy;
+import com.mygdx.game.entities.battle.BattleEnemyMage;
 import com.mygdx.game.entities.battle.BattlePlayer;
-import com.mygdx.game.entities.battle.EnemyTest;
 import com.mygdx.game.entities.battle.EnemyTest2;
 import com.mygdx.game.graphics.Window;
 import com.mygdx.game.map.MapBattle;
@@ -33,9 +32,6 @@ public class SceneBattle extends Scene implements GestureHandler {
 
     private SceneHandSelect sceneHandSelect;
 
-    private BattleSelectionBarComponent barComponent;
-    //private BattleGoToSelectButton goToSelectionButton;
-
     public SceneBattle() {
         super();
         rs.setCamera(new OrthographicCamera(Window.getWidth(), Window.getHeight()));
@@ -51,13 +47,7 @@ public class SceneBattle extends Scene implements GestureHandler {
 
         map = new MapBattle(this,"bg1", battleGrid, player);
 
-        gui.addComponent(new BattleDeckComponent(gui, player));
-
-        barComponent = new BattleSelectionBarComponent(gui, 500);
-        gui.addComponent(barComponent);
-
-
-        new EnemyTest(this, battleGrid.getTile(new Vector2i(4, 2)), "enemy", 40);
+        new BattleEnemyMage(this, battleGrid.getTile(new Vector2i(4, 2)), 40);
         new EnemyTest2(this, battleGrid.getTile(new Vector2i(3, 0)), "enemy", 40);
 
         for(BattleEnemy enemy : enemies) {
@@ -66,6 +56,8 @@ public class SceneBattle extends Scene implements GestureHandler {
 
         animationQueue.add(new ZoomAnimation(true, false, 10, rs.getCamera().zoom, 1.2f, rs.getCamera()));
         animationQueue.add(new OpenAnimation(true, false, sceneHandSelect));
+
+        BattlePlayerHealthComponent playerHealthComponent = new BattlePlayerHealthComponent(gui, "MAIN_HEALTH", gui.getNode(), new Vector2f(0.15f, 0.1f), player);
     }
 
     @Override
@@ -128,7 +120,6 @@ public class SceneBattle extends Scene implements GestureHandler {
 
     @Override
     public void onPopped() {
-        barComponent.resetBar();
         animationQueue.add(new ZoomAnimation(false, false, 10, rs.getCamera().zoom, 1.0f, rs.getCamera()));
     }
 
@@ -163,10 +154,10 @@ public class SceneBattle extends Scene implements GestureHandler {
     @Override
     public void zoom(float initialDistance, float distance) {
         if(distance/initialDistance <= 0.5f) {
-            if (((BattleSelectionBarComponent) gui.getComponent("SELECTION_BAR")).ready() && !animationQueue.inQueue("OPEN")) {
+            /*if (((BattleSelectionBarComponent) gui.getComponent("SELECTION_BAR")).ready() && !animationQueue.inQueue("OPEN")) {
                 animationQueue.add(new ZoomAnimation(true, true, 10, rs.getCamera().zoom, 1.2f, rs.getCamera()));
                 animationQueue.add(new OpenAnimation(true, false, sceneHandSelect));
-            }
+            }*/
         }
     }
 

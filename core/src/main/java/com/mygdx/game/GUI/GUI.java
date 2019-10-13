@@ -3,54 +3,59 @@ package com.mygdx.game.GUI;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.scenes.Scene;
 
-import java.util.ArrayList;
-
 public class GUI {
 
-    private ArrayList<GUIComponent> components;
-    private ArrayList<GUIComponent> removeList;
+    private GUINode node;
+    private boolean valid = false;
 
     public GUI() {
-        components = new ArrayList<GUIComponent>();
-        removeList = new ArrayList<GUIComponent>();
+        node = new GUINode(this, "");
     }
 
     public void update(Scene scene) {
-        components.removeAll(removeList);
-        removeList.clear();
-
-        for(GUIComponent comp : components) {
-            comp.update(scene);
+        node.update(scene);
+        if(!valid) {
+            setChildPos();
+            valid = true;
         }
     }
 
     public void render(RenderSystem rs) {
         rs.beginGUI();
 
-        for(GUIComponent comp : components) {
-            comp.render(rs);
-        }
+        node.render(rs);
     }
 
-    public void addComponent(GUIComponent comp) {
-        components.add(comp);
+    public void setChildPos() {
+        node.setChildPos();
     }
 
-    public void removeComponent(GUIComponent comp) {
-        removeList.add(comp);
+    public void setAbsolute() {
+        GUIComponent component = node.children.remove(node.children.size() - 1);
+        node.absoluteList.add(component);
     }
 
-    public GUIComponent getComponent(String name) {
-        for(GUIComponent comp : components) {
-            if(comp.getName().equals(name))
-                return comp;
-        }
-        return null;
+    public void removeAbsolute(GUIComponent component) {
+        node.absoluteList.remove(component);
+    }
+
+    public void invalidate() {
+        valid = false;
+    }
+
+    public GUINode getNode() {
+        return node;
     }
 
     public void tap(float x, float y) {
-        for(GUIComponent comp : components) {
-            comp.tap(x, y);
-        }
+        node.tap(x, y);
+    }
+
+    public void hold(float x, float y) {
+        node.hold(x, y);
+    }
+
+    public void stopHold(float x, float y) {
+        node.stopHold(x, y);
     }
 }

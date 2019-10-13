@@ -3,9 +3,6 @@ package com.mygdx.game.entities.battle;
 import com.mygdx.game.action.ActionLock;
 import com.mygdx.game.action.ActionUseCard;
 import com.mygdx.game.entities.Entity;
-import com.mygdx.game.entities.battle.BattleEnemy;
-import com.mygdx.game.factories.CardFactory;
-
 import com.mygdx.game.factories.CardFactory;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.scenes.battle.SceneBattle;

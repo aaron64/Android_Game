@@ -1,6 +1,5 @@
 package com.mygdx.game.entities.battle;
 
-import com.mygdx.game.GUI.components.BattleHealthComponent;
 import com.mygdx.game.attributes.Element;
 import com.mygdx.game.attributes.ElementState;
 import com.mygdx.game.entities.Entity;
@@ -29,7 +28,6 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
     protected Stack<Card> cardStack;
 
     private int health, maxHealth;
-    private BattleHealthComponent healthComponent;
 
     protected ElementState elementState;
     protected Element element;
@@ -38,7 +36,7 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
 
     private boolean canUseItem;
 
-    public BattleLiving(SceneBattle scene, SceneBattleTile tile, String name, Facing facing, int health, int maxHealth, Element element) {
+    public BattleLiving(SceneBattle scene, SceneBattleTile tile, String name, Facing facing, int health, int maxHealth) {
         super(scene, tile, name);
         cardStack = new Stack<Card>();
 
@@ -52,9 +50,6 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
         elementState = null;
 
         canUseItem = true;
-
-        healthComponent = new BattleHealthComponent(scene.getGUI(), this);
-        scene.getGUI().addComponent(healthComponent);
     }
 
     public void update() {
@@ -148,7 +143,7 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
     }
 
     public void die() {
-        scene.getGUI().removeComponent(healthComponent);
+
     }
 
     public void recover(int rec) {

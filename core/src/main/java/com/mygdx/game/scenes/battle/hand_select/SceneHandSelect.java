@@ -1,22 +1,19 @@
 package com.mygdx.game.scenes.battle.hand_select;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.GUI.components.HandSelectionPoints;
+import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.GUI.GUIButton;
+import com.mygdx.game.GUI.GUIComponent;
+import com.mygdx.game.GUI.GUIHPanel;
+import com.mygdx.game.GUI.components.SelectHand;
 import com.mygdx.game.Game;
-import com.mygdx.game.graphics.ContentBackground;
-import com.mygdx.game.GUI.components.HandSelectionGoButton;
 import com.mygdx.game.PlayerVars;
 import com.mygdx.game.entities.battle.BattlePlayer;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.items.cards.Deck;
 import com.mygdx.game.scenes.Scene;
-import com.mygdx.game.util.FontUtil;
 import com.mygdx.game.util.GestureHandler;
 import com.mygdx.game.util.GestureUtil;
 import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
-import com.mygdx.game.graphics.Window;
 
 import java.util.ArrayList;
 
@@ -26,30 +23,14 @@ public class SceneHandSelect extends Scene implements GestureHandler {
     private BattlePlayer player;
 
     private Deck deck;
+    private ArrayList<Card> handSelection;
 
-    private int leftOffset;
-
-    private Vector2i smallIconSize;
-
-    private ArrayList<Card> deckSelection, handSelection;
     private int maxCards;
 
-    private Card selected;
-    private Vector2f selectedPos;
-    private Vector2i selectedSize;
-    private Vector2f selectedImagePos;
-    private Vector2i selectedImageSize;
-
-    private Vector2f selectedTitlePos;
-    private BitmapFont selectedTitleFont;
-
-    private Vector2f selectedAmountPos;
-    private BitmapFont selectedAmountFont;
-
-    private Vector2f selectedCostPos;
-    private BitmapFont selectedCostFont;
-
-    private HandSelectionPoints pointsComponent;
+    private SelectHand selectHand;
+    private GUIHPanel selectHandContainer;
+    private GUIHPanel rightPanel;
+    private GUIButton goButton;
 
     public SceneHandSelect(BattlePlayer player) {
         super();
@@ -57,40 +38,29 @@ public class SceneHandSelect extends Scene implements GestureHandler {
 
         this.player = player;
 
-        maxCards = 5;
+        maxCards = 2;
 
         deck = new Deck(PlayerVars.deck);
         deck.shuffle();
 
-        deckSelection = new ArrayList<Card>(maxCards);
-        handSelection = new ArrayList<Card>(maxCards);
+        handSelection = new ArrayList<Card>();
 
-        leftOffset = Window.percLeft(0.05f);
+        ArrayList<Card> cards = new ArrayList<Card>();
+        cards.add(deck.pop());
+        cards.add(deck.pop());
+        cards.add(deck.pop());
 
-        smallIconSize = new Vector2i(Window.percWidth(0.05f), Window.percWidth(0.05f));
+        new GUIHPanel(gui, "LEFT_PANEL", gui.getNode(), new Vector2f(0.15f, 1));
 
-        Vector2f goButtonPos = new Vector2f(Window.percRight(0.1f) - smallIconSize.w(), Window.getCenter().y - smallIconSize.h() - Window.percHeight(0.05f));
-        gui.addComponent(new HandSelectionGoButton(gui, goButtonPos, smallIconSize, this));
+        selectHandContainer = new GUIHPanel(gui, "HAND_CONTAINER", gui.getNode(), new Vector2f(0.7f, 1));
+        selectHandContainer.setVerticalAnchor(GUIHPanel.VerticalAnchor.CENTER);
+        selectHand = new SelectHand(gui, "CARD_HAND", selectHandContainer, new Vector2f(1, 0.6f), cards, this);
 
-        Vector2f pointsComponentPos = new Vector2f(Window.percRight(0.1f) - smallIconSize.w(), Window.getCenter().y + Window.percHeight(0.05f));
-        pointsComponent = new HandSelectionPoints(gui, pointsComponentPos, smallIconSize, this);
-        gui.addComponent(pointsComponent);
-
-        selected = null;
-        selectedPos = new Vector2f(Window.percLeft(0.05f), Window.percBottom(0.20f));
-        selectedSize = new Vector2i(Window.percWidth(0.25f), Window.percHeight(0.65f));
-
-        selectedImageSize = new Vector2i(Window.percWidth(0.21f), Window.percWidth(0.21f));
-        selectedImagePos = new Vector2f(Window.percLeft(0.07f), selectedPos.y + selectedSize.h() - selectedImageSize.h() - Window.percHeight(0.02f));
-
-        selectedTitleFont = FontUtil.getFont(36);
-        selectedTitlePos = new Vector2f(selectedPos.x + selectedSize.w()/2, selectedImagePos.y - FontUtil.getTextSize(selectedTitleFont, "TEST").h());
-
-        selectedAmountFont = FontUtil.getFont(32);
-        selectedAmountPos = new Vector2f(selectedPos.x, selectedPos.y + FontUtil.getTextSize(selectedAmountFont, "TEST").h());
-
-        selectedCostFont = FontUtil.getFont(32);
-        selectedCostPos = new Vector2f(selectedPos.x + selectedSize.w(), selectedPos.y + FontUtil.getTextSize(selectedCostFont, "TEST").h());
+        rightPanel = new GUIHPanel(gui, "RIGHT_PANEL", gui.getNode(), new Vector2f(0.15f, 1));
+        rightPanel.setHorizontalAnchor(GUIComponent.HorizontalAnchor.CENTER);
+        rightPanel.setVerticalAnchor(GUIComponent.VerticalAnchor.BOTTOM);
+        goButton = new GUIButton(gui, "GO_BUTTON", rightPanel, new Vector2f(0.75f, 0), new Texture("gui/button/HAND_GO_BUTTON.png"), this);
+        goButton.bottomMargin(16);
     }
 
     @Override
@@ -100,14 +70,7 @@ public class SceneHandSelect extends Scene implements GestureHandler {
     }
 
     public void newHand() {
-        handSelection.clear();
 
-        for(int i = 0; i < maxCards; i++) {
-            Card card = deck.pop();
-            if(card != null)
-                deckSelection.add(deck.pop());
-            deck.refresh();
-        }
     }
 
     @Override
@@ -117,67 +80,41 @@ public class SceneHandSelect extends Scene implements GestureHandler {
         rs.resetColor();
         rs.restart();
 
-        int spacing = Window.percWidth(0.01f);
-
-        for(int i = 0; i < 5; i++) {
-            Vector2f deckPos = new Vector2f(leftOffset + (smallIconSize.w() + spacing) * i, Window.percBottom(0.05f));
-
-            ContentBackground.drawBackground(rs, deckPos, smallIconSize);
-            if(i < deckSelection.size()) {
-                Card card = deckSelection.get(i);
-                if(card != null)
-                    card.drawHandScene(rs, deckPos, smallIconSize);
-            }
-        }
-
-        for(int i = 0; i < 5; i++) {
-            Vector2f deckPos = new Vector2f(leftOffset * 2 + (selectedSize.w() + spacing),  Window.percTop(0.1f) - smallIconSize.h() - i * (smallIconSize.h() + spacing));
-
-            ContentBackground.drawBackground(rs, deckPos, smallIconSize);
-
-            if(i < handSelection.size()) {
-                Card card = handSelection.get(i);
-                if(card != null)
-                    card.drawHandScene(rs, deckPos, smallIconSize);
-            }
-        }
-
-        if(selected != null) {
-            ContentBackground.drawBackground(rs, selectedPos, selectedSize);
-            selected.drawSelectedHandScene(rs, selectedImagePos, selectedImageSize);
-
-            rs.drawTextCentered(selectedTitleFont, selected.getName(), selectedTitlePos);
-            rs.drawText(selectedAmountFont, "" + selected.getAmount(), selectedAmountPos);
-            rs.drawTextRight(selectedCostFont, "" + selected.getPointsCost(), selectedCostPos);
-        }
-
         gui.render(rs);
 
         rs.end();
     }
 
-    public int getPointsUsed() {
-        int p = 0;
-        for(Card c : handSelection) {
-            p += c.getPointsCost();
-        }
+    public void selectCard(Card c) {
+        handSelection.add(c);
+    }
 
-        return p;
+    public void unselectCard(Card c) {
+        handSelection.remove(c);
+    }
+
+    @Override
+    public void buttonPress(String button) {
+        if(button.equals("GO_BUTTON")) {
+            Game.endScene();
+        }
+    }
+
+    public int getPointsUsed() {
+        return 0;
     }
 
     @Override
     public void onPushed() {
-        newHand();
     }
 
     @Override
     public void onPopped() {
-        newHand();
     }
 
     @Override
     public void onExit() {
-        player.setHand(new Deck(handSelection));
+         player.setHand(new Deck(handSelection));
     }
 
 
@@ -203,34 +140,12 @@ public class SceneHandSelect extends Scene implements GestureHandler {
 
     @Override
     public void hold(float x, float y) {
-        int spacing = Window.percWidth(0.01f);
-
-        for(int i = 0; i < 5; i++) {
-            Vector2f deckPos = new Vector2f(leftOffset + (smallIconSize.w() + spacing) * i, Window.percBottom(0.05f));
-
-            if(i < deckSelection.size()) {
-                Card card = deckSelection.get(i);
-                if(new Rectangle(deckPos.x, deckPos.y, smallIconSize.w(), smallIconSize.h()).contains(x, y)) {
-                    selected = card;
-                }
-            }
-        }
-
-        for(int i = 0; i < 5; i++) {
-            Vector2f deckPos = new Vector2f(leftOffset * 2 + (selectedSize.w() + spacing),  Window.percTop(0.1f) - smallIconSize.h() - i * (smallIconSize.h() + spacing));
-
-            if(i < handSelection.size()) {
-                Card card = handSelection.get(i);
-                if(new Rectangle(deckPos.x, deckPos.y, smallIconSize.w(), smallIconSize.h()).contains(x, y)) {
-                    selected = card;
-                }
-            }
-        }
+        gui.hold(x, y);
     }
 
     @Override
     public void stopHold(float x, float y) {
-        selected = null;
+        gui.stopHold(x, y);
     }
 
     @Override
@@ -240,34 +155,6 @@ public class SceneHandSelect extends Scene implements GestureHandler {
 
     @Override
     public void tap(float x, float y) {
-        int spacing = Window.percWidth(0.01f);
-
-        for(int i = 0; i < 5; i++) {
-            Vector2f deckPos = new Vector2f(leftOffset + (smallIconSize.w() + spacing) * i, Window.percBottom(0.05f));
-
-            if(i < deckSelection.size()) {
-                Card card = deckSelection.get(i);
-                if(new Rectangle(deckPos.x, deckPos.y, smallIconSize.w(), smallIconSize.h()).contains(x, y)) {
-                    if(!pointsComponent.spent(card)) {
-                        handSelection.add(card);
-                        deckSelection.remove(i);
-                    }
-                }
-            }
-        }
-
-        for(int i = 0; i < 5; i++) {
-            Vector2f deckPos = new Vector2f(leftOffset * 2 + (selectedSize.w() + spacing),  Window.percTop(0.05f) - smallIconSize.h() - i * (smallIconSize.h() + spacing));
-
-            if(i < handSelection.size()) {
-                Card card = handSelection.get(i);
-                if(new Rectangle(deckPos.x, deckPos.y, smallIconSize.w(), smallIconSize.h()).contains(x, y)) {
-                    handSelection.remove(i);
-                    deckSelection.add(card);
-                }
-            }
-        }
-
         gui.tap(x, y);
     }
 }

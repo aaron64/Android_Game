@@ -69,6 +69,11 @@ public abstract class Entity {
         this.size = size;
     }
 
+    public void scaleWidth(int w) {
+        this.size.y *= w / this.size.x;
+        this.size.x = w;
+    }
+
     public Rectangle getRect() {
         return new Rectangle(pos.x, pos.y, size.w(), size.h());
     }
