@@ -19,15 +19,17 @@ public class SceneMainAreaTile extends MainAreaEntity {
     protected Texture endTexture;
     private float yOffset;
     public SceneMainAreaTile(SceneMainArea scene, Vector2f pos, String name, SceneMainAreaTileType type) {
-        super(scene, pos, "tiles/main_area", name);
+        super(scene, pos, "tiles/", name);
         setPos(Vector2f.multiplyVectors(getPos(), getSize()));
 
         distSoftner = 25;
 
         int tileBottom = (int)(Math.random() * 3);
-        endTexture = new Texture("entities/tiles/main_area/tile_end" + tileBottom + ".png");
+        endTexture = new Texture("entities/tiles/tile_end" + tileBottom + ".png");
 
         offsetLevel = (float)(Math.random() * 1 + 1);
+
+        this.type = type;
     }
 
     @Override

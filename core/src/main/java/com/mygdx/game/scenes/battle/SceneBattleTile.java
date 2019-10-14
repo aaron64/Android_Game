@@ -19,15 +19,22 @@ public class SceneBattleTile extends BattleEntity implements CooldownInterface {
 
     private Cooldown lightUpCooldown;
 
-    private static Texture lightUpOverlay = new Texture("entities/tiles/tile_light_up.png");
+    private Texture tileTexture, tileEndTexture;
+    private Vector2f endPos;
+
+    private static Texture lightUpOverlay = new Texture("entities/tiles/battle/tile_light_up.png");
 
 
     public SceneBattleTile(SceneBattle scene, SceneBattleGrid grid, Vector2i indexPos, Vector2f offset, Vector2i size, SceneBattleTileType tileType) {
-        super(scene, grid, indexPos, "tiles", tileType.getRes());
+        super(scene, grid, indexPos, "tiles/battle", tileType.getRes());
 
         this.tileType = tileType;
         setSize(size);
         entity = null;
+
+        tileTexture = new Texture("entities/tiles/tile_basic.png");
+        tileEndTexture = new Texture("entities/tiles/tile_end0.png");
+        endPos = new Vector2f(getPos().x, getPos().y - getSize().y);
 
         lightUp = false;
         lightUpCooldown = new Cooldown(this, "LIGHT", false, 100);
@@ -49,6 +56,8 @@ public class SceneBattleTile extends BattleEntity implements CooldownInterface {
 
     @Override
     public void render(RenderSystem rs) {
+        rs.draw(tileEndTexture, endPos, getSize());
+        rs.draw(tileTexture, getPos(), getSize());
         super.render(rs);
         if(lightUp) {
             rs.setOverlayMode();

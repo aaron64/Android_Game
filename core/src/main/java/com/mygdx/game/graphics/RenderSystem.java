@@ -50,6 +50,10 @@ public class RenderSystem {
         batch.draw(image, x, y, w, h);
     }
 
+    public void draw(Texture image, float x, float y, int w, int h, Vector2i srcPos, Vector2i srcSize, boolean flipX, boolean flipY) {
+        batch.draw(image, x, y, w, h, srcPos.x, srcPos.y, srcSize.w(), srcSize.h(), flipX, flipY);
+    }
+
     public void draw(Texture image, Vector2f pos, Vector2i size, Vector2i srcPos, Vector2i srcSize, boolean flipX, boolean flipY) {
         batch.draw(image, pos.x, pos.y, size.w(), size.h(), srcPos.x, srcPos.y, srcSize.w(), srcSize.h(), flipX, flipY);
     }

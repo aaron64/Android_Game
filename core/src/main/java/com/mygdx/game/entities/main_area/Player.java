@@ -1,7 +1,7 @@
 package com.mygdx.game.entities.main_area;
 
 
-import com.mygdx.game.entities.main_area.MainAreaEntity;
+import com.mygdx.game.entities.particles.ParticleFootSteps;
 import com.mygdx.game.graphics.CharacterSprite;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
@@ -15,6 +15,8 @@ public class Player extends MainAreaEntity {
     private int maxHealth, health;
     private CharacterSprite sprite;
 
+    private ParticleFootSteps particleFootSteps;
+
     public Player(SceneMainArea scene, Vector2f pos, String name) {
         super(scene, pos, name);
 
@@ -25,15 +27,18 @@ public class Player extends MainAreaEntity {
 
         maxHealth = 100;
         health = maxHealth;
+
+        particleFootSteps = new ParticleFootSteps(getPos(), "grass", 0, 0, 20, 10, 8, 4, -1, 0, 1, 1, 20, 10, this, scene);
     }
 
     @Override
     public void update() {
-
+        particleFootSteps.update();
     }
 
     @Override
     public void render(RenderSystem rs) {
+        particleFootSteps.render(rs);
         sprite.render(rs, getPos());
     }
 
@@ -62,6 +67,12 @@ public class Player extends MainAreaEntity {
         } else if(!scene.getGrid().isInMap(this)) {
             moveY(-velocity.y);
         }
+
+        if(Math.random() < 0.2) {
+            particleFootSteps.setxVelocity(-velocity.x/10);
+            particleFootSteps.setyVelocity(-velocity.y/10);
+            particleFootSteps.addParticles(2);
+        }
     }
 
     @Override
@@ -82,6 +93,12 @@ public class Player extends MainAreaEntity {
             collision.touch(this);
         } else if(!scene.getGrid().isInMap(this)) {
             moveY(-velocity.y);
+        }
+
+        if(Math.random() < 0.4) {
+            particleFootSteps.setxVelocity(-velocity.x/5);
+            particleFootSteps.setyVelocity(-velocity.y/5);
+            particleFootSteps.addParticles(2);
         }
     }
 

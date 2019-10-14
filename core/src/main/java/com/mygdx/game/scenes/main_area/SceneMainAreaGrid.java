@@ -38,7 +38,7 @@ public class SceneMainAreaGrid {
         this.height = mapTexture.getHeight();
         this.size = new Vector2i(this.width, this.height);
 
-        Texture tileForSize = new Texture("entities/tiles/tile_neutral.png");
+        Texture tileForSize = new Texture("entities/tiles/battle/tile_neutral.png");
         tileSize = new Vector2i(tileForSize.getWidth(), tileForSize.getHeight());
 
         enemyChance = 0.05f;
@@ -142,6 +142,8 @@ public class SceneMainAreaGrid {
     public SceneMainAreaTile getTile(Vector2i pos) {
         return getTile((int)pos.x, (int)pos.y);
     }
+
+    public SceneMainAreaTile getTile(Vector2f pos) { return getTile((int) pos.x/tileSize.x, (int) pos.y/tileSize.y); }
 
     public int getWidth() {
         return width;
