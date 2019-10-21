@@ -1,6 +1,7 @@
 package com.mygdx.game.GUI;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.Vector2f;
@@ -13,30 +14,29 @@ public abstract class GUIComponent {
     protected String name;
     protected boolean visible;
 
-
     protected GUIComponent parent;
     protected ArrayList<GUIComponent> children;
-
 
     protected Vector2f pos;
     protected Vector2i size;
 
     private float lMargin, rMargin, tMargin, bMargin;
 
-
     protected boolean renderBackground = true;
 
-    private static Texture boxTL = new Texture("gui/box/boxTL.png");
-    private static Texture boxT = new Texture("gui/box/boxT.png");
-    private static Texture boxTR = new Texture("gui/box/boxTR.png");
-    private static Texture boxL = new Texture("gui/box/boxL.png");
-    private static Texture boxC = new Texture("gui/box/boxC.png");
-    private static Texture boxR = new Texture("gui/box/boxR.png");
-    private static Texture boxBL = new Texture("gui/box/boxBL.png");
-    private static Texture boxB = new Texture("gui/box/boxB.png");
-    private static Texture boxBR = new Texture("gui/box/boxBR.png");
+    private static Texture boxTL = Image.getImage("gui/box/boxTL");
+    private static Texture boxT = Image.getImage("gui/box/boxT");
+    private static Texture boxTR = Image.getImage("gui/box/boxTR");
+    private static Texture boxL = Image.getImage("gui/box/boxL");
+    private static Texture boxC = Image.getImage("gui/box/boxC");
+    private static Texture boxR = Image.getImage("gui/box/boxR");
+    private static Texture boxBL = Image.getImage("gui/box/boxBL");
+    private static Texture boxB = Image.getImage("gui/box/boxB");
+    private static Texture boxBR = Image.getImage("gui/box/boxBR");
 
     private static int backgroundScale = 4;
+
+    float alpha = 1f;
 
 
     public enum HorizontalAnchor {
@@ -80,16 +80,23 @@ public abstract class GUIComponent {
     }
 
     public void render(RenderSystem rs) {
+        rs.setColor(1f, 1f, 1f, getAlpha());
         for(GUIComponent child : children) {
             child.render(rs);
         }
+        rs.resetColor();
     }
 
-    public void renderBackground(RenderSystem rs) {
+    public void renderBackground(RenderSystem rs, boolean selected) {
         if(renderBackground) {
             int cornerSize = boxTL.getWidth() * backgroundScale;
             int horizontalSize = size.w() - cornerSize * 2;
             int verticalSize = size.h() - cornerSize * 2;
+
+            if(selected)
+                rs.setColor(0.8f, 0.8f, 0.8f, getAlpha());
+            else
+                rs.setColor(1f, 1f, 1f, getAlpha());
 
             rs.draw(boxBL, pos.x, pos.y, cornerSize, cornerSize);
             rs.draw(boxB, pos.x + cornerSize, pos.y, horizontalSize, cornerSize);
@@ -102,17 +109,23 @@ public abstract class GUIComponent {
             rs.draw(boxTL, pos.x, pos.y + cornerSize + verticalSize, cornerSize, cornerSize);
             rs.draw(boxT, pos.x + cornerSize, pos.y + cornerSize + verticalSize, horizontalSize, cornerSize);
             rs.draw(boxTR, pos.x + cornerSize + horizontalSize, pos.y + cornerSize + verticalSize, cornerSize, cornerSize);
+
+            rs.resetColor();
         }
+    }
+
+    public void renderBackground(RenderSystem rs){
+        renderBackground(rs, false);
     }
 
     public void addChild(GUIComponent child, Vector2f size) {
         child.setParent(this);
 
         Vector2i cSize = new Vector2i(Vector2i.multiplyVectors(size, getSize()));
-        if(cSize.x == 0)
-            cSize.x = cSize.y;
-        else if(cSize.y == 0)
-            cSize.y = cSize.x;
+        if(cSize.w() == 0)
+            cSize.x = cSize.h();
+        else if(cSize.h() == 0)
+            cSize.y = cSize.w();
         child.setSize(cSize);
 
         children.add(child);
@@ -180,6 +193,16 @@ public abstract class GUIComponent {
         this.parent = parent;
     }
 
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
+    }
+
+    public float getAlpha() {
+        if(parent != null) {
+            return alpha * parent.getAlpha();
+        }
+        return alpha;
+    }
 
     public void setMargin(float l, float r, float t, float b) {
         lMargin = l;
@@ -197,7 +220,7 @@ public abstract class GUIComponent {
     }
 
     public Vector2f getTotalSize() {
-        return new Vector2f(size.x + lMargin + rMargin, size.y + tMargin + bMargin);
+        return new Vector2f(size.w() + lMargin + rMargin, size.h() + tMargin + bMargin);
     }
 
     public Vector2f getPos() {

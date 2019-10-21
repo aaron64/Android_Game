@@ -40,6 +40,6 @@ public class MagicCard extends AttackCard {
 
     @Override
     public void use(SceneBattle scene, BattleLiving user) {
-        scene.addEntity(new MagicProjectile(scene, new Vector2i(user.getIndexPos()), getDamage(), user, getElement()));
+        scene.addEntity(new MagicProjectile(scene, this, new Vector2i(user.getIndexPos()), user));
     }
 }

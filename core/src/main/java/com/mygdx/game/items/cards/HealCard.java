@@ -1,9 +1,9 @@
 package com.mygdx.game.items.cards;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.attributes.Element;
 import com.mygdx.game.attributes.Quality;
 import com.mygdx.game.entities.battle.BattleLiving;
+import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.util.FontUtil;
@@ -18,12 +18,12 @@ public class HealCard extends PotionCard {
         this.name = name;
         healAmount = (int) (amount * quality.getMultiplier());
 
-        amountSize = FontUtil.getTextSize(amountFont, "" + getAmount());
+        amountSize = FontUtil.getTextSize(amountFont, getAmount());
 
         String qualityStr = quality.getStr();
         if(quality != Quality.STANDARD)
             qualityStr = "_" + qualityStr;
-        overlay_texture = new Texture("items/cards/potions/Potion" + qualityStr + "_overlay.png");
+        overlay_texture = Image.getImage("items/cards/potions/Potion" + qualityStr + "_overlay");
     }
 
     @Override
@@ -40,7 +40,7 @@ public class HealCard extends PotionCard {
     }
 
     @Override
-    public int getAmount() {
-        return healAmount;
+    public String getAmount() {
+        return healAmount + "";
     }
 }

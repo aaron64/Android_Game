@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mygdx.game.attributes.Element;
 import com.mygdx.game.attributes.Quality;
 import com.mygdx.game.entities.battle.BattleLiving;
+import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.scenes.battle.SceneBattle;
@@ -34,7 +35,7 @@ public abstract class Card extends Item {
         this.element = element;
 
         if(element != null) {
-            overlay_texture = new Texture("items/cards/" + folder + "/" + name + "_overlay.png");
+            overlay_texture = Image.getImage("items/cards/" + folder + "/" + name + "_overlay");
         }
 
         nameFont = FontUtil.getFont(40);
@@ -90,6 +91,16 @@ public abstract class Card extends Item {
         rs.resetColor();
     }
 
+    public void drawIcon(RenderSystem rs, Vector2f pos, Vector2i size, float alpha) {
+        rs.setColor(1f, 1f, 1f, alpha);
+        rs.draw(icon, pos, size);
+        if(getElement() != null) {
+            rs.setColor(getElement().getColor(), alpha);
+            rs.draw(overlay_texture, pos, size);
+        }
+        rs.resetColor();
+    }
+
     @Override
     public String getName() {
         String s = super.getName();
@@ -131,7 +142,7 @@ public abstract class Card extends Item {
         this.pointsCost = pointsCost;
     }
 
-    public abstract int getAmount();
+    public abstract String getAmount();
 
     public int getInitialLock() {
         return lockInitial;

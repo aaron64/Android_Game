@@ -9,9 +9,13 @@ public class AnimationQueue {
     private LinkedList<Animation> animations;
     private ArrayList<Animation> currentAnimations;
 
+    private ArrayList<Animation> removeList;
+
     public AnimationQueue() {
         animations = new LinkedList<Animation>();
         currentAnimations = new ArrayList<Animation>();
+
+        removeList = new ArrayList<Animation>();
     }
 
     public void update(Scene scene) {
@@ -29,10 +33,15 @@ public class AnimationQueue {
             }
         }
 
-        if(currentAnimationsFinished()) {
-            animations.removeAll(currentAnimations);
-            currentAnimations.clear();
+        for(Animation animation : currentAnimations){
+            if(animation.done()) {
+                removeList.add(animation);
+            }
         }
+
+        animations.removeAll(removeList);
+        currentAnimations.removeAll(removeList);
+        removeList.clear();
     }
 
     public void add(Animation animation) {
@@ -45,14 +54,6 @@ public class AnimationQueue {
                 return true;
         }
         return false;
-    }
-
-    public boolean currentAnimationsFinished() {
-        for(Animation animation : currentAnimations) {
-            if(!animation.done())
-                return false;
-        }
-        return true;
     }
 
     public boolean inQueue(String name) {

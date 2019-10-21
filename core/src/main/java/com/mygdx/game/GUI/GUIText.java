@@ -41,6 +41,7 @@ public class GUIText extends GUIHPanel {
 
     @Override
     public void render(RenderSystem rs) {
+        rs.setColor(1f, 1f, 1f, getAlpha());
         switch(align) {
             case LEFT:
                 rs.drawText(font, text, pos);
@@ -54,6 +55,7 @@ public class GUIText extends GUIHPanel {
                 rs.drawTextCentered(font, text, pos);
                 break;
         }
+        rs.resetColor();
         super.render(rs);
     }
 

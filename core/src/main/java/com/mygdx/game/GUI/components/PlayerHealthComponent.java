@@ -26,7 +26,7 @@ public class PlayerHealthComponent extends GUIHPanel {
         this.health = player.getHealth();
         this.healthTarget = player.getHealth();
 
-        healthImage = new GUIImage(gui, "IMAGE_HEALTH", this, new Vector2f(0, 1), "heart.png");
+        healthImage = new GUIImage(gui, "IMAGE_HEALTH", this, new Vector2f(0, 1), "heart");
 
         float rightPanelWidth = (((float)getSize().x - healthImage.getSize().x) / getSize().x);
         rightPanel = new GUIHPanel(gui, "RIGHT_PANEL", this, new Vector2f(rightPanelWidth, 1));

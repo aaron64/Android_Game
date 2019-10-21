@@ -20,6 +20,6 @@ public class CardIconComponent extends GUIImage {
 
     @Override
     public void render(RenderSystem rs) {
-        card.drawIcon(rs, pos, getSize());
+        card.drawIcon(rs, pos, getSize(), getAlpha());
     }
 }

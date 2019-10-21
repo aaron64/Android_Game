@@ -3,6 +3,7 @@ package com.mygdx.game.scenes.battle;
 import com.badlogic.gdx.graphics.Texture;
 
 import com.mygdx.game.entities.battle.StillObject;
+import com.mygdx.game.graphics.Image;
 import com.mygdx.game.items.cards.ThrowableSize;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.ImageUtil;
@@ -32,7 +33,7 @@ public class SceneBattleGrid {
     public SceneBattleGrid(SceneBattle scene) {
         int[] mapWeights = {1,1,3,2,5,3, 1000, 5};
         int mapI = MathUtil.getWeightedRandom(mapWeights);
-        mapTexture = new Texture("battle_maps/map" + mapI + ".png");
+        mapTexture = Image.getImage("battle_maps/map" + mapI);
 
         this.width = mapTexture.getWidth();
         this.height = mapTexture.getHeight();
@@ -187,7 +188,7 @@ public class SceneBattleGrid {
                     list.add(tile);
                 break;
             }
-            case MEDIUM: {
+            case LARGE: {
                 for (int i = -1; i < 2; i++) {
                     for (int j = -1; j < 2; j++) {
                         if (Math.abs(i) != 1 || Math.abs(j) != 1) {
@@ -195,16 +196,6 @@ public class SceneBattleGrid {
                             if (tile != null)
                                 list.add(tile);
                         }
-                    }
-                }
-                break;
-            }
-            case LARGE: {
-                for (int i = -1; i < 2; i++) {
-                    for (int j = -1; j < 2; j++) {
-                        SceneBattleTile tile = getTile(i + pos.x, j + pos.y);
-                        if (tile != null)
-                            list.add(tile);
                     }
                 }
                 break;
@@ -249,6 +240,10 @@ public class SceneBattleGrid {
 
     public void setSize(Vector2i size) {
         this.size = size;
+    }
+
+    public Vector2i getTileSize() {
+        return tileSize;
     }
 
     public Vector2i getPlayerSpawnCoords() {

@@ -1,13 +1,15 @@
 package com.mygdx.game.scenes.battle.hand_select;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.GUI.GUIButton;
 import com.mygdx.game.GUI.GUIComponent;
 import com.mygdx.game.GUI.GUIHPanel;
 import com.mygdx.game.GUI.components.SelectHand;
 import com.mygdx.game.Game;
 import com.mygdx.game.PlayerVars;
+import com.mygdx.game.animation.GUIFadeInAnimation;
+import com.mygdx.game.animation.GUIMoveInAnimation;
 import com.mygdx.game.entities.battle.BattlePlayer;
+import com.mygdx.game.graphics.Image;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.items.cards.Deck;
 import com.mygdx.game.scenes.Scene;
@@ -59,8 +61,11 @@ public class SceneHandSelect extends Scene implements GestureHandler {
         rightPanel = new GUIHPanel(gui, "RIGHT_PANEL", gui.getNode(), new Vector2f(0.15f, 1));
         rightPanel.setHorizontalAnchor(GUIComponent.HorizontalAnchor.CENTER);
         rightPanel.setVerticalAnchor(GUIComponent.VerticalAnchor.BOTTOM);
-        goButton = new GUIButton(gui, "GO_BUTTON", rightPanel, new Vector2f(0.75f, 0), new Texture("gui/button/HAND_GO_BUTTON.png"), this);
+        goButton = new GUIButton(gui, "GO_BUTTON", rightPanel, new Vector2f(0.75f, 0), Image.getImage("gui/button/button_icon_go"), this);
         goButton.bottomMargin(16);
+
+        addAnimation(new GUIMoveInAnimation(new Vector2f(0, 50), 10, selectHandContainer));
+        addAnimation(new GUIFadeInAnimation(10, selectHandContainer));
     }
 
     @Override

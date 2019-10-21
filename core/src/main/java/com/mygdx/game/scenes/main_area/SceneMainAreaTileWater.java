@@ -10,8 +10,8 @@ public class SceneMainAreaTileWater extends SceneMainAreaTile {
     public SceneMainAreaTileWater(SceneMainArea scene, Vector2f pos, String name, SceneMainAreaTileType type) {
         super(scene, pos, name, type);
         spriteSheet = new TimedSpriteSheet(getImage(), 4, 10);
-        setSize(spriteSheet.getSize());
-        setPos(Vector2f.multiplyVectors(pos, spriteSheet.getSize()));
+        getSize().x /= 4;
+        setPos(Vector2f.multiplyVectors(pos, getSize()));
 
     }
 
@@ -23,7 +23,7 @@ public class SceneMainAreaTileWater extends SceneMainAreaTile {
 
     @Override
     public void render(RenderSystem rs) {
-        spriteSheet.render(rs, renderPos);
-        rs.draw(endTexture, endPos);
+        spriteSheet.render(rs, renderPos, getSize());
+        rs.draw(endTexture, endPos, getSize());
     }
 }

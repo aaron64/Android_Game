@@ -23,8 +23,8 @@ public class SelectHand extends GUIHPanel {
 
         for(int i = 0; i < cards.size(); i++) {
             Card card = cards.get(i);
-            Vector2f cardSize = new Vector2f(getSize().y * 0.7f, 1);
-            new SelectCard(gui, "CARD" + i, this, new Vector2f(0.3f, 1), card, scene);
+            //Vector2f cardSize = new Vector2f(getSize().y * 0.7f, 1);
+            SelectCard selectCard = new SelectCard(gui, "CARD" + i, this, new Vector2f(0.3f, 1), card, scene);
         }
     }
 

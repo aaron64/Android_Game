@@ -5,33 +5,29 @@ import com.badlogic.gdx.graphics.Color;
 public enum Element {
     FIRE ("Fire", new Color(0.827f, 0.298f, 0.267f, 1)),
     WATER ("Water", new Color(0.212f, 0.604f, 0.827f, 1)),
-    WIND ("Wind", new Color(0.808f, 0.929f, 0.929f, 1)),
     POISON ("Poison", new Color(0.482f, 0.333f, 0.459f, 1)),
     SHOCK ("Shock", new Color(1f, 1f, 0.322f, 1)),
-    GRASS ("Grass", new Color(0.247f, 0.729f, 0.322f, 1));
+    GRASS ("Grass", new Color(0.57f, 0.8f, 0.2f, 1));
 
     private String str;
     private Color color;
-    private Element strength, weakness;
+    private Element[] strength, weakness;
 
     static {
-        FIRE.strength = WIND;
-        FIRE.weakness = WATER;
+        FIRE.strength = new Element[]{GRASS};
+        FIRE.weakness = new Element[]{WATER};
 
-        WATER.strength = FIRE;
-        WATER.weakness = SHOCK;
+        WATER.strength = new Element[]{FIRE, POISON};
+        WATER.weakness = new Element[]{SHOCK, GRASS};
 
-        WIND.strength = POISON;
-        WIND.weakness = FIRE;
+        POISON.strength = new Element[]{GRASS};
+        POISON.weakness = new Element[]{WATER};
 
-        POISON.strength = GRASS;
-        POISON.weakness = WIND;
+        SHOCK.strength = new Element[]{WATER};
+        SHOCK.weakness = new Element[]{GRASS};
 
-        SHOCK.strength = WATER;
-        SHOCK.weakness = GRASS;
-
-        GRASS.strength = SHOCK;
-        GRASS.weakness = POISON;
+        GRASS.strength = new Element[]{WATER, SHOCK};
+        GRASS.weakness = new Element[]{FIRE, POISON};
     }
     Element(String str, Color color) {
         this.str = str;
@@ -42,25 +38,29 @@ public enum Element {
         return str;
     }
     public Color getColor() { return color; }
-    public Element getStrength() {
+    public Element[] getStrength() {
         return strength;
     }
-    public Element getWeakness() {
+    public Element[] getWeakness() {
         return weakness;
     }
 
     public float getMultiplier(Element type) {
-        if(type == this.weakness)
-            return 0.5f;
-        if(type == this.strength)
-            return 2.0f;
+        for(Element element : weakness) {
+            if (type == element)
+                return 0.5f;
+        }
+        for(Element element : strength) {
+            if (type == element)
+                return 2.0f;
+        }
         return 1.0f;
     }
 
     public static Element getRandomElement(boolean includeNone) {
-        int r = (int) (Math.random() * 6);
+        int r = (int) (Math.random() * 5);
         if(includeNone) {
-            r = (int) (Math.random() * 7);
+            r = (int) (Math.random() * 6);
         }
 
         switch(r) {
@@ -69,14 +69,12 @@ public enum Element {
             case 1:
                 return Element.WATER;
             case 2:
-                return Element.WIND;
-            case 3:
                 return Element.POISON;
-            case 4:
+            case 3:
                 return Element.SHOCK;
-            case 5:
+            case 4:
                 return Element.GRASS;
-            case 6:
+            case 5:
                 return null;
         }
         return Element.FIRE;

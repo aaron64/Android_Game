@@ -1,5 +1,6 @@
 package com.mygdx.game.entities.battle;
 
+import com.mygdx.game.animation.BattleHitAnimation;
 import com.mygdx.game.attributes.Element;
 import com.mygdx.game.attributes.ElementState;
 import com.mygdx.game.entities.Entity;
@@ -8,6 +9,7 @@ import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.scenes.battle.SceneBattleTileType;
+import com.mygdx.game.stats.BattleStats;
 import com.mygdx.game.util.Cooldown;
 import com.mygdx.game.util.CooldownInterface;
 import com.mygdx.game.util.Vector2i;
@@ -20,6 +22,8 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
         RIGHT,
         LEFT
     }
+
+    protected BattleStats battleStats;
 
     private Facing facing;
 
@@ -38,6 +42,8 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
 
     public BattleLiving(SceneBattle scene, SceneBattleTile tile, String name, Facing facing, int health, int maxHealth) {
         super(scene, tile, name);
+        battleStats = new BattleStats(6 ,10);
+
         cardStack = new Stack<Card>();
 
         this.health = health;
@@ -45,7 +51,7 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
 
         this.facing = facing;
 
-        lockCooldown = new Cooldown(this, "LOCK", true, 10);
+        lockCooldown = new Cooldown(this, "LOCK", true, battleStats.getMovementLock());
 
         elementState = null;
 
@@ -77,14 +83,7 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
         }
     }
 
-    public void moveTo(Vector2i iPos) {
-        scene.getGrid().getTile(getIndexPos()).removeEntity();
-
-        setIndexPos(iPos);
-        setPos(scene.getGrid().getAbsoluteTilePosition(iPos));
-
-        scene.getGrid().getTile(iPos).setEntity(this);
-    }
+    public abstract void moveTo(Vector2i iPos);
 
     public BattleEntity getDirectLineOfSight() {
         Vector2i indexPos = getIndexPos();
@@ -126,9 +125,15 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
     @Override
     public void hit(int dmg) {
         health -= dmg;
+
         if(health <= 0) {
             die();
         }
+
+        int hitDirection = -1;
+        if(this instanceof BattleEnemy)
+            hitDirection = 1;
+        scene.addAnimation(new BattleHitAnimation(hitDirection, this));
     }
 
     @Override
@@ -200,6 +205,10 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
         return elementState;
     }
 
+    public Element getElement() {
+        return element;
+    }
+
     public void setElementState(ElementState elementState) {
         this.elementState = elementState;
     }
@@ -210,5 +219,9 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
 
     public void setCanUseItem(boolean canUseItem) {
         this.canUseItem = canUseItem;
+    }
+
+    public int getMovementSpeed() {
+        return battleStats.getMovementSpeed();
     }
 }

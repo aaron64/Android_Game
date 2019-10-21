@@ -2,20 +2,21 @@ package com.mygdx.game.scenes.main_area;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
-
 import com.mygdx.game.GUI.components.PlayerHealthComponent;
 import com.mygdx.game.animation.PlayerDashAnimation;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.main_area.MainAreaEntity;
 import com.mygdx.game.entities.main_area.MainAreaEntityComparator;
 import com.mygdx.game.entities.main_area.Player;
+import com.mygdx.game.graphics.Window;
+import com.mygdx.game.lighting.SpotLight;
 import com.mygdx.game.map.MapMainArea;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.GestureHandler;
 import com.mygdx.game.util.GestureUtil;
 import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.graphics.Window;
+import com.mygdx.game.util.Vector2i;
 
 import java.util.Collections;
 
@@ -34,6 +35,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
         gestureHandler = new GestureUtil(this);
 
         player = new Player(this, grid.getPlayerSpawn(), "player");
+        lightEngine.addLight(new SpotLight(player.getPos(), new Vector2i(1024, 1024)));
 
         entities.addEntity(player);
 
@@ -59,9 +61,8 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
     @Override
     public void render() {
+        rs.beginFBO();
         rs.begin();
-        map.render(rs);
-
         rs.beginMainContent();
         rs.centerCameraOn(player);
         grid.render(rs);
@@ -69,6 +70,16 @@ public class SceneMainArea extends Scene implements GestureHandler {
         for(Entity e : entities.getList()) {
             e.render(rs);
         }
+
+        lightEngine.render(rs);
+        rs.end();
+        rs.endFBO();
+
+        rs.restart();
+
+        map.render(rs);
+
+        rs.drawFBO();
 
         gui.render(rs);
 

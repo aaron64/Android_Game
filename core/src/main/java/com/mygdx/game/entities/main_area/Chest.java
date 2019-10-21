@@ -1,14 +1,13 @@
 package com.mygdx.game.entities.main_area;
 
 import com.badlogic.gdx.graphics.Texture;
-
 import com.mygdx.game.PlayerVars;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.factories.CardFactory;
+import com.mygdx.game.graphics.Image;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.scenes.main_area.SceneMainAreaTile;
-import com.mygdx.game.util.GestureUtil;
 import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.Vector2f;
 
@@ -51,14 +50,14 @@ public class Chest extends MainAreaEntity {
         contents = new ArrayList<Entity>();
         open = false;
 
-        openTexture = new Texture("entities/main_area/" + chestType.res + "_open.png");
+        openTexture = Image.getImage("entities/main_area/" + chestType.res + "_open");
 
         for(int i = 0; i < 3 * chestType.multiplier; i++) {
             contents.add(new HealthBlob(scene, new Vector2f(getPos())));
         }
 
         Card card = CardFactory.buildRandomCard(chestType.cardDistribution);
-        contents.add(new PhysicalCard(scene, new Vector2f(getPos()), card));
+        //contents.add(new PhysicalCard(scene, new Vector2f(getPos()), card));
     }
 
     @Override

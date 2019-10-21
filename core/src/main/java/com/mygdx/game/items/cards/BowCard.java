@@ -1,8 +1,6 @@
 package com.mygdx.game.items.cards;
 
 
-import com.mygdx.game.action.ActionLock;
-import com.mygdx.game.action.ActionSpawnEntity;
 import com.mygdx.game.attributes.Element;
 import com.mygdx.game.attributes.Quality;
 import com.mygdx.game.entities.battle.BattleLiving;
@@ -19,7 +17,7 @@ public class BowCard extends AttackCard {
 
     @Override
     public void use(SceneBattle scene, BattleLiving user) {
-        scene.addEntity(new BattleArrow(scene, new Vector2i(user.getIndexPos()), getDamage(), user, getElement()));
+        scene.addEntity(new BattleArrow(scene, this, new Vector2i(user.getIndexPos()), user));
 
         Vector2i indexPos = user.getIndexPos();
 

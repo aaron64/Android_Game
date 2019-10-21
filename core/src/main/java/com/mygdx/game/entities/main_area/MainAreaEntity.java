@@ -15,7 +15,7 @@ public abstract class MainAreaEntity extends Entity {
 
     // non-tile entities
     public MainAreaEntity(SceneMainArea scene, Vector2f pos, String name) {
-        super(pos, "main_area/", name);
+        super(pos, "main_area", name);
         this.scene = scene;
         solid = true;
     }

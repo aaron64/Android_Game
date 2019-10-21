@@ -29,6 +29,12 @@ public class Deck {
         }
     }
 
+    public Card getNextCard() {
+        if(cards.size() > 1)
+            return cards.get(cards.size() - 1);
+        return null;
+    }
+
     public void refresh() {
         cards.removeAll(removeList);
         removeList.clear();

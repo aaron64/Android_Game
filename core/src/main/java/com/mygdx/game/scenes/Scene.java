@@ -1,9 +1,11 @@
 package com.mygdx.game.scenes;
 
 import com.mygdx.game.GUI.GUI;
+import com.mygdx.game.animation.Animation;
 import com.mygdx.game.animation.AnimationQueue;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.EntitySystem;
+import com.mygdx.game.lighting.LightEngine;
 import com.mygdx.game.map.Map;
 import com.mygdx.game.util.GestureUtil;
 import com.mygdx.game.graphics.RenderSystem;
@@ -18,12 +20,15 @@ public abstract class Scene {
     protected RenderSystem rs;
     protected GUI gui;
 
+    protected LightEngine lightEngine;
+
     protected AnimationQueue animationQueue;
 
     public Scene() {
         entities = new EntitySystem();
         rs = new RenderSystem();
 
+        lightEngine = new LightEngine();
         gui = new GUI();
 
         animationQueue = new AnimationQueue();
@@ -34,6 +39,10 @@ public abstract class Scene {
 
         gestureHandler.update();
         entities.update();
+    }
+
+    public void addAnimation(Animation animation) {
+        animationQueue.add(animation);
     }
 
     public abstract void render();

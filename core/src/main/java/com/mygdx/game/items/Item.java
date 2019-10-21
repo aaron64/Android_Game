@@ -2,6 +2,7 @@ package com.mygdx.game.items;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.attributes.Quality;
+import com.mygdx.game.graphics.Image;
 
 public abstract class Item {
 
@@ -19,7 +20,7 @@ public abstract class Item {
             this.quality = Quality.STANDARD;
         }
 
-        icon = new Texture("items/" + folder + "/" + name + "_icon.png");
+        icon = Image.getImage("items/" + folder + "/" + name + "_icon");
     }
 
     public Item(String name, String description, Quality quality) {

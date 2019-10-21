@@ -3,6 +3,7 @@ package com.mygdx.game.entities.battle.misc;
 import com.mygdx.game.Game;
 import com.mygdx.game.entities.battle.BattleEntity;
 import com.mygdx.game.entities.battle.BattleLiving;
+import com.mygdx.game.items.cards.BombCard;
 import com.mygdx.game.items.cards.ThrowableSize;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.util.Vector2f;
@@ -12,36 +13,39 @@ public class Bomb extends BattleEntity {
 
     private int throwTime;
     private int throwTimeCounter;
+
     private Vector2f velocity;
-    private float angle;
     private float distance;
 
     private float yTrigger;
 
-    private int damage;
     private BattleLiving user;
 
-    public Bomb(SceneBattle scene, Vector2i indexPos, Vector2i dest, int damage, ThrowableSize size, BattleLiving user) {
+    private BombCard card;
+
+    private Vector2i dest;
+
+    public Bomb(SceneBattle scene, BombCard card, Vector2i indexPos, Vector2i dest, ThrowableSize size, BattleLiving user) {
         super(scene, indexPos, "misc/bomb");
         moveY(scene.getGrid().getTile(0,0).getSize().y/2);
 
+        this.dest = dest;
+
+        this.card = card;
+
         yTrigger = getPos().y - 1;
 
-        this.damage = damage;
-
         this.user = user;
-        //setSize(new Vector2i(180, 27));
 
         this.distance = scene.getGrid().getAbsoluteTilePosition(dest).x - scene.getGrid().getAbsoluteTilePosition(indexPos).x;
-        throwTime = 15;
+        throwTime = 25;
         throwTimeCounter = 0;
 
         velocity = new Vector2f(0,0);
 
         float vMag = distance / throwTime;
 
-        float stuff = (float) ((2 * Game.getGravity() * distance / (vMag * vMag)/2)%(2*Math.PI));
-        float theta = (float) Math.asin(((2 * Game.getGravity() * distance / (vMag * vMag)/2)%(2*Math.PI)));
+        float theta = (float) Math.asin(((2 * Game.getGravity() * distance / (vMag * vMag)/2)%(2*Math.PI)))/2f;
 
         velocity.x = (float) (vMag * Math.cos(theta));
         velocity.y = (float) (vMag * Math.sin(theta)) * -1;
@@ -58,8 +62,14 @@ public class Bomb extends BattleEntity {
         move(velocity);
         velocity.y += Game.getGravity();
 
-        if(getPos().y < yTrigger)
+        if(getPos().y < yTrigger) {
+            BattleEntity be = scene.getTile(dest).getEntity();
+            if(be != null) {
+                be.hit(card.calculateDamage(be), card.getElement());
+            }
             scene.removeEntity(this);
+            scene.addEntity(new Explosion(scene, dest));
+        }
     }
 
     public void explode() {

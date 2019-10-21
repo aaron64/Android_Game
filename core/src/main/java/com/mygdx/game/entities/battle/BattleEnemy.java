@@ -2,15 +2,16 @@ package com.mygdx.game.entities.battle;
 
 
 import com.mygdx.game.GUI.components.BattleEnemyHealthComponent;
+import com.mygdx.game.animation.BattleEnemyMoveAnimation;
 import com.mygdx.game.attributes.Element;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vector2i;
 
 public abstract class BattleEnemy extends BattleLiving {
 
     protected BattleEnemyHealthComponent healthComponent;
-    protected Element element;
 
     public BattleEnemy(SceneBattle scene, SceneBattleTile tile, String name, int health, Element element) {
         super(scene, tile, name, Facing.LEFT, health, health);
@@ -33,5 +34,13 @@ public abstract class BattleEnemy extends BattleLiving {
         scene.getTile(getIndexPos()).removeEntity();
 
         scene.enemyKilled(this);
+    }
+
+    @Override
+    public void moveTo(Vector2i iPos) {
+        SceneBattleTile oldTile = scene.getTile(getIndexPos());
+        SceneBattleTile newTile = scene.getTile(iPos);
+
+        scene.addAnimation(new BattleEnemyMoveAnimation(oldTile, newTile, this));
     }
 }

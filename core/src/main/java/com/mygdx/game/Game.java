@@ -4,24 +4,27 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.factories.CardFactory;
+import com.mygdx.game.graphics.Image;
 import com.mygdx.game.scenes.Scene;
-
-import java.util.Stack;
-
 import com.mygdx.game.scenes.SceneContainer;
 import com.mygdx.game.scenes.game_menu.SceneGameMenu;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
+
+import java.util.Stack;
 
 public class Game extends ApplicationAdapter {
 	private static Stack<Scene> sceneStack;
 
 	public static SceneGameMenu gameMenuScene;
+	public static int time = 0;
 
 
     @Override
 	public void create () {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		sceneStack = new Stack<Scene>();
+
+		Image.initialize();
 
 		CardFactory.init();
 		PlayerVars.init();
@@ -33,6 +36,7 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void render () {
+    	time++;
 		getCurrentScene().update();
 		getCurrentScene().render();
 	}

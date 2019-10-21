@@ -8,7 +8,6 @@ import com.mygdx.game.items.cards.BombCard;
 import com.mygdx.game.items.cards.BowCard;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.items.cards.CardType;
-import com.mygdx.game.items.cards.GunCard;
 import com.mygdx.game.items.cards.HealCard;
 import com.mygdx.game.items.cards.MagicCard;
 import com.mygdx.game.items.cards.MeleeCard;
@@ -70,10 +69,6 @@ public class CardFactory {
                 int damage = cardData.getInt("Base_Damage");
                 return new BowCard(name, lockInitial, lockFinal, damage, cost, quality, element);
             }
-            case GUN: {
-                int damage = cardData.getInt("Base_Damage");
-                return new GunCard(name, lockInitial, lockFinal, damage, cost, quality, element);
-            }
             case POTION: {
                 int amount = cardData.getInt("Base_Amount");
                 return new HealCard(name, lockInitial, lockFinal, amount, cost, quality);
@@ -104,9 +99,6 @@ public class CardFactory {
     public static ThrowableSize parseThrowableSize(String s){
         if(s.equals("small")) {
             return ThrowableSize.SMALL;
-        }
-        if(s.equals("medium")) {
-            return ThrowableSize.MEDIUM;
         }
         if(s.equals("large")) {
             return ThrowableSize.LARGE;

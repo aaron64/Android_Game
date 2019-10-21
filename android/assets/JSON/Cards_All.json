@@ -13,16 +13,6 @@
         "Height": 1
       },
       {
-        "Name": "Knife",
-        "Category": "MELEE",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Point_Cost": 1,
-        "Base_Damage": 40,
-        "Width": 1,
-        "Height": 1
-      },
-      {
         "Name": "Sword",
         "Category": "MELEE",
         "LockI": 20,
@@ -83,6 +73,13 @@
         "LockF": 50,
         "Base_Point_Cost": 3,
         "Base_Amount": 30
+      },
+      {
+        "Name": "Elixir",
+        "Category": "POTION",
+        "LockI": 20,
+        "LockF": 50,
+        "Base_Point_Cost": 2
       }
     ]
     },
@@ -115,42 +112,6 @@
       {
         "Name": "Crossbow",
         "Category": "BOW",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Point_Cost": 5,
-        "Base_Damage": 30
-      }
-    ]
-    },
-    {
-      "Name": "GUN", "Cards": [
-      {
-        "Name": "Flint Lock",
-        "Category": "GUN",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Point_Cost": 2,
-        "Base_Damage": 30
-      },
-      {
-        "Name": "Rifle",
-        "Category": "GUN",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Point_Cost": 4,
-        "Base_Damage": 30
-      },
-      {
-        "Name": "Blunder",
-        "Category": "GUN",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Point_Cost": 3,
-        "Base_Damage": 30
-      },
-      {
-        "Name": "Grenade Launcher",
-        "Category": "GUN",
         "LockI": 20,
         "LockF": 50,
         "Base_Point_Cost": 5,
@@ -192,17 +153,6 @@
         "LockF": 50,
         "Base_Damage": 15,
         "Size": "medium",
-        "Range": 3
-      },
-      {
-        "Name": "Large Bomb",
-        "Type": "bomb",
-        "Base_Point_Cost": 3,
-        "Category": "THROWABLE",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Damage": 15,
-        "Size": "large",
         "Range": 3
       },
       {

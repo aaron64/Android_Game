@@ -4,7 +4,6 @@ public enum CardType {
     MAGIC("Magic"),
     MELEE("Melee"),
     BOW("Bow"),
-    GUN("Gun"),
     POTION("Potion"),
     SUPPORT("Support"),
     SPECIAL("Special"),

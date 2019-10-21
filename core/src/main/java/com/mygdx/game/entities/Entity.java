@@ -3,6 +3,7 @@ package com.mygdx.game.entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 
+import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
@@ -26,7 +27,7 @@ public abstract class Entity {
         this.name = name;
 
         try {
-            image = new Texture("entities/" + folder + "/" + name + ".png");
+            image = Image.getImage("entities/" + folder + "/" + name);
             this.size = new Vector2i(image.getWidth(), image.getHeight());
         } catch (Exception e) {
             initializeImage();
@@ -70,7 +71,7 @@ public abstract class Entity {
     }
 
     public void scaleWidth(int w) {
-        this.size.y *= w / this.size.x;
+        this.size.y *= w / this.size.w();
         this.size.x = w;
     }
 

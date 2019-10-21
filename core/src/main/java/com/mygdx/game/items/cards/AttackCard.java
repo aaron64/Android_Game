@@ -2,6 +2,8 @@ package com.mygdx.game.items.cards;
 
 import com.mygdx.game.attributes.Element;
 import com.mygdx.game.attributes.Quality;
+import com.mygdx.game.entities.battle.BattleEntity;
+import com.mygdx.game.entities.battle.BattleLiving;
 import com.mygdx.game.util.FontUtil;
 
 public abstract class AttackCard extends Card {
@@ -11,11 +13,21 @@ public abstract class AttackCard extends Card {
         super(name, lockInitial, lockFinal, folder, description, type, pointsCost, quality, element);
         this.damage = (int)(damage * getQuality().getMultiplier());
 
-        amountSize = FontUtil.getTextSize(amountFont, "" + getAmount());
+        amountSize = FontUtil.getTextSize(amountFont, getAmount());
     }
 
     public int getDamage() {
         return damage;
+    }
+
+    public int calculateDamage(BattleEntity entity) {
+        int baseDamage = damage;
+        if(entity instanceof BattleLiving) {
+            if(((BattleLiving)entity).getElement() != null)
+                baseDamage *= ((BattleLiving)entity).getElement().getMultiplier(getElement());
+        }
+
+        return baseDamage;
     }
 
     public void setDamage(int damage) {
@@ -23,7 +35,7 @@ public abstract class AttackCard extends Card {
     }
 
     @Override
-    public int getAmount() {
-        return damage;
+    public String getAmount() {
+        return damage + "";
     }
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.entities.main_area.Chest;
 import com.mygdx.game.entities.main_area.MainAreaEntity;
 import com.mygdx.game.factories.EnemyFactory;
+import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.ImageUtil;
@@ -38,8 +39,9 @@ public class SceneMainAreaGrid {
         this.height = mapTexture.getHeight();
         this.size = new Vector2i(this.width, this.height);
 
-        Texture tileForSize = new Texture("entities/tiles/battle/tile_neutral.png");
+        Texture tileForSize = Image.getImage("entities/tiles/battle/tile_neutral");
         tileSize = new Vector2i(tileForSize.getWidth(), tileForSize.getHeight());
+        tileSize.multiply(2);
 
         enemyChance = 0.05f;
 

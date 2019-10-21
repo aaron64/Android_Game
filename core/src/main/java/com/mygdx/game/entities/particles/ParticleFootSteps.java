@@ -2,6 +2,7 @@ package com.mygdx.game.entities.particles;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.graphics.Image;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.scenes.main_area.SceneMainAreaTileType;
 import com.mygdx.game.util.Vector2f;
@@ -17,7 +18,7 @@ public class ParticleFootSteps extends ParticleSystem {
         super(pos, name, n, nDiff, xDiff, yDiff, size, sizeDiff, xv, xvDiff ,yv, yvDiff, life, lifeDiff, 4);
 
         grass = getImage();
-        water = new Texture("entities/particles/water.png");
+        water = Image.getImage("entities/particles/water");
 
         this.entity = entity;
         this.scene = scene;

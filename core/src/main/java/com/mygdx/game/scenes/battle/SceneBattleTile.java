@@ -1,19 +1,18 @@
 package com.mygdx.game.scenes.battle;
 
 import com.badlogic.gdx.graphics.Texture;
-
 import com.mygdx.game.entities.battle.BattleEnemy;
 import com.mygdx.game.entities.battle.BattleEntity;
-import com.mygdx.game.entities.Entity;
+import com.mygdx.game.graphics.Image;
+import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.util.Cooldown;
 import com.mygdx.game.util.CooldownInterface;
-import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
 
 public class SceneBattleTile extends BattleEntity implements CooldownInterface {
 
-    private Entity entity;
+    private BattleEntity entity;
     private SceneBattleTileType tileType;
     private boolean lightUp;
 
@@ -22,7 +21,7 @@ public class SceneBattleTile extends BattleEntity implements CooldownInterface {
     private Texture tileTexture, tileEndTexture;
     private Vector2f endPos;
 
-    private static Texture lightUpOverlay = new Texture("entities/tiles/battle/tile_light_up.png");
+    private static Texture lightUpOverlay = Image.getImage("entities/tiles/battle/tile_light_up");
 
 
     public SceneBattleTile(SceneBattle scene, SceneBattleGrid grid, Vector2i indexPos, Vector2f offset, Vector2i size, SceneBattleTileType tileType) {
@@ -32,8 +31,8 @@ public class SceneBattleTile extends BattleEntity implements CooldownInterface {
         setSize(size);
         entity = null;
 
-        tileTexture = new Texture("entities/tiles/tile_basic.png");
-        tileEndTexture = new Texture("entities/tiles/tile_end0.png");
+        tileTexture = Image.getImage("entities/tiles/tile_basic");
+        tileEndTexture = Image.getImage("entities/tiles/tile_end0");
         endPos = new Vector2f(getPos().x, getPos().y - getSize().y);
 
         lightUp = false;
@@ -72,11 +71,11 @@ public class SceneBattleTile extends BattleEntity implements CooldownInterface {
         }
     }
 
-    public Entity getEntity() {
+    public BattleEntity getEntity() {
         return entity;
     }
 
-    public void setEntity(Entity entity) {
+    public void setEntity(BattleEntity entity) {
         if(this.entity != null && this.entity instanceof BattleEnemy) {
             scene.enemyKilled((BattleEnemy)this.entity);
         }

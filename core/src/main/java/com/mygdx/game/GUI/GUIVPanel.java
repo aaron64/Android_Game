@@ -14,7 +14,7 @@ public class GUIVPanel extends GUIComponent {
 
         switch(verticalAnchor){
             case TOP:
-                offset = pos.y + size.y;
+                offset = pos.y + size.h();
                 break;
             case BOTTOM:
                 offset = pos.y;
@@ -24,7 +24,7 @@ public class GUIVPanel extends GUIComponent {
                 for(GUIComponent child : children) {
                     totalHeight += child.bottomMargin() + child.getSize().y + child.topMargin();
                 }
-                offset = (pos.y + size.y/2) - totalHeight/2;
+                offset = (pos.y + size.h()/2) - totalHeight/2;
                 break;
         }
 
@@ -58,11 +58,11 @@ public class GUIVPanel extends GUIComponent {
                 }
                 break;
                 case RIGHT: {
-                    cPos.x = pos.x + size.x - child.getSize().x - child.rightMargin();
+                    cPos.x = pos.x + size.w() - child.getSize().x - child.rightMargin();
                 }
                 break;
                 case CENTER: {
-                    cPos.x = (pos.x + size.x/2) - child.getSize().y/2;
+                    cPos.x = (pos.x + size.w()/2) - child.getSize().y/2;
                 }
                 break;
             }

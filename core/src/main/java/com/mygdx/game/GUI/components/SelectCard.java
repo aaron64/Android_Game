@@ -54,10 +54,7 @@ public class SelectCard extends GUIVPanel {
 
     @Override
     public void render(RenderSystem rs) {
-        if(!selected)
-            rs.setColor(0.8f, 0.8f, 0.8f, 1);
-        renderBackground(rs);
-        rs.setColor(1, 1, 1, 1);
+        renderBackground(rs, selected);
 
         super.render(rs);
     }

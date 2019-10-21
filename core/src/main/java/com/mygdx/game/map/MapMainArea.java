@@ -1,11 +1,10 @@
 package com.mygdx.game.map;
 
-import com.badlogic.gdx.graphics.Texture;
-
+import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
+import com.mygdx.game.graphics.Window;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
-import com.mygdx.game.graphics.Window;
 
 public class MapMainArea extends Map {
 
@@ -14,7 +13,7 @@ public class MapMainArea extends Map {
 
     public MapMainArea(String bgPath) {
         super();
-        setBackground(new Texture("backgrounds/" + bgPath + ".png"));
+        setBackground(Image.getImage("backgrounds/" + bgPath));
 
         backgroundSize = Window.getSize();
         backgroundPos = new Vector2f(0,0);
@@ -28,7 +27,7 @@ public class MapMainArea extends Map {
     @Override
     public void render(RenderSystem rs) {
         //rs.centerCameraOn(Vector2f.divideVector(Window.getSize(), 2));
-        rs.draw(getBackground(), backgroundPos, backgroundSize);
+        rs.drawStatic(getBackground(), backgroundPos, backgroundSize);
     }
 
     @Override

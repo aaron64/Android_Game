@@ -1,8 +1,8 @@
 package com.mygdx.game.items.cards;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.attributes.Element;
 import com.mygdx.game.attributes.Quality;
+import com.mygdx.game.graphics.Image;
 
 public abstract class PotionCard extends Card {
 
@@ -11,17 +11,17 @@ public abstract class PotionCard extends Card {
 
         if(quality.equals(Quality.STANDARD))
         {
-            icon = new Texture("items/cards/potions/Potion_icon.png");
+            icon = Image.getImage("items/cards/potions/Potion_icon");
         } else {
-            icon = new Texture("items/cards/potions/Potion_" + quality.getStr() + "_icon.png");
+            icon = Image.getImage("items/cards/potions/Potion_" + quality.getStr() + "_icon");
         }
 
         if(element != null) {
             if(quality.equals(Quality.STANDARD))
             {
-                overlay_texture = new Texture("items/cards/potions/Potion_overlay.png");
+                overlay_texture = Image.getImage("items/cards/potions/Potion_overlay");
             } else {
-                overlay_texture = new Texture("items/cards/potions/Potion_" + quality.getStr() + "_overlay.png");
+                overlay_texture = Image.getImage("items/cards/potions/Potion_" + quality.getStr() + "_overlay");
             }
         }
     }

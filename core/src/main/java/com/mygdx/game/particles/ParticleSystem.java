@@ -2,6 +2,7 @@ package com.mygdx.game.particles;
 
 import com.badlogic.gdx.graphics.Texture;
 
+import com.mygdx.game.graphics.Image;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.util.Vector2f;
@@ -16,7 +17,7 @@ public class ParticleSystem {
     private int particles;
     private Texture texture;
     public ParticleSystem(String textureStr, int particles, float xv, float yv, float xvRange, float yvRange, int size, int sizeRange) {
-        this.texture = new Texture("misc/particles/" + textureStr + ".png");
+        this.texture = Image.getImage("entities/particles/" + textureStr);
         this.particles = particles;
 
         posList = new Vector2f[particles];

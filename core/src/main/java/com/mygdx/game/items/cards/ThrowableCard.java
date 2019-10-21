@@ -18,4 +18,8 @@ public abstract class ThrowableCard extends AttackCard {
     public ThrowableSize getImpactSize() {
         return size;
     }
+
+    public int getRange() {
+        return range;
+    }
 }

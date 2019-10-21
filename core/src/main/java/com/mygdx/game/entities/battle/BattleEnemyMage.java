@@ -3,6 +3,7 @@ package com.mygdx.game.entities.battle;
 import com.mygdx.game.action.ActionLock;
 import com.mygdx.game.action.ActionUseCard;
 import com.mygdx.game.attributes.Element;
+import com.mygdx.game.entities.Entity;
 import com.mygdx.game.factories.CardFactory;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.graphics.TimedSpriteSheet;
@@ -11,7 +12,6 @@ import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.scenes.battle.SceneBattleTileType;
 import com.mygdx.game.util.Cooldown;
-import com.mygdx.game.util.Vector2i;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class BattleEnemyMage extends BattleEnemy {
 
         cardStack.push(CardFactory.buildCard("Magic", element));
 
-        moveCooldown = new Cooldown(this, "MOVE", false, 80);
+        moveCooldown = new Cooldown(this, "MOVE", false, 160);
         attackCooldown = new Cooldown(this, "ATTACK", false, 100);
 
         scaleWidth(scene.getGrid().getTile(0, 0).getSize().x);
@@ -51,6 +51,7 @@ public class BattleEnemyMage extends BattleEnemy {
     public void render(RenderSystem rs) {
         spriteSheet.render(rs, getPos());
     }
+
 
     public void jump() {
         ArrayList<SceneBattleTile> surroundings = scene.getGrid().getSurroundings(getIndexPos());
@@ -81,8 +82,8 @@ public class BattleEnemyMage extends BattleEnemy {
             moveCooldown.reset();
             jump();
         } else if(name.equals("ATTACK")) {
-            Vector2i indexPos = getIndexPos();
-            if(scene.getGrid().getTile(indexPos.x - 1, indexPos.y).getEntity() == scene.getPlayer()) {
+            Entity e = getDirectLineOfSight();
+            if(e instanceof BattlePlayer) {
                 attack();
                 attackCooldown.reset();
             }

@@ -17,14 +17,14 @@ public class GUIHPanel extends GUIComponent {
                 offset = pos.x;
                 break;
             case RIGHT:
-                offset = pos.x + size.x;
+                offset = pos.x + size.w();
                 break;
             case CENTER:
                 float totalWidth = 0;
                 for(GUIComponent child : children) {
                     totalWidth += child.leftMargin() + child.getSize().x + child.rightMargin();
                 }
-                offset = (pos.x + size.x/2) - totalWidth/2;
+                offset = (pos.x + size.w()/2) - totalWidth/2;
                 break;
         }
 
@@ -55,7 +55,7 @@ public class GUIHPanel extends GUIComponent {
 
             switch (verticalAnchor) {
                 case TOP: {
-                    cPos.y = pos.y + size.y - child.getSize().y - child.topMargin();
+                    cPos.y = pos.y + size.h() - child.getSize().y - child.topMargin();
                 }
                 break;
                 case BOTTOM: {
@@ -63,7 +63,7 @@ public class GUIHPanel extends GUIComponent {
                 }
                 break;
                 case CENTER: {
-                    cPos.y = (pos.y + size.y/2) - child.getSize().y/2;
+                    cPos.y = (pos.y + size.h()/2) - child.getSize().y/2;
                 }
                 break;
             }

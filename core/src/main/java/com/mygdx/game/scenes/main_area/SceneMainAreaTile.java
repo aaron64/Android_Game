@@ -2,6 +2,7 @@ package com.mygdx.game.scenes.main_area;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.entities.main_area.MainAreaEntity;
+import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.util.Vector2f;
 
@@ -18,14 +19,17 @@ public class SceneMainAreaTile extends MainAreaEntity {
 
     protected Texture endTexture;
     private float yOffset;
+
+    int scale = 2;
     public SceneMainAreaTile(SceneMainArea scene, Vector2f pos, String name, SceneMainAreaTileType type) {
-        super(scene, pos, "tiles/", name);
+        super(scene, pos, "tiles", name);
+        getSize().multiply(scale);
         setPos(Vector2f.multiplyVectors(getPos(), getSize()));
 
         distSoftner = 25;
 
         int tileBottom = (int)(Math.random() * 3);
-        endTexture = new Texture("entities/tiles/tile_end" + tileBottom + ".png");
+        endTexture = Image.getImage("entities/tiles/tile_end" + tileBottom);
 
         offsetLevel = (float)(Math.random() * 1 + 1);
 
@@ -43,13 +47,13 @@ public class SceneMainAreaTile extends MainAreaEntity {
         renderPos = new Vector2f(getPos());
         renderPos.y -= dist * offsetLevel;
 
-        endPos = new Vector2f(getPos().x, getPos().y - endTexture.getHeight() - dist * offsetLevel);
+        endPos = new Vector2f(getPos().x, getPos().y - getSize().h() - dist * offsetLevel);
     }
 
     @Override
     public void render(RenderSystem rs) {
-        rs.draw(getImage(), renderPos);
-        rs.draw(endTexture, endPos);
+        rs.draw(getImage(), renderPos, getSize());
+        rs.draw(endTexture, endPos, getSize());
     }
 
     public SceneMainAreaTileType getType() {

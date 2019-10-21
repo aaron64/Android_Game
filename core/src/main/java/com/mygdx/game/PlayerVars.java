@@ -23,18 +23,17 @@ public class PlayerVars {
         deck.addCard(CardFactory.buildCard("Claymore", Element.SHOCK));
         deck.addCard(CardFactory.buildCard("Cutlass", Element.POISON));
         deck.addCard(CardFactory.buildCard("Heal"));
-        deck.addCard(CardFactory.buildCard("Bow", Element.WIND));
+        deck.addCard(CardFactory.buildCard("Bow", Element.SHOCK));
         deck.addCard(CardFactory.buildCard("Longbow", Element.GRASS));
         deck.addCard(CardFactory.buildCard("Crossbow", Element.FIRE));
         deck.addCard(CardFactory.buildCard("Magic", Element.WATER));
         deck.addCard(CardFactory.buildCard("Magic", Element.FIRE));
         deck.addCard(CardFactory.buildCard("Magic", Element.GRASS));
-        deck.addCard(CardFactory.buildCard("Magic", Element.WIND));
+        deck.addCard(CardFactory.buildCard("Magic", Element.GRASS));
         deck.addCard(CardFactory.buildCard("Magic", Element.SHOCK));
         deck.addCard(CardFactory.buildCard("Magic", Element.WATER));
         deck.addCard(CardFactory.buildCard("Small Bomb", Element.SHOCK));
         deck.addCard(CardFactory.buildCard("Bomb", Element.POISON));
-        deck.addCard(CardFactory.buildCard("Large Bomb", Element.WIND));
         deck.addCard(CardFactory.buildCard("Horizontal Bomb", Element.GRASS));
         deck.addCard(CardFactory.buildCard("Vertical Bomb", Element.FIRE));
 
