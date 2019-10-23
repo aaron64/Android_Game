@@ -1,10 +1,13 @@
 package com.mygdx.game.entities.battle;
 
+import com.mygdx.game.Game;
 import com.mygdx.game.animation.BattleHitAnimation;
 import com.mygdx.game.attributes.Element;
 import com.mygdx.game.attributes.ElementState;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
+import com.mygdx.game.graphics.TimedSpriteSheet;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
@@ -17,6 +20,8 @@ import com.mygdx.game.util.Vector2i;
 import java.util.Stack;
 
 public abstract class BattleLiving extends BattleTileEntity implements CooldownInterface {
+
+    protected TimedSpriteSheet spriteSheet;
 
     protected enum Facing {
         RIGHT,
@@ -44,6 +49,11 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
         super(scene, tile, name);
         battleStats = new BattleStats(6 ,10);
 
+        spriteSheet = new TimedSpriteSheet(getImage(), 2, 60);
+        getSize().x /= 2;
+        getSize().multiply(scene.getGrid().getTile(0,0).getSize().w() / getSize().w()* 0.6f);
+        spriteSheet.setSize(getSize());
+
         cardStack = new Stack<Card>();
 
         this.health = health;
@@ -69,7 +79,15 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
     }
 
     public void render(RenderSystem rs) {
-        super.render(rs);
+        spriteSheet.render(rs, getPos());
+
+        rs.setShader(RenderSystem.grassOverlayShader);
+        rs.beginShader();
+
+        rs.setUniform1f("u_time", (float) Game.time);
+        rs.setUniformTexture("u_texture_overlay", Image.getImage("misc/Grass_overlay"), 1);
+        spriteSheet.render(rs, getPos());
+        rs.setShader(null);
     }
 
     public void move(Vector2i dp) {

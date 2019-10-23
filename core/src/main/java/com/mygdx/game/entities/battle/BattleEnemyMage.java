@@ -6,7 +6,6 @@ import com.mygdx.game.attributes.Element;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.factories.CardFactory;
 import com.mygdx.game.graphics.RenderSystem;
-import com.mygdx.game.graphics.TimedSpriteSheet;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
@@ -20,7 +19,6 @@ public class BattleEnemyMage extends BattleEnemy {
     private Cooldown moveCooldown;
     private Cooldown attackCooldown;
 
-    private TimedSpriteSheet spriteSheet;
 
     public BattleEnemyMage(SceneBattle scene, SceneBattleTile tile, int health) {
         super(scene, tile, "mage", health, Element.getRandomElement(false));
@@ -30,11 +28,6 @@ public class BattleEnemyMage extends BattleEnemy {
 
         moveCooldown = new Cooldown(this, "MOVE", false, 160);
         attackCooldown = new Cooldown(this, "ATTACK", false, 100);
-
-        scaleWidth(scene.getGrid().getTile(0, 0).getSize().x);
-
-        spriteSheet = new TimedSpriteSheet(getImage(), 2, 100);
-        spriteSheet.setSize(getSize());
     }
 
     @Override

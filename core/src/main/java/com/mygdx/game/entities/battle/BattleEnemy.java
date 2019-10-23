@@ -41,6 +41,8 @@ public abstract class BattleEnemy extends BattleLiving {
         SceneBattleTile oldTile = scene.getTile(getIndexPos());
         SceneBattleTile newTile = scene.getTile(iPos);
 
-        scene.addAnimation(new BattleEnemyMoveAnimation(oldTile, newTile, this));
+        if(!newTile.held()) {
+            scene.addAnimation(new BattleEnemyMoveAnimation(oldTile, newTile, this));
+        }
     }
 }

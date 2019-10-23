@@ -10,6 +10,7 @@ import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.battle.BattleEnemy;
 import com.mygdx.game.entities.battle.BattleEnemyMage;
 import com.mygdx.game.entities.battle.BattlePlayer;
+import com.mygdx.game.entities.battle.EnemyTest;
 import com.mygdx.game.entities.battle.EnemyTest2;
 import com.mygdx.game.graphics.Window;
 import com.mygdx.game.map.MapBattle;
@@ -49,6 +50,7 @@ public class SceneBattle extends Scene implements GestureHandler {
 
         new BattleEnemyMage(this, battleGrid.getTile(new Vector2i(4, 2)), 40);
         new EnemyTest2(this, battleGrid.getTile(new Vector2i(3, 0)), "enemy", 40);
+        new EnemyTest(this, battleGrid.getTile(3, 2), "enemy", 40);
 
         for(BattleEnemy enemy : enemies) {
             animationQueue.add(new BattleEnemySpawnAnimation(true, false, enemy));

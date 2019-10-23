@@ -1,158 +1,163 @@
 {
   "Categories": [
     {
-      "Name": "MELEE", "Cards": [
-      {
-        "Name": "Dagger",
-        "Category": "MELEE",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Point_Cost": 1,
-        "Base_Damage": 40,
-        "Width": 1,
-        "Height": 1
-      },
-      {
-        "Name": "Sword",
-        "Category": "MELEE",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Point_Cost": 2,
-        "Base_Damage": 40,
-        "Width": 2,
-        "Height": 1
-      },
-      {
-        "Name": "Longsword",
-        "Category": "MELEE",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Point_Cost": 2,
-        "Base_Damage": 40,
-        "Width": 2,
-        "Height": 1
-      },
-      {
-        "Name": "Claymore",
-        "Category": "MELEE",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Point_Cost": 3,
-        "Base_Damage": 40,
-        "Width": 2,
-        "Height": 1
-      },
-      {
-        "Name": "Cutlass",
-        "Category": "MELEE",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Point_Cost": 2,
-        "Base_Damage": 40,
-        "Width": 1,
-        "Height": 3
-      }
-    ]
+      "Name": "MELEE",
+      "Cards": [
+        {
+          "Name": "Dagger",
+          "Category": "MELEE",
+          "LockI": 8,
+          "LockF": 4,
+          "Base_Point_Cost": 1,
+          "Base_Damage": 40,
+          "Width": 1,
+          "Height": 1
+        },
+        {
+          "Name": "Sword",
+          "Category": "MELEE",
+          "LockI": 10,
+          "LockF": 10,
+          "Base_Point_Cost": 2,
+          "Base_Damage": 40,
+          "Width": 2,
+          "Height": 1
+        },
+        {
+          "Name": "Longsword",
+          "Category": "MELEE",
+          "LockI": 15,
+          "LockF": 10,
+          "Base_Point_Cost": 2,
+          "Base_Damage": 40,
+          "Width": 2,
+          "Height": 1
+        },
+        {
+          "Name": "Claymore",
+          "Category": "MELEE",
+          "LockI": 30,
+          "LockF": 20,
+          "Base_Point_Cost": 3,
+          "Base_Damage": 40,
+          "Width": 2,
+          "Height": 1
+        },
+        {
+          "Name": "Cutlass",
+          "Category": "MELEE",
+          "LockI": 15,
+          "LockF": 10,
+          "Base_Point_Cost": 2,
+          "Base_Damage": 40,
+          "Width": 1,
+          "Height": 3
+        }
+      ]
     },
     {
-      "Name": "POTION", "Cards": [
-      {
-        "Name": "Heal",
-        "Category": "POTION",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Point_Cost": 3,
-        "Base_Amount": 30
-      }
-    ]
+      "Name": "POTION",
+      "Cards": [
+        {
+          "Name": "Heal",
+          "Category": "POTION",
+          "LockI": 4,
+          "LockF": 0,
+          "Base_Point_Cost": 3,
+          "Base_Amount": 30
+        }
+      ]
     },
     {
-      "Name": "BOW", "Cards": [
-      {
-        "Name": "Bow",
-        "Category": "BOW",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Point_Cost": 2,
-        "Base_Damage": 30
-      },
-      {
-        "Name": "Longbow",
-        "Category": "BOW",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Point_Cost": 3,
-        "Base_Damage": 30
-      },
-      {
-        "Name": "Crossbow",
-        "Category": "BOW",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Point_Cost": 5,
-        "Base_Damage": 30
-      }
-    ]
+      "Name": "BOW",
+      "Cards": [
+        {
+          "Name": "Bow",
+          "Category": "BOW",
+          "LockI": 10,
+          "LockF": 10,
+          "Base_Point_Cost": 2,
+          "Base_Damage": 30
+        },
+        {
+          "Name": "Longbow",
+          "Category": "BOW",
+          "LockI": 10,
+          "LockF": 15,
+          "Base_Point_Cost": 3,
+          "Base_Damage": 30
+        },
+        {
+          "Name": "Crossbow",
+          "Category": "BOW",
+          "LockI": 10,
+          "LockF": 15,
+          "Base_Point_Cost": 5,
+          "Base_Damage": 30
+        }
+      ]
     },
     {
-      "Name": "MAGIC", "Cards": [
+      "Name": "MAGIC",
+      "Cards": [
         {
           "Name": "Magic",
           "Base_Point_Cost": 3,
           "Category": "MAGIC",
-          "LockI": 20,
-          "LockF": 50,
+          "LockI": 10,
+          "LockF": 10,
           "Base_Damage": 20
         }
       ]
     },
     {
-      "Name": "THROWABLE", "Cards": [
-      {
-        "Name": "Small Bomb",
-        "Type": "bomb",
-        "Base_Point_Cost": 3,
-        "Category": "THROWABLE",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Damage": 15,
-        "Size": "small",
-        "Range": 3
-      },
-      {
-        "Name": "Bomb",
-        "Type": "bomb",
-        "Base_Point_Cost": 3,
-        "Category": "THROWABLE",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Damage": 15,
-        "Size": "medium",
-        "Range": 3
-      },
-      {
-        "Name": "Horizontal Bomb",
-        "Type": "bomb",
-        "Base_Point_Cost": 3,
-        "Category": "THROWABLE",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Damage": 15,
-        "Size": "horizontal",
-        "Range": 3
-      },
-      {
-        "Name": "Vertical Bomb",
-        "Type": "bomb",
-        "Base_Point_Cost": 3,
-        "Category": "THROWABLE",
-        "LockI": 20,
-        "LockF": 50,
-        "Base_Damage": 15,
-        "Size": "vertical",
-        "Range": 3
-      }
-    ]
+      "Name": "THROWABLE",
+      "Cards": [
+        {
+          "Name": "Small Bomb",
+          "Type": "bomb",
+          "Base_Point_Cost": 3,
+          "Category": "THROWABLE",
+          "LockI": 5,
+          "LockF": 15,
+          "Base_Damage": 15,
+          "Size": "small",
+          "Range": 3
+        },
+        {
+          "Name": "Bomb",
+          "Type": "bomb",
+          "Base_Point_Cost": 3,
+          "Category": "THROWABLE",
+          "LockI": 5,
+          "LockF": 15,
+          "Base_Damage": 15,
+          "Size": "medium",
+          "Range": 3
+        },
+        {
+          "Name": "Horizontal Bomb",
+          "Type": "bomb",
+          "Base_Point_Cost": 3,
+          "Category": "THROWABLE",
+          "LockI": 5,
+          "LockF": 15,
+          "Base_Damage": 15,
+          "Size": "horizontal",
+          "Range": 3
+        },
+        {
+          "Name": "Vertical Bomb",
+          "Type": "bomb",
+          "Base_Point_Cost": 3,
+          "Category": "THROWABLE",
+          "LockI": 5,
+          "LockF": 15,
+          "Base_Damage": 15,
+          "Size": "vertical",
+          "Range": 3
+        }
+      ]
     }
   ]
 }

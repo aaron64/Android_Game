@@ -1,12 +1,10 @@
 package com.mygdx.game.entities.battle;
 
 
-import com.mygdx.game.Game;
 import com.mygdx.game.PlayerVars;
 import com.mygdx.game.action.ActionLock;
 import com.mygdx.game.action.ActionUseCard;
 import com.mygdx.game.animation.BattleMoveAnimation;
-import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.items.cards.Deck;
@@ -24,8 +22,6 @@ public class BattlePlayer extends BattleLiving {
         super(scene, tile, "player", Facing.RIGHT, health, maxHealth);
         acceptedTileTypes = new SceneBattleTileType[]{SceneBattleTileType.FRIENDLY, SceneBattleTileType.NEUTRAL};
 
-        getSize().multiply(scene.getGrid().getTile(0,0).getSize().w() / getSize().w()* 0.6f);
-
         hand = new Deck(5);
         secondary = PlayerVars.secondaryAttack;
     }
@@ -33,20 +29,12 @@ public class BattlePlayer extends BattleLiving {
     @Override
     public void update() {
         super.update();
+        spriteSheet.update();
     }
 
     @Override
     public void render(RenderSystem rs) {
         super.render(rs);
-
-        rs.setShader(RenderSystem.elementOverlayShader);
-        rs.beginShader();
-
-        rs.setUniform1f("u_time", (float) Game.time);
-        rs.setUniformTexture("u_texture_overlay", Image.getImage("misc/Grass_overlay"), 1);
-        super.render(rs);
-        rs.setShader(null);
-        //rs.endShader();
     }
 
     public void useCard() {

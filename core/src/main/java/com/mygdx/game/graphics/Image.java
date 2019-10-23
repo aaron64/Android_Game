@@ -244,6 +244,7 @@ public class Image {
         textureMap.put("misc/Grass_overlay", SHADER_GRASS_OVERLAY);
 
         textureMap.put("lighting/SPOT_LIGHT", SPOT_LIGHT);
+        SPOT_LIGHT.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Linear);
         textureMap.put("lighting/SHADOW", SHADOW);
     }
 

@@ -119,7 +119,7 @@ public class SceneBattleGrid {
     }
 
     public boolean isFreeTile(Vector2i indexPos) {
-        return isInBounds(indexPos) && getTile(indexPos).getEntity() == null;
+        return isInBounds(indexPos) && getTile(indexPos).getEntity() == null && !getTile(indexPos).held();
     }
 
     public Vector2f getAbsoluteTilePosition(Vector2i indexPos) {

@@ -1,6 +1,7 @@
 package com.mygdx.game.graphics;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
 
@@ -13,10 +14,10 @@ public class CharacterSprite {
 
     private Vector2i srcPos, srcSize;
 
-    public CharacterSprite(Texture texture, Vector2i size) {
+    public CharacterSprite(Texture texture, Vector2i size, int animationSpeed) {
         spriteSheet = texture;
 
-        animationSpeed = 10;
+        this.animationSpeed = animationSpeed;
         animationCount = 0;
 
         this.size = size;
@@ -38,7 +39,7 @@ public class CharacterSprite {
                 srcPos.y = 0 * srcSize.h();
             }
         }
-        animationCount++;
+        animationCount += 1 + (MathUtil.getDistance(vel) / 3);
         srcPos.x = ((animationCount/animationSpeed)%4) * srcSize.w();
     }
 

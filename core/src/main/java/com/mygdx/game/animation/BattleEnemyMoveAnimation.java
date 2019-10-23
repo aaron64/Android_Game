@@ -18,6 +18,8 @@ public class BattleEnemyMoveAnimation extends Animation {
         this.from = entity.getPos();
         this.to = newTile.getPos();
 
+        newTile.hold();
+
         this.oldTile = oldTile;
         this.newTile = newTile;
 
@@ -38,6 +40,7 @@ public class BattleEnemyMoveAnimation extends Animation {
 
             oldTile.removeEntity();
 
+            newTile.free();
             newTile.setEntity(entity);
             entity.setIndexPos(newTile.getIndexPos());
         }

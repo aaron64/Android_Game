@@ -26,13 +26,14 @@ public class MagicCard extends AttackCard {
     }
 
     @Override
-    public void drawIcon(RenderSystem rs, Vector2f pos, Vector2i size) {
+    public void drawIcon(RenderSystem rs, Vector2f pos, Vector2i size, float alpha) {
         spriteSheet.update();
         spriteSheetOverlay.update();
 
+        rs.setColor(1f, 1f, 1f, alpha);
         spriteSheet.render(rs, pos, size);
         if(getElement() != null) {
-            rs.setColor(getElement().getColor());
+            rs.setColor(getElement().getColor(), alpha);
             spriteSheetOverlay.render(rs, pos, size);
         }
         rs.resetColor();

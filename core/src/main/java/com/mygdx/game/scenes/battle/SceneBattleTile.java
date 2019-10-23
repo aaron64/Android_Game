@@ -21,6 +21,8 @@ public class SceneBattleTile extends BattleEntity implements CooldownInterface {
     private Texture tileTexture, tileEndTexture;
     private Vector2f endPos;
 
+    private boolean held = false;
+
     private static Texture lightUpOverlay = Image.getImage("entities/tiles/battle/tile_light_up");
 
 
@@ -59,9 +61,7 @@ public class SceneBattleTile extends BattleEntity implements CooldownInterface {
         rs.draw(tileTexture, getPos(), getSize());
         super.render(rs);
         if(lightUp) {
-            rs.setOverlayMode();
             rs.draw(lightUpOverlay, getPos(), getSize());
-            rs.setNormalMode();
         }
     }
 
@@ -80,6 +80,18 @@ public class SceneBattleTile extends BattleEntity implements CooldownInterface {
             scene.enemyKilled((BattleEnemy)this.entity);
         }
         this.entity = entity;
+    }
+
+    public boolean held() {
+        return held;
+    }
+
+    public void hold() {
+        held = true;
+    }
+
+    public void free() {
+        held = false;
     }
 
     public void removeEntity() {

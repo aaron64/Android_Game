@@ -81,16 +81,6 @@ public abstract class Card extends Item {
         this.description = description;
     }
 
-
-    public void drawIcon(RenderSystem rs, Vector2f pos, Vector2i size) {
-        rs.draw(icon, pos, size);
-        if(getElement() != null) {
-            rs.setColor(getElement().getColor());
-            rs.draw(overlay_texture, pos, size);
-        }
-        rs.resetColor();
-    }
-
     public void drawIcon(RenderSystem rs, Vector2f pos, Vector2i size, float alpha) {
         rs.setColor(1f, 1f, 1f, alpha);
         rs.draw(icon, pos, size);

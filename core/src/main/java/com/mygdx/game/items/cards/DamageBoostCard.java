@@ -40,9 +40,10 @@ public class DamageBoostCard extends PotionCard {
     }
 
     @Override
-    public void drawIcon(RenderSystem rs, Vector2f pos, Vector2i size) {
+    public void drawIcon(RenderSystem rs, Vector2f pos, Vector2i size, float alpha) {
+        rs.setColor(1,1, 1, alpha);
         rs.draw(icon, pos, size);
-        rs.setColor(Element.FIRE.getColor());
+        rs.setColor(Element.SHOCK.getColor(), alpha);
         rs.draw(overlay_texture, pos, size);
         rs.resetColor();
     }

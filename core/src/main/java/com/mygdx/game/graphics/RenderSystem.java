@@ -27,7 +27,9 @@ public class RenderSystem {
     private ShapeRenderer shapeRenderer;
 
     public static ShaderProgram iconShader;
-    public static ShaderProgram elementOverlayShader;
+    public static ShaderProgram lightingShader;
+    public static ShaderProgram grassOverlayShader;
+    public static ShaderProgram waterOverlayShader;
 
     private FrameBuffer fbo;
     private TextureRegion fbo_tr;
@@ -43,8 +45,12 @@ public class RenderSystem {
         ShaderProgram.pedantic = false;
         iconShader = new ShaderProgram(Gdx.files.internal("shaders/vertex_default.glsl").readString(),
                 Gdx.files.internal("shaders/fragment_card_icon.glsl").readString());
-        elementOverlayShader = new ShaderProgram(Gdx.files.internal("shaders/vertex_default.glsl").readString(),
-                Gdx.files.internal("shaders/fragment_element_overlay.glsl").readString());
+        lightingShader = new ShaderProgram(Gdx.files.internal("shaders/vertex_default.glsl").readString(),
+                Gdx.files.internal("shaders/fragment_lighting.glsl").readString());
+        grassOverlayShader = new ShaderProgram(Gdx.files.internal("shaders/vertex_default.glsl").readString(),
+                Gdx.files.internal("shaders/fragment_Grass_overlay.glsl").readString());
+        waterOverlayShader = new ShaderProgram(Gdx.files.internal("shaders/vertex_default.glsl").readString(),
+                Gdx.files.internal("shaders/fragment_Water_overlay.glsl").readString());
 
         shapeRenderer = new ShapeRenderer();
 
@@ -121,6 +127,19 @@ public class RenderSystem {
             batch.setProjectionMatrix(uiMatrix);
         }
         batch.draw(fbo_tr, 0, 0, Window.getWidth(), Window.getHeight());
+    }
+
+    public void drawFBO(TextureRegion tr) {
+        if(camera != null) {
+            Matrix4 uiMatrix = camera.combined.cpy();
+            uiMatrix.setToOrtho2D(0, 0, Window.getWidth(), Window.getHeight());
+            batch.setProjectionMatrix(uiMatrix);
+        }
+        batch.draw(tr, 0, 0, Window.getWidth(), Window.getHeight());
+        if(camera != null) {
+            camera.update();
+            batch.setProjectionMatrix(camera.combined);
+        }
     }
 
 
@@ -212,9 +231,6 @@ public class RenderSystem {
         batch.getShader().begin();
     }
 
-    public void endShader() {
-        batch.getShader().end();
-    }
 
     public void setOverlayMode() {
         batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_SRC_ALPHA);
@@ -225,7 +241,7 @@ public class RenderSystem {
     }
 
     public void setLightMode() {
-        batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_SRC_ALPHA);
+        batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_DST_COLOR);
     }
 
     public Vector2f getWorldPos(int x, int y) {

@@ -31,7 +31,7 @@ public class MapBattle extends Map {
         setBackground(Image.getImage("backgrounds/" + bgPath));
         backgroundPos = new Vector2f(0, 0);
 
-        bg_decor = Image.getImage("backgrounds/bg_decor1");
+        //bg_decor = Image.getImage("backgrounds/bg_decor1");
 
         scrollRate = 1.2f;
 
@@ -40,25 +40,25 @@ public class MapBattle extends Map {
         //particles = new ParticleSystem("snow", 100, -3, -5, 2, 2, 2, 4);
         //particlesFG = new ParticleSystem("snow", 50, -3, -5, 2, 2, 6, 4);
 
-        particles = new ParticleSystem("rain", 300, -3, -30, 2, 2, 8, 4);
-        particlesFG = new ParticleSystem("rain", 100, -3, -25, 2, 2, 10, 4);
+        //particles = new ParticleSystem("rain", 300, -3, -30, 2, 2, 8, 4);
+        //particlesFG = new ParticleSystem("rain", 100, -3, -25, 2, 2, 10, 4);
     }
 
     @Override
     public void update() {
-        particles.update(scene);
-        particlesFG.update(scene);
+        //particles.update(scene);
+        //particlesFG.update(scene);
     }
 
     @Override
     public void render(RenderSystem rs) {
         rs.draw(getBackground(), backgroundPos, Window.getSize());
-        rs.draw(bg_decor, backgroundPos, Window.getSize());
-        particles.render(rs);
+        //rs.draw(bg_decor, backgroundPos, Window.getSize());
+        //particles.render(rs);
     }
 
     @Override
     public void renderForeground(RenderSystem rs) {
-        particlesFG.render(rs);
+        //particlesFG.render(rs);
     }
 }

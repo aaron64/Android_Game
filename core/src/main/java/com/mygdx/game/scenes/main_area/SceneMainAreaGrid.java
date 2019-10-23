@@ -129,7 +129,7 @@ public class SceneMainAreaGrid {
         Vector2i TR = Vector2i.divideVectors(new Vector2f(pos.x + size.w(), pos.y + size.h()), tileSize);
         Vector2i BR = Vector2i.divideVectors(new Vector2f(pos.x + size.w(), pos.y), tileSize);
 
-        return (getTile(BL) != null && getTile(TL) != null && getTile(TR) != null && getTile(BR) != null);
+        return (getTile(BL) != null && getTile(TL) != null && getTile(TR) != null && getTile(BR) != null && e.getPos().x > 0 && e.getPos().y > 0);
     }
 
 

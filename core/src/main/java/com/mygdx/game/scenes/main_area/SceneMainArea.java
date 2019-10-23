@@ -8,6 +8,7 @@ import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.main_area.MainAreaEntity;
 import com.mygdx.game.entities.main_area.MainAreaEntityComparator;
 import com.mygdx.game.entities.main_area.Player;
+import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.graphics.Window;
 import com.mygdx.game.lighting.SpotLight;
 import com.mygdx.game.map.MapMainArea;
@@ -28,7 +29,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
     public SceneMainArea() {
         super();
         rs.setCamera(new OrthographicCamera(Window.getWidth(), Window.getHeight()));
-        rs.getCamera().zoom = 0.5f;
+        rs.getCamera().zoom = 0.4f;
 
         grid = new SceneMainAreaGrid(this);
 
@@ -61,6 +62,8 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
     @Override
     public void render() {
+        lightEngine.render(rs);
+
         rs.beginFBO();
         rs.begin();
         rs.beginMainContent();
@@ -70,8 +73,6 @@ public class SceneMainArea extends Scene implements GestureHandler {
         for(Entity e : entities.getList()) {
             e.render(rs);
         }
-
-        lightEngine.render(rs);
         rs.end();
         rs.endFBO();
 
@@ -79,7 +80,11 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
         map.render(rs);
 
+        rs.setShader(RenderSystem.lightingShader);
+        rs.beginShader();
+        rs.setUniformTexture("u_lightmap", lightEngine.getImage().getTexture(), 1);
         rs.drawFBO();
+        rs.setShader(null);
 
         gui.render(rs);
 
@@ -170,7 +175,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
     @Override
     public void zoom(float initialDistance, float distance) {
-        rs.getCamera().zoom = Math.max(0.3f, Math.min(0.5f, initialDistance/distance));
+        rs.getCamera().zoom = Math.max(0.3f, Math.min(0.5f, rs.getCamera().zoom * (initialDistance/distance)));
     }
 
     @Override
