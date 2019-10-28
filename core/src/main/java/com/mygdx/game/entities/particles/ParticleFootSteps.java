@@ -32,7 +32,7 @@ public class ParticleFootSteps extends ParticleSystem {
             case WATER:
                 setImage(water);
                 break;
-            case NORMAL:
+            case PATH:
                 setImage(grass);
                 break;
         }

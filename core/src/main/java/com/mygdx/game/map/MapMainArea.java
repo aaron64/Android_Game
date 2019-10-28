@@ -16,7 +16,7 @@ public class MapMainArea extends Map {
         setBackground(Image.getImage("backgrounds/" + bgPath));
 
         backgroundSize = Window.getSize();
-        backgroundPos = new Vector2f(0,0);
+        backgroundPos = new Vector2f();
     }
 
     @Override

@@ -21,11 +21,13 @@ public class Image {
     public static Texture BATTLE_MAP_6 = new Texture("battle_maps/map6.png");
     public static Texture BATTLE_MAP_7 = new Texture("battle_maps/map7.png");
 
-
     public static Texture ENTITY_BATTLE_MISC_ARROW = new Texture("entities/battle/misc/arrow.png");
     public static Texture ENTITY_BATTLE_MISC_BOMB = new Texture("entities/battle/misc/bomb.png");
     public static Texture ENTITY_BATTLE_MISC_MAGIC = new Texture("entities/battle/misc/magic_projectile.png");
+    public static Texture ENTITY_BATTLE_MISC_MAGIC_OVERLAY = new Texture("entities/battle/misc/magic_projectile_overlay.png");
     public static Texture TILE_EXPLOSION = new Texture("entities/battle/misc/explosion.png");
+    public static Texture HIT_SWIPE = new Texture("entities/battle/misc/hit_swipe.png");
+    public static Texture HIT_EFFECT = new Texture("entities/battle/misc/hit_effect.png");
 
     public static Texture ENTITY_BATTLE_ENEMY = new Texture("entities/battle/enemy.png");
     public static Texture ENTITY_BATTLE_MAGE = new Texture("entities/battle/mage.png");
@@ -51,10 +53,14 @@ public class Image {
     public static Texture ENTITY_TILE_BATTLE_NEUTRAL = new Texture("entities/tiles/battle/tile_neutral.png");
     public static Texture ENTITY_TILE_BATTLE_NONE = new Texture("entities/tiles/battle/tile_none.png");
 
-    public static Texture ENTITY_TILE_BASIC = new Texture("entities/tiles/tile_basic.png");
+    public static Texture ENTITY_TILE_ROOM = new Texture("entities/tiles/tile_room.png");
+    public static Texture ENTITY_TILE_PATH_BASIC = new Texture("entities/tiles/tile_path_basic.png");
     public static Texture ENTITY_TILE_END0 = new Texture("entities/tiles/tile_end0.png");
     public static Texture ENTITY_TILE_END1 = new Texture("entities/tiles/tile_end1.png");
     public static Texture ENTITY_TILE_END2 = new Texture("entities/tiles/tile_end2.png");
+    public static Texture ENTITY_TILE_END0_MAP = new Texture("entities/tiles/tile_end0_map.png");
+    public static Texture ENTITY_TILE_END1_MAP = new Texture("entities/tiles/tile_end1_map.png");
+    public static Texture ENTITY_TILE_END2_MAP= new Texture("entities/tiles/tile_end2_map.png");
     public static Texture ENTITY_TILE_WATER = new Texture("entities/tiles/tile_water.png");
 
     public static Texture GUI_BOXB = new Texture("gui/box/boxB.png");
@@ -124,6 +130,7 @@ public class Image {
     public static Texture SHADER_GRASS_OVERLAY = new Texture("misc/Grass_overlay.png");
 
     public static Texture SPOT_LIGHT = new Texture("lighting/SPOT_LIGHT.png");
+    public static Texture DIRECTION_LIGHT = new Texture("lighting/DIRECTION_LIGHT.png");
     public static Texture SHADOW = new Texture("lighting/SHADOW.png");
 
 
@@ -145,7 +152,10 @@ public class Image {
         textureMap.put("entities/battle/misc/arrow", ENTITY_BATTLE_MISC_ARROW);
         textureMap.put("entities/battle/misc/bomb", ENTITY_BATTLE_MISC_BOMB);
         textureMap.put("entities/battle/misc/magic_projectile", ENTITY_BATTLE_MISC_MAGIC);
+        textureMap.put("entities/battle/misc/magic_projectile_overlay", ENTITY_BATTLE_MISC_MAGIC_OVERLAY);
         textureMap.put("entities/battle/misc/explosion", TILE_EXPLOSION);
+        textureMap.put("entities/battle/misc/hit_swipe", HIT_SWIPE);
+        textureMap.put("entities/battle/misc/hit_effect", HIT_EFFECT);
 
         textureMap.put("entities/battle/enemy", ENTITY_BATTLE_ENEMY);
         textureMap.put("entities/battle/mage", ENTITY_BATTLE_MAGE);
@@ -171,10 +181,14 @@ public class Image {
         textureMap.put("entities/tiles/battle/tile_neutral", ENTITY_TILE_BATTLE_NEUTRAL);
         textureMap.put("entities/tiles/battle/tile_none", ENTITY_TILE_BATTLE_NONE);
 
-        textureMap.put("entities/tiles/tile_basic", ENTITY_TILE_BASIC);
+        textureMap.put("entities/tiles/tile_room", ENTITY_TILE_ROOM);
+        textureMap.put("entities/tiles/tile_path_basic", ENTITY_TILE_PATH_BASIC);
         textureMap.put("entities/tiles/tile_end0", ENTITY_TILE_END0);
         textureMap.put("entities/tiles/tile_end1", ENTITY_TILE_END1);
         textureMap.put("entities/tiles/tile_end2", ENTITY_TILE_END2);
+        textureMap.put("entities/tiles/tile_end0_map", ENTITY_TILE_END0_MAP);
+        textureMap.put("entities/tiles/tile_end1_map", ENTITY_TILE_END1_MAP);
+        textureMap.put("entities/tiles/tile_end2_map", ENTITY_TILE_END2_MAP);
         textureMap.put("entities/tiles/tile_water", ENTITY_TILE_WATER);
 
         textureMap.put("gui/box/boxB", GUI_BOXB);
@@ -195,7 +209,7 @@ public class Image {
         textureMap.put("gui/button/button_pressed", GUI_BUTTON_PRESSED);
 
         textureMap.put("gui/heart", GUI_HEART);
-        textureMap.put("gui/selection_hard", GUI_SELECTION_BAR);
+        textureMap.put("gui/selection_bar", GUI_SELECTION_BAR);
         textureMap.put("gui/selection_bar_ready", GUI_SELECTION_BAR_READY);
 
         textureMap.put("items/cards/bows/Bow_icon", CARD_BOW_ICON);
@@ -245,6 +259,8 @@ public class Image {
 
         textureMap.put("lighting/SPOT_LIGHT", SPOT_LIGHT);
         SPOT_LIGHT.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Linear);
+        textureMap.put("lighting/DIRECTION_LIGHT", DIRECTION_LIGHT);
+        DIRECTION_LIGHT.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Linear);
         textureMap.put("lighting/SHADOW", SHADOW);
     }
 

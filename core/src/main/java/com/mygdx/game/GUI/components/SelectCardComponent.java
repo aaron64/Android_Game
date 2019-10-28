@@ -11,7 +11,7 @@ import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.scenes.battle.hand_select.SceneHandSelect;
 import com.mygdx.game.util.Vector2f;
 
-public class SelectCard extends GUIVPanel {
+public class SelectCardComponent extends GUIVPanel {
 
     private GUIText points, title, description;
     private CardIconComponent icon;
@@ -23,7 +23,7 @@ public class SelectCard extends GUIVPanel {
 
     private boolean selected = false;
 
-    public SelectCard(GUI gui, String name, GUIComponent parent, Vector2f size, Card card, SceneHandSelect scene) {
+    public SelectCardComponent(GUI gui, String name, GUIComponent parent, Vector2f size, Card card, SceneHandSelect scene) {
         super(gui, name, parent, size);
 
         setMargin(20, 0);

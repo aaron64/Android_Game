@@ -3,9 +3,7 @@ package com.mygdx.game.entities.main_area;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.PlayerVars;
 import com.mygdx.game.entities.Entity;
-import com.mygdx.game.factories.CardFactory;
 import com.mygdx.game.graphics.Image;
-import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.scenes.main_area.SceneMainAreaTile;
 import com.mygdx.game.util.MathUtil;
@@ -56,7 +54,7 @@ public class Chest extends MainAreaEntity {
             contents.add(new HealthBlob(scene, new Vector2f(getPos())));
         }
 
-        Card card = CardFactory.buildRandomCard(chestType.cardDistribution);
+        //Card card = CardFactory.buildRandomCard(chestType.cardDistribution);
         //contents.add(new PhysicalCard(scene, new Vector2f(getPos()), card));
     }
 

@@ -42,8 +42,8 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
         pack = PlayerVars.pack;
 
         cardHeld = null;
-        cardHeldPos = new Vector2f(0,0);
-        cardHeldOffset = new Vector2f(0, 0);
+        cardHeldPos = new Vector2f();
+        cardHeldOffset = new Vector2f();
 
         gestureHandler = new GestureUtil(this);
 

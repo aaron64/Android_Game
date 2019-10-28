@@ -40,6 +40,7 @@ public class Deck {
         removeList.clear();
     }
 
+
     public Card getCard(int index) {
         return cards.get(index);
     }
@@ -61,6 +62,11 @@ public class Deck {
     public void remove(int i) {
         removeList.add(cards.get(i));
     }
+
+    public void remove(Card card){
+        removeList.add(card);
+    }
+
 
     public void shuffle() {
         Collections.shuffle(cards);

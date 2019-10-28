@@ -16,28 +16,30 @@ public class ImageUtil {
 
         final int white = Color.rgba8888(Color.WHITE);
         final int red = Color.rgba8888(Color.RED);
-        final int green = Color.rgba8888(Color.GREEN);
+        final int grey = Color.rgba8888(new Color(0.502f, 0.502f, 0.502f, 1));
+        final int pink = Color.rgba8888(new Color(1, 0.502f, 0.502f, 1));
         final int yellow = Color.rgba8888(Color.YELLOW);
         final int blue = Color.rgba8888(Color.BLUE);
         final int navy = Color.rgba8888(new Color(0,0,0.502f,1));
-        final int black = Color.rgba8888(Color.BLACK);
 
         for(int i = 0; i < image.getWidth(); i++) {
             for(int j = 0; j < image.getHeight(); j++) {
                 int color = pixelMap.getPixel(i,j);
 
                 if(color == white)
-                    map[i][j] = SceneMainAreaTileType.NORMAL;
+                    map[i][j] = SceneMainAreaTileType.PATH;
                 else if(color == red)
-                    map[i][j] = SceneMainAreaTileType.ENEMY;
+                    map[i][j] = SceneMainAreaTileType.PATH_ENEMY;
                 else if(color == yellow)
                     map[i][j] = SceneMainAreaTileType.CHEST;
                 else if(color == blue)
                     map[i][j] = SceneMainAreaTileType.SPAWN;
                 else if(color == navy)
                     map[i][j] = SceneMainAreaTileType.WATER;
-                else if(color == green)
-                    map[i][j] = SceneMainAreaTileType.DOOR;
+                else if(color == grey)
+                    map[i][j] = SceneMainAreaTileType.ROOM;
+                else if(color == pink)
+                    map[i][j] = SceneMainAreaTileType.ROOM_ENEMY;
                 else
                     map[i][j] = SceneMainAreaTileType.NONE;
             }

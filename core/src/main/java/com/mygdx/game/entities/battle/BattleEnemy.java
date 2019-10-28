@@ -15,7 +15,7 @@ public abstract class BattleEnemy extends BattleLiving {
 
     public BattleEnemy(SceneBattle scene, SceneBattleTile tile, String name, int health, Element element) {
         super(scene, tile, name, Facing.LEFT, health, health);
-        healthComponent = new BattleEnemyHealthComponent(scene.getGUI(), name + "_HEALTH", scene.getGUI().getNode(), new Vector2f(0,0), this);
+        healthComponent = new BattleEnemyHealthComponent(scene.getGUI(), name + "_HEALTH", scene.getGUI().getNode(), new Vector2f(), this);
         this.element = element;
 
         scene.enemySpawned(this);

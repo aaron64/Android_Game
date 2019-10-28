@@ -1,11 +1,10 @@
 package com.mygdx.game.entities.battle;
 
-import com.mygdx.game.Game;
 import com.mygdx.game.animation.BattleHitAnimation;
 import com.mygdx.game.attributes.Element;
 import com.mygdx.game.attributes.ElementState;
 import com.mygdx.game.entities.Entity;
-import com.mygdx.game.graphics.Image;
+import com.mygdx.game.entities.battle.misc.HitEffect;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.graphics.TimedSpriteSheet;
 import com.mygdx.game.items.cards.Card;
@@ -81,13 +80,9 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
     public void render(RenderSystem rs) {
         spriteSheet.render(rs, getPos());
 
-        rs.setShader(RenderSystem.grassOverlayShader);
-        rs.beginShader();
-
-        rs.setUniform1f("u_time", (float) Game.time);
-        rs.setUniformTexture("u_texture_overlay", Image.getImage("misc/Grass_overlay"), 1);
-        spriteSheet.render(rs, getPos());
-        rs.setShader(null);
+        if(elementState != null) {
+            elementState.render(rs, spriteSheet, getPos());
+        }
     }
 
     public void move(Vector2i dp) {
@@ -152,6 +147,7 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
         if(this instanceof BattleEnemy)
             hitDirection = 1;
         scene.addAnimation(new BattleHitAnimation(hitDirection, this));
+        scene.addEntity(new HitEffect(scene, getIndexPos()));
     }
 
     @Override

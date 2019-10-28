@@ -1,16 +1,40 @@
 package com.mygdx.game.attributes;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.graphics.RenderSystem;
+import com.mygdx.game.graphics.SpriteSheet;
+import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vector2i;
 
 public enum Element {
-    FIRE ("Fire", new Color(0.827f, 0.298f, 0.267f, 1)),
-    WATER ("Water", new Color(0.212f, 0.604f, 0.827f, 1)),
-    POISON ("Poison", new Color(0.482f, 0.333f, 0.459f, 1)),
-    SHOCK ("Shock", new Color(1f, 1f, 0.322f, 1)),
-    GRASS ("Grass", new Color(0.57f, 0.8f, 0.2f, 1));
+    FIRE ("Fire",
+            new Color(0.922f, 0.506f, 0.569f, 1),
+            new Color(0.831f, 0.541f, 0.639f, 1),
+            new Color(0.729f, 0.502f, 0.604f, 1)),
+
+    WATER ("Water",
+            new Color(0.341f, 0.682f, 0.831f, 1),
+    	    new Color(0.369f, 0.561f, 0.722f, 1),
+    	    new Color(0.290f, 0.412f, 0.569f, 1)),
+
+    POISON ("Poison",
+            new Color(0.596f, 0.557f, 0.804f, 1),
+    	    new Color(0.459f, 0.475f, 0.643f, 1),
+    	    new Color(0.361f, 0.384f, 0.482f, 1)),
+
+    SHOCK ("Shock",
+            new Color(1.000f, 0.925f, 0.651f, 1),
+    	    new Color(0.878f, 0.831f, 0.651f, 1),
+    	    new Color(0.761f, 0.753f, 0.608f, 1)),
+
+    GRASS ("Grass",
+            new Color(0.690f, 0.851f, 0.690f, 1),
+    	    new Color(0.639f, 0.749f, 0.655f, 1),
+    	    new Color(0.459f, 0.561f, 0.490f, 1));
 
     private String str;
-    private Color color;
+    private Color highlight, mid, shadow;
     private Element[] strength, weakness;
 
     static {
@@ -29,15 +53,21 @@ public enum Element {
         GRASS.strength = new Element[]{WATER, SHOCK};
         GRASS.weakness = new Element[]{FIRE, POISON};
     }
-    Element(String str, Color color) {
+    Element(String str, Color highlight, Color mid, Color shadow) {
         this.str = str;
-        this.color = color;
+        this.highlight = highlight;
+        this.mid = mid;
+        this.shadow = shadow;
     }
 
     public String getStr() {
         return str;
     }
-    public Color getColor() { return color; }
+
+    public Color getHighlight() { return highlight; }
+    public Color getMid() { return mid; }
+    public Color getShadow() { return shadow; }
+
     public Element[] getStrength() {
         return strength;
     }
@@ -78,5 +108,31 @@ public enum Element {
                 return null;
         }
         return Element.FIRE;
+    }
+
+    public static void drawTextureWithOverlay(RenderSystem rs, Texture texture, Texture overlay, Vector2f pos, Vector2i size, Element element) {
+        rs.draw(texture, pos, size);
+        if(element != null) {
+            rs.setShader(RenderSystem.elementShader);
+            rs.beginShader();
+            rs.setUniform4f("u_highlight", element.highlight);
+            rs.setUniform4f("u_mid", element.mid);
+            rs.setUniform4f("u_shadow", element.shadow);
+            rs.draw(overlay, pos, size);
+            rs.setShader(null);
+        }
+    }
+
+    public static void drawTextureWithOverlay(RenderSystem rs, SpriteSheet texture, SpriteSheet overlay, Vector2f pos, Vector2i size, Element element) {
+        texture.render(rs, pos, size);
+        if(element != null) {
+            rs.setShader(RenderSystem.elementShader);
+            rs.beginShader();
+            rs.setUniform4f("u_highlight", element.highlight);
+            rs.setUniform4f("u_mid", element.mid);
+            rs.setUniform4f("u_shadow", element.shadow);
+            overlay.render(rs, pos, size);
+            rs.setShader(null);
+        }
     }
 }

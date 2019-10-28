@@ -4,13 +4,13 @@ import com.mygdx.game.GUI.GUIComponent;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.Vector2f;
 
-public class GUIMoveInAnimation extends Animation {
+public class GUIMoveAnimation extends Animation {
 
     private Vector2f offset;
     private GUIComponent component;
-    private int time, count;
+    private int time, duration;
 
-    public GUIMoveInAnimation(Vector2f offset, int time, GUIComponent component) {
+    public GUIMoveAnimation(Vector2f offset, int time, GUIComponent component) {
         super(false, true, "GUI_MOVE_IN");
 
         this.offset = offset;
@@ -18,7 +18,7 @@ public class GUIMoveInAnimation extends Animation {
         this.offset.y *= 1f/time;
 
         this.time = time;
-        this.count = 0;
+        this.duration = 0;
 
         this.component = component;
     }
@@ -28,9 +28,9 @@ public class GUIMoveInAnimation extends Animation {
         component.getPos().add(offset);
         component.setChildPos();
 
-        count++;
+        duration++;
 
-        if(count >= time) {
+        if(duration >= time) {
             done = true;
         }
     }

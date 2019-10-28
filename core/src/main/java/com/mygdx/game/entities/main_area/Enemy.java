@@ -1,9 +1,9 @@
 package com.mygdx.game.entities.main_area;
 
 
+import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.Game;
-import com.mygdx.game.entities.main_area.MainAreaEntity;
-import com.mygdx.game.scenes.Scene;
+import com.mygdx.game.lighting.SpotLight;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.util.Vector2f;

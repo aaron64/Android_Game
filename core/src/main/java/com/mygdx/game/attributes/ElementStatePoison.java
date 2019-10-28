@@ -1,6 +1,9 @@
 package com.mygdx.game.attributes;
 
 import com.mygdx.game.entities.battle.BattleLiving;
+import com.mygdx.game.graphics.RenderSystem;
+import com.mygdx.game.graphics.SpriteSheet;
+import com.mygdx.game.util.Vector2f;
 
 public class ElementStatePoison extends ElementState {
 
@@ -10,6 +13,11 @@ public class ElementStatePoison extends ElementState {
 
         count = 0;
         time = 500;
+    }
+
+    @Override
+    public void render(RenderSystem rs, SpriteSheet spriteSheet, Vector2f pos) {
+
     }
 
     @Override

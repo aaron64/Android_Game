@@ -6,14 +6,14 @@ import com.mygdx.game.scenes.Scene;
 public class BattleHitAnimation extends Animation {
 
     private int direction;
-    private int time, count;
+    private int time, duration;
     private BattleLiving entity;
 
     public BattleHitAnimation(int direction, BattleLiving entity) {
         super(false, true, "BATTLE_HIT");
 
         time = 6;
-        count = 0;
+        duration = 0;
 
         this.direction = direction;
 
@@ -24,10 +24,10 @@ public class BattleHitAnimation extends Animation {
     public void update(Scene scene) {
         this.entity.getPos().x +=  direction;
 
-        if(count >= time) {
+        if(duration >= time) {
             done = true;
             this.entity.getPos().x -= direction * time;
         }
-        count++;
+        duration++;
     }
 }

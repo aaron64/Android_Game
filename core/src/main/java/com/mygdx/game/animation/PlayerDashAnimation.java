@@ -8,7 +8,7 @@ public class PlayerDashAnimation extends Animation {
 
     private Player player;
     private Vector2f direction;
-    private int time, count;
+    private int time, duration;
     private float velocity;
 
     public PlayerDashAnimation(boolean lock, boolean simultaneous, Player player, Vector2f dir, int time, float dist) {
@@ -18,7 +18,7 @@ public class PlayerDashAnimation extends Animation {
         this.direction = dir;
 
         this.time = time;
-        this.count = 0;
+        this.duration = 0;
 
         this.velocity = dist/time;
 
@@ -27,8 +27,8 @@ public class PlayerDashAnimation extends Animation {
 
     @Override
     public void update(Scene scene) {
-        count++;
-        if(count >= time) {
+        duration++;
+        if(duration >= time) {
             done = true;
         }
 

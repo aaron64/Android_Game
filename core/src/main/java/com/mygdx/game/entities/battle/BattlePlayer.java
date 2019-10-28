@@ -1,6 +1,7 @@
 package com.mygdx.game.entities.battle;
 
 
+import com.mygdx.game.GUI.components.BattleCurrentCardsComponent;
 import com.mygdx.game.PlayerVars;
 import com.mygdx.game.action.ActionLock;
 import com.mygdx.game.action.ActionUseCard;
@@ -37,12 +38,14 @@ public class BattlePlayer extends BattleLiving {
         super.render(rs);
     }
 
-    public void useCard() {
+    public void useCard(BattleCurrentCardsComponent battleCurrentCards) {
         if(!hand.isEmpty() && canUseItem()) {
             Card card = hand.pop();
             getActionQueue().add(new ActionLock(this, card.getInitialLock()));
             getActionQueue().add(new ActionUseCard(this, scene, card));
             getActionQueue().add(new ActionLock(this, card.getFinalLock()));
+
+            battleCurrentCards.useCard();
         }
     }
 

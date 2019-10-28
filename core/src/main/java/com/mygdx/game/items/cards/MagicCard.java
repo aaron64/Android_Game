@@ -33,7 +33,7 @@ public class MagicCard extends AttackCard {
         rs.setColor(1f, 1f, 1f, alpha);
         spriteSheet.render(rs, pos, size);
         if(getElement() != null) {
-            rs.setColor(getElement().getColor(), alpha);
+            rs.setColor(getElement().getHighlight(), alpha);
             spriteSheetOverlay.render(rs, pos, size);
         }
         rs.resetColor();

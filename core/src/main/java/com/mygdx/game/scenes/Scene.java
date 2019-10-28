@@ -70,4 +70,8 @@ public abstract class Scene {
     }
 
     public void buttonPress(String button) {}
+
+    public LightEngine getLightEngine() {
+        return lightEngine;
+    }
 }

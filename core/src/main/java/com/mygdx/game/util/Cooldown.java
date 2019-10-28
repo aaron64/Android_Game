@@ -7,11 +7,11 @@ public class Cooldown {
     private String name;
 
     private boolean ready;
-    private int time, count;
+    private int time, duration;
     public Cooldown(CooldownInterface inter, String name, boolean ready, int time) {
         this.name = name;
 
-        count = 0;
+        duration = 0;
         this.time = time;
         this.ready = ready;
 
@@ -19,8 +19,8 @@ public class Cooldown {
     }
 
     public void update() {
-        count++;
-        if(count > time) {
+        duration++;
+        if(duration > time) {
             ready = true;
             inter.trigger(name);
         }
@@ -32,7 +32,7 @@ public class Cooldown {
 
     public void reset() {
         ready = false;
-        count = 0;
+        duration = 0;
     }
 
     public int getDuration() {

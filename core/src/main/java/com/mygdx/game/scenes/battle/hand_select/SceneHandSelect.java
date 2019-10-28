@@ -3,11 +3,11 @@ package com.mygdx.game.scenes.battle.hand_select;
 import com.mygdx.game.GUI.GUIButton;
 import com.mygdx.game.GUI.GUIComponent;
 import com.mygdx.game.GUI.GUIHPanel;
-import com.mygdx.game.GUI.components.SelectHand;
+import com.mygdx.game.GUI.components.SelectHandComponent;
 import com.mygdx.game.Game;
 import com.mygdx.game.PlayerVars;
 import com.mygdx.game.animation.GUIFadeInAnimation;
-import com.mygdx.game.animation.GUIMoveInAnimation;
+import com.mygdx.game.animation.GUIMoveAnimation;
 import com.mygdx.game.entities.battle.BattlePlayer;
 import com.mygdx.game.graphics.Image;
 import com.mygdx.game.items.cards.Card;
@@ -29,7 +29,7 @@ public class SceneHandSelect extends Scene implements GestureHandler {
 
     private int maxCards;
 
-    private SelectHand selectHand;
+    private SelectHandComponent selectHand;
     private GUIHPanel selectHandContainer;
     private GUIHPanel rightPanel;
     private GUIButton goButton;
@@ -56,7 +56,7 @@ public class SceneHandSelect extends Scene implements GestureHandler {
 
         selectHandContainer = new GUIHPanel(gui, "HAND_CONTAINER", gui.getNode(), new Vector2f(0.7f, 1));
         selectHandContainer.setVerticalAnchor(GUIHPanel.VerticalAnchor.CENTER);
-        selectHand = new SelectHand(gui, "CARD_HAND", selectHandContainer, new Vector2f(1, 0.6f), cards, this);
+        selectHand = new SelectHandComponent(gui, "CARD_HAND", selectHandContainer, new Vector2f(1, 0.6f), cards, this);
 
         rightPanel = new GUIHPanel(gui, "RIGHT_PANEL", gui.getNode(), new Vector2f(0.15f, 1));
         rightPanel.setHorizontalAnchor(GUIComponent.HorizontalAnchor.CENTER);
@@ -64,7 +64,7 @@ public class SceneHandSelect extends Scene implements GestureHandler {
         goButton = new GUIButton(gui, "GO_BUTTON", rightPanel, new Vector2f(0.75f, 0), Image.getImage("gui/button/button_icon_go"), this);
         goButton.bottomMargin(16);
 
-        addAnimation(new GUIMoveInAnimation(new Vector2f(0, 50), 10, selectHandContainer));
+        addAnimation(new GUIMoveAnimation(new Vector2f(0, 50), 10, selectHandContainer));
         addAnimation(new GUIFadeInAnimation(10, selectHandContainer));
     }
 
@@ -72,10 +72,6 @@ public class SceneHandSelect extends Scene implements GestureHandler {
     public void update() {
         super.update();
         gui.update(this);
-    }
-
-    public void newHand() {
-
     }
 
     @Override
@@ -101,6 +97,9 @@ public class SceneHandSelect extends Scene implements GestureHandler {
     @Override
     public void buttonPress(String button) {
         if(button.equals("GO_BUTTON")) {
+            for(Card card : handSelection) {
+                deck.remove(card);
+            }
             Game.endScene();
         }
     }

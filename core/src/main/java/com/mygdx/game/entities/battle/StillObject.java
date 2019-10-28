@@ -1,6 +1,7 @@
 package com.mygdx.game.entities.battle;
 
 import com.mygdx.game.attributes.Element;
+import com.mygdx.game.entities.battle.misc.HitEffect;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 
@@ -26,5 +27,6 @@ public class StillObject extends BattleTileEntity {
         if(life <= 0) {
             scene.getTile(getIndexPos()).removeEntity();
         }
+        scene.addEntity(new HitEffect(scene, getIndexPos()));
     }
 }

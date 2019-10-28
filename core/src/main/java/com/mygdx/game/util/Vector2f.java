@@ -11,6 +11,10 @@ public class Vector2f extends Vector2a {
         this.y = y;
     }
 
+    public Vector2f() {
+        this(0, 0);
+    }
+
     public Vector2f(Vector2a v) {
         this(v.getValueX(), v.getValueY());
     }

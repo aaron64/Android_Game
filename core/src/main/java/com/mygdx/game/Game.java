@@ -68,7 +68,7 @@ public class Game extends ApplicationAdapter {
 	}
 
 	public static float getGravity() {
-    	return -1f;
+    	return -2f;
 	}
 	
 	@Override

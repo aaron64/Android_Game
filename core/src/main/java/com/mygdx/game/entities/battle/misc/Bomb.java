@@ -41,7 +41,7 @@ public class Bomb extends BattleEntity {
         throwTime = 25;
         throwTimeCounter = 0;
 
-        velocity = new Vector2f(0,0);
+        velocity = new Vector2f();
 
         float vMag = distance / throwTime;
 

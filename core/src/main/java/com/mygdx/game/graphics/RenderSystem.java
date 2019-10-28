@@ -26,10 +26,12 @@ public class RenderSystem {
 
     private ShapeRenderer shapeRenderer;
 
-    public static ShaderProgram iconShader;
+    public static ShaderProgram elementShader;
     public static ShaderProgram lightingShader;
     public static ShaderProgram grassOverlayShader;
     public static ShaderProgram waterOverlayShader;
+    public static ShaderProgram swordHitShader;
+    public static ShaderProgram hitEffectShader;
 
     private FrameBuffer fbo;
     private TextureRegion fbo_tr;
@@ -43,14 +45,18 @@ public class RenderSystem {
     public RenderSystem() {
         batch = new SpriteBatch();
         ShaderProgram.pedantic = false;
-        iconShader = new ShaderProgram(Gdx.files.internal("shaders/vertex_default.glsl").readString(),
-                Gdx.files.internal("shaders/fragment_card_icon.glsl").readString());
+        elementShader = new ShaderProgram(Gdx.files.internal("shaders/vertex_default.glsl").readString(),
+                Gdx.files.internal("shaders/fragment_element.glsl").readString());
         lightingShader = new ShaderProgram(Gdx.files.internal("shaders/vertex_default.glsl").readString(),
                 Gdx.files.internal("shaders/fragment_lighting.glsl").readString());
         grassOverlayShader = new ShaderProgram(Gdx.files.internal("shaders/vertex_default.glsl").readString(),
                 Gdx.files.internal("shaders/fragment_Grass_overlay.glsl").readString());
         waterOverlayShader = new ShaderProgram(Gdx.files.internal("shaders/vertex_default.glsl").readString(),
                 Gdx.files.internal("shaders/fragment_Water_overlay.glsl").readString());
+        swordHitShader = new ShaderProgram(Gdx.files.internal("shaders/vertex_default.glsl").readString(),
+                Gdx.files.internal("shaders/fragment_hit_sword.glsl").readString());
+        hitEffectShader = new ShaderProgram(Gdx.files.internal("shaders/vertex_default.glsl").readString(),
+                Gdx.files.internal("shaders/fragment_hit_effect.glsl").readString());
 
         shapeRenderer = new ShapeRenderer();
 
@@ -69,6 +75,10 @@ public class RenderSystem {
 
     public void draw(Texture image, Vector2f pos, Vector2i size) {
         batch.draw(image, pos.x, pos.y, size.w(), size.h());
+    }
+
+    public void draw(Texture image, Vector2f pos, Vector2i size, float rotation) {
+        batch.draw(image, pos.x, pos.y, size.w() / 2, size.h() / 2, size.w(), size.h(), 1, 1, rotation, 0, 0, image.getWidth(), image.getHeight(), false, false);
     }
 
     public void draw(Texture image, float x, float y, int w, int h) {
@@ -221,6 +231,10 @@ public class RenderSystem {
         }
     }
 
+    public void setUniform4f(String name, Color color) {
+        setUniform4f(name, color.r, color.g, color.b, color.a);
+    }
+
     public void setUniform1f(String name, float v0) {
         if(batch.getShader() != null) {
             batch.getShader().setUniformf(name, v0);
@@ -265,5 +279,9 @@ public class RenderSystem {
 
     public void setCamera(OrthographicCamera camera) {
         this.camera = camera;
+    }
+
+    public SpriteBatch getBatch() {
+        return batch;
     }
 }

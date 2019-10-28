@@ -2,7 +2,6 @@ package com.mygdx.game.util;
 
 
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.util.Vector2a;
 
 public class Vector2i extends Vector2a {
 
@@ -10,6 +9,10 @@ public class Vector2i extends Vector2a {
     public Vector2i(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Vector2i() {
+        this(0, 0);
     }
 
     public Vector2i(Vector2a v) {

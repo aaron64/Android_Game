@@ -1,5 +1,6 @@
 package com.mygdx.game.scenes.main_area;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.GUI.components.PlayerHealthComponent;
@@ -17,7 +18,6 @@ import com.mygdx.game.util.GestureHandler;
 import com.mygdx.game.util.GestureUtil;
 import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
 
 import java.util.Collections;
 
@@ -36,7 +36,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
         gestureHandler = new GestureUtil(this);
 
         player = new Player(this, grid.getPlayerSpawn(), "player");
-        lightEngine.addLight(new SpotLight(player.getPos(), new Vector2i(1024, 1024)));
+            lightEngine.addLight(new SpotLight(player, 1024, new Color(1, 1, 1, 0.6f)));
 
         entities.addEntity(player);
 
@@ -210,4 +210,6 @@ public class SceneMainArea extends Scene implements GestureHandler {
     public void resetInputs() {
         gestureHandler.reset();
     }
+
+
 }

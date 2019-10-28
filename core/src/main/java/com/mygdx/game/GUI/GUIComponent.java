@@ -65,7 +65,7 @@ public abstract class GUIComponent {
         if(parent != null)
             parent.addChild(this, size);
 
-        pos = new Vector2f(0,0);
+        pos = new Vector2f();
         gui.invalidate();
 
         setMargin(4);

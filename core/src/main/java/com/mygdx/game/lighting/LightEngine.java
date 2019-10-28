@@ -31,10 +31,10 @@ public class LightEngine {
         shadow = Image.SHADOW;
         lights = new ArrayList<Light>();
 
-        pos = new Vector2f(0, 0);
+        pos = new Vector2f();
         size = Window.getSize();
 
-        mainColor = new Color(1f, 1f, 1f, 1f);
+        mainColor = new Color(0.25f, 0.25f, 0.25f, 1f);
 
         fbo = new FrameBuffer(Pixmap.Format.RGBA8888, Window.getWidth(), Window.getHeight(), false);
         fbo_tr = new TextureRegion(fbo.getColorBufferTexture());
@@ -51,8 +51,10 @@ public class LightEngine {
         rs.resetColor();
 
         for(Light light : lights) {
+            rs.setColor(light.getColor());
             light.render(rs);
         }
+        rs.resetColor();
 
         rs.end();
         fbo.end();
@@ -70,5 +72,9 @@ public class LightEngine {
 
     public void addLight(Light light) {
         lights.add(light);
+    }
+
+    public void removeLight(Light light){
+        lights.remove(light);
     }
 }

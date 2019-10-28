@@ -62,7 +62,7 @@ public class Window {
     }
 
     public static Vector2i getBottomLeft() {
-        return new Vector2i(0, 0);
+        return new Vector2i();
     }
 
     public static Vector2i getBottomRight() {

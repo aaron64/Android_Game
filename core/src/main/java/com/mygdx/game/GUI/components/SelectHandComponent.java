@@ -11,11 +11,11 @@ import com.mygdx.game.util.Vector2f;
 
 import java.util.ArrayList;
 
-public class SelectHand extends GUIHPanel {
+public class SelectHandComponent extends GUIHPanel {
 
     private ArrayList<Card> cards;
 
-    public SelectHand(GUI gui, String name, GUIComponent parent, Vector2f size, ArrayList<Card> cards, SceneHandSelect scene) {
+    public SelectHandComponent(GUI gui, String name, GUIComponent parent, Vector2f size, ArrayList<Card> cards, SceneHandSelect scene) {
         super(gui, name, parent, size);
         this.cards = cards;
 
@@ -24,7 +24,7 @@ public class SelectHand extends GUIHPanel {
         for(int i = 0; i < cards.size(); i++) {
             Card card = cards.get(i);
             //Vector2f cardSize = new Vector2f(getSize().y * 0.7f, 1);
-            SelectCard selectCard = new SelectCard(gui, "CARD" + i, this, new Vector2f(0.3f, 1), card, scene);
+            SelectCardComponent selectCard = new SelectCardComponent(gui, "CARD" + i, this, new Vector2f(0.3f, 1), card, scene);
         }
     }
 

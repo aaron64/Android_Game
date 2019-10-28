@@ -32,4 +32,8 @@ public class GUIImage extends GUIHPanel {
         rs.resetColor();
         super.render(rs);
     }
+
+    public void setImage(Texture texture) {
+        this.texture = texture;
+    }
 }

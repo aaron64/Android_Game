@@ -6,25 +6,37 @@ import com.mygdx.game.util.Vector2i;
 
 public class SpriteSheet {
 
-    private Texture spriteSheet;
-    private int n;
+    protected Texture spriteSheet;
+    protected int n;
 
-    private Vector2i size;
+    protected Vector2i size;
 
-    private Vector2i srcPos, srcSize;
+    protected Vector2i srcPos, srcSize;
 
-    public SpriteSheet(Texture texture, int n) {
+    public SpriteSheet(Texture texture, Vector2i size, int n) {
         spriteSheet = texture;
 
         this.n = n;
-        srcPos = new Vector2i(0,0);
+        srcPos = new Vector2i();
         srcSize = new Vector2i(spriteSheet.getWidth() / n, spriteSheet.getHeight());
 
-        size = new Vector2i(spriteSheet.getWidth()/n, spriteSheet.getHeight());
+        this.size = size;
+    }
+
+    public SpriteSheet(Texture texture, int n) {
+        this(texture, new Vector2i(), n);
     }
 
     public void reset() {
         srcPos.x = 0;
+    }
+
+    public void render(RenderSystem rs, Vector2f pos) {
+        render(rs, pos, 0);
+    }
+
+    public void render(RenderSystem rs, Vector2f pos, Vector2i size) {
+        render(rs, pos, size, 0);
     }
 
     public void render(RenderSystem rs, Vector2f pos, int i) {
@@ -52,5 +64,9 @@ public class SpriteSheet {
 
     public void setImage(Texture texture) {
         spriteSheet = texture;
+    }
+
+    public Vector2i getSrcSize() {
+        return srcSize;
     }
 }

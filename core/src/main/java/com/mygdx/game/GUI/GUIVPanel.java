@@ -29,7 +29,7 @@ public class GUIVPanel extends GUIComponent {
         }
 
         for(GUIComponent child : children) {
-            Vector2f cPos = new Vector2f(0, 0);
+            Vector2f cPos = new Vector2f();
 
             switch (verticalAnchor) {
                 case TOP: {

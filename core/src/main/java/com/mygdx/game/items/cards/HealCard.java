@@ -34,9 +34,7 @@ public class HealCard extends PotionCard {
     @Override
     public void drawIcon(RenderSystem rs, Vector2f pos, Vector2i size, float alpha) {
         rs.setColor(1, 1, 1, alpha);
-        rs.draw(icon, pos, size);
-        rs.setColor(Element.FIRE.getColor(), alpha);
-        rs.draw(overlay_texture, pos, size);
+        Element.drawTextureWithOverlay(rs, icon, overlay_texture, pos, size, Element.FIRE);
         rs.resetColor();
     }
 

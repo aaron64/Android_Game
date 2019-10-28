@@ -42,6 +42,7 @@ public class GUIText extends GUIHPanel {
     @Override
     public void render(RenderSystem rs) {
         rs.setColor(1f, 1f, 1f, getAlpha());
+        font.setColor(1f, 1f, 1f, getAlpha());
         switch(align) {
             case LEFT:
                 rs.drawText(font, text, pos);

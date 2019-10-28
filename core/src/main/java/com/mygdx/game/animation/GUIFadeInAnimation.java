@@ -6,24 +6,25 @@ import com.mygdx.game.scenes.Scene;
 public class GUIFadeInAnimation extends Animation {
 
     private GUIComponent component;
-    private int time, count;
+    private int time, duration;
     public GUIFadeInAnimation(int time, GUIComponent component) {
         super(false, true, "GUI_FADE_IN");
 
         this.component = component;
+        this.component.setAlpha(0);
 
         this.time = time;
-        this.count = 0;
+        this.duration = 0;
     }
 
     @Override
     public void update(Scene scene) {
 
-        component.setAlpha((float)count/time);
+        component.setAlpha((float) duration /time);
 
-        count++;
+        duration++;
 
-        if(count >= time) {
+        if(duration >= time) {
             done = true;
             component.setAlpha(1f);
         }

@@ -38,4 +38,8 @@ public class MathUtil {
     public static boolean flipCoin(float f) {
         return Math.random() <= f;
     }
+
+    public static float getAngle(Vector2f v) {
+        return (float)(Math.atan2(v.y, v.x) * 360 / (2 * Math.PI));
+    }
 }

@@ -2,18 +2,17 @@ package com.mygdx.game.scenes.main_area;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-
 import com.mygdx.game.entities.main_area.Chest;
 import com.mygdx.game.entities.main_area.MainAreaEntity;
 import com.mygdx.game.factories.EnemyFactory;
 import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
+import com.mygdx.game.graphics.Window;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.ImageUtil;
 import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.Vector2f;
 import com.mygdx.game.util.Vector2i;
-import com.mygdx.game.graphics.Window;
 
 
 public class SceneMainAreaGrid {
@@ -33,7 +32,7 @@ public class SceneMainAreaGrid {
     public SceneMainAreaGrid(SceneMainArea scene) {
         int[] mapWeights = {1,1,3,2,5};
         int mapI = 0;//MathUtil.getWeightedRandom(mapWeights);
-        mapTexture = new Texture("main_area_maps/testmap.png");
+        mapTexture = new Texture("main_area_maps/testmap0.png");
 
         this.width = mapTexture.getWidth();
         this.height = mapTexture.getHeight();
@@ -87,27 +86,32 @@ public class SceneMainAreaGrid {
             for(int j = 0; j < height; j++) {
                 SceneMainAreaTileType type = typeMap[i][j];
                 switch(type) {
-                    case NORMAL:
-                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
+                    case PATH:
+                        tileGrid[i][j] = new SceneMainAreaTilePath(scene, new Vector2f(i,j), "tile_path_basic", type);
+                        break;
+                    case PATH_ENEMY:
+                        tileGrid[i][j] = new SceneMainAreaTilePath(scene, new Vector2f(i,j), "tile_path_basic", type);
+                        if(MathUtil.flipCoin(enemyChance))
+                            EnemyFactory.newMainAreaEnemy(scene, new Vector2f(tileGrid[i][j].getPos()));
                         break;
                     case SPAWN:
-                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
+                        tileGrid[i][j] = new SceneMainAreaTilePath(scene, new Vector2f(i,j), "tile_room", type);
                         playerSpawn = new Vector2f(tileGrid[i][j].getPos());
                         break;
-                    case ENEMY:
-                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
+                    case ROOM:
+                        tileGrid[i][j] = new SceneMainAreaTilePath(scene, new Vector2f(i,j), "tile_room", type);
+                        break;
+                    case ROOM_ENEMY:
+                        tileGrid[i][j] = new SceneMainAreaTilePath(scene, new Vector2f(i,j), "tile_room", type);
                         if(MathUtil.flipCoin(enemyChance))
                             EnemyFactory.newMainAreaEnemy(scene, new Vector2f(tileGrid[i][j].getPos()));
                         break;
                     case CHEST:
-                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
+                        tileGrid[i][j] = new SceneMainAreaTilePath(scene, new Vector2f(i,j), "tile_room", type);
                         scene.addEntity(new Chest(scene, tileGrid[i][j].getPos(), tileGrid[i][j], Chest.ChestType.LOW));
                         break;
-                    case DOOR:
-                        tileGrid[i][j] = new SceneMainAreaTile(scene, new Vector2f(i,j), "tile_basic", type);
-                        break;
                     case WATER:
-                        tileGrid[i][j] = new SceneMainAreaTileWater(scene, new Vector2f(i,j), "tile_water", type);
+                        tileGrid[i][j] = new SceneMainAreaTilePathWater(scene, new Vector2f(i,j), type);
                         break;
                     case NONE:
                         break;

@@ -20,8 +20,6 @@ void main() {
         float alpha = texture2D(u_texture, v_texCoords).a;
         vec4 color = vec4(texture2D(u_texture_overlay, uv).rgba);
 
-        //color.rgb = ((color.rgb - 0.5f) * max(1.0f, 0.0f)) + 0.5f;
-
         color *=  grad * alpha;
 
         gl_FragColor = vec4(color);

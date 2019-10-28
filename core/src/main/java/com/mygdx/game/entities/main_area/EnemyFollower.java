@@ -1,6 +1,8 @@
 package com.mygdx.game.entities.main_area;
 
+import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.entities.Entity;
+import com.mygdx.game.lighting.DirectionLight;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.util.Vector2f;
@@ -8,22 +10,37 @@ import com.mygdx.game.util.Vector2f;
 public class EnemyFollower extends Enemy {
 
     private float range;
+    private float directionRange;
     private Player target;
     private float velocity;
+
+    private float angle, angleTarget;
+
+    DirectionLight light;
 
     public EnemyFollower(SceneMainArea scene, Vector2f pos, String name) {
         super(scene, pos, name);
 
         range = 100;
+        directionRange = 220;
+
         velocity = 2;
+
+        angle = (float)(Math.random() * 360);
+        angleTarget = angle;
+
+        light = new DirectionLight(this, 512, new Color(0.4f, 0.2f, 0.2f, 1), angle);
+        scene.getLightEngine().addLight(light);
     }
 
     @Override
     public void update() {
         if(target == null) {
             for (Entity e : scene.getEntities()) {
-                if (e instanceof Player && MathUtil.getDistance(getPos(), e.getPos()) < range) {
-                    target = (Player) e;
+                if(e instanceof Player) {
+                    if (MathUtil.getDistance(getPos(), e.getPos()) < range) {
+                        target = (Player) e;
+                    }
                 }
             }
         } else {
@@ -60,5 +77,8 @@ public class EnemyFollower extends Enemy {
         } else if(!scene.getGrid().isInMap(this)) {
             moveY(-velocity.y);
         }
+
+        angle = MathUtil.getAngle(velocity);
+        light.setAngle(angle);
     }
 }

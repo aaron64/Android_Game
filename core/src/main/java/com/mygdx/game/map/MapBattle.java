@@ -29,7 +29,7 @@ public class MapBattle extends Map {
         this.scene = scene;
 
         setBackground(Image.getImage("backgrounds/" + bgPath));
-        backgroundPos = new Vector2f(0, 0);
+        backgroundPos = new Vector2f();
 
         //bg_decor = Image.getImage("backgrounds/bg_decor1");
 

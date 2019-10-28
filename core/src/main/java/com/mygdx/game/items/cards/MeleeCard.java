@@ -4,6 +4,7 @@ import com.mygdx.game.attributes.Element;
 import com.mygdx.game.attributes.Quality;
 import com.mygdx.game.entities.battle.BattleEntity;
 import com.mygdx.game.entities.battle.BattleLiving;
+import com.mygdx.game.entities.battle.misc.SwordSwipe;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.util.Vector2i;
@@ -30,6 +31,7 @@ public class MeleeCard extends AttackCard {
             for(int j = 0; j < atkHeight; j++) {
                 SceneBattleTile tile = scene.getTile(indexPos.x + (i*face), indexPos.y + (j*face));
                 if(tile != null) {
+                    scene.addEntity(new SwordSwipe(scene, tile.getIndexPos()));
                     tile.lightUp(getInitialLock());
 
                     BattleEntity e = (BattleEntity) tile.getEntity();

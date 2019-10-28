@@ -20,7 +20,7 @@ public class BattleEnemyHealthComponent extends GUIComponent {
         health = enemy.getHealth();
         healthTarget = enemy.getHealth();
 
-        healthText = new GUIText(gui, name + "_TEXT", this, new Vector2f(0,0), 48, "");
+        healthText = new GUIText(gui, name + "_TEXT", this, new Vector2f(), 48, "");
         gui.setAbsolute();
     }
 
