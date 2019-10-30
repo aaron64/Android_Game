@@ -5,12 +5,12 @@ import com.mygdx.game.entities.main_area.EnemyFollower;
 import com.mygdx.game.entities.main_area.EnemyStill;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.util.MathUtil;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 public class EnemyFactory {
 
     private static int[] weights = {1,3};
-    public static void newMainAreaEnemy(SceneMainArea scene, Vector2f pos) {
+    public static void newMainAreaEnemy(SceneMainArea scene, Vec2f pos) {
         Enemy enemy = null;
 
         int r = MathUtil.getWeightedRandom(weights);

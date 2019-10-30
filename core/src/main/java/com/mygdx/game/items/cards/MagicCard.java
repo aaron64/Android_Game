@@ -7,8 +7,8 @@ import com.mygdx.game.entities.battle.misc.MagicProjectile;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.graphics.TimedSpriteSheet;
 import com.mygdx.game.scenes.battle.SceneBattle;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 public class MagicCard extends AttackCard {
 
@@ -26,7 +26,7 @@ public class MagicCard extends AttackCard {
     }
 
     @Override
-    public void drawIcon(RenderSystem rs, Vector2f pos, Vector2i size, float alpha) {
+    public void drawIcon(RenderSystem rs, Vec2f pos, Vec2i size, float alpha) {
         spriteSheet.update();
         spriteSheetOverlay.update();
 
@@ -41,6 +41,6 @@ public class MagicCard extends AttackCard {
 
     @Override
     public void use(SceneBattle scene, BattleLiving user) {
-        scene.addEntity(new MagicProjectile(scene, this, new Vector2i(user.getIndexPos()), user));
+        scene.addEntity(new MagicProjectile(scene, this, new Vec2i(user.getIndexPos()), user));
     }
 }

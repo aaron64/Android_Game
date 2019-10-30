@@ -15,8 +15,8 @@ import com.mygdx.game.entities.Entity;
 import com.mygdx.game.entities.battle.BattleEnemy;
 import com.mygdx.game.entities.battle.BattleEnemyMage;
 import com.mygdx.game.entities.battle.BattlePlayer;
-import com.mygdx.game.entities.battle.EnemyTest;
-import com.mygdx.game.entities.battle.EnemyTest2;
+import com.mygdx.game.entities.battle.BattleEnemyTurret;
+import com.mygdx.game.entities.battle.BattleEnemySwordsman;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.graphics.Window;
 import com.mygdx.game.lighting.SpotLight;
@@ -26,8 +26,8 @@ import com.mygdx.game.scenes.battle.hand_select.SceneHandSelect;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.util.GestureHandler;
 import com.mygdx.game.util.GestureUtil;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 import java.util.ArrayList;
 
@@ -46,7 +46,7 @@ public class SceneBattle extends Scene implements GestureHandler {
     public SceneBattle() {
         super();
         rs.setCamera(new OrthographicCamera(Window.getWidth(), Window.getHeight()));
-        rs.centerCameraOn(new Vector2f(Window.getCenter()));
+        rs.centerCameraOn(new Vec2f(Window.getCenter()));
 
         gestureHandler = new GestureUtil(this);
         enemies = new ArrayList<BattleEnemy>();
@@ -59,24 +59,26 @@ public class SceneBattle extends Scene implements GestureHandler {
 
         map = new MapBattle(this,"bg1", battleGrid, player);
 
-        new BattleEnemyMage(this, battleGrid.getTile(new Vector2i(4, 2)), 40);
-        new EnemyTest2(this, battleGrid.getTile(new Vector2i(3, 0)), "enemy", 40);
-        new EnemyTest(this, battleGrid.getTile(3, 2), "enemy", 40);
+        new BattleEnemyMage(this, battleGrid.getTile(new Vec2i(4, 2)), 40);
+        new BattleEnemySwordsman(this, battleGrid.getTile(new Vec2i(3, 0)), "enemy", 40);
+        new BattleEnemyTurret(this, battleGrid.getTile(3, 2), "enemy", 40);
 
         for(BattleEnemy enemy : enemies) {
-            animationQueue.add(new BattleEnemySpawnAnimation(true, false, enemy));
+            animationQueue.add(new BattleEnemySpawnAnimation(true, false, enemy, battleGrid.getTile(enemy.getIndexPos())));
         }
 
         animationQueue.add(new ZoomAnimation(true, false, 10, rs.getCamera().zoom, 1.2f, rs.getCamera()));
         animationQueue.add(new OpenAnimation(true, false, sceneHandSelect));
 
-        GUIVPanel panel = new GUIVPanel(gui, "V_PANEL", gui.getNode(), new Vector2f(0.15f, 1));
-        BattlePlayerHealthComponent playerHealthComponent = new BattlePlayerHealthComponent(gui, "MAIN_HEALTH", panel, new Vector2f(1, 0.1f), player);
-        battleCurrentCards = new BattleCurrentCardsComponent(gui, panel, new Vector2f(1, 0.9f), player);
+        GUIVPanel panel = new GUIVPanel(gui, "V_PANEL", gui.getNode(), new Vec2f(0.15f, 1));
+        BattlePlayerHealthComponent playerHealthComponent = new BattlePlayerHealthComponent(gui, "MAIN_HEALTH", panel, new Vec2f(1, 0.1f), player);
+        battleCurrentCards = new BattleCurrentCardsComponent(gui, panel, new Vec2f(1, 0.9f), player);
 
-        battleGaugeComponent = new BattleGaugeComponent(gui, gui.getNode(), new Vector2f(0.5f, 0.1f));
+        battleGaugeComponent = new BattleGaugeComponent(gui, gui.getNode(), new Vec2f(0.5f, 0.1f));
 
         gui.getNode().setAlpha(0);
+
+        rs.getCamera().zoom = 4f;
     }
 
     @Override
@@ -234,7 +236,7 @@ public class SceneBattle extends Scene implements GestureHandler {
         return battleGrid.getTile(i,j);
     }
 
-    public SceneBattleTile getTile(Vector2i indexPos) {
+    public SceneBattleTile getTile(Vec2i indexPos) {
         return battleGrid.getTile(indexPos);
     }
 

@@ -2,15 +2,15 @@ package com.mygdx.game.graphics;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.util.MathUtil;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 public class CharacterSprite extends SpriteSheet {
 
     private int animationSpeed;
     private int animationCount;
 
-    public CharacterSprite(Texture texture, Vector2i size, int animationSpeed) {
+    public CharacterSprite(Texture texture, Vec2i size, int animationSpeed) {
         super(texture, size, 4);
 
         this.animationSpeed = animationSpeed;
@@ -19,7 +19,7 @@ public class CharacterSprite extends SpriteSheet {
         srcSize.y /= 4;
     }
 
-    public void update(Vector2f vel) {
+    public void update(Vec2f vel) {
         if(Math.abs(vel.x) > Math.abs(vel.y)) {
             if(vel.x > 0) {
                 srcPos.y = 2 * srcSize.h();
@@ -38,7 +38,7 @@ public class CharacterSprite extends SpriteSheet {
     }
 
     @Override
-    public void render(RenderSystem rs, Vector2f pos) {
+    public void render(RenderSystem rs, Vec2f pos) {
         rs.draw(spriteSheet, pos, size, srcPos, srcSize, false, false);
     }
 }

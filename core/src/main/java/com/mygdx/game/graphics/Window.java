@@ -3,29 +3,29 @@ package com.mygdx.game.graphics;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.entities.Entity;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 public class Window {
 
     private static int width = Gdx.graphics.getWidth();
     private static int height = Gdx.graphics.getHeight();
-    private static Vector2i size = new Vector2i(width, height);
+    private static Vec2i size = new Vec2i(width, height);
 
     private static Rectangle rect = new Rectangle(0,0,width, height);
 
     public static boolean inWindow(Entity e) {
-        Vector2f pos = e.getPos();
-        Vector2i size = e.getSize();
+        Vec2f pos = e.getPos();
+        Vec2i size = e.getSize();
 
         return rect.contains(new Rectangle(pos.x, pos.y, size.w(), size.h()));
     }
 
-    public static boolean inWindow(Vector2f pos, Vector2i size) {
+    public static boolean inWindow(Vec2f pos, Vec2i size) {
         return rect.contains(new Rectangle(pos.x, pos.y, size.w(), size.h()));
     }
 
-    public static boolean inWindow(Vector2f pos) {
+    public static boolean inWindow(Vec2f pos) {
         return rect.contains(pos.x, pos.y);
     }
 
@@ -49,24 +49,24 @@ public class Window {
 
     public static int percHeight(float perc) { return (int) (height * perc); }
 
-    public static Vector2i getCenter() {
-        return new Vector2i(width/2, height/2);
+    public static Vec2i getCenter() {
+        return new Vec2i(width/2, height/2);
     }
 
-    public static Vector2i getTopLeft() {
-        return new Vector2i(0, height);
+    public static Vec2i getTopLeft() {
+        return new Vec2i(0, height);
     }
 
-    public static Vector2i getTopRight() {
-        return new Vector2i(width, height);
+    public static Vec2i getTopRight() {
+        return new Vec2i(width, height);
     }
 
-    public static Vector2i getBottomLeft() {
-        return new Vector2i();
+    public static Vec2i getBottomLeft() {
+        return new Vec2i();
     }
 
-    public static Vector2i getBottomRight() {
-        return new Vector2i(width, 0);
+    public static Vec2i getBottomRight() {
+        return new Vec2i(width, 0);
     }
 
     public static int getWidth() {
@@ -85,11 +85,11 @@ public class Window {
         Window.height = height;
     }
 
-    public static Vector2i getSize() {
+    public static Vec2i getSize() {
         return size;
     }
 
-    public static void setSize(Vector2i size) {
+    public static void setSize(Vec2i size) {
         Window.size = size;
     }
 }

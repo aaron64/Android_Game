@@ -5,18 +5,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2i;
 
 public class SpotLight extends Light {
 
     private Texture texture;
     public SpotLight(Entity parent, int size, Color color) {
-        super(parent, new Vector2i(size, size), color);
+        super(parent, new Vec2i(size, size), color);
         texture = Image.getImage("lighting/SPOT_LIGHT");
     }
 
     public SpotLight(Entity parent, int size) {
-        super(parent, new Vector2i(size, size));
+        super(parent, new Vec2i(size, size));
         texture = Image.getImage("lighting/SPOT_LIGHT");
     }
 

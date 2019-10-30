@@ -1,50 +1,50 @@
 package com.mygdx.game.graphics;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 public class SpriteSheet {
 
     protected Texture spriteSheet;
     protected int n;
 
-    protected Vector2i size;
+    protected Vec2i size;
 
-    protected Vector2i srcPos, srcSize;
+    protected Vec2i srcPos, srcSize;
 
-    public SpriteSheet(Texture texture, Vector2i size, int n) {
+    public SpriteSheet(Texture texture, Vec2i size, int n) {
         spriteSheet = texture;
 
         this.n = n;
-        srcPos = new Vector2i();
-        srcSize = new Vector2i(spriteSheet.getWidth() / n, spriteSheet.getHeight());
+        srcPos = new Vec2i();
+        srcSize = new Vec2i(spriteSheet.getWidth() / n, spriteSheet.getHeight());
 
         this.size = size;
     }
 
     public SpriteSheet(Texture texture, int n) {
-        this(texture, new Vector2i(), n);
+        this(texture, new Vec2i(), n);
     }
 
     public void reset() {
         srcPos.x = 0;
     }
 
-    public void render(RenderSystem rs, Vector2f pos) {
+    public void render(RenderSystem rs, Vec2f pos) {
         render(rs, pos, 0);
     }
 
-    public void render(RenderSystem rs, Vector2f pos, Vector2i size) {
+    public void render(RenderSystem rs, Vec2f pos, Vec2i size) {
         render(rs, pos, size, 0);
     }
 
-    public void render(RenderSystem rs, Vector2f pos, int i) {
+    public void render(RenderSystem rs, Vec2f pos, int i) {
         srcPos.x = i * srcSize.w();
         rs.draw(spriteSheet, pos, size, srcPos, srcSize, false, false);
     }
 
-    public void render(RenderSystem rs, Vector2f pos, Vector2i size, int i) {
+    public void render(RenderSystem rs, Vec2f pos, Vec2i size, int i) {
         srcPos.x = i * srcSize.w();
         rs.draw(spriteSheet, pos, size, srcPos, srcSize, false, false);
     }
@@ -54,11 +54,11 @@ public class SpriteSheet {
         rs.draw(spriteSheet, x, y, w, h, srcPos, srcSize, flipX, flipY);
     }
 
-    public Vector2i getSize() {
+    public Vec2i getSize() {
         return size;
     }
 
-    public void setSize(Vector2i size) {
+    public void setSize(Vec2i size) {
         this.size = size;
     }
 
@@ -66,7 +66,7 @@ public class SpriteSheet {
         spriteSheet = texture;
     }
 
-    public Vector2i getSrcSize() {
+    public Vec2i getSrcSize() {
         return srcSize;
     }
 }

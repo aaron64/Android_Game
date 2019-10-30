@@ -8,7 +8,7 @@ import com.mygdx.game.GUI.GUIText;
 import com.mygdx.game.entities.main_area.Player;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.scenes.Scene;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 public class PlayerHealthComponent extends GUIHPanel {
 
@@ -19,20 +19,20 @@ public class PlayerHealthComponent extends GUIHPanel {
 
     private int health, healthTarget;
 
-    public PlayerHealthComponent(GUI gui, String name, GUIComponent parent, Vector2f size, Player player) {
+    public PlayerHealthComponent(GUI gui, String name, GUIComponent parent, Vec2f size, Player player) {
         super(gui, name, parent, size);
         this.player = player;
 
         this.health = player.getHealth();
         this.healthTarget = player.getHealth();
 
-        healthImage = new GUIImage(gui, "IMAGE_HEALTH", this, new Vector2f(0, 1), "heart");
+        healthImage = new GUIImage(gui, "IMAGE_HEALTH", this, new Vec2f(0, 1), "heart");
 
         float rightPanelWidth = (((float)getSize().x - healthImage.getSize().x) / getSize().x);
-        rightPanel = new GUIHPanel(gui, "RIGHT_PANEL", this, new Vector2f(rightPanelWidth, 1));
+        rightPanel = new GUIHPanel(gui, "RIGHT_PANEL", this, new Vec2f(rightPanelWidth, 1));
         rightPanel.setHorizontalAnchor(HorizontalAnchor.RIGHT);
 
-        healthText = new GUIText(gui, "TEXT_HEALTH", rightPanel, new Vector2f(1, 1), 52, health + "");
+        healthText = new GUIText(gui, "TEXT_HEALTH", rightPanel, new Vec2f(1, 1), 52, health + "");
         healthText.rightMargin(8);
         healthText.setTextAlign(RenderSystem.TextAlign.RIGHT);
     }

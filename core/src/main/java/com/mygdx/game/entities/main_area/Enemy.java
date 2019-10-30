@@ -1,16 +1,14 @@
 package com.mygdx.game.entities.main_area;
 
 
-import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.Game;
-import com.mygdx.game.lighting.SpotLight;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 public abstract class Enemy extends MainAreaEntity {
 
-    public Enemy(SceneMainArea scene, Vector2f pos, String name) {
+    public Enemy(SceneMainArea scene, Vec2f pos, String name) {
         super(scene, pos, name);
     }
 

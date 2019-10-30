@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.FontUtil;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 import static com.mygdx.game.graphics.RenderSystem.TextAlign.LEFT;
 
@@ -23,14 +23,14 @@ public class GUIText extends GUIHPanel {
         BOTTOM
     }
 
-    public GUIText(GUI gui, String name, GUIComponent parent, Vector2f size, int fontSize, String text) {
+    public GUIText(GUI gui, String name, GUIComponent parent, Vec2f size, int fontSize, String text) {
         super(gui, name, parent, size);
         this.text = text;
         font = FontUtil.getFont(fontSize);
         setFontSize(fontSize);
     }
 
-    public GUIText(GUI gui, String name, GUIComponent parent, Vector2f size, int fontSize) {
+    public GUIText(GUI gui, String name, GUIComponent parent, Vec2f size, int fontSize) {
         this(gui, name, parent, size, fontSize, "");
     }
 
@@ -48,7 +48,7 @@ public class GUIText extends GUIHPanel {
                 rs.drawText(font, text, pos);
                 break;
             case RIGHT:
-                Vector2f rPos = new Vector2f(pos);
+                Vec2f rPos = new Vec2f(pos);
                 rPos.x += getSize().x;
                 rs.drawTextRight(font, text, rPos);
                 break;
@@ -80,7 +80,7 @@ public class GUIText extends GUIHPanel {
 
     public void setFontSize(int size) {
         this.fontSize = size;
-        setSize(new Vector2i(FontUtil.getTextSize(font, text)));
+        setSize(new Vec2i(FontUtil.getTextSize(font, text)));
     }
 
     public void setTextAlign(RenderSystem.TextAlign align) {

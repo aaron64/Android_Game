@@ -9,8 +9,8 @@ import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.ImageUtil;
 import com.mygdx.game.util.MathUtil;
 import com.mygdx.game.graphics.RenderSystem;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 import com.mygdx.game.graphics.Window;
 
 import java.util.ArrayList;
@@ -18,17 +18,17 @@ import java.util.ArrayList;
 public class SceneBattleGrid {
 
     private int width, height;
-    private Vector2i size;
+    private Vec2i size;
 
     private int leftOffset, rightOffset, topOffset, bottomOffset;
     private int pixelWidth, pixelHeight;
-    private Vector2f offsetVec;
-    private Vector2i tileSize;
+    private Vec2f offsetVec;
+    private Vec2i tileSize;
 
     private SceneBattleTile[][] tileGrid;
     private Texture mapTexture;
 
-    private Vector2i playerSpawnCoords;
+    private Vec2i playerSpawnCoords;
 
     public SceneBattleGrid(SceneBattle scene) {
         int[] mapWeights = {1,1,3,2,5,3, 1000, 5};
@@ -37,7 +37,7 @@ public class SceneBattleGrid {
 
         this.width = mapTexture.getWidth();
         this.height = mapTexture.getHeight();
-        this.size = new Vector2i(this.width, this.height);
+        this.size = new Vec2i(this.width, this.height);
 
         leftOffset = Window.percLeft(0.1f);
         rightOffset = Window.percRight(0.1f);
@@ -47,8 +47,8 @@ public class SceneBattleGrid {
         pixelWidth = rightOffset - leftOffset;
         pixelHeight = topOffset - bottomOffset;
 
-        offsetVec =  new Vector2f(leftOffset, bottomOffset);
-        tileSize = new Vector2i(pixelWidth / width, pixelHeight / height);
+        offsetVec =  new Vec2f(leftOffset, bottomOffset);
+        tileSize = new Vec2i(pixelWidth / width, pixelHeight / height);
 
         tileGrid = new SceneBattleTile[width][height];
 
@@ -83,51 +83,51 @@ public class SceneBattleGrid {
                 SceneBattleTileType type = typeMap[i][j];
                 switch(type) {
                     case FRIENDLY:
-                        tileGrid[i][j] = new SceneBattleTile(scene, this, new Vector2i(i,j), offsetVec, tileSize,  type);
+                        tileGrid[i][j] = new SceneBattleTile(scene, this, new Vec2i(i,j), offsetVec, tileSize,  type);
                         break;
                     case ENEMY:
-                        tileGrid[i][j] = new SceneBattleTile(scene,this, new Vector2i(i,j), offsetVec, tileSize, type);
+                        tileGrid[i][j] = new SceneBattleTile(scene,this, new Vec2i(i,j), offsetVec, tileSize, type);
                         break;
                     case NEUTRAL:
-                        tileGrid[i][j] = new SceneBattleTile(scene,this, new Vector2i(i,j), offsetVec, tileSize, type);
+                        tileGrid[i][j] = new SceneBattleTile(scene,this, new Vec2i(i,j), offsetVec, tileSize, type);
                         break;
                     case NONE:
-                        tileGrid[i][j] = new SceneBattleTileNone(scene,this, new Vector2i(i,j), offsetVec, tileSize, type);
+                        tileGrid[i][j] = new SceneBattleTileNone(scene,this, new Vec2i(i,j), offsetVec, tileSize, type);
                         break;
                     case SPAWN:
-                        tileGrid[i][j] = new SceneBattleTile(scene,this, new Vector2i(i,j), offsetVec, tileSize, SceneBattleTileType.FRIENDLY);
-                        playerSpawnCoords = new Vector2i(i,j);
+                        tileGrid[i][j] = new SceneBattleTile(scene,this, new Vec2i(i,j), offsetVec, tileSize, SceneBattleTileType.FRIENDLY);
+                        playerSpawnCoords = new Vec2i(i,j);
                         break;
                     case OBJECT_FRIENDLY:
-                        tileGrid[i][j] = new SceneBattleTile(scene,this, new Vector2i(i,j), offsetVec, tileSize, SceneBattleTileType.FRIENDLY);
+                        tileGrid[i][j] = new SceneBattleTile(scene,this, new Vec2i(i,j), offsetVec, tileSize, SceneBattleTileType.FRIENDLY);
                         new StillObject(scene, tileGrid[i][j], "pillar", 30);
                         break;
                     case OBJECT_ENEMY:
-                        tileGrid[i][j] = new SceneBattleTile(scene,this, new Vector2i(i,j), offsetVec, tileSize, SceneBattleTileType.ENEMY);
+                        tileGrid[i][j] = new SceneBattleTile(scene,this, new Vec2i(i,j), offsetVec, tileSize, SceneBattleTileType.ENEMY);
                         new StillObject(scene, tileGrid[i][j], "pillar", 30);
                         break;
                     default:
-                        tileGrid[i][j] = new SceneBattleTileNone(scene,this, new Vector2i(i,j), offsetVec, tileSize, SceneBattleTileType.NONE);
+                        tileGrid[i][j] = new SceneBattleTileNone(scene,this, new Vec2i(i,j), offsetVec, tileSize, SceneBattleTileType.NONE);
                         break;
                 }
             }
         }
     }
 
-    public boolean isInBounds(Vector2i indexPos) {
+    public boolean isInBounds(Vec2i indexPos) {
         return indexPos.x >= 0 && indexPos.y >= 0 && indexPos.x < getWidth() && indexPos.y < getHeight();
     }
 
-    public boolean isFreeTile(Vector2i indexPos) {
+    public boolean isFreeTile(Vec2i indexPos) {
         return isInBounds(indexPos) && getTile(indexPos).getEntity() == null && !getTile(indexPos).held();
     }
 
-    public Vector2f getAbsoluteTilePosition(Vector2i indexPos) {
-        return Vector2f.addVectors(offsetVec, Vector2f.multiplyVectors(indexPos, tileSize));
+    public Vec2f getAbsoluteTilePosition(Vec2i indexPos) {
+        return Vec2f.addVectors(offsetVec, Vec2f.multiplyVectors(indexPos, tileSize));
     }
 
-    public Vector2i getIndexPosition(Vector2f absPos) {
-        return Vector2i.divideVectors(Vector2f.subtractVectors(absPos, offsetVec), tileSize);
+    public Vec2i getIndexPosition(Vec2f absPos) {
+        return Vec2i.divideVectors(Vec2f.subtractVectors(absPos, offsetVec), tileSize);
     }
 
     public SceneBattleTile getTile(int i, int j) {
@@ -136,21 +136,21 @@ public class SceneBattleGrid {
         return null;
     }
 
-    public SceneBattleTile getTile(Vector2i pos) {
+    public SceneBattleTile getTile(Vec2i pos) {
         return getTile((int)pos.x, (int)pos.y);
     }
 
-    public SceneBattleTile[] getGroup(Vector2i p1, Vector2i p2) {
+    public SceneBattleTile[] getGroup(Vec2i p1, Vec2i p2) {
         return getGroup((int) p1.x,(int) p1.y,(int) p2.x,(int) p2.y);
     }
 
-    public ArrayList<SceneBattleTile> getSurroundings(Vector2i indexPos) {
+    public ArrayList<SceneBattleTile> getSurroundings(Vec2i indexPos) {
         ArrayList<SceneBattleTile> surround = new ArrayList<SceneBattleTile>();
 
         for(int i = -1; i < 2; i++) {
             for(int j = -1; j < 2; j++) {
                 int sp = (1 + i) * 2 + (1 + j);
-                Vector2i v = new Vector2i(i + indexPos.x, j + indexPos.y);
+                Vec2i v = new Vec2i(i + indexPos.x, j + indexPos.y);
                 if(isInBounds(v) && !(i == 0 && j == 0)) {
                     surround.add(getTile(v));
                 }
@@ -179,7 +179,7 @@ public class SceneBattleGrid {
         return group;
     }
 
-    public ArrayList<SceneBattleTile> getGroup(ThrowableSize size, Vector2i pos) {
+    public ArrayList<SceneBattleTile> getGroup(ThrowableSize size, Vec2i pos) {
         ArrayList<SceneBattleTile> list = new ArrayList<SceneBattleTile>();
         switch(size) {
             case SMALL: {
@@ -234,19 +234,19 @@ public class SceneBattleGrid {
         this.height = height;
     }
 
-    public Vector2i getSize() {
+    public Vec2i getSize() {
         return size;
     }
 
-    public void setSize(Vector2i size) {
+    public void setSize(Vec2i size) {
         this.size = size;
     }
 
-    public Vector2i getTileSize() {
+    public Vec2i getTileSize() {
         return tileSize;
     }
 
-    public Vector2i getPlayerSpawnCoords() {
+    public Vec2i getPlayerSpawnCoords() {
         return playerSpawnCoords;
     }
 }

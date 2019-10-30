@@ -5,7 +5,7 @@ import com.mygdx.game.entities.Entity;
 import com.mygdx.game.lighting.DirectionLight;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.util.MathUtil;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 public class EnemyFollower extends Enemy {
 
@@ -18,7 +18,7 @@ public class EnemyFollower extends Enemy {
 
     DirectionLight light;
 
-    public EnemyFollower(SceneMainArea scene, Vector2f pos, String name) {
+    public EnemyFollower(SceneMainArea scene, Vec2f pos, String name) {
         super(scene, pos, name);
 
         range = 100;
@@ -44,7 +44,7 @@ public class EnemyFollower extends Enemy {
                 }
             }
         } else {
-            Vector2f distVector = Vector2f.subtractVectors(target.getPos(), getPos());
+            Vec2f distVector = Vec2f.subtractVectors(target.getPos(), getPos());
             float dist = MathUtil.getDistance(distVector);
 
             if(dist > range)
@@ -53,12 +53,12 @@ public class EnemyFollower extends Enemy {
             float vx = (distVector.x / dist) * velocity;
             float vy = (distVector.y / dist) * velocity;
 
-            move(new Vector2f(vx, vy));
+            move(new Vec2f(vx, vy));
         }
     }
 
     @Override
-    public void move(Vector2f velocity) {
+    public void move(Vec2f velocity) {
         moveX(velocity.x);
 
         MainAreaEntity collision = scene.getSolidEntityCollision(this);

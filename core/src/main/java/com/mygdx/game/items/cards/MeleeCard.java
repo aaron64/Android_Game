@@ -7,7 +7,7 @@ import com.mygdx.game.entities.battle.BattleLiving;
 import com.mygdx.game.entities.battle.misc.SwordSwipe;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2i;
 
 public class MeleeCard extends AttackCard {
 
@@ -21,7 +21,7 @@ public class MeleeCard extends AttackCard {
 
     @Override
     public void use(SceneBattle scene, BattleLiving user) {
-        Vector2i indexPos = user.getIndexPos();
+        Vec2i indexPos = user.getIndexPos();
         int face = -1;
         if(user.facingRight()) {
             face = 1;

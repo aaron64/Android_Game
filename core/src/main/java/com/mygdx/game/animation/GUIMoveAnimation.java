@@ -2,15 +2,15 @@ package com.mygdx.game.animation;
 
 import com.mygdx.game.GUI.GUIComponent;
 import com.mygdx.game.scenes.Scene;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 public class GUIMoveAnimation extends Animation {
 
-    private Vector2f offset;
+    private Vec2f offset;
     private GUIComponent component;
     private int time, duration;
 
-    public GUIMoveAnimation(Vector2f offset, int time, GUIComponent component) {
+    public GUIMoveAnimation(Vec2f offset, int time, GUIComponent component) {
         super(false, true, "GUI_MOVE_IN");
 
         this.offset = offset;

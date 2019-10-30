@@ -1,7 +1,7 @@
 package com.mygdx.game.scenes.main_area;
 
 import com.mygdx.game.entities.main_area.MainAreaEntity;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 public class SceneMainAreaTile extends MainAreaEntity {
 
@@ -9,10 +9,10 @@ public class SceneMainAreaTile extends MainAreaEntity {
 
     protected int scale = 2;
 
-    public SceneMainAreaTile(SceneMainArea scene, Vector2f pos, String folder, String name, SceneMainAreaTileType type) {
+    public SceneMainAreaTile(SceneMainArea scene, Vec2f pos, String folder, String name, SceneMainAreaTileType type) {
         super(scene, pos, folder, name);
         getSize().multiply(scale);
-        setPos(Vector2f.multiplyVectors(getPos(), getSize()));
+        setPos(Vec2f.multiplyVectors(getPos(), getSize()));
 
         this.type = type;
     }

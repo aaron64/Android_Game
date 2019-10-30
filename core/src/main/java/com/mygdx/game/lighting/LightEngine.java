@@ -8,15 +8,15 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.graphics.Window;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 import java.util.ArrayList;
 
 public class LightEngine {
 
-    private Vector2f pos;
-    private Vector2i size;
+    private Vec2f pos;
+    private Vec2i size;
 
     private Color mainColor;
 
@@ -31,7 +31,7 @@ public class LightEngine {
         shadow = Image.SHADOW;
         lights = new ArrayList<Light>();
 
-        pos = new Vector2f();
+        pos = new Vec2f();
         size = Window.getSize();
 
         mainColor = new Color(0.25f, 0.25f, 0.25f, 1f);

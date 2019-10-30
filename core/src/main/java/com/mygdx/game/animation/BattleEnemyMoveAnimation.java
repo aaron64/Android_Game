@@ -3,16 +3,29 @@ package com.mygdx.game.animation;
 import com.mygdx.game.entities.battle.BattleLiving;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
+/**
+ * BattleEnemyMoveAnimation
+ *
+ * Slides an enemy across a tile
+ *
+ * @author Aaron Chambers
+ */
 public class BattleEnemyMoveAnimation extends Animation {
 
-    private Vector2f from, to;
+    private Vec2f from, to;
     private SceneBattleTile oldTile, newTile;
     private BattleLiving entity;
     private int speed;
     private int pos = 0;
 
+    /**
+     * BattleEnemyMoveAnimation constructor
+     * @param oldTile The old tile
+     * @param newTile The new tile
+     * @param entity The enemy moving
+     */
     public BattleEnemyMoveAnimation(SceneBattleTile oldTile, SceneBattleTile newTile, BattleLiving entity) {
         super(false, true, "BATTLE_MOVE");
         this.from = entity.getPos();
@@ -28,6 +41,11 @@ public class BattleEnemyMoveAnimation extends Animation {
         this.entity = entity;
     }
 
+    /**
+     * update
+     * slides the enemy across
+     * @param scene The current scene
+     */
     @Override
     public void update(Scene scene) {
         float v = (float)pos/speed;

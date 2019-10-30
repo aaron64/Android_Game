@@ -7,7 +7,7 @@ import com.mygdx.game.graphics.Image;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.scenes.main_area.SceneMainAreaTile;
 import com.mygdx.game.util.MathUtil;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 import java.util.ArrayList;
 
@@ -42,7 +42,7 @@ public class Chest extends MainAreaEntity {
     private Texture openTexture;
     private ArrayList<Entity> contents;
 
-    public Chest(SceneMainArea scene, Vector2f pos, SceneMainAreaTile tile, ChestType chestType) {
+    public Chest(SceneMainArea scene, Vec2f pos, SceneMainAreaTile tile, ChestType chestType) {
         super(scene, pos, chestType.res);
         setSize(tile.getSize());
         contents = new ArrayList<Entity>();
@@ -51,11 +51,11 @@ public class Chest extends MainAreaEntity {
         openTexture = Image.getImage("entities/main_area/" + chestType.res + "_open");
 
         for(int i = 0; i < 3 * chestType.multiplier; i++) {
-            contents.add(new HealthBlob(scene, new Vector2f(getPos())));
+            contents.add(new HealthBlob(scene, new Vec2f(getPos())));
         }
 
         //Card card = CardFactory.buildRandomCard(chestType.cardDistribution);
-        //contents.add(new PhysicalCard(scene, new Vector2f(getPos()), card));
+        //contents.add(new PhysicalCard(scene, new Vec2f(getPos()), card));
     }
 
     @Override

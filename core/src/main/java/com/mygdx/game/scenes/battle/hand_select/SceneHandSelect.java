@@ -15,7 +15,7 @@ import com.mygdx.game.items.cards.Deck;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.GestureHandler;
 import com.mygdx.game.util.GestureUtil;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 import java.util.ArrayList;
 
@@ -52,19 +52,19 @@ public class SceneHandSelect extends Scene implements GestureHandler {
         cards.add(deck.pop());
         cards.add(deck.pop());
 
-        new GUIHPanel(gui, "LEFT_PANEL", gui.getNode(), new Vector2f(0.15f, 1));
+        new GUIHPanel(gui, "LEFT_PANEL", gui.getNode(), new Vec2f(0.15f, 1));
 
-        selectHandContainer = new GUIHPanel(gui, "HAND_CONTAINER", gui.getNode(), new Vector2f(0.7f, 1));
+        selectHandContainer = new GUIHPanel(gui, "HAND_CONTAINER", gui.getNode(), new Vec2f(0.7f, 1));
         selectHandContainer.setVerticalAnchor(GUIHPanel.VerticalAnchor.CENTER);
-        selectHand = new SelectHandComponent(gui, "CARD_HAND", selectHandContainer, new Vector2f(1, 0.6f), cards, this);
+        selectHand = new SelectHandComponent(gui, "CARD_HAND", selectHandContainer, new Vec2f(1, 0.6f), cards, this);
 
-        rightPanel = new GUIHPanel(gui, "RIGHT_PANEL", gui.getNode(), new Vector2f(0.15f, 1));
+        rightPanel = new GUIHPanel(gui, "RIGHT_PANEL", gui.getNode(), new Vec2f(0.15f, 1));
         rightPanel.setHorizontalAnchor(GUIComponent.HorizontalAnchor.CENTER);
         rightPanel.setVerticalAnchor(GUIComponent.VerticalAnchor.BOTTOM);
-        goButton = new GUIButton(gui, "GO_BUTTON", rightPanel, new Vector2f(0.75f, 0), Image.getImage("gui/button/button_icon_go"), this);
+        goButton = new GUIButton(gui, "GO_BUTTON", rightPanel, new Vec2f(0.75f, 0), Image.getImage("gui/button/button_icon_go"), this);
         goButton.bottomMargin(16);
 
-        addAnimation(new GUIMoveAnimation(new Vector2f(0, 50), 10, selectHandContainer));
+        addAnimation(new GUIMoveAnimation(new Vec2f(0, 50), 10, selectHandContainer));
         addAnimation(new GUIFadeInAnimation(10, selectHandContainer));
     }
 

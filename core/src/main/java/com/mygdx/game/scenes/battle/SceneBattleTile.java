@@ -7,8 +7,8 @@ import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.util.Cooldown;
 import com.mygdx.game.util.CooldownInterface;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 public class SceneBattleTile extends BattleEntity implements CooldownInterface {
 
@@ -19,16 +19,14 @@ public class SceneBattleTile extends BattleEntity implements CooldownInterface {
     private Cooldown lightUpCooldown;
 
     private Texture tileTexture, tileEndTexture;
-    private Vector2f endPos;
-
-    private Vector2f offset;
+    private Vec2f endPos;
 
     private boolean held = false;
 
     private static Texture lightUpOverlay = Image.getImage("entities/tiles/battle/tile_light_up");
 
 
-    public SceneBattleTile(SceneBattle scene, SceneBattleGrid grid, Vector2i indexPos, Vector2f offset, Vector2i size, SceneBattleTileType tileType) {
+    public SceneBattleTile(SceneBattle scene, SceneBattleGrid grid, Vec2i indexPos, Vec2f offset, Vec2i size, SceneBattleTileType tileType) {
         super(scene, grid, indexPos, "tiles/battle", tileType.getRes());
 
         this.tileType = tileType;
@@ -37,12 +35,10 @@ public class SceneBattleTile extends BattleEntity implements CooldownInterface {
 
         tileTexture = Image.getImage("entities/tiles/tile_path_basic");
         tileEndTexture = Image.getImage("entities/tiles/tile_end0");
-        endPos = new Vector2f(getPos().x, getPos().y - getSize().y);
+        endPos = new Vec2f(getPos().x, getPos().y - getSize().y);
 
         lightUp = false;
         lightUpCooldown = new Cooldown(this, "LIGHT", false, 100);
-
-        offset = new Vector2f();
     }
 
     @Override
@@ -84,6 +80,12 @@ public class SceneBattleTile extends BattleEntity implements CooldownInterface {
             scene.enemyKilled((BattleEnemy)this.entity);
         }
         this.entity = entity;
+    }
+
+    public void setPos(Vec2f pos) {
+        super.setPos(pos);
+        endPos.x = getPos().x;
+        endPos.y = getPos().y - getSize().y;
     }
 
     public boolean held() {

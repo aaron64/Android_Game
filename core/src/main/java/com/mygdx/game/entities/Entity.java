@@ -5,16 +5,16 @@ import com.badlogic.gdx.math.Rectangle;
 
 import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 public abstract class Entity {
-    private Vector2f pos;
-    private Vector2i size;
+    private Vec2f pos;
+    private Vec2i size;
     private String name;
     private Texture image;
 
-    public Entity(Vector2f pos, String name) {
+    public Entity(Vec2f pos, String name) {
         this.pos = pos;
         this.name = name;
         this.image = null;
@@ -22,13 +22,13 @@ public abstract class Entity {
         initializeImage();
     }
 
-    public Entity(Vector2f pos, String folder, String name) {
+    public Entity(Vec2f pos, String folder, String name) {
         this.pos = pos;
         this.name = name;
 
         try {
             image = Image.getImage("entities/" + folder + "/" + name);
-            this.size = new Vector2i(image.getWidth(), image.getHeight());
+            this.size = new Vec2i(image.getWidth(), image.getHeight());
         } catch (Exception e) {
             initializeImage();
         }
@@ -36,7 +36,7 @@ public abstract class Entity {
 
     public abstract void update();
 
-    public void render(RenderSystem rs, Vector2f pos) {
+    public void render(RenderSystem rs, Vec2f pos) {
         rs.draw(image, pos);
     }
 
@@ -47,26 +47,26 @@ public abstract class Entity {
     public void initializeImage() {}
 
     public void resetSize() {
-        this.size = new Vector2i(image.getWidth(), image.getHeight());
+        this.size = new Vec2i(image.getWidth(), image.getHeight());
     }
 
-    public Vector2f getPos() {
+    public Vec2f getPos() {
         return pos;
     }
 
-    public Vector2f getCenterPos() {
-        return new Vector2f(pos.x + size.w()/2, pos.y + size.h()/2);
+    public Vec2f getCenterPos() {
+        return new Vec2f(pos.x + size.w()/2, pos.y + size.h()/2);
     }
 
-    public void setPos(Vector2f pos) {
+    public void setPos(Vec2f pos) {
         this.pos = pos;
     }
 
-    public Vector2i getSize() {
+    public Vec2i getSize() {
         return size;
     }
 
-    public void setSize(Vector2i size) {
+    public void setSize(Vec2i size) {
         this.size = size;
     }
 
@@ -103,12 +103,12 @@ public abstract class Entity {
         pos.y += dy;
     }
 
-    public void move(Vector2i d) {
+    public void move(Vec2i d) {
         pos.x += d.x;
         pos.y += d.y;
     }
 
-    public void move(Vector2f d) {
+    public void move(Vec2f d) {
         pos.x += d.x;
         pos.y += d.y;
     }

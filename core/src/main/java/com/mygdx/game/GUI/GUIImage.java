@@ -4,18 +4,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.scenes.Scene;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 public class GUIImage extends GUIHPanel {
 
     protected Texture texture;
 
-    public GUIImage(GUI gui, String name, GUIComponent parent, Vector2f size, String fileName) {
+    public GUIImage(GUI gui, String name, GUIComponent parent, Vec2f size, String fileName) {
         super(gui, name, parent, size);
         texture = Image.getImage("gui/" + fileName);
     }
 
-    public GUIImage(GUI gui, String name, GUIComponent parent, Vector2f size, Texture texture) {
+    public GUIImage(GUI gui, String name, GUIComponent parent, Vec2f size, Texture texture) {
         super(gui, name, parent, size);
         this.texture = texture;
     }

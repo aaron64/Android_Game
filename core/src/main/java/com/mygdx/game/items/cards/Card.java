@@ -10,8 +10,8 @@ import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.items.Item;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.util.FontUtil;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 public abstract class Card extends Item {
 
@@ -21,7 +21,7 @@ public abstract class Card extends Item {
     private int pointsCost;
 
     protected BitmapFont nameFont, descriptionFont, pointsFont, amountFont;
-    protected Vector2f nameSize, descriptionSize, pointsSize, amountSize;
+    protected Vec2f nameSize, descriptionSize, pointsSize, amountSize;
 
     protected Texture overlay_texture;
 
@@ -81,7 +81,7 @@ public abstract class Card extends Item {
         this.description = description;
     }
 
-    public void drawIcon(RenderSystem rs, Vector2f pos, Vector2i size, float alpha) {
+    public void drawIcon(RenderSystem rs, Vec2f pos, Vec2i size, float alpha) {
         rs.setColor(1f, 1f, 1f, alpha);
         Element.drawTextureWithOverlay(rs, icon, overlay_texture, pos, size, getElement());
         rs.resetColor();

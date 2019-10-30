@@ -1,10 +1,10 @@
 package com.mygdx.game.GUI;
 
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 public class GUIHPanel extends GUIComponent {
 
-    public GUIHPanel(GUI gui, String name, GUIComponent parent, Vector2f size) {
+    public GUIHPanel(GUI gui, String name, GUIComponent parent, Vec2f size) {
         super(gui, name, parent, size);
     }
 
@@ -30,7 +30,7 @@ public class GUIHPanel extends GUIComponent {
 
         for (GUIComponent child : children) {
 
-            Vector2f cPos = new Vector2f();
+            Vec2f cPos = new Vec2f();
 
             switch (horizontalAnchor) {
                 case LEFT: {

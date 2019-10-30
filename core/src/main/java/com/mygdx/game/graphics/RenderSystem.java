@@ -16,8 +16,8 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.util.FontUtil;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 public class RenderSystem {
 
@@ -69,15 +69,15 @@ public class RenderSystem {
         batch.draw(e.getImage(), e.getPos().x, e.getPos().y, e.getSize().x, e.getSize().y);
     }
 
-    public void draw(Texture image, Vector2f pos) {
+    public void draw(Texture image, Vec2f pos) {
         batch.draw(image, pos.x, pos.y);
     }
 
-    public void draw(Texture image, Vector2f pos, Vector2i size) {
+    public void draw(Texture image, Vec2f pos, Vec2i size) {
         batch.draw(image, pos.x, pos.y, size.w(), size.h());
     }
 
-    public void draw(Texture image, Vector2f pos, Vector2i size, float rotation) {
+    public void draw(Texture image, Vec2f pos, Vec2i size, float rotation) {
         batch.draw(image, pos.x, pos.y, size.w() / 2, size.h() / 2, size.w(), size.h(), 1, 1, rotation, 0, 0, image.getWidth(), image.getHeight(), false, false);
     }
 
@@ -85,31 +85,31 @@ public class RenderSystem {
         batch.draw(image, x, y, w, h);
     }
 
-    public void draw(Texture image, float x, float y, int w, int h, Vector2i srcPos, Vector2i srcSize, boolean flipX, boolean flipY) {
+    public void draw(Texture image, float x, float y, int w, int h, Vec2i srcPos, Vec2i srcSize, boolean flipX, boolean flipY) {
         batch.draw(image, x, y, w, h, srcPos.x, srcPos.y, srcSize.w(), srcSize.h(), flipX, flipY);
     }
 
-    public void draw(Texture image, Vector2f pos, Vector2i size, Vector2i srcPos, Vector2i srcSize, boolean flipX, boolean flipY) {
+    public void draw(Texture image, Vec2f pos, Vec2i size, Vec2i srcPos, Vec2i srcSize, boolean flipX, boolean flipY) {
         batch.draw(image, pos.x, pos.y, size.w(), size.h(), srcPos.x, srcPos.y, srcSize.w(), srcSize.h(), flipX, flipY);
     }
 
-    public void drawText(BitmapFont font, String text, Vector2f pos) {
+    public void drawText(BitmapFont font, String text, Vec2f pos) {
         font.draw(batch, text, pos.x, pos.y);
     }
 
-    public void drawTextCentered(BitmapFont font, String text, Vector2f centerPos) {
-        Vector2f pos = new Vector2f(centerPos);
+    public void drawTextCentered(BitmapFont font, String text, Vec2f centerPos) {
+        Vec2f pos = new Vec2f(centerPos);
         pos.x -= FontUtil.getTextSize(font, text).x/2;
         drawText(font, text, pos);
     }
 
-    public void drawTextRight(BitmapFont font, String text, Vector2f rightPos) {
-        Vector2f pos = new Vector2f(rightPos);
+    public void drawTextRight(BitmapFont font, String text, Vec2f rightPos) {
+        Vec2f pos = new Vec2f(rightPos);
         pos.x -= FontUtil.getTextSize(font, text).x;
         drawText(font, text, pos);
     }
 
-    public void drawStatic(Texture texture, Vector2f pos, Vector2i size) {
+    public void drawStatic(Texture texture, Vec2f pos, Vec2i size) {
         if(camera != null) {
             Matrix4 uiMatrix = camera.combined.cpy();
             uiMatrix.setToOrtho2D(0, 0, Window.getWidth(), Window.getHeight());
@@ -258,18 +258,18 @@ public class RenderSystem {
         batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_DST_COLOR);
     }
 
-    public Vector2f getWorldPos(int x, int y) {
+    public Vec2f getWorldPos(int x, int y) {
         Vector3 pos = camera.unproject(new Vector3(x, y, 0));
-        return new Vector2f(pos.x, pos.y);
+        return new Vec2f(pos.x, pos.y);
     }
 
     public void centerCameraOn(Entity e) {
-        Vector2f pos = e.getPos();
-        Vector2i size = e.getSize();
-        centerCameraOn(new Vector2f(pos.x + size.w()/2, pos.y + size.h()/2));
+        Vec2f pos = e.getPos();
+        Vec2i size = e.getSize();
+        centerCameraOn(new Vec2f(pos.x + size.w()/2, pos.y + size.h()/2));
     }
 
-    public void centerCameraOn(Vector2f pos) {
+    public void centerCameraOn(Vec2f pos) {
         camera.position.set(pos.x, pos.y, 0);
     }
 

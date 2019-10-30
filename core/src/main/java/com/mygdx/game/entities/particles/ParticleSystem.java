@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.graphics.SpriteSheet;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,7 +35,7 @@ public abstract class ParticleSystem extends Entity {
     protected int life, lifeDiff;
     protected int textures;
 
-    public ParticleSystem(Vector2f pos, String name, int n, int nDiff, float xDiff, float yDiff, int size, int sizeDiff, float xVelocity, float xVelocityDiff, float yVelocity, float yVelocityDiff, int life, int lifeDiff, int textures) {
+    public ParticleSystem(Vec2f pos, String name, int n, int nDiff, float xDiff, float yDiff, int size, int sizeDiff, float xVelocity, float xVelocityDiff, float yVelocity, float yVelocityDiff, int life, int lifeDiff, int textures) {
         super(pos, "particles", name);
 
         xList = new ArrayList<Float>();

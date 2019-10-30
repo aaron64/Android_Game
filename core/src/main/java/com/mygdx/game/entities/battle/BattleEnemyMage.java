@@ -1,6 +1,6 @@
 package com.mygdx.game.entities.battle;
 
-import com.mygdx.game.action.ActionLock;
+import com.mygdx.game.action.ActionWait;
 import com.mygdx.game.action.ActionUseCard;
 import com.mygdx.game.attributes.Element;
 import com.mygdx.game.entities.Entity;
@@ -10,6 +10,7 @@ import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.scenes.battle.SceneBattleTileType;
+import com.mygdx.game.stats.BattleStats;
 import com.mygdx.game.util.Cooldown;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class BattleEnemyMage extends BattleEnemy {
 
 
     public BattleEnemyMage(SceneBattle scene, SceneBattleTile tile, int health) {
-        super(scene, tile, "mage", health, Element.getRandomElement(false));
+        super(scene, tile, "mage", health, Element.getRandomElement(false), BattleStats.BASE_STATS_MAGE);
         acceptedTileTypes = new SceneBattleTileType[]{SceneBattleTileType.ENEMY, SceneBattleTileType.NEUTRAL};
 
         cardStack.push(CardFactory.buildCard("Magic", element));
@@ -63,22 +64,32 @@ public class BattleEnemyMage extends BattleEnemy {
     public void attack() {
         if(canUseItem()) {
             Card card = cardStack.peek();
-            getActionQueue().add(new ActionLock(this, card.getInitialLock()));
+
+            for (int i = (int) (getIndexPos().x - 1); i >= 0; i--) {
+                scene.getGrid().getTile(i, (int) getIndexPos().y).lightUp(card.getInitialLock() * 2);
+            }
+            getActionQueue().add(new ActionWait(this, card.getInitialLock() * 2));
             getActionQueue().add(new ActionUseCard(this, scene, card));
-            getActionQueue().add(new ActionLock(this, card.getFinalLock()));
+            getActionQueue().add(new ActionWait(this, card.getFinalLock()));
+
+            lockFor(card.getInitialLock() * 2 + card.getFinalLock());
         }
     }
 
     @Override
     public void trigger(String name) {
         if(name.equals("MOVE")) {
-            moveCooldown.reset();
-            jump();
+            if(!locked()) {
+                moveCooldown.reset();
+                jump();
+            }
         } else if(name.equals("ATTACK")) {
-            Entity e = getDirectLineOfSight();
-            if(e instanceof BattlePlayer) {
-                attack();
-                attackCooldown.reset();
+            if(!locked()) {
+                Entity e = getDirectLineOfSight();
+                if (e instanceof BattlePlayer) {
+                    attack();
+                    attackCooldown.reset();
+                }
             }
         } else if(name.equals("LOCK")) {
 

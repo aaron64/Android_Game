@@ -6,14 +6,14 @@ import com.mygdx.game.GUI.GUIHPanel;
 import com.mygdx.game.GUI.GUIImage;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.items.cards.Card;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 public class CardIconComponent extends GUIImage {
 
     private Card card;
     private GUIHPanel iconHolder;
 
-    public CardIconComponent(GUI gui, String name, GUIComponent parent, Vector2f size, Card card) {
+    public CardIconComponent(GUI gui, String name, GUIComponent parent, Vec2f size, Card card) {
         super(gui, name, parent, size, card.getIcon());
         this.card = card;
     }

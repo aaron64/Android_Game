@@ -6,7 +6,7 @@ import com.mygdx.game.attributes.Quality;
 import com.mygdx.game.entities.battle.BattleLiving;
 import com.mygdx.game.entities.battle.misc.BattleArrow;
 import com.mygdx.game.scenes.battle.SceneBattle;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2i;
 
 
 public class BowCard extends AttackCard {
@@ -17,9 +17,9 @@ public class BowCard extends AttackCard {
 
     @Override
     public void use(SceneBattle scene, BattleLiving user) {
-        scene.addEntity(new BattleArrow(scene, this, new Vector2i(user.getIndexPos()), user));
+        scene.addEntity(new BattleArrow(scene, this, new Vec2i(user.getIndexPos()), user));
 
-        Vector2i indexPos = user.getIndexPos();
+        Vec2i indexPos = user.getIndexPos();
 
         if(user.facingRight()) {
             for (int i = (int) (indexPos.x + 1); i < scene.getGrid().getWidth(); i++) {

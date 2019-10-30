@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.scenes.Scene;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 import java.util.ArrayList;
 
@@ -17,8 +17,8 @@ public abstract class GUIComponent {
     protected GUIComponent parent;
     protected ArrayList<GUIComponent> children;
 
-    protected Vector2f pos;
-    protected Vector2i size;
+    protected Vec2f pos;
+    protected Vec2i size;
 
     private float lMargin, rMargin, tMargin, bMargin;
 
@@ -54,7 +54,7 @@ public abstract class GUIComponent {
     protected HorizontalAnchor horizontalAnchor = HorizontalAnchor.LEFT;
     protected VerticalAnchor verticalAnchor = VerticalAnchor.TOP;
 
-    public GUIComponent(GUI gui, String name, GUIComponent parent, Vector2f size) {
+    public GUIComponent(GUI gui, String name, GUIComponent parent, Vec2f size) {
         this.name = name;
         this.gui = gui;
 
@@ -65,7 +65,7 @@ public abstract class GUIComponent {
         if(parent != null)
             parent.addChild(this, size);
 
-        pos = new Vector2f();
+        pos = new Vec2f();
         gui.invalidate();
 
         setMargin(4);
@@ -118,10 +118,10 @@ public abstract class GUIComponent {
         renderBackground(rs, false);
     }
 
-    public void addChild(GUIComponent child, Vector2f size) {
+    public void addChild(GUIComponent child, Vec2f size) {
         child.setParent(this);
 
-        Vector2i cSize = new Vector2i(Vector2i.multiplyVectors(size, getSize()));
+        Vec2i cSize = new Vec2i(Vec2i.multiplyVectors(size, getSize()));
         if(cSize.w() == 0)
             cSize.x = cSize.h();
         else if(cSize.h() == 0)
@@ -219,23 +219,23 @@ public abstract class GUIComponent {
         setMargin(f, f);
     }
 
-    public Vector2f getTotalSize() {
-        return new Vector2f(size.w() + lMargin + rMargin, size.h() + tMargin + bMargin);
+    public Vec2f getTotalSize() {
+        return new Vec2f(size.w() + lMargin + rMargin, size.h() + tMargin + bMargin);
     }
 
-    public Vector2f getPos() {
+    public Vec2f getPos() {
         return pos;
     }
 
-    public void setPos(Vector2f pos) {
+    public void setPos(Vec2f pos) {
         this.pos = pos;
     }
 
-    public Vector2i getSize() {
+    public Vec2i getSize() {
         return size;
     }
 
-    public void setSize(Vector2i size) {
+    public void setSize(Vec2i size) {
         this.size = size;
     }
 

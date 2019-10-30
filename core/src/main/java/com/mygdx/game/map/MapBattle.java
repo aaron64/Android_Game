@@ -8,12 +8,12 @@ import com.mygdx.game.graphics.Window;
 import com.mygdx.game.particles.ParticleSystem;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleGrid;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 public class MapBattle extends Map {
 
     private Texture bg_decor;
-    private Vector2f backgroundPos;
+    private Vec2f backgroundPos;
 
     private BattlePlayer player;
 
@@ -29,7 +29,7 @@ public class MapBattle extends Map {
         this.scene = scene;
 
         setBackground(Image.getImage("backgrounds/" + bgPath));
-        backgroundPos = new Vector2f();
+        backgroundPos = new Vec2f();
 
         //bg_decor = Image.getImage("backgrounds/bg_decor1");
 

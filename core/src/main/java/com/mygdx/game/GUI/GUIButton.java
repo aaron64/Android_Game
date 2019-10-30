@@ -3,7 +3,7 @@ package com.mygdx.game.GUI;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.scenes.Scene;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 public class GUIButton extends GUIHPanel {
 
@@ -12,11 +12,11 @@ public class GUIButton extends GUIHPanel {
 
     private boolean held = false;
 
-    public GUIButton(GUI gui, String name, GUIComponent parent, Vector2f size, Texture texture, Scene scene) {
+    public GUIButton(GUI gui, String name, GUIComponent parent, Vec2f size, Texture texture, Scene scene) {
         super(gui, name, parent, size);
         setHorizontalAnchor(HorizontalAnchor.CENTER);
         setVerticalAnchor(VerticalAnchor.CENTER);
-        image = new GUIImage(gui, name, this, new Vector2f(0.8f, 0.8f), texture);
+        image = new GUIImage(gui, name, this, new Vec2f(0.8f, 0.8f), texture);
 
         this.scene = scene;
     }

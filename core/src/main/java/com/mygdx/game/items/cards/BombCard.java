@@ -6,7 +6,7 @@ import com.mygdx.game.entities.battle.BattleEnemy;
 import com.mygdx.game.entities.battle.BattleLiving;
 import com.mygdx.game.entities.battle.misc.Bomb;
 import com.mygdx.game.scenes.battle.SceneBattle;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2i;
 
 public class BombCard extends ThrowableCard {
 
@@ -16,7 +16,7 @@ public class BombCard extends ThrowableCard {
 
     @Override
     public void use(SceneBattle scene, BattleLiving user) {
-        Vector2i dest = new Vector2i(user.getIndexPos());
+        Vec2i dest = new Vec2i(user.getIndexPos());
         if(user instanceof BattleEnemy) {
             dest.subtract(getRange(), 0);
         } else {

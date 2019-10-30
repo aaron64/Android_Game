@@ -3,11 +3,11 @@ package com.mygdx.game.animation;
 import com.mygdx.game.entities.battle.BattleLiving;
 import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 public class BattleMoveAnimation extends Animation {
 
-    private Vector2f from, to;
+    private Vec2f from, to;
     private SceneBattleTile oldTile, newTile;
     private BattleLiving entity;
     private int speed;

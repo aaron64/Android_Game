@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2i;
 
 public class DirectionLight extends Light {
 
@@ -13,14 +13,14 @@ public class DirectionLight extends Light {
     private float angle;
 
     public DirectionLight(Entity parent, int size, Color color, float angle) {
-        super(parent, new Vector2i(size, size), color);
+        super(parent, new Vec2i(size, size), color);
         texture = Image.getImage("lighting/DIRECTION_LIGHT");
 
         this.angle = angle;
     }
 
     public DirectionLight(Entity parent, int size, float angle) {
-        super(parent, new Vector2i(size, size));
+        super(parent, new Vec2i(size, size));
         texture = Image.getImage("lighting/DIRECTION_LIGHT");
 
         this.angle = angle;

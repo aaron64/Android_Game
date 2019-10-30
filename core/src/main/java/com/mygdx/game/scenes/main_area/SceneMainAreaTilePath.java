@@ -4,14 +4,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.attributes.Element;
 import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 public class SceneMainAreaTilePath extends SceneMainAreaTile {
 
 
 
-    protected Vector2f renderPos;
-    protected Vector2f endPos;
+    protected Vec2f renderPos;
+    protected Vec2f endPos;
 
     private float offsetLevel;
     private float distSoftner;
@@ -23,7 +23,7 @@ public class SceneMainAreaTilePath extends SceneMainAreaTile {
 
     private float dist;
 
-    public SceneMainAreaTilePath(SceneMainArea scene, Vector2f pos, String name, SceneMainAreaTileType type) {
+    public SceneMainAreaTilePath(SceneMainArea scene, Vec2f pos, String name, SceneMainAreaTileType type) {
         super(scene, pos, "tiles", name, type);
 
         distSoftner = 25;
@@ -38,16 +38,16 @@ public class SceneMainAreaTilePath extends SceneMainAreaTile {
 
     @Override
     public void update() {
-        Vector2f playerPos = scene.getPlayer().getPos();
+        Vec2f playerPos = scene.getPlayer().getPos();
         float dx = playerPos.x - getPos().x;
         float dy = playerPos.y - getPos().y;
         dist = (float) Math.sqrt(dx * dx + dy * dy)/distSoftner;
         yOffset = dist;
 
-        renderPos = new Vector2f(getPos());
+        renderPos = new Vec2f(getPos());
         renderPos.y -= dist * offsetLevel;
 
-        endPos = new Vector2f(getPos().x, getPos().y - getSize().h() - dist * offsetLevel);
+        endPos = new Vec2f(getPos().x, getPos().y - getSize().h() - dist * offsetLevel);
     }
 
     @Override

@@ -14,7 +14,7 @@ import com.mygdx.game.scenes.battle.SceneBattleTileType;
 import com.mygdx.game.stats.BattleStats;
 import com.mygdx.game.util.Cooldown;
 import com.mygdx.game.util.CooldownInterface;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2i;
 
 import java.util.Stack;
 
@@ -44,9 +44,9 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
 
     private boolean canUseItem;
 
-    public BattleLiving(SceneBattle scene, SceneBattleTile tile, String name, Facing facing, int health, int maxHealth) {
+    public BattleLiving(SceneBattle scene, SceneBattleTile tile, String name, Facing facing, int health, int maxHealth, BattleStats battleStats) {
         super(scene, tile, name);
-        battleStats = new BattleStats(6 ,10);
+        this.battleStats = new BattleStats(battleStats);
 
         spriteSheet = new TimedSpriteSheet(getImage(), 2, 60);
         getSize().x /= 2;
@@ -85,9 +85,9 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
         }
     }
 
-    public void move(Vector2i dp) {
+    public void move(Vec2i dp) {
         if(!locked()) {
-            Vector2i newPos = Vector2i.addVectors(getIndexPos(), dp);
+            Vec2i newPos = Vec2i.addVectors(getIndexPos(), dp);
             SceneBattleTile newTile = scene.getGrid().getTile(newPos);
 
             if (scene.getGrid().isInBounds(newPos) && tileAccepted(newTile)) {
@@ -96,10 +96,10 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
         }
     }
 
-    public abstract void moveTo(Vector2i iPos);
+    public abstract void moveTo(Vec2i iPos);
 
     public BattleEntity getDirectLineOfSight() {
-        Vector2i indexPos = getIndexPos();
+        Vec2i indexPos = getIndexPos();
 
         if(facing == Facing.LEFT) {
             for (int i = indexPos.x - 1; i >= 0; i--) {
@@ -188,19 +188,19 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
     }
 
     public void moveUp() {
-        move(new Vector2i(0,1));
+        move(new Vec2i(0,1));
     }
 
     public void moveDown() {
-        move(new Vector2i(0,-1));
+        move(new Vec2i(0,-1));
     }
 
     public void moveLeft() {
-        move(new Vector2i(-1,0));
+        move(new Vec2i(-1,0));
     }
 
     public void moveRight() {
-        move(new Vector2i(1,0));
+        move(new Vec2i(1,0));
     }
 
     public boolean facingRight() {

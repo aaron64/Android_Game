@@ -7,7 +7,7 @@ import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.graphics.SpriteSheet;
 import com.mygdx.game.util.Cooldown;
 import com.mygdx.game.util.CooldownInterface;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 public class ElementStateGrass extends ElementState implements CooldownInterface {
 
@@ -24,7 +24,7 @@ public class ElementStateGrass extends ElementState implements CooldownInterface
     }
 
     @Override
-    public void render(RenderSystem rs, SpriteSheet spriteSheet, Vector2f pos) {
+    public void render(RenderSystem rs, SpriteSheet spriteSheet, Vec2f pos) {
         rs.setShader(RenderSystem.grassOverlayShader);
         rs.beginShader();
 

@@ -6,8 +6,8 @@ import com.mygdx.game.graphics.CharacterSprite;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.util.MathUtil;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 public class Player extends MainAreaEntity {
 
@@ -17,10 +17,10 @@ public class Player extends MainAreaEntity {
 
     private ParticleFootSteps particleFootSteps;
 
-    public Player(SceneMainArea scene, Vector2f pos, String name) {
+    public Player(SceneMainArea scene, Vec2f pos, String name) {
         super(scene, pos, name);
 
-        sprite = new CharacterSprite(getImage(), new Vector2i(36, 78), 16);
+        sprite = new CharacterSprite(getImage(), new Vec2i(36, 78), 16);
         setSize(sprite.getSize());
 
         maxVelocity = 5;
@@ -42,11 +42,11 @@ public class Player extends MainAreaEntity {
         sprite.render(rs, getPos());
     }
 
-    public void move(Vector2f touchVector, SceneMainArea scene) {
-        Vector2f touchDirection = MathUtil.getUnitVector(touchVector);
+    public void move(Vec2f touchVector, SceneMainArea scene) {
+        Vec2f touchDirection = MathUtil.getUnitVector(touchVector);
 
         float velocityMagnitude = Math.min(MathUtil.getDistance(touchVector)/100f, maxVelocity);
-        Vector2f velocity = Vector2f.multiplyVector(touchDirection, velocityMagnitude);
+        Vec2f velocity = Vec2f.multiplyVector(touchDirection, velocityMagnitude);
 
         sprite.update(velocity);
 
@@ -76,7 +76,7 @@ public class Player extends MainAreaEntity {
     }
 
     @Override
-    public void move(Vector2f velocity) {
+    public void move(Vec2f velocity) {
         moveX(velocity.x);
         MainAreaEntity collision = scene.getSolidEntityCollision(this);
         if(collision != null) {

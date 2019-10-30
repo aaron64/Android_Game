@@ -4,16 +4,16 @@ import com.mygdx.game.entities.battle.BattleEntity;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.graphics.TimedSpriteSheet;
 import com.mygdx.game.scenes.battle.SceneBattle;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2i;
 
 public class Explosion extends BattleEntity {
 
     private TimedSpriteSheet spriteSheet;
     private int time, count;
 
-    public Explosion(SceneBattle scene, Vector2i indexPos) {
+    public Explosion(SceneBattle scene, Vec2i indexPos) {
         super(scene, indexPos, "misc/explosion");
-        setSize(new Vector2i(scene.getGrid().getTileSize()));
+        setSize(new Vec2i(scene.getGrid().getTileSize()));
         getSize().y = getSize().x;
 
         time = 12;

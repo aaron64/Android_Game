@@ -7,18 +7,18 @@ import com.mygdx.game.GUI.GUIImage;
 import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.scenes.Scene;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 public class BattleGaugeComponent extends GUIHPanel {
 
     private GUIImage gagueImage;
     private GUIHPanel imageHolder;
     private int time, count;
-    public BattleGaugeComponent(GUI gui, GUIComponent parent, Vector2f size) {
+    public BattleGaugeComponent(GUI gui, GUIComponent parent, Vec2f size) {
         super(gui, "BATTLE_GAUGE", parent, size);
 
-        imageHolder = new GUIHPanel(gui, "IMAGE_HOLDER", this, new Vector2f(1, 1));
-        gagueImage = new GUIImage(gui, "BATTLE_GAGUE_IMAGE", imageHolder, new Vector2f(0.01f, 1), Image.getImage("gui/selection_bar"));
+        imageHolder = new GUIHPanel(gui, "IMAGE_HOLDER", this, new Vec2f(1, 1));
+        gagueImage = new GUIImage(gui, "BATTLE_GAGUE_IMAGE", imageHolder, new Vec2f(0.01f, 1), Image.getImage("gui/selection_bar"));
 
         time = 0;
         count = 100;

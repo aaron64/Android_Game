@@ -13,7 +13,7 @@ import com.mygdx.game.items.cards.MagicCard;
 import com.mygdx.game.lighting.SpotLight;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2i;
 
 public class MagicProjectile extends BattleEntity {
 
@@ -27,7 +27,7 @@ public class MagicProjectile extends BattleEntity {
 
     private SpotLight light;
 
-    public MagicProjectile(SceneBattle scene, MagicCard card, Vector2i indexPos, BattleLiving user) {
+    public MagicProjectile(SceneBattle scene, MagicCard card, Vec2i indexPos, BattleLiving user) {
         super(scene, indexPos, "misc/magic_projectile");
         moveY(scene.getGrid().getTile(0,0).getSize().y/2);
 
@@ -45,7 +45,7 @@ public class MagicProjectile extends BattleEntity {
         spriteSheet = new TimedSpriteSheet(getImage(), 30, 2);
         overlaySheet = new TimedSpriteSheet(Image.getImage("entities/battle/misc/magic_projectile_overlay"), 30, 2);
 
-        setSize(new Vector2i(spriteSheet.getSrcSize()));
+        setSize(new Vec2i(spriteSheet.getSrcSize()));
         getSize().multiply(6);
 
         if(user instanceof BattleEnemy)

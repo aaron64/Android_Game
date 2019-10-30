@@ -8,7 +8,7 @@ import com.mygdx.game.graphics.Window;
 import com.mygdx.game.items.cards.BowCard;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2i;
 
 public class BattleArrow extends BattleEntity {
 
@@ -17,16 +17,16 @@ public class BattleArrow extends BattleEntity {
 
     private BowCard card;
 
-    public BattleArrow(SceneBattle scene, BowCard card, Vector2i indexPos, BattleLiving user) {
+    public BattleArrow(SceneBattle scene, BowCard card, Vec2i indexPos, BattleLiving user) {
         super(scene, indexPos, "misc/arrow");
         moveY(scene.getGrid().getTile(0,0).getSize().y/2);
 
         this.card = card;
 
         this.user = user;
-        setSize(new Vector2i(180, 27));
+        setSize(new Vec2i(180, 27));
 
-        xv = 35;
+        xv = 45;
         if(user instanceof BattleEnemy)
             xv *= -1;
 

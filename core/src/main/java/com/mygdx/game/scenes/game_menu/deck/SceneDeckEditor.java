@@ -11,8 +11,8 @@ import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.FontUtil;
 import com.mygdx.game.util.GestureHandler;
 import com.mygdx.game.util.GestureUtil;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 import com.mygdx.game.graphics.Window;
 
 public class SceneDeckEditor extends Scene implements GestureHandler {
@@ -21,19 +21,19 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
 
     private Deck deck, pack;
 
-    private Vector2f leftSideOffset;
-    private Vector2f rightSideOffset;
+    private Vec2f leftSideOffset;
+    private Vec2f rightSideOffset;
 
     private Card cardHeld;
-    private Vector2f cardHeldPos;
-    private Vector2f cardHeldOffset;
+    private Vec2f cardHeldPos;
+    private Vec2f cardHeldOffset;
 
-    private Vector2i cardSize;
+    private Vec2i cardSize;
 
     private int spacing;
 
     private BitmapFont deckHeader, packHeader;
-    private Vector2f deckHeaderPos, packHeaderPos;
+    private Vec2f deckHeaderPos, packHeaderPos;
 
     public SceneDeckEditor() {
         super();
@@ -42,23 +42,23 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
         pack = PlayerVars.pack;
 
         cardHeld = null;
-        cardHeldPos = new Vector2f();
-        cardHeldOffset = new Vector2f();
+        cardHeldPos = new Vec2f();
+        cardHeldOffset = new Vec2f();
 
         gestureHandler = new GestureUtil(this);
 
 
-        leftSideOffset = new Vector2f(Window.percLeft(0.05f), Window.percTop(0.15f));
-        rightSideOffset = new Vector2f(Window.percLeft(0.55f), Window.percTop(0.15f));
+        leftSideOffset = new Vec2f(Window.percLeft(0.05f), Window.percTop(0.15f));
+        rightSideOffset = new Vec2f(Window.percLeft(0.55f), Window.percTop(0.15f));
 
-        cardSize = new Vector2i(Window.percWidth(0.4f), Window.percHeight(0.15f));
+        cardSize = new Vec2i(Window.percWidth(0.4f), Window.percHeight(0.15f));
         spacing = Window.percHeight(0.02f);
 
         deckHeader = FontUtil.getFont(48);
         packHeader = FontUtil.getFont(48);
 
-        deckHeaderPos = new Vector2f(leftSideOffset.x + cardSize.w()/2, leftSideOffset.y);
-        packHeaderPos = new Vector2f(rightSideOffset.x + cardSize.w()/2, rightSideOffset.y);
+        deckHeaderPos = new Vec2f(leftSideOffset.x + cardSize.w()/2, leftSideOffset.y);
+        packHeaderPos = new Vec2f(rightSideOffset.x + cardSize.w()/2, rightSideOffset.y);
     }
 
     public void update() {
@@ -80,7 +80,7 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
         for(int i = 0; i < deck.getSize(); i++) {
             Card card = deck.peekCard(i);
 
-            Vector2f pos = new Vector2f(leftSideOffset.x, leftSideOffset.y - (i+1) * (cardSize.h() + spacing));
+            Vec2f pos = new Vec2f(leftSideOffset.x, leftSideOffset.y - (i+1) * (cardSize.h() + spacing));
 
             if(cardHeld != null && cardHeldPos.x < Window.getCenter().x && cardHeldPos.y > pos.y) {
                 pos.y -= cardSize.h() + spacing;
@@ -92,7 +92,7 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
         for(int i = 0; i < pack.getSize(); i++) {
             Card card = pack.peekCard(i);
 
-            Vector2f pos = new Vector2f(rightSideOffset.x, rightSideOffset.y - (i+1) * (cardSize.h() + spacing));
+            Vec2f pos = new Vec2f(rightSideOffset.x, rightSideOffset.y - (i+1) * (cardSize.h() + spacing));
             if(cardHeld != null && cardHeldPos.x > Window.getCenter().x && cardHeldPos.y > pos.y) {
                 pos.y -= cardSize.h() + spacing;
             }
@@ -151,7 +151,7 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
             if(x > Window.getCenter().x) {
                 for (int i = 0; i < pack.getSize(); i++) {
                     Card card = pack.peekCard(i);
-                    Vector2f pos = new Vector2f(rightSideOffset.x, rightSideOffset.y - (i + 1) * (cardSize.h() + spacing));
+                    Vec2f pos = new Vec2f(rightSideOffset.x, rightSideOffset.y - (i + 1) * (cardSize.h() + spacing));
 
                     if (new Rectangle(pos.x, pos.y, cardSize.w(), cardSize.h()).contains(x, y)) {
                         pack.remove(i);
@@ -163,7 +163,7 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
             } else {
                 for (int i = 0; i < deck.getSize(); i++) {
                     Card card = deck.peekCard(i);
-                    Vector2f pos = new Vector2f(leftSideOffset.x, leftSideOffset.y - (i+1) * (cardSize.h() + spacing));
+                    Vec2f pos = new Vec2f(leftSideOffset.x, leftSideOffset.y - (i+1) * (cardSize.h() + spacing));
 
                     if (new Rectangle(pos.x, pos.y, cardSize.w(), cardSize.h()).contains(x, y)) {
                         deck.remove(i);
@@ -182,7 +182,7 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
             boolean cardPlaced = false;
 
             for(int i = 0; i < pack.getSize(); i++) {
-                Vector2f pos = new Vector2f(rightSideOffset.x, rightSideOffset.y - (i + 1) * (cardSize.h() + spacing));
+                Vec2f pos = new Vec2f(rightSideOffset.x, rightSideOffset.y - (i + 1) * (cardSize.h() + spacing));
                 if(pos.y < cardHeldPos.y) {
                     pack.addCard(cardHeld, i);
                     cardHeld = null;
@@ -201,7 +201,7 @@ public class SceneDeckEditor extends Scene implements GestureHandler {
             boolean cardPlaced = false;
 
             for(int i = 0; i < deck.getSize(); i++) {
-                Vector2f pos = new Vector2f(leftSideOffset.x, leftSideOffset.y - (i+1) * (cardSize.h() + spacing));
+                Vec2f pos = new Vec2f(leftSideOffset.x, leftSideOffset.y - (i+1) * (cardSize.h() + spacing));
                 if(pos.y < cardHeldPos.y) {
                     deck.addCard(cardHeld, i);
                     cardHeld = null;

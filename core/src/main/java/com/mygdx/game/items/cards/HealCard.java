@@ -7,8 +7,8 @@ import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.util.FontUtil;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 public class HealCard extends PotionCard {
 
@@ -32,7 +32,7 @@ public class HealCard extends PotionCard {
     }
 
     @Override
-    public void drawIcon(RenderSystem rs, Vector2f pos, Vector2i size, float alpha) {
+    public void drawIcon(RenderSystem rs, Vec2f pos, Vec2i size, float alpha) {
         rs.setColor(1, 1, 1, alpha);
         Element.drawTextureWithOverlay(rs, icon, overlay_texture, pos, size, Element.FIRE);
         rs.resetColor();

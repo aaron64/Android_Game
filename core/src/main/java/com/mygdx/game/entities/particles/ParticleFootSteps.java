@@ -5,7 +5,7 @@ import com.mygdx.game.entities.Entity;
 import com.mygdx.game.graphics.Image;
 import com.mygdx.game.scenes.main_area.SceneMainArea;
 import com.mygdx.game.scenes.main_area.SceneMainAreaTileType;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 public class ParticleFootSteps extends ParticleSystem {
 
@@ -14,7 +14,7 @@ public class ParticleFootSteps extends ParticleSystem {
 
     private Texture grass, water;
 
-    public ParticleFootSteps(Vector2f pos, String name, int n, int nDiff, float xDiff, float yDiff, int size, int sizeDiff, float xv, float xvDiff, float yv, float yvDiff, int life, int lifeDiff, Entity entity, SceneMainArea scene) {
+    public ParticleFootSteps(Vec2f pos, String name, int n, int nDiff, float xDiff, float yDiff, int size, int sizeDiff, float xv, float xvDiff, float yv, float yvDiff, int life, int lifeDiff, Entity entity, SceneMainArea scene) {
         super(pos, name, n, nDiff, xDiff, yDiff, size, sizeDiff, xv, xvDiff ,yv, yvDiff, life, lifeDiff, 4);
 
         grass = getImage();

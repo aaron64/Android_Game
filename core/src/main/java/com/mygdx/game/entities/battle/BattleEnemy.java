@@ -6,16 +6,17 @@ import com.mygdx.game.animation.BattleEnemyMoveAnimation;
 import com.mygdx.game.attributes.Element;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.stats.BattleStats;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 public abstract class BattleEnemy extends BattleLiving {
 
     protected BattleEnemyHealthComponent healthComponent;
 
-    public BattleEnemy(SceneBattle scene, SceneBattleTile tile, String name, int health, Element element) {
-        super(scene, tile, name, Facing.LEFT, health, health);
-        healthComponent = new BattleEnemyHealthComponent(scene.getGUI(), name + "_HEALTH", scene.getGUI().getNode(), new Vector2f(), this);
+    public BattleEnemy(SceneBattle scene, SceneBattleTile tile, String name, int health, Element element, BattleStats battleStats) {
+        super(scene, tile, name, Facing.LEFT, health, health, battleStats);
+        healthComponent = new BattleEnemyHealthComponent(scene.getGUI(), name + "_HEALTH", scene.getGUI().getNode(), new Vec2f(), this);
         this.element = element;
 
         scene.enemySpawned(this);
@@ -37,7 +38,7 @@ public abstract class BattleEnemy extends BattleLiving {
     }
 
     @Override
-    public void moveTo(Vector2i iPos) {
+    public void moveTo(Vec2i iPos) {
         SceneBattleTile oldTile = scene.getTile(getIndexPos());
         SceneBattleTile newTile = scene.getTile(iPos);
 

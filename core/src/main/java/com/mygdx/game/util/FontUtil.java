@@ -16,9 +16,9 @@ public class FontUtil {
         return font;
     }
 
-    public static Vector2f getTextSize(BitmapFont font, String text) {
+    public static Vec2f getTextSize(BitmapFont font, String text) {
         GlyphLayout layout = new GlyphLayout(font, text);
-        return new Vector2f(layout.width, layout.height);
+        return new Vec2f(layout.width, layout.height);
     }
 
     public static FreeTypeFontGenerator getGenerator() {

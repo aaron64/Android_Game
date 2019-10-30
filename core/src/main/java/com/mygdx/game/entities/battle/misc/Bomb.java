@@ -6,15 +6,15 @@ import com.mygdx.game.entities.battle.BattleLiving;
 import com.mygdx.game.items.cards.BombCard;
 import com.mygdx.game.items.cards.ThrowableSize;
 import com.mygdx.game.scenes.battle.SceneBattle;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 public class Bomb extends BattleEntity {
 
     private int throwTime;
     private int throwTimeCounter;
 
-    private Vector2f velocity;
+    private Vec2f velocity;
     private float distance;
 
     private float yTrigger;
@@ -23,9 +23,9 @@ public class Bomb extends BattleEntity {
 
     private BombCard card;
 
-    private Vector2i dest;
+    private Vec2i dest;
 
-    public Bomb(SceneBattle scene, BombCard card, Vector2i indexPos, Vector2i dest, ThrowableSize size, BattleLiving user) {
+    public Bomb(SceneBattle scene, BombCard card, Vec2i indexPos, Vec2i dest, ThrowableSize size, BattleLiving user) {
         super(scene, indexPos, "misc/bomb");
         moveY(scene.getGrid().getTile(0,0).getSize().y/2);
 
@@ -41,7 +41,7 @@ public class Bomb extends BattleEntity {
         throwTime = 25;
         throwTimeCounter = 0;
 
-        velocity = new Vector2f();
+        velocity = new Vec2f();
 
         float vMag = distance / throwTime;
 

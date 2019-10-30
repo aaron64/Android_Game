@@ -6,7 +6,7 @@ import com.mygdx.game.GUI.GUIText;
 import com.mygdx.game.entities.battle.BattleEnemy;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.scenes.Scene;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 public class BattleEnemyHealthComponent extends GUIComponent {
 
@@ -14,19 +14,19 @@ public class BattleEnemyHealthComponent extends GUIComponent {
     private BattleEnemy enemy;
     private int health, healthTarget;
 
-    public BattleEnemyHealthComponent(GUI gui, String name, GUIComponent parent, Vector2f size, BattleEnemy enemy) {
+    public BattleEnemyHealthComponent(GUI gui, String name, GUIComponent parent, Vec2f size, BattleEnemy enemy) {
         super(gui, name, parent, size);
         this.enemy = enemy;
         health = enemy.getHealth();
         healthTarget = enemy.getHealth();
 
-        healthText = new GUIText(gui, name + "_TEXT", this, new Vector2f(), 48, "");
+        healthText = new GUIText(gui, name + "_TEXT", this, new Vec2f(), 48, "");
         gui.setAbsolute();
     }
 
     @Override
     public void update(Scene scene) {
-        healthText.setPos(Vector2f.addVectors(enemy.getPos(), new Vector2f(0, enemy.getSize().y)));
+        healthText.setPos(Vec2f.addVectors(enemy.getPos(), new Vec2f(0, enemy.getSize().y)));
 
         healthTarget = enemy.getHealth();
         if(health < healthTarget)

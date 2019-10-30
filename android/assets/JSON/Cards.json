@@ -104,7 +104,7 @@
           "Name": "Magic",
           "Base_Point_Cost": 3,
           "Category": "MAGIC",
-          "LockI": 10,
+          "LockI": 20,
           "LockF": 10,
           "Base_Damage": 20
         }

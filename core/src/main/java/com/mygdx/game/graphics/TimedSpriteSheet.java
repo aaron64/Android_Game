@@ -1,8 +1,8 @@
 package com.mygdx.game.graphics;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 public class TimedSpriteSheet extends SpriteSheet {
 
@@ -26,20 +26,20 @@ public class TimedSpriteSheet extends SpriteSheet {
     }
 
     @Override
-    public void render(RenderSystem rs, Vector2f pos) {
+    public void render(RenderSystem rs, Vec2f pos) {
         rs.draw(spriteSheet, pos, size, srcPos, srcSize, false, false);
     }
 
     @Override
-    public void render(RenderSystem rs, Vector2f pos, Vector2i size) {
+    public void render(RenderSystem rs, Vec2f pos, Vec2i size) {
         rs.draw(spriteSheet, pos, size, srcPos, srcSize, false, false);
     }
 
-    public Vector2i getSize() {
+    public Vec2i getSize() {
         return size;
     }
 
-    public void setSize(Vector2i size) {
+    public void setSize(Vec2i size) {
         this.size = size;
     }
 }

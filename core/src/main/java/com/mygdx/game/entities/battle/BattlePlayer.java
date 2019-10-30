@@ -3,7 +3,7 @@ package com.mygdx.game.entities.battle;
 
 import com.mygdx.game.GUI.components.BattleCurrentCardsComponent;
 import com.mygdx.game.PlayerVars;
-import com.mygdx.game.action.ActionLock;
+import com.mygdx.game.action.ActionWait;
 import com.mygdx.game.action.ActionUseCard;
 import com.mygdx.game.animation.BattleMoveAnimation;
 import com.mygdx.game.graphics.RenderSystem;
@@ -12,7 +12,8 @@ import com.mygdx.game.items.cards.Deck;
 import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.scenes.battle.SceneBattleTileType;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.stats.BattleStats;
+import com.mygdx.game.util.Vec2i;
 
 public class BattlePlayer extends BattleLiving {
 
@@ -20,7 +21,7 @@ public class BattlePlayer extends BattleLiving {
     private Card secondary;
 
     public BattlePlayer(SceneBattle scene, SceneBattleTile tile, int health, int maxHealth) {
-        super(scene, tile, "player", Facing.RIGHT, health, maxHealth);
+        super(scene, tile, "player", Facing.RIGHT, health, maxHealth, BattleStats.BASE_STATS_PLAYER);
         acceptedTileTypes = new SceneBattleTileType[]{SceneBattleTileType.FRIENDLY, SceneBattleTileType.NEUTRAL};
 
         hand = new Deck(5);
@@ -41,9 +42,9 @@ public class BattlePlayer extends BattleLiving {
     public void useCard(BattleCurrentCardsComponent battleCurrentCards) {
         if(!hand.isEmpty() && canUseItem()) {
             Card card = hand.pop();
-            getActionQueue().add(new ActionLock(this, card.getInitialLock()));
+            getActionQueue().add(new ActionWait(this, card.getInitialLock()));
             getActionQueue().add(new ActionUseCard(this, scene, card));
-            getActionQueue().add(new ActionLock(this, card.getFinalLock()));
+            getActionQueue().add(new ActionWait(this, card.getFinalLock()));
 
             battleCurrentCards.useCard();
         }
@@ -69,7 +70,7 @@ public class BattlePlayer extends BattleLiving {
     }
 
     @Override
-    public void moveTo(Vector2i iPos) {
+    public void moveTo(Vec2i iPos) {
         SceneBattleTile oldTile = scene.getTile(getIndexPos());
         SceneBattleTile newTile = scene.getTile(iPos);
 

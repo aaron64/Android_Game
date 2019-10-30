@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.graphics.SpriteSheet;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 public enum Element {
     FIRE ("Fire",
@@ -110,7 +110,7 @@ public enum Element {
         return Element.FIRE;
     }
 
-    public static void drawTextureWithOverlay(RenderSystem rs, Texture texture, Texture overlay, Vector2f pos, Vector2i size, Element element) {
+    public static void drawTextureWithOverlay(RenderSystem rs, Texture texture, Texture overlay, Vec2f pos, Vec2i size, Element element) {
         rs.draw(texture, pos, size);
         if(element != null) {
             rs.setShader(RenderSystem.elementShader);
@@ -123,7 +123,7 @@ public enum Element {
         }
     }
 
-    public static void drawTextureWithOverlay(RenderSystem rs, SpriteSheet texture, SpriteSheet overlay, Vector2f pos, Vector2i size, Element element) {
+    public static void drawTextureWithOverlay(RenderSystem rs, SpriteSheet texture, SpriteSheet overlay, Vec2f pos, Vec2i size, Element element) {
         texture.render(rs, pos, size);
         if(element != null) {
             rs.setShader(RenderSystem.elementShader);

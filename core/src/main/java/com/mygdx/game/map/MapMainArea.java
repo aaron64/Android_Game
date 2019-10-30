@@ -3,20 +3,20 @@ package com.mygdx.game.map;
 import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.graphics.Window;
-import com.mygdx.game.util.Vector2f;
-import com.mygdx.game.util.Vector2i;
+import com.mygdx.game.util.Vec2f;
+import com.mygdx.game.util.Vec2i;
 
 public class MapMainArea extends Map {
 
-    private Vector2i backgroundSize;
-    private Vector2f backgroundPos;
+    private Vec2i backgroundSize;
+    private Vec2f backgroundPos;
 
     public MapMainArea(String bgPath) {
         super();
         setBackground(Image.getImage("backgrounds/" + bgPath));
 
         backgroundSize = Window.getSize();
-        backgroundPos = new Vector2f();
+        backgroundPos = new Vec2f();
     }
 
     @Override
@@ -26,7 +26,7 @@ public class MapMainArea extends Map {
 
     @Override
     public void render(RenderSystem rs) {
-        //rs.centerCameraOn(Vector2f.divideVector(Window.getSize(), 2));
+        //rs.centerCameraOn(Vec2f.divideVector(Window.getSize(), 2));
         rs.drawStatic(getBackground(), backgroundPos, backgroundSize);
     }
 

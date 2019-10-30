@@ -17,7 +17,7 @@ import com.mygdx.game.scenes.Scene;
 import com.mygdx.game.util.GestureHandler;
 import com.mygdx.game.util.GestureUtil;
 import com.mygdx.game.util.MathUtil;
-import com.mygdx.game.util.Vector2f;
+import com.mygdx.game.util.Vec2f;
 
 import java.util.Collections;
 
@@ -42,7 +42,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
         map = new MapMainArea("bg1");
 
-        PlayerHealthComponent playerHealthComponent = new PlayerHealthComponent(gui, "MAIN_HEALTH", gui.getNode(), new Vector2f(0.15f, 0.1f), player);
+        PlayerHealthComponent playerHealthComponent = new PlayerHealthComponent(gui, "MAIN_HEALTH", gui.getNode(), new Vec2f(0.15f, 0.1f), player);
     }
 
     @Override
@@ -180,7 +180,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
     @Override
     public void hold(float x, float y) {
-        Vector2f touchVec = Vector2f.subtractVectors(new Vector2f(x, y), Window.getCenter());
+        Vec2f touchVec = Vec2f.subtractVectors(new Vec2f(x, y), Window.getCenter());
         player.move(touchVec, this);
     }
 
@@ -191,13 +191,13 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
     @Override
     public void doubleTap(float x, float y) {
-        Vector2f direction = MathUtil.getUnitVector(Vector2f.subtractVectors(new Vector2f(x, y), Window.getCenter()));
+        Vec2f direction = MathUtil.getUnitVector(Vec2f.subtractVectors(new Vec2f(x, y), Window.getCenter()));
         animationQueue.add(new PlayerDashAnimation(false, true, player, direction, 10, 200));
     }
 
     @Override
     public void tap(float x, float y) {
-        Vector2f pos = rs.getWorldPos((int)x,(int)y);
+        Vec2f pos = rs.getWorldPos((int)x,(int)y);
         for(Entity e : entities.getList()) {
             if(e.getRect().contains(pos.x, pos.y)) {
                 ((MainAreaEntity)e).clickOn();
