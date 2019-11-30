@@ -80,6 +80,8 @@ public abstract class GUIComponent {
     }
 
     public void render(RenderSystem rs) {
+        /*if(! (this instanceof GUINode))
+            renderBackground(rs);*/
         rs.setColor(1f, 1f, 1f, getAlpha());
         for(GUIComponent child : children) {
             child.render(rs);
@@ -122,6 +124,7 @@ public abstract class GUIComponent {
         child.setParent(this);
 
         Vec2i cSize = new Vec2i(Vec2i.multiplyVectors(size, getSize()));
+
         if(cSize.w() == 0)
             cSize.x = cSize.h();
         else if(cSize.h() == 0)
@@ -209,6 +212,7 @@ public abstract class GUIComponent {
         rMargin = r;
         tMargin = t;
         bMargin = b;
+        gui.invalidate();
     }
 
     public void setMargin(float h, float v) {

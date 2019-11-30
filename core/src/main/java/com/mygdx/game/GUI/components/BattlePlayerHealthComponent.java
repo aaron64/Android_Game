@@ -32,7 +32,7 @@ public class BattlePlayerHealthComponent extends GUIHPanel {
         rightPanel = new GUIHPanel(gui, "RIGHT_PANEL", this, new Vec2f(rightPanelWidth, 1));
         rightPanel.setHorizontalAnchor(HorizontalAnchor.RIGHT);
 
-        healthText = new GUIText(gui, "TEXT_HEALTH", rightPanel, new Vec2f(1, 1), 52, health + "");
+        healthText = new GUIText(gui, "TEXT_HEALTH", rightPanel, new Vec2f(1, 1), 72, health + "");
         healthText.rightMargin(8);
         healthText.setTextAlign(RenderSystem.TextAlign.RIGHT);
     }

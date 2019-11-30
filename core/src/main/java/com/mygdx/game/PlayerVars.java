@@ -17,25 +17,25 @@ public class PlayerVars {
 
     public static void init() {
 
-        deck.addCard(CardFactory.buildCard("Dagger", Element.GRASS));
-        deck.addCard(CardFactory.buildCard("Sword", Element.FIRE));
-        deck.addCard(CardFactory.buildCard("Longsword", Element.WATER));
-        deck.addCard(CardFactory.buildCard("Claymore", Element.SHOCK));
-        deck.addCard(CardFactory.buildCard("Cutlass", Element.POISON));
-        deck.addCard(CardFactory.buildCard("Heal"));
-        deck.addCard(CardFactory.buildCard("Bow", Element.SHOCK));
-        deck.addCard(CardFactory.buildCard("Longbow", Element.GRASS));
-        deck.addCard(CardFactory.buildCard("Crossbow", Element.FIRE));
-        deck.addCard(CardFactory.buildCard("Magic", Element.WATER));
-        deck.addCard(CardFactory.buildCard("Magic", Element.FIRE));
-        deck.addCard(CardFactory.buildCard("Magic", Element.GRASS));
-        deck.addCard(CardFactory.buildCard("Magic", Element.GRASS));
-        deck.addCard(CardFactory.buildCard("Magic", Element.SHOCK));
-        deck.addCard(CardFactory.buildCard("Magic", Element.WATER));
-        deck.addCard(CardFactory.buildCard("Small Bomb", Element.SHOCK));
-        deck.addCard(CardFactory.buildCard("Bomb", Element.POISON));
-        deck.addCard(CardFactory.buildCard("Horizontal Bomb", Element.GRASS));
-        deck.addCard(CardFactory.buildCard("Vertical Bomb", Element.FIRE));
+        deck.addCard(CardFactory.buildCard("Dagger", Element.getRandomElement(true), Quality.getRandomQuality()));
+        deck.addCard(CardFactory.buildCard("Sword",  Element.getRandomElement(true), Quality.getRandomQuality()));
+        deck.addCard(CardFactory.buildCard("Longsword",  Element.getRandomElement(true), Quality.getRandomQuality()));
+        deck.addCard(CardFactory.buildCard("Claymore",  Element.getRandomElement(true), Quality.getRandomQuality()));
+        deck.addCard(CardFactory.buildCard("Cutlass",  Element.getRandomElement(true), Quality.getRandomQuality()));
+        deck.addCard(CardFactory.buildCard("Heal", Quality.getRandomQuality()));
+        deck.addCard(CardFactory.buildCard("Bow",  Element.getRandomElement(true), Quality.getRandomQuality()));
+        deck.addCard(CardFactory.buildCard("Longbow",  Element.getRandomElement(true), Quality.getRandomQuality()));
+        deck.addCard(CardFactory.buildCard("Crossbow",  Element.getRandomElement(true), Quality.getRandomQuality()));
+        deck.addCard(CardFactory.buildCard("Magic",  Element.getRandomElement(true), Quality.getRandomQuality()));
+        deck.addCard(CardFactory.buildCard("Magic",  Element.getRandomElement(true), Quality.getRandomQuality()));
+        deck.addCard(CardFactory.buildCard("Magic",  Element.getRandomElement(true), Quality.getRandomQuality()));
+        deck.addCard(CardFactory.buildCard("Magic",  Element.getRandomElement(true), Quality.getRandomQuality()));
+        deck.addCard(CardFactory.buildCard("Magic",  Element.getRandomElement(true), Quality.getRandomQuality()));
+        deck.addCard(CardFactory.buildCard("Magic",  Element.getRandomElement(true), Quality.getRandomQuality()));
+        deck.addCard(CardFactory.buildCard("Small Bomb",  Element.getRandomElement(true), Quality.getRandomQuality()));
+        deck.addCard(CardFactory.buildCard("Bomb",  Element.getRandomElement(true), Quality.getRandomQuality()));
+        deck.addCard(CardFactory.buildCard("Horizontal Bomb",  Element.getRandomElement(true), Quality.getRandomQuality()));
+        deck.addCard(CardFactory.buildCard("Vertical Bomb",  Element.getRandomElement(true), Quality.getRandomQuality()));
 
         pack.addCard(CardFactory.buildCard("Heal"));
         pack.addCard(CardFactory.buildCard("Heal", Quality.STRONG));

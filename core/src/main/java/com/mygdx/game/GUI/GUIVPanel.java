@@ -35,12 +35,22 @@ public class GUIVPanel extends GUIComponent {
                 case TOP: {
                     offset -= child.topMargin() + child.getSize().y;
                     cPos.y = offset;
+
+                    float bottomEnd = pos.y;
+                    if(cPos.y < bottomEnd + child.bottomMargin())
+                        child.getSize().y = (int)(cPos.y + child.getSize().h() - (bottomEnd + child.bottomMargin()));
+
                     offset -= child.bottomMargin();
                 }
                 break;
                 case BOTTOM: {
                     offset += child.bottomMargin();
                     cPos.y = offset;
+
+                    float topEnd = pos.y + size.h();
+                    if(cPos.y + child.getSize().h() + child.topMargin() > topEnd)
+                        child.getSize().y = (int)(topEnd - cPos.y - child.topMargin());
+
                     offset += child.getSize().y + child.topMargin();
                 }
                 break;
@@ -55,10 +65,18 @@ public class GUIVPanel extends GUIComponent {
             switch(horizontalAnchor) {
                 case LEFT: {
                     cPos.x = pos.x + child.leftMargin();
+
+                    float rightEnd = pos.x + size.w();
+                    if(cPos.x + child.getSize().w() + child.rightMargin() > rightEnd)
+                        child.getSize().x = (int)(rightEnd - cPos.x - child.rightMargin());
                 }
                 break;
                 case RIGHT: {
                     cPos.x = pos.x + size.w() - child.getSize().x - child.rightMargin();
+
+                    float leftEnd = pos.x;
+                    if(cPos.x < leftEnd + child.leftMargin())
+                        child.getSize().x = (int)(cPos.x - (leftEnd + child.leftMargin()));
                 }
                 break;
                 case CENTER: {

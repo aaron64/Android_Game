@@ -27,14 +27,16 @@ public class ParticleFootSteps extends ParticleSystem {
     @Override
     public void update() {
         super.update();
-        SceneMainAreaTileType tileType = scene.getGrid().getTile(getPos()).getType();
-        switch(tileType) {
-            case WATER:
-                setImage(water);
-                break;
-            case PATH:
-                setImage(grass);
-                break;
+        if(scene.getGrid().getTile(getPos()) != null) {
+            SceneMainAreaTileType tileType = scene.getGrid().getTile(getPos()).getType();
+            switch (tileType) {
+                case WATER:
+                    setImage(water);
+                    break;
+                case PATH:
+                    setImage(grass);
+                    break;
+            }
         }
     }
 }

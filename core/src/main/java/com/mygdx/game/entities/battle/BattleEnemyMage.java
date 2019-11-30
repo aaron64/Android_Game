@@ -1,7 +1,9 @@
 package com.mygdx.game.entities.battle;
 
-import com.mygdx.game.action.ActionWait;
+import com.mygdx.game.action.ActionAttack;
+import com.mygdx.game.action.ActionJump;
 import com.mygdx.game.action.ActionUseCard;
+import com.mygdx.game.action.ActionWait;
 import com.mygdx.game.attributes.Element;
 import com.mygdx.game.entities.Entity;
 import com.mygdx.game.factories.CardFactory;
@@ -11,14 +13,10 @@ import com.mygdx.game.scenes.battle.SceneBattle;
 import com.mygdx.game.scenes.battle.SceneBattleTile;
 import com.mygdx.game.scenes.battle.SceneBattleTileType;
 import com.mygdx.game.stats.BattleStats;
-import com.mygdx.game.util.Cooldown;
 
 import java.util.ArrayList;
 
 public class BattleEnemyMage extends BattleEnemy {
-
-    private Cooldown moveCooldown;
-    private Cooldown attackCooldown;
 
 
     public BattleEnemyMage(SceneBattle scene, SceneBattleTile tile, int health) {
@@ -27,16 +25,13 @@ public class BattleEnemyMage extends BattleEnemy {
 
         cardStack.push(CardFactory.buildCard("Magic", element));
 
-        moveCooldown = new Cooldown(this, "MOVE", false, 160);
-        attackCooldown = new Cooldown(this, "ATTACK", false, 100);
+        actionQueue.add(new ActionWait(this, battleStats.getMovementLock()));
+        actionQueue.add(new ActionAttack(this));
     }
 
     @Override
     public void update() {
         super.update();
-
-        moveCooldown.update();
-        attackCooldown.update();
 
         spriteSheet.update();
     }
@@ -46,7 +41,7 @@ public class BattleEnemyMage extends BattleEnemy {
         spriteSheet.render(rs, getPos());
     }
 
-
+    @Override
     public void jump() {
         ArrayList<SceneBattleTile> surroundings = scene.getGrid().getSurroundings(getIndexPos());
 
@@ -59,40 +54,33 @@ public class BattleEnemyMage extends BattleEnemy {
             }
         }
         moveTo(surroundings.get(r).getIndexPos());
+
+        actionQueue.addNow(new ActionWait(this, battleStats.getMovementLock()));
     }
 
+    @Override
     public void attack() {
         if(canUseItem()) {
-            Card card = cardStack.peek();
+            Entity e = getDirectLineOfSight();
+            if (e instanceof BattlePlayer) {
+                Card card = cardStack.peek();
 
-            for (int i = (int) (getIndexPos().x - 1); i >= 0; i--) {
-                scene.getGrid().getTile(i, (int) getIndexPos().y).lightUp(card.getInitialLock() * 2);
+                for (int i = (int) (getIndexPos().x - 1); i >= 0; i--) {
+                    scene.getGrid().getTile(i, (int) getIndexPos().y).lightUp(card.getInitialLock() * 2);
+                }
+                actionQueue.add(new ActionWait(this, card.getInitialLock() * 2));
+                actionQueue.add(new ActionUseCard(this, scene, card));
+                actionQueue.add(new ActionWait(this, card.getFinalLock()));
+                actionQueue.add(new ActionWait(this, battleStats.getMovementLock()));
+                actionQueue.add(new ActionJump(this));
             }
-            getActionQueue().add(new ActionWait(this, card.getInitialLock() * 2));
-            getActionQueue().add(new ActionUseCard(this, scene, card));
-            getActionQueue().add(new ActionWait(this, card.getFinalLock()));
-
-            lockFor(card.getInitialLock() * 2 + card.getFinalLock());
         }
+        actionQueue.add(new ActionJump(this));
+        actionQueue.add(new ActionAttack(this));
     }
 
     @Override
     public void trigger(String name) {
-        if(name.equals("MOVE")) {
-            if(!locked()) {
-                moveCooldown.reset();
-                jump();
-            }
-        } else if(name.equals("ATTACK")) {
-            if(!locked()) {
-                Entity e = getDirectLineOfSight();
-                if (e instanceof BattlePlayer) {
-                    attack();
-                    attackCooldown.reset();
-                }
-            }
-        } else if(name.equals("LOCK")) {
 
-        }
     }
 }

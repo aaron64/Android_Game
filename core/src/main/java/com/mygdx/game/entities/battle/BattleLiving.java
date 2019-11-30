@@ -50,7 +50,7 @@ public abstract class BattleLiving extends BattleTileEntity implements CooldownI
 
         spriteSheet = new TimedSpriteSheet(getImage(), 2, 60);
         getSize().x /= 2;
-        getSize().multiply(scene.getGrid().getTile(0,0).getSize().w() / getSize().w()* 0.6f);
+        getSize().multiply(scene.getGrid().getTile(0,0).getSize().w() / getSize().w());
         spriteSheet.setSize(getSize());
 
         cardStack = new Stack<Card>();

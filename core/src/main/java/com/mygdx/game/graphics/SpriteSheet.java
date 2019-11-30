@@ -7,18 +7,18 @@ import com.mygdx.game.util.Vec2i;
 public class SpriteSheet {
 
     protected Texture spriteSheet;
-    protected int n;
+    protected int frames;
 
     protected Vec2i size;
 
     protected Vec2i srcPos, srcSize;
 
-    public SpriteSheet(Texture texture, Vec2i size, int n) {
+    public SpriteSheet(Texture texture, Vec2i size, int frames) {
         spriteSheet = texture;
 
-        this.n = n;
+        this.frames = frames;
         srcPos = new Vec2i();
-        srcSize = new Vec2i(spriteSheet.getWidth() / n, spriteSheet.getHeight());
+        srcSize = new Vec2i(spriteSheet.getWidth() / frames, spriteSheet.getHeight());
 
         this.size = size;
     }

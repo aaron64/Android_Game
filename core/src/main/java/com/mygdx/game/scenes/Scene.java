@@ -74,4 +74,8 @@ public abstract class Scene {
     public LightEngine getLightEngine() {
         return lightEngine;
     }
+
+    public RenderSystem getRenderSystem() {
+        return rs;
+    }
 }

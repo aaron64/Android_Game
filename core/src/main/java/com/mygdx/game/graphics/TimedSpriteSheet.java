@@ -18,7 +18,7 @@ public class TimedSpriteSheet extends SpriteSheet {
 
     public void update() {
         animationCount++;
-        srcPos.x = ((animationCount/animationSpeed)%n) * srcSize.w();
+        srcPos.x = ((animationCount/animationSpeed)% frames) * srcSize.w();
     }
 
     public void reset() {

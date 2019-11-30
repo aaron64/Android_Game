@@ -4,8 +4,8 @@ public class BattleStats {
 
     public static BattleStats BASE_STATS_PLAYER = new BattleStats(6, 10);
     public static BattleStats BASE_STATS_ARROW_TURRET = new BattleStats(6, 10);
-    public static BattleStats BASE_STATS_MAGE = new BattleStats(6, 30);
-    public static BattleStats BASE_STATS_SWORDSMAN = new BattleStats(6, 10);
+    public static BattleStats BASE_STATS_MAGE = new BattleStats(6, 80);
+    public static BattleStats BASE_STATS_SWORDSMAN = new BattleStats(6, 60);
 
     private int oMovementSpeed, oMovementLock;
     private int movementSpeed, movementLock;

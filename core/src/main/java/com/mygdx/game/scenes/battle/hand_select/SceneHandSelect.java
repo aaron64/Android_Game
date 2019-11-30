@@ -40,7 +40,7 @@ public class SceneHandSelect extends Scene implements GestureHandler {
 
         this.player = player;
 
-        maxCards = 2;
+        maxCards = 3;
 
         deck = new Deck(PlayerVars.deck);
         deck.shuffle();
@@ -48,9 +48,9 @@ public class SceneHandSelect extends Scene implements GestureHandler {
         handSelection = new ArrayList<Card>();
 
         ArrayList<Card> cards = new ArrayList<Card>();
-        cards.add(deck.pop());
-        cards.add(deck.pop());
-        cards.add(deck.pop());
+        for(int i = 0; i < maxCards; i++) {
+            cards.add(deck.pop());
+        }
 
         new GUIHPanel(gui, "LEFT_PANEL", gui.getNode(), new Vec2f(0.15f, 1));
 
@@ -63,9 +63,6 @@ public class SceneHandSelect extends Scene implements GestureHandler {
         rightPanel.setVerticalAnchor(GUIComponent.VerticalAnchor.BOTTOM);
         goButton = new GUIButton(gui, "GO_BUTTON", rightPanel, new Vec2f(0.75f, 0), Image.getImage("gui/button/button_icon_go"), this);
         goButton.bottomMargin(16);
-
-        addAnimation(new GUIMoveAnimation(new Vec2f(0, 50), 10, selectHandContainer));
-        addAnimation(new GUIFadeInAnimation(10, selectHandContainer));
     }
 
     @Override
@@ -110,6 +107,8 @@ public class SceneHandSelect extends Scene implements GestureHandler {
 
     @Override
     public void onPushed() {
+        addAnimation(new GUIMoveAnimation(new Vec2f(0, 50), 10, selectHandContainer));
+        addAnimation(new GUIFadeInAnimation(10, selectHandContainer));
     }
 
     @Override

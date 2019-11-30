@@ -7,8 +7,10 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public class FontUtil {
 
+    private static String fontPath = "fonts/VCR_OSD_MONO_1.001.ttf";
+
     public static BitmapFont getFont(int size) {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/PressStart2P.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(fontPath));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = size;
         BitmapFont font = generator.generateFont(parameter);
@@ -21,7 +23,12 @@ public class FontUtil {
         return new Vec2f(layout.width, layout.height);
     }
 
+    public static Vec2f getCharSize(BitmapFont font) {
+        GlyphLayout layout = new GlyphLayout(font, "A");
+        return new Vec2f(layout.width + 2, layout.height);
+    }
+
     public static FreeTypeFontGenerator getGenerator() {
-        return new FreeTypeFontGenerator(Gdx.files.internal("fonts/PressStart2P.ttf"));
+        return new FreeTypeFontGenerator(Gdx.files.internal(fontPath));
     }
 }

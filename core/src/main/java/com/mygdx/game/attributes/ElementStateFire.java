@@ -12,7 +12,7 @@ public class ElementStateFire extends ElementState {
         super(affected);
 
         count = 0;
-        time = 500;
+        time = 200;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class ElementStateFire extends ElementState {
     public void update() {
         count++;
 
-        if(count % 25 == 0) {
+        if(count % 10 == 0) {
             affected.hit(1);
         }
     }

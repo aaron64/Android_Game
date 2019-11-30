@@ -1,10 +1,13 @@
 package com.mygdx.game.GUI.components;
 
+import com.badlogic.gdx.Gdx;
 import com.mygdx.game.GUI.GUI;
 import com.mygdx.game.GUI.GUIComponent;
 import com.mygdx.game.GUI.GUIHPanel;
+import com.mygdx.game.GUI.GUIImage;
 import com.mygdx.game.GUI.GUIText;
 import com.mygdx.game.GUI.GUIVPanel;
+import com.mygdx.game.attributes.Quality;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.scenes.Scene;
@@ -13,9 +16,12 @@ import com.mygdx.game.util.Vec2f;
 
 public class SelectCardComponent extends GUIVPanel {
 
-    private GUIText points, title, description;
+    private GUIText points, title, description, amount;
     private CardIconComponent icon;
+    private GUIHPanel topPanel;
     private GUIHPanel iconHolder;
+    private GUIImage qualityIcon;
+    private GUIImage elementIcon;
 
     private Card card;
 
@@ -32,19 +38,34 @@ public class SelectCardComponent extends GUIVPanel {
 
         this.scene = scene;
 
-        points = new GUIText(gui, "POINTS", this, new Vec2f(0.3f, 0.1f), 52, card.getPointsCost() + "");
+        topPanel = new GUIHPanel(gui, "TOP_PANEL", this, new Vec2f(1, 0.1f));
+        topPanel.setMargin(8, 16);
+
+        points = new GUIText(gui, "POINTS", topPanel, new Vec2f(0f, 1f), 72, card.getPointsCost() + "");
         points.setAnchor(GUIText.TextAnchor.TOP);
 
-        title = new GUIText(gui, "TITLE", this, new Vec2f(1, 0), 52, card.getName());
-        //gui.setChildPos();
-        title.autofit();
+        if(card.getQuality() != Quality.STANDARD)
+            qualityIcon = new GUIImage(gui, "QUALITY_ICON", topPanel, new Vec2f(0, 1f), card.getQuality().getIcon());
+
+        if(card.getElement() != null)
+            elementIcon = new GUIImage(gui, "ELEMENT_ICON", topPanel, new Vec2f(0, 1f), card.getElement().getIcon());
+
+        title = new GUIText(gui, "TITLE", this, new Vec2f(1, 0), 72, card.getName(), true);
+        title.setMargin(8, 8);
 
         iconHolder = new GUIHPanel(gui, "ICON_HOLDER", this, new Vec2f(1, 0.3f));
         iconHolder.setVerticalAnchor(VerticalAnchor.CENTER);
         iconHolder.setHorizontalAnchor(HorizontalAnchor.CENTER);
+        iconHolder.setMargin(8, 8);
         icon = new CardIconComponent(gui, "ICON", iconHolder, new Vec2f(0, 1), card);
 
-        description = new GUIText(gui, "DESCRIPTION", this, new Vec2f(1, 0.4f), 24, card.getDescription());
+        if(card.getAmount() != null) {
+            amount = new GUIText(gui, "AMOUNT", this, new Vec2f(0, 0.1f), 72, card.getAmount());
+            amount.setMargin(8, 8);
+        }
+
+        description = new GUIText(gui, "DESCRIPTION", this, new Vec2f(1, 0.4f), 48, card.getDescription());
+        description.setMargin(8, 8);
     }
 
     @Override
@@ -55,7 +76,8 @@ public class SelectCardComponent extends GUIVPanel {
     @Override
     public void render(RenderSystem rs) {
         renderBackground(rs, selected);
-
+        Gdx.app.log("CARD:", card.getQuality().name());
+        Gdx.app.log("CARD:", card.getName());
         super.render(rs);
     }
 

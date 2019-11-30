@@ -60,8 +60,8 @@ public class SceneBattle extends Scene implements GestureHandler {
         map = new MapBattle(this,"bg1", battleGrid, player);
 
         new BattleEnemyMage(this, battleGrid.getTile(new Vec2i(4, 2)), 40);
-        new BattleEnemySwordsman(this, battleGrid.getTile(new Vec2i(3, 0)), "enemy", 40);
-        new BattleEnemyTurret(this, battleGrid.getTile(3, 2), "enemy", 40);
+        new BattleEnemySwordsman(this, battleGrid.getTile(new Vec2i(3, 0)), 40);
+        new BattleEnemyTurret(this, battleGrid.getTile(3, 2), 40);
 
         for(BattleEnemy enemy : enemies) {
             animationQueue.add(new BattleEnemySpawnAnimation(true, false, enemy, battleGrid.getTile(enemy.getIndexPos())));
@@ -78,7 +78,7 @@ public class SceneBattle extends Scene implements GestureHandler {
 
         gui.getNode().setAlpha(0);
 
-        rs.getCamera().zoom = 4f;
+        rs.getCamera().zoom = 1f;
     }
 
     @Override
@@ -102,6 +102,8 @@ public class SceneBattle extends Scene implements GestureHandler {
 
         rs.beginFBO();
         rs.begin();
+
+        rs.beginMainContent();
 
         battleGrid.render(rs);
 
@@ -130,15 +132,32 @@ public class SceneBattle extends Scene implements GestureHandler {
 
     @Override
     public void renderInBackground() {
+        lightEngine.render(rs);
+
+        rs.beginFBO();
         rs.begin();
 
-        map.render(rs);
+        rs.beginMainContent();
 
         battleGrid.render(rs);
 
         for(Entity e : entities.getList()) {
             e.render(rs);
         }
+
+        map.renderForeground(rs);
+
+        rs.end();
+        rs.endFBO();
+        rs.restart();
+
+        map.render(rs);
+
+        rs.setShader(RenderSystem.lightingShader);
+        rs.beginShader();
+        rs.setUniformTexture("u_lightmap", lightEngine.getImage().getTexture(), 1);
+        rs.drawFBO();
+        rs.setShader(null);
 
         rs.end();
     }

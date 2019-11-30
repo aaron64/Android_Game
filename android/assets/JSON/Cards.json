@@ -74,7 +74,7 @@
         {
           "Name": "Bow",
           "Category": "BOW",
-          "LockI": 10,
+          "LockI": 20,
           "LockF": 10,
           "Base_Point_Cost": 2,
           "Base_Damage": 30

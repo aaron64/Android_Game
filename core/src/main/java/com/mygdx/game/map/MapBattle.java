@@ -17,8 +17,6 @@ public class MapBattle extends Map {
 
     private BattlePlayer player;
 
-    private float scrollRate;
-
     private SceneBattle scene;
 
     private ParticleSystem particles, particlesFG;
@@ -32,8 +30,6 @@ public class MapBattle extends Map {
         backgroundPos = new Vec2f();
 
         //bg_decor = Image.getImage("backgrounds/bg_decor1");
-
-        scrollRate = 1.2f;
 
         this.player = player;
 
@@ -52,7 +48,7 @@ public class MapBattle extends Map {
 
     @Override
     public void render(RenderSystem rs) {
-        rs.draw(getBackground(), backgroundPos, Window.getSize());
+        rs.drawStatic(getBackground(), backgroundPos, Window.getSize());
         //rs.draw(bg_decor, backgroundPos, Window.getSize());
         //particles.render(rs);
     }

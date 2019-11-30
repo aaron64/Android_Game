@@ -45,4 +45,13 @@ public class ActionQueue {
     public void add(Action action) {
         queue.add(action);
     }
+
+    /**
+     * addNow
+     * adds an action immediately to the action queue
+     * @param action The action being added
+     */
+    public void addNow(Action action) {
+        queue.addFirst(action);
+    }
 }

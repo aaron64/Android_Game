@@ -13,8 +13,8 @@ public class ElementStateShock extends ElementState implements CooldownInterface
     public ElementStateShock(BattleLiving affected) {
         super(affected);
 
-        timer = new Cooldown(this, "TIMER", false, 200);
-        affected.lockFor(200);
+        timer = new Cooldown(this, "TIMER", false, 100);
+        affected.lockFor(100);
     }
 
     @Override

@@ -34,12 +34,7 @@ public abstract class Item {
     }
 
     public String getName() {
-        String s = "";
-        if(quality != Quality.STANDARD) {
-            s += quality.getStr() + " ";
-        }
-
-        return s + name;
+        return name;
     }
 
     public void setName(String name) {

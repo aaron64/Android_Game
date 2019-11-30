@@ -3,9 +3,10 @@ package com.mygdx.game.entities.battle;
 
 import com.mygdx.game.GUI.components.BattleCurrentCardsComponent;
 import com.mygdx.game.PlayerVars;
-import com.mygdx.game.action.ActionWait;
 import com.mygdx.game.action.ActionUseCard;
+import com.mygdx.game.action.ActionWait;
 import com.mygdx.game.animation.BattleMoveAnimation;
+import com.mygdx.game.animation.CameraShakeAnimation;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.items.cards.Card;
 import com.mygdx.game.items.cards.Deck;
@@ -32,6 +33,13 @@ public class BattlePlayer extends BattleLiving {
     public void update() {
         super.update();
         spriteSheet.update();
+    }
+
+    @Override
+    public void hit(int dmg) {
+        super.hit(dmg);
+        if(dmg >= 10)
+            scene.addAnimation(new CameraShakeAnimation(scene.getRenderSystem()));
     }
 
     @Override

@@ -66,6 +66,7 @@ public class SceneMainArea extends Scene implements GestureHandler {
 
         rs.beginFBO();
         rs.begin();
+
         rs.beginMainContent();
         rs.centerCameraOn(player);
         grid.render(rs);

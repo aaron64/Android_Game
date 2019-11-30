@@ -19,15 +19,19 @@ public class BowCard extends AttackCard {
     public void use(SceneBattle scene, BattleLiving user) {
         scene.addEntity(new BattleArrow(scene, this, new Vec2i(user.getIndexPos()), user));
 
+
+    }
+
+    public void lightTiles(SceneBattle scene, BattleLiving user, float lockMultiplier) {
         Vec2i indexPos = user.getIndexPos();
 
         if(user.facingRight()) {
             for (int i = (int) (indexPos.x + 1); i < scene.getGrid().getWidth(); i++) {
-                scene.getGrid().getTile(i, (int) indexPos.y).lightUp(getInitialLock());
+                scene.getGrid().getTile(i, (int) indexPos.y).lightUp((int)(getInitialLock() * lockMultiplier));
             }
         } else {
             for (int i = (int) (indexPos.x - 1); i >= 0; i--) {
-                scene.getGrid().getTile(i, (int) indexPos.y).lightUp(getInitialLock());
+                scene.getGrid().getTile(i, (int) indexPos.y).lightUp((int)(getInitialLock() * lockMultiplier));
             }
         }
     }

@@ -2,6 +2,7 @@ package com.mygdx.game.attributes;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.graphics.Image;
 import com.mygdx.game.graphics.RenderSystem;
 import com.mygdx.game.graphics.SpriteSheet;
 import com.mygdx.game.util.Vec2f;
@@ -11,31 +12,37 @@ public enum Element {
     FIRE ("Fire",
             new Color(0.922f, 0.506f, 0.569f, 1),
             new Color(0.831f, 0.541f, 0.639f, 1),
-            new Color(0.729f, 0.502f, 0.604f, 1)),
+            new Color(0.729f, 0.502f, 0.604f, 1),
+            Image.GUI_ICON_FIRE),
 
     WATER ("Water",
             new Color(0.341f, 0.682f, 0.831f, 1),
     	    new Color(0.369f, 0.561f, 0.722f, 1),
-    	    new Color(0.290f, 0.412f, 0.569f, 1)),
+    	    new Color(0.290f, 0.412f, 0.569f, 1),
+            Image.GUI_ICON_WATER),
 
     POISON ("Poison",
             new Color(0.596f, 0.557f, 0.804f, 1),
     	    new Color(0.459f, 0.475f, 0.643f, 1),
-    	    new Color(0.361f, 0.384f, 0.482f, 1)),
+    	    new Color(0.361f, 0.384f, 0.482f, 1),
+            Image.GUI_ICON_POISON),
 
     SHOCK ("Shock",
             new Color(1.000f, 0.925f, 0.651f, 1),
     	    new Color(0.878f, 0.831f, 0.651f, 1),
-    	    new Color(0.761f, 0.753f, 0.608f, 1)),
+    	    new Color(0.761f, 0.753f, 0.608f, 1),
+            Image.GUI_ICON_SHOCK),
 
     GRASS ("Grass",
             new Color(0.690f, 0.851f, 0.690f, 1),
     	    new Color(0.639f, 0.749f, 0.655f, 1),
-    	    new Color(0.459f, 0.561f, 0.490f, 1));
+    	    new Color(0.459f, 0.561f, 0.490f, 1),
+            Image.GUI_ICON_GRASS);
 
     private String str;
     private Color highlight, mid, shadow;
     private Element[] strength, weakness;
+    private Texture icon;
 
     static {
         FIRE.strength = new Element[]{GRASS};
@@ -53,11 +60,12 @@ public enum Element {
         GRASS.strength = new Element[]{WATER, SHOCK};
         GRASS.weakness = new Element[]{FIRE, POISON};
     }
-    Element(String str, Color highlight, Color mid, Color shadow) {
+    Element(String str, Color highlight, Color mid, Color shadow, Texture icon) {
         this.str = str;
         this.highlight = highlight;
         this.mid = mid;
         this.shadow = shadow;
+        this.icon = icon;
     }
 
     public String getStr() {
@@ -67,6 +75,10 @@ public enum Element {
     public Color getHighlight() { return highlight; }
     public Color getMid() { return mid; }
     public Color getShadow() { return shadow; }
+
+    public Texture getIcon() {
+        return icon;
+    }
 
     public Element[] getStrength() {
         return strength;

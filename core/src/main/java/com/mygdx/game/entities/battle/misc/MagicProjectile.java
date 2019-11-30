@@ -27,6 +27,8 @@ public class MagicProjectile extends BattleEntity {
 
     private SpotLight light;
 
+    private SceneBattle scene;
+
     public MagicProjectile(SceneBattle scene, MagicCard card, Vec2i indexPos, BattleLiving user) {
         super(scene, indexPos, "misc/magic_projectile");
         moveY(scene.getGrid().getTile(0,0).getSize().y/2);
@@ -50,6 +52,8 @@ public class MagicProjectile extends BattleEntity {
 
         if(user instanceof BattleEnemy)
             getSize().x *= -1;
+
+        this.scene = scene;
     }
 
     @Override
@@ -69,11 +73,15 @@ public class MagicProjectile extends BattleEntity {
 
         if(e != null && e instanceof BattleLiving && e != user) {
             e.hit(card.calculateDamage(e), card.getElement());
+            particleSplash();
             remove();
         }
 
         spriteSheet.update();
         overlaySheet.update();
+    }
+
+    private void particleSplash() {
     }
 
     private void remove() {

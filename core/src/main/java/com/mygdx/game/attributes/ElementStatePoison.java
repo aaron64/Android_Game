@@ -24,7 +24,7 @@ public class ElementStatePoison extends ElementState {
     public void update() {
         count++;
 
-        if(count % 5 == 0) {
+        if(count % 25 == 0) {
             affected.hit(1);
         }
     }

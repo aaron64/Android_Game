@@ -57,5 +57,6 @@ public class ZoomAnimation extends Animation {
         }
 
         camera.zoom = zoom;
+        camera.update();
     }
 }

@@ -46,4 +46,12 @@ public abstract class BattleEnemy extends BattleLiving {
             scene.addAnimation(new BattleEnemyMoveAnimation(oldTile, newTile, this));
         }
     }
+
+    public void jump() {
+
+    }
+
+    public void attack() {
+
+    }
 }

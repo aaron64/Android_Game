@@ -20,7 +20,7 @@ public class Player extends MainAreaEntity {
     public Player(SceneMainArea scene, Vec2f pos, String name) {
         super(scene, pos, name);
 
-        sprite = new CharacterSprite(getImage(), new Vec2i(36, 78), 16);
+        sprite = new CharacterSprite(getImage(), new Vec2i(36, 78), 16, 6);
         setSize(sprite.getSize());
 
         maxVelocity = 5;

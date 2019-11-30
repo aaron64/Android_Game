@@ -9,6 +9,7 @@ public class SceneMainAreaTile extends MainAreaEntity {
 
     protected int scale = 2;
 
+
     public SceneMainAreaTile(SceneMainArea scene, Vec2f pos, String folder, String name, SceneMainAreaTileType type) {
         super(scene, pos, folder, name);
         getSize().multiply(scale);

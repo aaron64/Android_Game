@@ -10,8 +10,8 @@ public class CharacterSprite extends SpriteSheet {
     private int animationSpeed;
     private int animationCount;
 
-    public CharacterSprite(Texture texture, Vec2i size, int animationSpeed) {
-        super(texture, size, 4);
+    public CharacterSprite(Texture texture, Vec2i size, int animationSpeed, int frames) {
+        super(texture, size, frames);
 
         this.animationSpeed = animationSpeed;
         animationCount = 0;
@@ -34,7 +34,7 @@ public class CharacterSprite extends SpriteSheet {
             }
         }
         animationCount += 1 + (MathUtil.getDistance(vel) / 3);
-        srcPos.x = ((animationCount/animationSpeed)%4) * srcSize.w();
+        srcPos.x = ((animationCount/animationSpeed)%frames) * srcSize.w();
     }
 
     @Override
